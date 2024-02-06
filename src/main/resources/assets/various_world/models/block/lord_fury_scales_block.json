@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "various_world:block/block_scales_fury_top",
+    "up": "various_world:block/block_scales_fury_top",
+    "north": "various_world:block/block_scales_fury",
+    "east": "various_world:block/block_scales_fury",
+    "south": "various_world:block/block_scales_fury",
+    "west": "various_world:block/block_scales_fury",
+    "particle": "various_world:block/block_scales_fury_top"
+  },
+  "render_type": "solid"
+}

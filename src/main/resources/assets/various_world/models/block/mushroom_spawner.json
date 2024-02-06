@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "various_world:block/crystal_totem_placer",
+    "up": "various_world:block/crystal_totem_placer_top",
+    "north": "various_world:block/crystal_totem_placer",
+    "east": "various_world:block/crystal_totem_placer",
+    "south": "various_world:block/crystal_totem_placer",
+    "west": "various_world:block/crystal_totem_placer",
+    "particle": "various_world:block/crystal_totem_placer"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "various_world:blocks/sculk_bush_bottom",
+    "particle": "various_world:blocks/sculk_bush_bottom"
+  }
+}

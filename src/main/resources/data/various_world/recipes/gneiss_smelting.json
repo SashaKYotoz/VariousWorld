@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "experience": 5,
+  "cookingtime": 160,
+  "ingredient": {
+    "item": "various_world:cobbled_gneiss"
+  },
+  "result": "various_world:gneiss"
+}

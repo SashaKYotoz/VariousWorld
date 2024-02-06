@@ -1,0 +1,12 @@
+{
+  "parent": "various_world:custom/disenchant_table",
+  "textures": {
+    "all": "various_world:block/disenchant_table_side",
+    "particle": "various_world:block/disenchant_table_side",
+    "side": "various_world:block/disenchant_table_side",
+    "3": "various_world:block/disenchantment_table_book",
+    "top": "various_world:block/disenchant_table_top",
+    "missing": "various_world:block/disenchantment_table_book"
+  },
+  "render_type": "solid"
+}

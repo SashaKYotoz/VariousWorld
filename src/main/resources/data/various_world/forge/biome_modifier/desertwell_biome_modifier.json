@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "desert",
+  "features": "various_world:desertwell",
+  "step": "surface_structures"
+}

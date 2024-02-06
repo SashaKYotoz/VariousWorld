@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_features",
+  "biomes": [
+    "taiga",
+    "snowy_taiga",
+    "old_growth_spruce_taiga"
+  ],
+  "features": "various_world:taiga_tower",
+  "step": "surface_structures"
+}

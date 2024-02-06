@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "0  ",
+    "34 ",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "various_world:rose_quartz"
+    },
+    "3": {
+      "item": "various_world:rose_quartz"
+    },
+    "4": {
+      "item": "various_world:rose_quartz"
+    },
+    "6": {
+      "item": "various_world:rose_quartz"
+    },
+    "7": {
+      "item": "various_world:rose_quartz"
+    },
+    "8": {
+      "item": "various_world:rose_quartz"
+    }
+  },
+  "result": {
+    "item": "various_world:rose_quartz_stairs",
+    "count": 4
+  }
+}

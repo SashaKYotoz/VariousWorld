@@ -1,0 +1,8 @@
+{
+  "parent": "block/template_wall_side_tall",
+  "textures": {
+    "wall": "various_world:block/blackly_stony_magma_bricks",
+    "particle": "various_world:block/blackly_stony_magma_bricks"
+  },
+  "render_type": "solid"
+}

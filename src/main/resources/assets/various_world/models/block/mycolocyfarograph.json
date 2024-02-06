@@ -1,0 +1,9 @@
+{
+  "parent": "various_world:custom/mycolocyfarograph",
+  "textures": {
+    "all": "various_world:block/mycolocyfarograph",
+    "particle": "various_world:block/mycolocyfarograph",
+    "0": "various_world:block/mycolocyfarograph"
+  },
+  "render_type": "cutout"
+}

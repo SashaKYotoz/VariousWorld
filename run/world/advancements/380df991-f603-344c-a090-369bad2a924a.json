@@ -1,0 +1,21 @@
+{
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2023-11-14 13:21:20 +0700"
+    },
+    "done": true
+  },
+  "various_world:welcometothe_various_world": {
+    "criteria": {
+      "welcometothe_various_world": "2023-11-14 13:21:20 +0700"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:forest": "2023-11-14 13:21:21 +0700"
+    },
+    "done": false
+  },
+  "DataVersion": 3465
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "various_world:custom/sculk_fruit_bush",
+  "textures": {
+    "all": "various_world:block/sculk_fruit_bush_blooming_item",
+    "particle": "various_world:block/sculk_fruit_bush_blooming_item",
+    "0": "various_world:block/sculk_blooming_fruit_bush"
+  },
+  "render_type": "cutout"
+}

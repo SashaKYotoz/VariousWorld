@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "various_world:blackly_stony_magma"
+    },
+    {
+      "item": "various_world:blackly_stony_magma"
+    },
+    {
+      "item": "various_world:blackly_stony_magma"
+    },
+    {
+      "item": "various_world:blackly_stony_magma"
+    }
+  ],
+  "result": {
+    "item": "various_world:blackly_stony_magma_bricks",
+    "count": 4
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "type": "various_world:shiny_valley_decor_generator",
+  "config": {
+    "size": 4,
+    "discard_chance_on_air_exposure": 0,
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "blockstate_match",
+          "block_state": {
+            "Name": "various_world:shiny_grass"
+          }
+        },
+        "state": {
+          "Name": "various_world:shiny_valley_decor_generator"
+        }
+      },
+      {
+        "target": {
+          "predicate_type": "blockstate_match",
+          "block_state": {
+            "Name": "various_world:purple_saffron"
+          }
+        },
+        "state": {
+          "Name": "various_world:shiny_valley_decor_generator"
+        }
+      },
+      {
+        "target": {
+          "predicate_type": "blockstate_match",
+          "block_state": {
+            "Name": "minecraft:grass"
+          }
+        },
+        "state": {
+          "Name": "various_world:shiny_valley_decor_generator"
+        }
+      },
+      {
+        "target": {
+          "predicate_type": "blockstate_match",
+          "block_state": {
+            "Name": "minecraft:fern"
+          }
+        },
+        "state": {
+          "Name": "various_world:shiny_valley_decor_generator"
+        }
+      },
+      {
+        "target": {
+          "predicate_type": "blockstate_match",
+          "block_state": {
+            "Name": "minecraft:tall_grass",
+            "Properties": {
+              "half": "lower"
+            }
+          }
+        },
+        "state": {
+          "Name": "various_world:shiny_valley_decor_generator"
+        }
+      },
+      {
+        "target": {
+          "predicate_type": "blockstate_match",
+          "block_state": {
+            "Name": "various_world:shiny_plumeria"
+          }
+        },
+        "state": {
+          "Name": "various_world:shiny_valley_decor_generator"
+        }
+      }
+    ]
+  }
+}

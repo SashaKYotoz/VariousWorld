@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "various_world:fury_ingot"
+    },
+    "title": {
+      "translate": "advancements.weighs_like_a_feather.title"
+    },
+    "description": {
+      "translate": "advancements.weighs_like_a_feather.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "weighs_like_a_feather": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 5
+  },
+  "parent": "various_world:darker_material_cant_be_found"
+}

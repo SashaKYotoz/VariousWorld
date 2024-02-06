@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "berries=false": {
+      "model": "various_world:block/flower_vine_from_cavernof_deep"
+    },
+    "berries=true": {
+      "model": "various_world:block/flower_vine_from_cavernof_deep"
+    }
+  }
+}

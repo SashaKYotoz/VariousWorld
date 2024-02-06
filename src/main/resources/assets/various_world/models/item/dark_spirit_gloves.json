@@ -1,0 +1,7 @@
+{
+  "parent": "various_world:custom/dark_spirit_gloves",
+  "textures": {
+    "1": "various_world:block/dark_spirit_glove",
+    "particle": "various_world:item/dark_spirit_glove"
+  }
+}

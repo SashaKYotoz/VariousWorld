@@ -1,0 +1,59 @@
+{
+  "display": {
+    "icon": {
+      "item": "various_world:sculk_leaves"
+    },
+    "title": {
+      "translate": "advancements.sculk_valley_advancement.title"
+    },
+    "description": {
+      "translate": "advancements.sculk_valley_advancement.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sculk_valley_advancement": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "various_world:sculk_valley"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 3,
+    "recipes": [
+      "various_world:sculk_gem_ore_block_recipe",
+      "various_world:sculk_gem_block_ore_recipe",
+      "various_world:sculk_gem_ore_smelting",
+      "various_world:sculk_wood_recipe",
+      "various_world:sculk_planks_recipe",
+      "various_world:sculk_stairs_recipe",
+      "various_world:sculk_slab_recipe",
+      "various_world:sculk_fence_recipe",
+      "various_world:sculk_fence_gate_recipe",
+      "various_world:sculk_pressure_plate_recipe",
+      "various_world:sculk_button_recipe",
+      "various_world:sculk_stick_recipe",
+      "minecraft:sculk_sensor_craft",
+      "various_world:sculk_helmet_craft",
+      "various_world:sculk_chestplate_craft",
+      "various_world:sculk_leggins_craft",
+      "various_world:sculk_boots_craft",
+      "various_world:sculk_bricks_craft"
+    ]
+  },
+  "parent": "various_world:forwardin_cristalicforest"
+}

@@ -1,0 +1,61 @@
+{
+  "block.stony_magma.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      "various_world:blocks/stony_magma/stony_magma_break",
+      "various_world:blocks/stony_magma/stony_magma_break1",
+      "various_world:blocks/stony_magma/stony_magma_break2"
+    ]
+  },
+  "block.stony_magma.step": {
+    "subtitle": "subtitles.block.generic.step",
+    "sounds": [
+      "various_world:blocks/stony_magma/stony_magma_step",
+      "various_world:blocks/stony_magma/stony_magma_step1",
+      "various_world:blocks/stony_magma/stony_magma_step2"
+    ]
+  },
+  "block.stony_magma.place": {
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      "various_world:blocks/stony_magma/stony_magma_place",
+      "various_world:blocks/stony_magma/stony_magma_place1",
+      "various_world:blocks/stony_magma/stony_magma_place2"
+    ]
+  },
+  "biome.sculk_valley": {
+    "subtitle": "subtitles.sculk_valley_sounds",
+    "sounds": [
+      "various_world:biome/sculk_valley/sculk_valley"
+    ]
+  },
+  "biome.shiny_valley": {
+    "subtitle": "subtitles.shiny_valley_sound",
+    "sounds": [
+      "various_world:biome/shiny_valley/shiny_valley"
+    ]
+  },
+  "biome.peaceful_wasteland": {
+    "subtitle": "subtitles.peaceful_wasteland_sound",
+    "sounds": [
+      "various_world:biome/peaceful_wasteland/peaceful_wasteland",
+      "various_world:biome/peaceful_wasteland/peaceful_wasteland1"
+    ]
+  },
+  "item.wand_shoot": {
+    "subtitle": "subtitles.ambient.cave",
+    "sounds": [
+      "various_world:item/wand/wand_shoot",
+      "various_world:item/wand/wand_shoot1",
+      "various_world:item/wand/wand_shoot2"
+    ]
+  },
+  "entity.various_zombie_ambient": {
+    "subtitle": "subtitles.entity.zombie.ambient",
+    "sounds": [
+      "various_world:entity/various_zombie/various_zombie_ambient",
+      "various_world:entity/various_zombie/various_zombie_ambient1",
+      "various_world:entity/various_zombie/various_zombie_ambient2"
+    ]
+  }
+}

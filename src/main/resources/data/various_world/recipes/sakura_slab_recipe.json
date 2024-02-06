@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "various_world:sakura_planks"
+    },
+    {
+      "item": "various_world:sakura_planks"
+    },
+    {
+      "item": "various_world:sakura_planks"
+    }
+  ],
+  "result": {
+    "item": "various_world:sakura_slab",
+    "count": 6
+  }
+}

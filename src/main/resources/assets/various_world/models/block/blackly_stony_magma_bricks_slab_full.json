@@ -1,0 +1,9 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "bottom": "various_world:block/blackly_stony_magma_bricks",
+    "top": "various_world:block/blackly_stony_magma_bricks",
+    "side": "various_world:block/blackly_stony_magma_bricks"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "various_world:block/rose_quartz",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "various_world:block/rose_quartz"
+    },
+    "axis=z": {
+      "model": "various_world:block/rose_quartz",
+      "x": 90
+    }
+  }
+}

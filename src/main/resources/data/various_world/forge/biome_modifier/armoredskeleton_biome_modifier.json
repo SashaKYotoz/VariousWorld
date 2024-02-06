@@ -1,0 +1,15 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": [
+    "forest",
+    "dark_forest",
+    "plains",
+    "various_world:crystalicforest"
+  ],
+  "spawners": {
+    "type": "various_world:armoredskeleton",
+    "weight": 5,
+    "minCount": 1,
+    "maxCount": 1
+  }
+}

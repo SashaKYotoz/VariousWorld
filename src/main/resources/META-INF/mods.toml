@@ -1,0 +1,20 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="various_world"
+version="3.2.1"
+displayName="Various World"
+credits="Created by SashaKYotoz"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/various-world"
+logoFile="logo.png"
+authors="SashaKYotoz"
+description="Across world and its beauty!"
+
+[[dependencies.various_world]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1]"
+    ordering="NONE"
+    side="BOTH"

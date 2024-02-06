@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "various_world:crystal_gem"
+    },
+    "title": {
+      "translate": "advancements.the_brightest_radiance.title"
+    },
+    "description": {
+      "translate": "advancements.the_brightest_radiance.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "the_brightest_radiance": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 3
+  },
+  "parent": "various_world:welcome_to_the_various_world"
+}

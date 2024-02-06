@@ -1,0 +1,11 @@
+{
+  "parent": "various_world:custom/armor_station",
+  "textures": {
+    "all": "various_world:block/armor_station_side",
+    "particle": "various_world:block/armor_station_side",
+    "0": "various_world:block/armor_station_side",
+    "1": "various_world:block/armor_station_down",
+    "2": "various_world:block/armor_station_up"
+  },
+  "render_type": "cutout"
+}

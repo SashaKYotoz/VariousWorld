@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "0"
+  ],
+  "key": {
+    "0": {
+      "item": "various_world:purple_saffron"
+    }
+  },
+  "result": {
+    "item": "various_world:glow_purple_dye",
+    "count": 2
+  }
+}

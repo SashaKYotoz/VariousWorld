@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "various_world:block/crystal_of_changed_block",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "various_world:block/crystal_of_changed_block"
+    },
+    "axis=z": {
+      "model": "various_world:block/crystal_of_changed_block",
+      "x": 90
+    }
+  }
+}

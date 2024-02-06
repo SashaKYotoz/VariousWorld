@@ -1,0 +1,9 @@
+{
+  "parent": "various_world:custom/fury_lord_head",
+  "textures": {
+    "all": "various_world:block/fury_lord",
+    "particle": "various_world:block/fury_lord",
+    "0": "various_world:block/fury_lord"
+  },
+  "render_type": "solid"
+}

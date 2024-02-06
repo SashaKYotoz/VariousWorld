@@ -1,0 +1,8 @@
+{
+  "parent": "various_world:custom/thunderbolt_hammer",
+  "textures": {
+    "0": "various_world:block/thunderbolt_hammer_texture",
+    "1": "various_world:block/thunderbolt_hammer_animation",
+    "particle": "various_world:item/thunderbolthammer"
+  }
+}

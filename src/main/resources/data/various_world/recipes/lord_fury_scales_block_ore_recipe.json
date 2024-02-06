@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "various_world:lord_fury_scales_block"
+    }
+  ],
+  "result": {
+    "item": "various_world:lord_fury_scales_dust",
+    "count": 9
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "0 2",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "various_world:slime_crystalic"
+    },
+    "2": {
+      "item": "various_world:slime_crystalic"
+    },
+    "3": {
+      "item": "various_world:slime_crystalic"
+    },
+    "4": {
+      "item": "minecraft:slime_ball"
+    },
+    "5": {
+      "item": "various_world:slime_crystalic"
+    },
+    "6": {
+      "item": "various_world:slime_crystalic"
+    },
+    "7": {
+      "item": "various_world:slime_crystalic"
+    },
+    "8": {
+      "item": "various_world:slime_crystalic"
+    }
+  },
+  "result": {
+    "item": "various_world:slime_armor_chestplate",
+    "count": 1
+  }
+}

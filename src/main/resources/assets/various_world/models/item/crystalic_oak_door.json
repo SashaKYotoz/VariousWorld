@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "various_world:item/crystalic_oak_door"
+  },
+  "render_type": "translucent"
+}

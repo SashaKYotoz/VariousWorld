@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "various_world:block/sculk_bush"
+    },
+    "half=lower": {
+      "model": "various_world:block/sculk_bush_bottom"
+    }
+  }
+}

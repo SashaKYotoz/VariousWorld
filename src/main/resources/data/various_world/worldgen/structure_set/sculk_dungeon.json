@@ -1,0 +1,15 @@
+{
+  "structures": [
+    {
+      "structure": "various_world:sculk_dungeon",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 2008580783,
+    "spread_type": "triangular",
+    "spacing": 18,
+    "separation": 9
+  }
+}

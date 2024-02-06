@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "various_world:crystalic_oak_wood",
+    "various_world:sculk_fence_gate",
+    "various_world:sculk_pressure_plate",
+    "various_world:sculk_button",
+    "various_world:crystalic_oak_fence_gate",
+    "various_world:crystalic_oak_pressure_plate",
+    "various_world:crystalic_oak_button"
+  ]
+}

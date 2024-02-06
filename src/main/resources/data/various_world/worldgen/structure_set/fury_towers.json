@@ -1,0 +1,15 @@
+{
+  "structures": [
+    {
+      "structure": "various_world:fury_towers",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 1727852167,
+    "spread_type": "triangular",
+    "spacing": 24,
+    "separation": 12
+  }
+}

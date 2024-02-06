@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "various_world:block/sculkmagma",
+    "particle": "various_world:block/sculkmagma"
+  },
+  "render_type": "solid"
+}

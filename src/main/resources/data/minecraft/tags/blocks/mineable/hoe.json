@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "various_world:crystalic_slime_block",
+    "various_world:flower_vine_from_cavernof_deep",
+    "various_world:sculk_growths",
+    "various_world:vine_from_cavernof_deep",
+    "various_world:vine_from_cavern_of_deep_with_berries"
+  ]
+}

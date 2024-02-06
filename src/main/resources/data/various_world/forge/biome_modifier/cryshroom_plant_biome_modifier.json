@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "various_world:crystalicforest",
+  "features": "various_world:cryshroom_plant",
+  "step": "vegetal_decoration"
+}

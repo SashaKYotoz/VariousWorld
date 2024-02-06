@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "various_world:block/crystalic_grass_down",
+    "up": "various_world:block/crystalic_grass",
+    "north": "various_world:block/crystalic_grass_block",
+    "east": "various_world:block/crystalic_grass_block",
+    "south": "various_world:block/crystalic_grass_block",
+    "west": "various_world:block/crystalic_grass_block",
+    "particle": "various_world:block/crystalic_grass_down"
+  },
+  "render_type": "solid"
+}

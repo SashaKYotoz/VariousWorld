@@ -1,0 +1,39 @@
+{
+  "display": {
+    "icon": {
+      "item": "various_world:crystal_sword"
+    },
+    "title": {
+      "translate": "advancements.createacoolsword.title"
+    },
+    "description": {
+      "translate": "advancements.createacoolsword.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "createacoolsword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "various_world:crystal_sword"
+            ],
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 3
+  },
+  "parent": "various_world:welcome_to_the_various_world"
+}

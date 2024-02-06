@@ -1,0 +1,7 @@
+{
+  "parent": "various_world:custom/lord_of_furries_crossbow_firework",
+  "textures": {
+    "1": "various_world:item/lord_of_furries_crossbow_firework",
+    "particle": "various_world:item/lord_of_furries_crossbow_firework"
+  }
+}

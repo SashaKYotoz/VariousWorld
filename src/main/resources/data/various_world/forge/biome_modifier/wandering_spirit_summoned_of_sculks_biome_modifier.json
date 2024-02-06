@@ -1,0 +1,13 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": [
+    "various_world:sculk_valley",
+    "deep_dark"
+  ],
+  "spawners": {
+    "type": "various_world:wandering_spirit_summoned_of_sculks",
+    "weight": 5,
+    "minCount": 1,
+    "maxCount": 1
+  }
+}

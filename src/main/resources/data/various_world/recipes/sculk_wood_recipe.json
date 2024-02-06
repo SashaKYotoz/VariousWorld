@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "01",
+    "23"
+  ],
+  "key": {
+    "0": {
+      "item": "various_world:sculk_log"
+    },
+    "1": {
+      "item": "various_world:sculk_log"
+    },
+    "2": {
+      "item": "various_world:sculk_log"
+    },
+    "3": {
+      "item": "various_world:sculk_log"
+    }
+  },
+  "result": {
+    "item": "various_world:sculk_wood",
+    "count": 3
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "various_world:block/big_cryshroom_block1",
+    "particle": "various_world:block/big_cryshroom_block1"
+  }
+}

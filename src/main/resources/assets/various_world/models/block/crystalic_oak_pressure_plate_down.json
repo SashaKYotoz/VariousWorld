@@ -1,0 +1,7 @@
+{
+  "parent": "block/pressure_plate_down",
+  "textures": {
+    "texture": "various_world:block/crystalic_oak_planks"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "various_world:sakura_fence_gate",
+    "various_world:crystalic_oak_fence",
+    "various_world:sculk_fence",
+    "various_world:sakura_fence",
+    "various_world:sculk_fence_gate",
+    "various_world:crystalic_oak_fence_gate"
+  ]
+}

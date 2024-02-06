@@ -1,0 +1,9 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "bottom": "various_world:block/gneiss_bricks_top",
+    "top": "various_world:block/gneiss_bricks_top",
+    "side": "various_world:block/gneiss_bricks_side"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "block/template_orientable_trapdoor_open",
+  "textures": {
+    "texture": "various_world:block/crystalic_oak_planks_trapdoor",
+    "particle": "various_world:block/crystalic_oak_planks_trapdoor"
+  },
+  "render_type": "translucent"
+}

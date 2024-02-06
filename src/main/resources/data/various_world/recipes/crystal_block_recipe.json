@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:amethyst_shard"
+    },
+    {
+      "item": "various_world:crystalshard"
+    },
+    {
+      "item": "various_world:darkshard"
+    },
+    {
+      "item": "various_world:crystalshard"
+    },
+    {
+      "item": "various_world:darkshard"
+    },
+    {
+      "item": "minecraft:amethyst_shard"
+    },
+    {
+      "item": "minecraft:amethyst_shard"
+    },
+    {
+      "item": "various_world:darkshard"
+    },
+    {
+      "item": "various_world:crystalshard"
+    }
+  ],
+  "result": {
+    "item": "various_world:crystal_block",
+    "count": 1
+  }
+}

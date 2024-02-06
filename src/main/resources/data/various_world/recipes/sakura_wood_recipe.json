@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "01",
+    "23"
+  ],
+  "key": {
+    "0": {
+      "item": "various_world:sakura_log"
+    },
+    "1": {
+      "item": "various_world:sakura_log"
+    },
+    "2": {
+      "item": "various_world:sakura_log"
+    },
+    "3": {
+      "item": "various_world:sakura_log"
+    }
+  },
+  "result": {
+    "item": "various_world:sakura_wood",
+    "count": 3
+  }
+}

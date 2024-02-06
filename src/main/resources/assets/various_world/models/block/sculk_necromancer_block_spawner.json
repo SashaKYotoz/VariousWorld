@@ -1,0 +1,11 @@
+{
+  "parent": "various_world:custom/sculk_necromancer_stand",
+  "textures": {
+    "all": "various_world:block/sculk_necromancer_stand",
+    "particle": "various_world:block/sculk_necromancer_stand",
+    "1": "various_world:block/sculk_necromancer_stand",
+    "2": "various_world:block/sculk_stand_fire",
+    "missing": "various_world:block/sculk_necromancer_stand"
+  },
+  "render_type": "translucent"
+}

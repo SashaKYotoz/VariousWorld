@@ -1,0 +1,39 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "0 2",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "various_world:sculk_shard"
+    },
+    "2": {
+      "item": "various_world:sculk_shard"
+    },
+    "3": {
+      "item": "various_world:sculk_shard"
+    },
+    "4": {
+      "item": "minecraft:redstone"
+    },
+    "5": {
+      "item": "various_world:sculk_shard"
+    },
+    "6": {
+      "item": "various_world:sculk_shard"
+    },
+    "7": {
+      "item": "various_world:sculk_gem"
+    },
+    "8": {
+      "item": "various_world:sculk_shard"
+    }
+  },
+  "result": {
+    "item": "minecraft:sculk_sensor",
+    "count": 1
+  }
+}

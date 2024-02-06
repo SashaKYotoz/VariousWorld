@@ -1,0 +1,9 @@
+{
+  "parent": "block/outer_stairs",
+  "textures": {
+    "bottom": "various_world:block/sculk_planks",
+    "top": "various_world:block/sculk_planks",
+    "side": "various_world:block/sculk_planks"
+  },
+  "render_type": "solid"
+}

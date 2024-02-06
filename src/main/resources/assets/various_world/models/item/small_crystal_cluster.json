@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "various_world:item/small_crystal_cluster"
+  },
+  "render_type": "translucent"
+}
