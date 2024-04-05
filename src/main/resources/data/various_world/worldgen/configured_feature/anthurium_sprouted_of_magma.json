@@ -1,5 +1,5 @@
 {
-  "type": "various_world:anthurium_sprouted_of_magma",
+  "type": "minecraft:random_patch",
   "config": {
     "tries": 32,
     "feature": {

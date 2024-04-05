@@ -29,11 +29,11 @@ public class NecromancerEmissiveLayer<T extends SculkNecromancerSkeletonEntity, 
         this.drawSelector = p_234888_;
     }
 
-    public void render(PoseStack p_234902_, MultiBufferSource p_234903_, int p_234904_, T p_234905_, float p_234906_, float p_234907_, float p_234908_, float p_234909_, float p_234910_, float p_234911_) {
-        if (!p_234905_.isInvisible()) {
+    public void render(PoseStack stack, MultiBufferSource source, int p_234904_, T entity, float p_234906_, float p_234907_, float p_234908_, float p_234909_, float p_234910_, float p_234911_) {
+        if (!entity.isInvisible()) {
             this.onlyDrawSelectedParts();
-            VertexConsumer vertexconsumer = p_234903_.getBuffer(RenderType.entityTranslucentEmissive(this.texture));
-            this.getParentModel().renderToBuffer(p_234902_, vertexconsumer, p_234904_, LivingEntityRenderer.getOverlayCoords(p_234905_, 0.0F), 1.0F, 1.0F, 1.0F, this.alphaFunction.apply(p_234905_, p_234908_, p_234909_));
+            VertexConsumer vertexconsumer = source.getBuffer(RenderType.entityTranslucentEmissive(this.texture));
+            this.getParentModel().renderToBuffer(stack, vertexconsumer, p_234904_, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), 1.0F, 1.0F, 1.0F, this.alphaFunction.apply(entity, p_234908_, p_234909_));
             this.resetDrawForAllParts();
         }
     }

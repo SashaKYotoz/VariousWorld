@@ -22,12 +22,11 @@ public class DarkFuryRenderer extends MobRenderer<DarkFuryEntity, ModelDark_Fury
 	}
 
 	@Override
-	protected boolean isBodyVisible(DarkFuryEntity _ent) {
-		Entity entity = _ent;
-		Level world = entity.level();
-		double x = entity.getX();
-		double y = entity.getY();
-		double z = entity.getZ();
+	protected boolean isBodyVisible(DarkFuryEntity darkFury) {
+		Level world = darkFury.level();
+		double x = darkFury.getX();
+		double y = darkFury.getY();
+		double z = darkFury.getZ();
 		return world.canSeeSkyFromBelowWater(BlockPos.containing(x, y, z)) && world.isDay();
 	}
 }

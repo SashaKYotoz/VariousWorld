@@ -1,4 +1,3 @@
-
 package net.sashakyotoz.variousworld.block;
 
 import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
@@ -23,7 +22,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class BuddingKunziteColourfulCrystalBlock extends AmethystBlock {
-	public static final int GROWTH_CHANCE = 10;
 	private static final Direction[] DIRECTIONS = Direction.values();
 
 	public BuddingKunziteColourfulCrystalBlock() {
@@ -36,11 +34,11 @@ public class BuddingKunziteColourfulCrystalBlock extends AmethystBlock {
 		return 15;
 	}
 
-	public void randomTick(BlockState p_220898_, ServerLevel p_220899_, BlockPos p_220900_, RandomSource p_220901_) {
-		if (p_220901_.nextInt(4) == 0) {
-			Direction direction = DIRECTIONS[p_220901_.nextInt(DIRECTIONS.length)];
-			BlockPos blockpos = p_220900_.relative(direction);
-			BlockState blockstate = p_220899_.getBlockState(blockpos);
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource source) {
+		if (source.nextInt(4) == 0) {
+			Direction direction = DIRECTIONS[source.nextInt(DIRECTIONS.length)];
+			BlockPos blockpos = pos.relative(direction);
+			BlockState blockstate = level.getBlockState(blockpos);
 			Block block = null;
 			if (canClusterGrowAtState(blockstate)) {
 				block = VariousWorldModBlocks.SMALL_CRYSTAL_CLUSTER.get();
@@ -50,14 +48,14 @@ public class BuddingKunziteColourfulCrystalBlock extends AmethystBlock {
 			}
 			if (block != null) {
 				BlockState blockstate1 = block.defaultBlockState().setValue(CrystalClusterBlock.FACING, direction)
-						.setValue(CrystalClusterBlock.WATERLOGGED, Boolean.valueOf(blockstate.getFluidState().getType() == Fluids.WATER));
-				p_220899_.setBlockAndUpdate(blockpos, blockstate1);
+						.setValue(CrystalClusterBlock.WATERLOGGED, blockstate.getFluidState().getType() == Fluids.WATER);
+				level.setBlockAndUpdate(blockpos, blockstate1);
 			}
 		}
 	}
 
-	public static boolean canClusterGrowAtState(BlockState p_152735_) {
-		return p_152735_.isAir() || p_152735_.is(Blocks.WATER) && p_152735_.getFluidState().getAmount() == 8;
+	public static boolean canClusterGrowAtState(BlockState state) {
+		return state.isAir() || state.is(Blocks.WATER) && state.getFluidState().getAmount() == 8;
 	}
 
 	@Override

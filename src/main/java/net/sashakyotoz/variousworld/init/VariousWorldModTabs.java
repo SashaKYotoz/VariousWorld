@@ -1,7 +1,3 @@
-
-/*
- *    MCreator note: This file will be REGENERATED on each build.
- */
 package net.sashakyotoz.variousworld.init;
 
 import net.minecraft.core.registries.Registries;
@@ -89,8 +85,11 @@ public class VariousWorldModTabs {
                         tabData.accept(VariousWorldModBlocks.CRYSTALIC_OAK_STAIRS.get().asItem());
                         tabData.accept(VariousWorldModBlocks.CRYSTALIC_OAK_SLAB.get().asItem());
                         tabData.accept(VariousWorldModBlocks.CRYSTALIC_OAK_FENCE.get().asItem());
-                        tabData.accept(VariousWorldModBlocks.CRYSTALIC_OAK_PLANKS_TRAPDOOR.get().asItem());
+                        tabData.accept(VariousWorldModBlocks.CRYSTALIC_OAK_FENCE_GATE.get().asItem());
                         tabData.accept(VariousWorldModBlocks.CRYSTALIC_OAK_DOOR.get().asItem());
+                        tabData.accept(VariousWorldModBlocks.CRYSTALIC_OAK_PLANKS_TRAPDOOR.get().asItem());
+                        tabData.accept(VariousWorldModBlocks.CRYSTALIC_OAK_PRESSURE_PLATE.get().asItem());
+                        tabData.accept(VariousWorldModBlocks.CRYSTALIC_OAK_BUTTON.get().asItem());
                         tabData.accept(VariousWorldModBlocks.SAKURA_LEAVES.get().asItem());
                         tabData.accept(VariousWorldModBlocks.SAKURA_LOG.get().asItem());
                         tabData.accept(VariousWorldModBlocks.SAKURA_WOOD.get().asItem());
@@ -98,8 +97,11 @@ public class VariousWorldModTabs {
                         tabData.accept(VariousWorldModBlocks.SAKURA_STAIRS.get().asItem());
                         tabData.accept(VariousWorldModBlocks.SAKURA_SLAB.get().asItem());
                         tabData.accept(VariousWorldModBlocks.SAKURA_FENCE.get().asItem());
-                        tabData.accept(VariousWorldModBlocks.SAKURA_PLANKS_TRAPDOOR.get().asItem());
+                        tabData.accept(VariousWorldModBlocks.SAKURA_FENCE_GATE.get().asItem());
                         tabData.accept(VariousWorldModBlocks.SAKURA_DOOR.get().asItem());
+                        tabData.accept(VariousWorldModBlocks.SAKURA_PLANKS_TRAPDOOR.get().asItem());
+                        tabData.accept(VariousWorldModBlocks.SAKURA_PRESSURE_PLATE.get().asItem());
+                        tabData.accept(VariousWorldModBlocks.SAKURA_BUTTON.get().asItem());
                         tabData.accept(VariousWorldModBlocks.SCULK_LEAVES.get().asItem());
                         tabData.accept(VariousWorldModBlocks.SCULK_LOG.get().asItem());
                         tabData.accept(VariousWorldModBlocks.SCULK_WOOD.get().asItem());
@@ -107,8 +109,11 @@ public class VariousWorldModTabs {
                         tabData.accept(VariousWorldModBlocks.SCULK_STAIRS.get().asItem());
                         tabData.accept(VariousWorldModBlocks.SCULK_SLAB.get().asItem());
                         tabData.accept(VariousWorldModBlocks.SCULK_FENCE.get().asItem());
-                        tabData.accept(VariousWorldModBlocks.SCULK_PLANKS_TRAPDOOR.get().asItem());
+                        tabData.accept(VariousWorldModBlocks.SCULK_FENCE_GATE.get().asItem());
                         tabData.accept(VariousWorldModBlocks.SCULK_DOOR.get().asItem());
+                        tabData.accept(VariousWorldModBlocks.SCULK_PLANKS_TRAPDOOR.get().asItem());
+                        tabData.accept(VariousWorldModBlocks.SCULK_PRESSURE_PLATE.get().asItem());
+                        tabData.accept(VariousWorldModBlocks.SCULK_BUTTON.get().asItem());
                         tabData.accept(VariousWorldModBlocks.GNEISS.get().asItem());
                         tabData.accept(VariousWorldModBlocks.COBBLED_GNEISS.get().asItem());
                         tabData.accept(VariousWorldModBlocks.GNEISS_BRICKS.get().asItem());
@@ -169,18 +174,6 @@ public class VariousWorldModTabs {
 
     @SubscribeEvent
     public static void buildTabContentsVanilla(BuildCreativeModeTabContentsEvent tabData) {
-        if (tabData.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {
-            tabData.accept(VariousWorldModBlocks.SAKURA_FENCE_GATE.get().asItem());
-            tabData.accept(VariousWorldModBlocks.SAKURA_PRESSURE_PLATE.get().asItem());
-            tabData.accept(VariousWorldModBlocks.SAKURA_BUTTON.get().asItem());
-            tabData.accept(VariousWorldModBlocks.SCULK_FENCE_GATE.get().asItem());
-            tabData.accept(VariousWorldModBlocks.SCULK_PRESSURE_PLATE.get().asItem());
-            tabData.accept(VariousWorldModBlocks.SCULK_BUTTON.get().asItem());
-            tabData.accept(VariousWorldModBlocks.CRYSTALIC_OAK_FENCE_GATE.get().asItem());
-            tabData.accept(VariousWorldModBlocks.CRYSTALIC_OAK_PRESSURE_PLATE.get().asItem());
-            tabData.accept(VariousWorldModBlocks.CRYSTALIC_OAK_BUTTON.get().asItem());
-        }
-
         if (tabData.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
             tabData.accept(VariousWorldModItems.DARK_ZOMBIE_SPAWN_EGG.get());
             tabData.accept(VariousWorldModItems.SCULK_SKELETON_SPAWN_EGG.get());
@@ -189,9 +182,10 @@ public class VariousWorldModTabs {
             tabData.accept(VariousWorldModItems.SPIRITOF_PEACEFUL_WASTELAND_SPAWN_EGG.get());
             tabData.accept(VariousWorldModItems.SPIRITOF_DEEP_CAVERN_SPAWN_EGG.get());
             tabData.accept(VariousWorldModItems.ARMOREDSKELETON_SPAWN_EGG.get());
-            tabData.accept(VariousWorldModItems.WANDERING_SPIRIT_SUMMONED_OF_SCULKS_SPAWN_EGG.get());
+            tabData.accept(VariousWorldModItems.WANDERING_SPIRIT_OF_SCULKS_SPAWN_EGG.get());
             tabData.accept(VariousWorldModItems.ZOMBIE_OF_STONY_MAGMA_SPAWN_EGG.get());
             tabData.accept(VariousWorldModItems.ZANY_VILER_WITCH_SPAWN_EGG.get());
+            tabData.accept(VariousWorldModItems.DROMOPHANT_SPAWN_EGG.get());
         }
 
         if (tabData.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {

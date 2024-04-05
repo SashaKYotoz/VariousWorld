@@ -88,16 +88,16 @@ public class NecromancerStaffEntity extends AbstractArrow implements ItemSupplie
 	}
 
 	public static NecromancerStaffEntity shoot(Level world, LivingEntity entity,ItemStack stack, RandomSource random, float power, double damage, int knockback) {
-		NecromancerStaffEntity entityarrow = new NecromancerStaffEntity(VariousWorldModEntities.NECROMANCER_STAFF.get(), entity, world);
-		entityarrow.shoot(entity.getViewVector(1).x, entity.getViewVector(1).y, entity.getViewVector(1).z, power * 2, 0);
+		NecromancerStaffEntity arrow = new NecromancerStaffEntity(VariousWorldModEntities.NECROMANCER_STAFF.get(), entity, world);
+		arrow.shoot(entity.getViewVector(1).x, entity.getViewVector(1).y, entity.getViewVector(1).z, power * 2, 0);
 		isMagmaColor = stack.getOrCreateTag().getDouble("CustomModelData") == 1;
-		entityarrow.setSilent(true);
-		entityarrow.setCritArrow(false);
-		entityarrow.setBaseDamage(damage);
-		entityarrow.setKnockback(knockback);
-		world.addFreshEntity(entityarrow);
+		arrow.setSilent(true);
+		arrow.setCritArrow(false);
+		arrow.setBaseDamage(damage);
+		arrow.setKnockback(knockback);
+		world.addFreshEntity(arrow);
 		world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), VariousWorldModSounds.ITEM_WAND_SHOOT, SoundSource.PLAYERS, 1, 1f / (random.nextFloat() * 0.5f + 1) + (power / 2));
-		return entityarrow;
+		return arrow;
 	}
 
 	public static NecromancerStaffEntity shoot(LivingEntity entity, LivingEntity target) {

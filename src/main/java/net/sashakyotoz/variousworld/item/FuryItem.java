@@ -17,7 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.sashakyotoz.variousworld.client.model.ModelFury_Armor;
+import net.sashakyotoz.variousworld.client.model.ModelFuryArmor;
 import net.sashakyotoz.variousworld.init.VariousWorldModItems;
 import net.sashakyotoz.variousworld.procedures.ArmorTickAbilities;
 
@@ -81,7 +81,7 @@ public abstract class FuryItem extends ArmorItem {
 				@Override
 				public HumanoidModel getHumanoidArmorModel(LivingEntity living, ItemStack stack, EquipmentSlot slot, HumanoidModel defaultModel) {
 					HumanoidModel armorModel = new HumanoidModel(new ModelPart(Collections.emptyList(),
-							Map.of("head", new ModelFury_Armor(Minecraft.getInstance().getEntityModels().bakeLayer(ModelFury_Armor.LAYER_LOCATION)).head, "hat", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "body",
+							Map.of("head", new ModelFuryArmor(Minecraft.getInstance().getEntityModels().bakeLayer(ModelFuryArmor.LAYER_LOCATION)).head, "hat", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "body",
 									new ModelPart(Collections.emptyList(), Collections.emptyMap()), "right_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "left_arm",
 									new ModelPart(Collections.emptyList(), Collections.emptyMap()), "right_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "left_leg",
 									new ModelPart(Collections.emptyList(), Collections.emptyMap()))));
@@ -110,9 +110,9 @@ public abstract class FuryItem extends ArmorItem {
 				@Override
 				@OnlyIn(Dist.CLIENT)
 				public HumanoidModel getHumanoidArmorModel(LivingEntity living, ItemStack stack, EquipmentSlot slot, HumanoidModel defaultModel) {
-					HumanoidModel armorModel = new HumanoidModel(new ModelPart(Collections.emptyList(), Map.of("body", new ModelFury_Armor(Minecraft.getInstance().getEntityModels().bakeLayer(ModelFury_Armor.LAYER_LOCATION)).body, "left_arm",
-							new ModelFury_Armor(Minecraft.getInstance().getEntityModels().bakeLayer(ModelFury_Armor.LAYER_LOCATION)).leftArm, "right_arm",
-							new ModelFury_Armor(Minecraft.getInstance().getEntityModels().bakeLayer(ModelFury_Armor.LAYER_LOCATION)).rightArm, "head", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "hat",
+					HumanoidModel armorModel = new HumanoidModel(new ModelPart(Collections.emptyList(), Map.of("body", new ModelFuryArmor(Minecraft.getInstance().getEntityModels().bakeLayer(ModelFuryArmor.LAYER_LOCATION)).body, "left_arm",
+							new ModelFuryArmor(Minecraft.getInstance().getEntityModels().bakeLayer(ModelFuryArmor.LAYER_LOCATION)).leftArm, "right_arm",
+							new ModelFuryArmor(Minecraft.getInstance().getEntityModels().bakeLayer(ModelFuryArmor.LAYER_LOCATION)).rightArm, "head", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "hat",
 							new ModelPart(Collections.emptyList(), Collections.emptyMap()), "right_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "left_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap()))));
 					armorModel.crouching = living.isShiftKeyDown();
 					armorModel.riding = defaultModel.riding;
@@ -145,8 +145,8 @@ public abstract class FuryItem extends ArmorItem {
 				@OnlyIn(Dist.CLIENT)
 				public HumanoidModel getHumanoidArmorModel(LivingEntity living, ItemStack stack, EquipmentSlot slot, HumanoidModel defaultModel) {
 					HumanoidModel armorModel = new HumanoidModel(new ModelPart(Collections.emptyList(),
-							Map.of("left_leg", new ModelFury_Armor(Minecraft.getInstance().getEntityModels().bakeLayer(ModelFury_Armor.LAYER_LOCATION)).leftLeg, "right_leg",
-									new ModelFury_Armor(Minecraft.getInstance().getEntityModels().bakeLayer(ModelFury_Armor.LAYER_LOCATION)).rightLeg, "head", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "hat",
+							Map.of("left_leg", new ModelFuryArmor(Minecraft.getInstance().getEntityModels().bakeLayer(ModelFuryArmor.LAYER_LOCATION)).leftLeg, "right_leg",
+									new ModelFuryArmor(Minecraft.getInstance().getEntityModels().bakeLayer(ModelFuryArmor.LAYER_LOCATION)).rightLeg, "head", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "hat",
 									new ModelPart(Collections.emptyList(), Collections.emptyMap()), "body", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "right_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 									"left_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()))));
 					armorModel.crouching = living.isShiftKeyDown();
@@ -175,8 +175,8 @@ public abstract class FuryItem extends ArmorItem {
 				@OnlyIn(Dist.CLIENT)
 				public HumanoidModel getHumanoidArmorModel(LivingEntity living, ItemStack stack, EquipmentSlot slot, HumanoidModel defaultModel) {
 					HumanoidModel armorModel = new HumanoidModel(new ModelPart(Collections.emptyList(),
-							Map.of("left_leg", new ModelFury_Armor(Minecraft.getInstance().getEntityModels().bakeLayer(ModelFury_Armor.LAYER_LOCATION)).leftBoot, "right_leg",
-									new ModelFury_Armor(Minecraft.getInstance().getEntityModels().bakeLayer(ModelFury_Armor.LAYER_LOCATION)).rightBoot, "head", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "hat",
+							Map.of("left_leg", new ModelFuryArmor(Minecraft.getInstance().getEntityModels().bakeLayer(ModelFuryArmor.LAYER_LOCATION)).leftBoot, "right_leg",
+									new ModelFuryArmor(Minecraft.getInstance().getEntityModels().bakeLayer(ModelFuryArmor.LAYER_LOCATION)).rightBoot, "head", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "hat",
 									new ModelPart(Collections.emptyList(), Collections.emptyMap()), "body", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "right_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 									"left_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()))));
 					armorModel.crouching = living.isShiftKeyDown();

@@ -15,11 +15,11 @@ public class SculkSkeletonRenderer extends MobRenderer<SculkSkeletonEntity, Mode
 		super(context, new ModelSculk_Skeleton(context.bakeLayer(ModelSculk_Skeleton.LAYER_LOCATION)), 0.5f);
 		this.addLayer(new ItemInHandLayer<>(this, context.getItemInHandRenderer()));
 	}
-	protected void scale(SculkSkeletonEntity p_115983_, PoseStack p_115984_, float p_115985_) {
-		if(!p_115983_.isBaby())
-		p_115984_.scale(1,1,1);
+	protected void scale(SculkSkeletonEntity entity, PoseStack stack, float p_115985_) {
+		if(!entity.isBaby())
+		stack.scale(1,1,1);
 		else{
-			p_115984_.scale(0.5f,0.5f,0.5f);
+			stack.scale(0.5f,0.5f,0.5f);
 		}
 	}
 

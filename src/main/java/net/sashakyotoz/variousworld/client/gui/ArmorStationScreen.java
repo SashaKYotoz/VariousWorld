@@ -50,7 +50,7 @@ public class ArmorStationScreen extends AbstractContainerScreen<ArmorStationMenu
 		ms.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
 
 		RenderSystem.setShaderTexture(0, new ResourceLocation("various_world:textures/screens/armor_station1.png"));
-		ms.blit(new ResourceLocation("various_world:textures/screens/armor_station1.png"), this.leftPos + 0, this.topPos + 0, 0, 0, 200, 175, 200, 175);
+		ms.blit(new ResourceLocation("various_world:textures/screens/armor_station1.png"), this.leftPos, this.topPos, 0, 0, 200, 175, 200, 175);
 
 		RenderSystem.setShaderTexture(0, new ResourceLocation("various_world:textures/screens/feather.png"));
 		ms.blit(new ResourceLocation("various_world:textures/screens/feather.png"), this.leftPos + 55, this.topPos + 66, 0, 0, 16, 16, 16, 16);

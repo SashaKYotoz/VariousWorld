@@ -22,11 +22,11 @@ public class ArtifactTableUpdateTickProcedure {
 	public static void execute(LevelAccessor world, double x, double y, double z) {
 		if ((new Object() {
 			public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
-				AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
+				AtomicReference<ItemStack> reference = new AtomicReference<>(ItemStack.EMPTY);
 				BlockEntity _ent = world.getBlockEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> _retval.set(capability.getStackInSlot(slotid).copy()));
-				return _retval.get();
+					_ent.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> reference.set(capability.getStackInSlot(slotid).copy()));
+				return reference.get();
 			}
 		}.getItemStack(world,
 				BlockPos.containing(x + VariousWorldModVariables.MapVariables.get(world).WitheredTime, y + VariousWorldModVariables.MapVariables.get(world).WitheredTime, z + VariousWorldModVariables.MapVariables.get(world).WitheredTime), 0))
@@ -42,11 +42,11 @@ public class ArtifactTableUpdateTickProcedure {
 		}
 		if ((new Object() {
 			public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
-				AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
+				AtomicReference<ItemStack> reference = new AtomicReference<>(ItemStack.EMPTY);
 				BlockEntity _ent = world.getBlockEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> _retval.set(capability.getStackInSlot(slotid).copy()));
-				return _retval.get();
+					_ent.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> reference.set(capability.getStackInSlot(slotid).copy()));
+				return reference.get();
 			}
 		}.getItemStack(world,
 				BlockPos.containing(x + VariousWorldModVariables.MapVariables.get(world).WitheredTime, y + VariousWorldModVariables.MapVariables.get(world).WitheredTime, z + VariousWorldModVariables.MapVariables.get(world).WitheredTime), 1))
@@ -62,11 +62,11 @@ public class ArtifactTableUpdateTickProcedure {
 		}
 		if ((new Object() {
 			public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
-				AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
+				AtomicReference<ItemStack> reference = new AtomicReference<>(ItemStack.EMPTY);
 				BlockEntity _ent = world.getBlockEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> _retval.set(capability.getStackInSlot(slotid).copy()));
-				return _retval.get();
+					_ent.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> reference.set(capability.getStackInSlot(slotid).copy()));
+				return reference.get();
 			}
 		}.getItemStack(world,
 				BlockPos.containing(x + VariousWorldModVariables.MapVariables.get(world).WitheredTime, y + VariousWorldModVariables.MapVariables.get(world).WitheredTime, z + VariousWorldModVariables.MapVariables.get(world).WitheredTime), 3))
@@ -82,11 +82,11 @@ public class ArtifactTableUpdateTickProcedure {
 		}
 		if ((new Object() {
 			public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
-				AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
+				AtomicReference<ItemStack> reference = new AtomicReference<>(ItemStack.EMPTY);
 				BlockEntity _ent = world.getBlockEntity(pos);
 				if (_ent != null)
-					_ent.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> _retval.set(capability.getStackInSlot(slotid).copy()));
-				return _retval.get();
+					_ent.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> reference.set(capability.getStackInSlot(slotid).copy()));
+				return reference.get();
 			}
 		}.getItemStack(world,
 				BlockPos.containing(x + VariousWorldModVariables.MapVariables.get(world).WitheredTime, y + VariousWorldModVariables.MapVariables.get(world).WitheredTime, z + VariousWorldModVariables.MapVariables.get(world).WitheredTime), 2))

@@ -108,10 +108,9 @@ public class ModelSculk_Necromancer_Skeleton<T extends SculkNecromancerSkeletonE
 
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		float f = Math.min((float) entity.getDeltaMovement().lengthSqr() * 200.0F, 8.0F);
 		this.head1.yRot = netHeadYaw / (180F / (float) Math.PI);
 		this.head1.xRot = headPitch / (180F / (float) Math.PI);
-		this.animate(entity.walkAnimationState, SculkNecromancerAnimations.WALK, ageInTicks, f);
+		this.animateWalk(SculkNecromancerAnimations.WALK,limbSwing,limbSwingAmount,2.0F, 2.5F);
 		this.animate(entity.attackAnimationState, SculkNecromancerAnimations.ATTACK, ageInTicks);
 		this.animate(entity.deathAnimationState, SculkNecromancerAnimations.DEATH, ageInTicks);
 		this.animate(entity.spawnAnimationState, SculkNecromancerAnimations.SPAWN, ageInTicks);
@@ -123,8 +122,8 @@ public class ModelSculk_Necromancer_Skeleton<T extends SculkNecromancerSkeletonE
 		}
 	}
 
-	private void animateIdlePose(float p_233515_) {
-		float f = p_233515_ * 0.1F;
+	private void animateIdlePose(float ageInTicks) {
+		float f = ageInTicks * 0.1F;
 		float f1 = Mth.cos(f);
 		float f2 = Mth.sin(f);
 		this.head1.zRot += 0.06F * f1;

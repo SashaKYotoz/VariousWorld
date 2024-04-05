@@ -45,11 +45,7 @@ public class FuryLordRenderer extends MobRenderer<FuryLordEntity, EntityModel<Fu
         }
     }
     public void render(FuryLordEntity entity, float p_115778_, float p_115779_, PoseStack poseStack, MultiBufferSource bufferSource, int p_115782_) {
-        if (entity.isAdvanced())
-            this.model = this.advanced;
-        else {
-            this.model = this.ordinary;
-        }
+        this.model = entity.isAdvanced() ? this.advanced : this.ordinary;
         super.render(entity, p_115778_, p_115779_, poseStack, bufferSource, p_115782_);
     }
 

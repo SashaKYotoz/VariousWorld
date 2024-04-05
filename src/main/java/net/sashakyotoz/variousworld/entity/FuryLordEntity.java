@@ -29,7 +29,6 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.LargeFireball;
-import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -45,7 +44,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.EnumSet;
 
 public class FuryLordEntity extends Monster {
-    private int abilityCooldown = 200;
+    private int timer = 200;
     private final TargetingConditions targetCountTargeting = TargetingConditions.forNonCombat().range(32.0D).ignoreLineOfSight().ignoreInvisibilityTesting();
     private static final EntityDataAccessor<Boolean> DATA_IS_ADVANCED = SynchedEntityData.defineId(FuryLordEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_IS_CHARGING = SynchedEntityData.defineId(FuryLordEntity.class, EntityDataSerializers.BOOLEAN);
@@ -135,28 +134,14 @@ public class FuryLordEntity extends Monster {
     }
 
     public void handleEntityEvent(byte handleByte) {
-        if (handleByte >= 4 && handleByte <= 20) {
-            if (this.random.nextBoolean())
-                this.tailAttackAnimationState.start(this.tickCount);
-            else if (this.getTarget() != null){
-                this.windAttackAnimationState.start(this.tickCount);
-                this.getTarget().setDeltaMovement(new Vec3(getXVector(this.getYRot()), Mth.abs((int) (this.getY()-this.getTarget().getY())), getZVector(this.getYRot())));
-            }
-        } else {
+        if (handleByte >= 4 && handleByte <= 20)
+            this.tailAttackAnimationState.start(this.tickCount);
+        else {
             super.handleEntityEvent(handleByte);
         }
     }
 
     public void tick() {
-        if (this.level().isClientSide()) {
-            this.flyAnimationState.animateWhen(this.isMovingInAir() && abilityCooldown > 0, this.tickCount);
-            idleInAirAnimationState.animateWhen(!this.isMovingInAir() && abilityCooldown > 0, this.tickCount);
-            if (!(abilityCooldown > 0)) {
-                this.navigation.stop();
-                this.windAttackAnimationState.animateWhen(this.getAttackAbility().equals("winding"), this.tickCount);
-                this.summonAbilityAnimationState.animateWhen(this.getAttackAbility().equals("summoning"), this.tickCount);
-            }
-        }
         if (this.getHealth() < (this.getMaxHealth() / 2)) {
             this.explosionPower = 4;
             this.setAdvanced(true);
@@ -165,43 +150,53 @@ public class FuryLordEntity extends Monster {
             this.setAdvanced(false);
         }
         if (this.getTarget() != null && this.distanceToSqr(this.getTarget()) >= 24) {
-            if (this.abilityCooldown > 0)
-                this.abilityCooldown--;
+            if (this.timer > 0)
+                this.timer--;
             else {
                 ability();
-                this.abilityCooldown += this.getRandom().nextIntBetweenInclusive(150, 300);
+                this.timer += this.getRandom().nextIntBetweenInclusive(150, 300);
             }
         }
+        this.flyAnimationState.animateWhen(this.isMovingInAir() && timer > 0 && !this.windAttackAnimationState.isStarted() && !this.summonAbilityAnimationState.isStarted(), this.tickCount);
+        idleInAirAnimationState.animateWhen(!this.isMovingInAir() && timer > 0 && !this.windAttackAnimationState.isStarted() && !this.summonAbilityAnimationState.isStarted(), this.tickCount);
         super.tick();
     }
 
     private void ability() {
         LivingEntity target = this.getTarget();
-        if (getAttackAbility().equals("")) {
-            this.setAttackAbility(this.getRandom().nextBoolean() ? "summoning" : "winding");
-        } else {
-            if (getAttackAbility().equals("summoning")) {
-                if (!isOrNotFuriesAround())
-                    setAttackAbility("");
-                else {
-                    this.summonAbilityAnimationState.start(this.tickCount);
-                    int tmp = this.getRandom().nextIntBetweenInclusive(1, 6);
-                    for (int i = 0; i < tmp; i++) {
-                        if (this.level() instanceof ServerLevel level) {
-                            DarkFuryEntity entityToSpawn = new DarkFuryEntity(VariousWorldModEntities.DARK_FURY.get(), level);
-                            entityToSpawn.moveTo(this.getX(), this.getY(), this.getZ(), level.getRandom().nextFloat() * 360F, 0);
-                            entityToSpawn.finalizeSpawn(level, level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
-                            level.addFreshEntity(entityToSpawn);
+        int tmp = this.getRandom().nextIntBetweenInclusive(0, 2);
+        switch (tmp) {
+            default -> setAttackAbility("tailAttack");
+            case 1 -> setAttackAbility("summoning");
+            case 2 -> setAttackAbility("winding");
+        }
+        if (target != null) {
+            switch (getAttackAbility()) {
+                case "summoning" -> {
+                    if (!isOrNotFuriesAround()) {
+                        ability();
+                    } else {
+                        this.summonAbilityAnimationState.start(this.tickCount);
+                        int randomCount = this.getRandom().nextIntBetweenInclusive(1, 6);
+                        for (int i = 0; i < randomCount; i++) {
+                            if (this.level() instanceof ServerLevel level) {
+                                DarkFuryEntity entityToSpawn = new DarkFuryEntity(VariousWorldModEntities.DARK_FURY.get(), level);
+                                entityToSpawn.moveTo(this.getX(), this.getY(), this.getZ(), level.getRandom().nextFloat() * 360F, 0);
+                                entityToSpawn.finalizeSpawn(level, level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                                level.addFreshEntity(entityToSpawn);
+                            }
                         }
+                        setAttackAbility("tailAttack");
                     }
                 }
-            }
-            if (getAttackAbility().equals("winding") && target != null) {
-                this.windAttackAnimationState.start(this.tickCount);
-                VariousWorldMod.queueServerWork(20, () -> {
-                    target.setDeltaMovement(new Vec3(getXVector(this.getYRot()), this.getY(), getZVector(this.getYRot())));
-                    target.hurt(this.damageSources().dryOut(), 10);
-                });
+                case "winding" -> {
+                    this.windAttackAnimationState.start(this.tickCount);
+                    VariousWorldMod.queueServerWork(20, () -> {
+                        target.setDeltaMovement(new Vec3(getXVector(this.getYRot()), this.getY(), getZVector(this.getYRot())));
+                        target.hurt(this.damageSources().dryOut(), 10);
+                        setAttackAbility("tailAttack");
+                    });
+                }
             }
         }
     }
@@ -213,11 +208,11 @@ public class FuryLordEntity extends Monster {
         } else {
             this.level().broadcastEntityEvent(this, (byte) 4);
             this.playSound(SoundEvents.ENDER_DRAGON_GROWL, 1.0F, this.getVoicePitch());
-            return FuryLordEntity.hurtAndThrowTarget(this, (LivingEntity) entity);
+            return FuryLordEntity.hurtTarget(this, (LivingEntity) entity);
         }
     }
 
-    static boolean hurtAndThrowTarget(LivingEntity livingEntity, LivingEntity target) {
+    static boolean hurtTarget(LivingEntity livingEntity, LivingEntity target) {
         float f = (float) livingEntity.getAttributeValue(Attributes.ATTACK_DAMAGE);
         return target.hurt(livingEntity.damageSources().mobAttack(livingEntity), f);
     }
@@ -242,7 +237,7 @@ public class FuryLordEntity extends Monster {
         super.defineSynchedData();
         this.entityData.define(DATA_IS_CHARGING, false);
         this.entityData.define(DATA_IS_ADVANCED, false);
-        this.entityData.define(DATA_ATTACK_ABILITY, "");
+        this.entityData.define(DATA_ATTACK_ABILITY, "tailAttack");
     }
 
     public void move(MoverType moverType, Vec3 vec3) {
@@ -297,7 +292,12 @@ public class FuryLordEntity extends Monster {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new FuryLordEntity.LordOfFuriesMovementGoal(this));
-        this.goalSelector.addGoal(2, new RandomStrollGoal(this, 5, 30));
+        this.goalSelector.addGoal(2, new RandomStrollGoal(this, 5, 30) {
+            @Override
+            public boolean canUse() {
+                return super.canUse() && FuryLordEntity.this.getTarget() == null;
+            }
+        });
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, false, true));
         this.goalSelector.addGoal(4, new FuryLordEntity.FuryLordShootFireballGoal(this));
     }
@@ -407,7 +407,7 @@ public class FuryLordEntity extends Monster {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if (source.is(DamageTypes.FALL) || source.is(DamageTypes.LIGHTNING_BOLT) || source.is(DamageTypes.WITHER))
+        if (source.is(DamageTypes.FALL) || source.is(DamageTypes.LIGHTNING_BOLT) || source.is(DamageTypes.WITHER) || source.is(DamageTypes.EXPLOSION))
             return false;
         if (source.getEntity() instanceof LargeFireball)
             return false;
@@ -470,8 +470,8 @@ public class FuryLordEntity extends Monster {
 
     @Override
     public void travel(Vec3 vec3) {
-        this.move(MoverType.SELF, this.getDeltaMovement().scale(4));
-        super.travel(vec3.multiply(1.1,1.1,1.1));
+        this.move(MoverType.SELF, this.getDeltaMovement().scale(2));
+        super.travel(vec3);
     }
 
     static class LordOfFuriesMovementGoal extends Goal {
@@ -483,46 +483,64 @@ public class FuryLordEntity extends Monster {
         }
 
         public boolean canUse() {
-            return lordEntity.getTarget() != null && !lordEntity.getMoveControl().hasWanted();
+            return lordEntity.getTarget() != null && !lordEntity.getMoveControl().hasWanted() && lordEntity.getAttackAbility().equals("tailAttack");
         }
 
         @Override
         public boolean canContinueToUse() {
-            return lordEntity.getMoveControl().hasWanted() && lordEntity.getTarget() != null && lordEntity.getTarget().isAlive();
+            return canUse() && lordEntity.getTarget().isAlive();
         }
 
         @Override
         public void start() {
             LivingEntity livingentity = lordEntity.getTarget();
             Vec3 vec3d = livingentity.getEyePosition(1);
-            lordEntity.moveControl.setWantedPosition(vec3d.x, vec3d.y, vec3d.z, 16);
+            lordEntity.moveControl.setWantedPosition(vec3d.x, vec3d.y, vec3d.z, 32);
         }
 
         @Override
         public void tick() {
             LivingEntity livingentity = lordEntity.getTarget();
             if (lordEntity.getBoundingBox().intersects(livingentity.getBoundingBox().inflate(2))) {
-                VariousWorldMod.queueServerWork(10,()-> lordEntity.doHurtTarget(livingentity));
+                if (!lordEntity.tailAttackAnimationState.isStarted()){
+                    lordEntity.tailAttackAnimationState.start(this.lordEntity.tickCount);
+                    VariousWorldMod.queueServerWork(10, () -> {
+                        lordEntity.doHurtTarget(livingentity);
+                        livingentity.setDeltaMovement(new Vec3(lordEntity.getXVector(lordEntity.getYRot()), 0, lordEntity.getZVector(lordEntity.getYRot())));
+                    });
+                }
             } else {
                 double d0 = lordEntity.distanceToSqr(livingentity);
                 if (d0 < 64) {
                     Vec3 vec3d = livingentity.getEyePosition(1);
-                    lordEntity.moveControl.setWantedPosition(vec3d.x, vec3d.y, vec3d.z, 16);
+                    lordEntity.moveControl.setWantedPosition(vec3d.x, vec3d.y, vec3d.z, 32);
                 }
             }
         }
     }
 
+    @Override
+    public void push(Entity entity) {
+    }
+
+    @Override
+    public void knockback(double p_147241_, double p_147242_, double p_147243_) {
+    }
+
+    @Override
+    protected void pushEntities() {
+    }
+
     public static AttributeSupplier.Builder createAttributes() {
         AttributeSupplier.Builder builder = Mob.createMobAttributes();
-        builder = builder.add(Attributes.MOVEMENT_SPEED, 10);
+        builder = builder.add(Attributes.MOVEMENT_SPEED, 12);
         builder = builder.add(Attributes.MAX_HEALTH, 500);
         builder = builder.add(Attributes.ARMOR, 10);
         builder = builder.add(Attributes.ATTACK_DAMAGE, 12);
         builder = builder.add(Attributes.FOLLOW_RANGE, 64);
         builder = builder.add(Attributes.KNOCKBACK_RESISTANCE, 3);
         builder = builder.add(Attributes.ATTACK_KNOCKBACK, 0.5);
-        builder = builder.add(Attributes.FLYING_SPEED, 10);
+        builder = builder.add(Attributes.FLYING_SPEED, 12);
         return builder;
     }
 }

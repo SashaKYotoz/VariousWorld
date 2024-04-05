@@ -36,8 +36,8 @@ public class OnStandRightClickedProcedure {
                 if (world instanceof ServerLevel level) {
                     Entity entityToSpawn = new CrystalWarriorEntity(VariousWorldModEntities.CRYSTAL_WARRIOR.get(), level);
                     entityToSpawn.moveTo(x, y, z, world.getRandom().nextFloat() * 360F, 0);
-                    if (entityToSpawn instanceof Mob _mobToSpawn)
-                        _mobToSpawn.finalizeSpawn(level, level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                    if (entityToSpawn instanceof Mob mobToSpawn)
+                        mobToSpawn.finalizeSpawn(level, level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                     level.addFreshEntity(entityToSpawn);
                 }
                 world.setBlock(BlockPos.containing(x, y, z), Blocks.AIR.defaultBlockState(), 3);
@@ -85,8 +85,8 @@ public class OnStandRightClickedProcedure {
                 if (world instanceof ServerLevel level) {
                     Entity entityToSpawn = new FuryLordEntity(VariousWorldModEntities.FURY_LORD.get(), level);
                     entityToSpawn.moveTo(x, (y + 3), z, world.getRandom().nextFloat() * 360F, 0);
-                    if (entityToSpawn instanceof Mob _mobToSpawn)
-                        _mobToSpawn.finalizeSpawn(level, level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                    if (entityToSpawn instanceof Mob mobToSpawn)
+                        mobToSpawn.finalizeSpawn(level, level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                     level.addFreshEntity(entityToSpawn);
                 }
             }
@@ -95,8 +95,8 @@ public class OnStandRightClickedProcedure {
             if (world instanceof ServerLevel level) {
                 Entity entityToSpawn = new SculkNecromancerSkeletonEntity(VariousWorldModEntities.SCULK_NECROMANCER_SKELETON.get(), level);
                 entityToSpawn.moveTo(x, y, z, world.getRandom().nextFloat() * 360F, 0);
-                if (entityToSpawn instanceof Mob groupData)
-                    groupData.finalizeSpawn(level, level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
+                if (entityToSpawn instanceof Mob modToSpawn)
+                    modToSpawn.finalizeSpawn(level, level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                 level.addFreshEntity(entityToSpawn);
             }
         }

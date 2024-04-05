@@ -1,11 +1,6 @@
 
 package net.sashakyotoz.variousworld.block;
 
-import net.minecraft.world.level.LevelAccessor;
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
-import net.sashakyotoz.variousworld.procedures.SculkBushEntityCollidesWithPlantProcedure;
-import net.sashakyotoz.variousworld.procedures.SmallSculkBushPlantRightClickedProcedure;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,8 +12,10 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerBlock;
@@ -30,6 +27,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.procedures.SculkBushEntityCollidesWithPlantProcedure;
 
 import java.util.Collections;
 import java.util.List;
@@ -90,9 +90,17 @@ public class SmallSculkBushBlock extends FlowerBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState blockstate, Level world, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult hit) {
-		super.use(blockstate, world, pos, entity, hand, hit);
-		SmallSculkBushPlantRightClickedProcedure.execute(world, pos.getX(), pos.getY(), pos.getZ(), entity);
+	public InteractionResult use(BlockState blockstate, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		super.use(blockstate, world, pos, player, hand, hit);
+		if (player.getMainHandItem().is(Items.BONE_MEAL)) {
+			if (Math.random() < 0.25) {
+				BlockState _bs = VariousWorldModBlocks.SCULK_BUSH_WITHOUT_BERRY.get().defaultBlockState();
+				world.setBlock(pos, _bs, 3);
+				ItemStack stack = player.getMainHandItem();
+				player.getInventory().clearOrCountMatchingItems(p -> stack.getItem() == p.getItem(), 1, player.inventoryMenu.getCraftSlots());
+				player.getInventory().setChanged();
+			}
+		}
 		return InteractionResult.SUCCESS;
 	}
 

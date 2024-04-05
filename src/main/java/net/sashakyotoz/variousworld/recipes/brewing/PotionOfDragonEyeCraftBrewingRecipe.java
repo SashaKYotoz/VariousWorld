@@ -1,6 +1,4 @@
-
 package net.sashakyotoz.variousworld.recipes.brewing;
-
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

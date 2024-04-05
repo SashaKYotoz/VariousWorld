@@ -12,34 +12,14 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Entity;
 
-import net.sashakyotoz.variousworld.entity.ZombieOfStonyMagmaEntity;
-import net.sashakyotoz.variousworld.entity.ZanyVilerWitchEntity;
-import net.sashakyotoz.variousworld.entity.WanderingSpiritSummonedOfSculksEntity;
-import net.sashakyotoz.variousworld.entity.WanderingSpiritAbilityShootEntity;
-import net.sashakyotoz.variousworld.entity.SpiritofPeacefulWastelandEntity;
-import net.sashakyotoz.variousworld.entity.SpiritofDeepCavernEntity;
-import net.sashakyotoz.variousworld.entity.SculkSkeletonEntity;
-import net.sashakyotoz.variousworld.entity.SculkScytheEntity;
-import net.sashakyotoz.variousworld.entity.SculkNecromancerSkeletonEntity;
-import net.sashakyotoz.variousworld.entity.NecromancerStaffEntity;
-import net.sashakyotoz.variousworld.entity.MultipleEnderPearlEntity;
-import net.sashakyotoz.variousworld.entity.LordOfFuriesCrossbowEntity;
-import net.sashakyotoz.variousworld.entity.FuryLordEntity;
-import net.sashakyotoz.variousworld.entity.ZombieOfVariousBiomesEntity;
-import net.sashakyotoz.variousworld.entity.DarkSpiritGlovesEntity;
-import net.sashakyotoz.variousworld.entity.DarkSpiritEntity;
-import net.sashakyotoz.variousworld.entity.DarkFuryEntity;
-import net.sashakyotoz.variousworld.entity.CrystalicSlimeEntity;
-import net.sashakyotoz.variousworld.entity.CrystalicBowEntity;
-import net.sashakyotoz.variousworld.entity.CrystalWarriorEntity;
-import net.sashakyotoz.variousworld.entity.ArmoredskeletonEntity;
+import net.sashakyotoz.variousworld.entity.*;
 import net.sashakyotoz.variousworld.VariousWorldMod;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class VariousWorldModEntities {
-	public static final DeferredRegister<EntityType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, VariousWorldMod.MODID);
-	public static final RegistryObject<EntityType<CrystalicBowEntity>> CRYSTALIC_BOW = register("projectile_crystalic_bow",
-			EntityType.Builder.<CrystalicBowEntity>of(CrystalicBowEntity::new, MobCategory.MISC).setCustomClientFactory(CrystalicBowEntity::new).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(1).sized(0.5f, 0.5f));
+	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, VariousWorldMod.MODID);
+	public static final RegistryObject<EntityType<CrystalicArrowEntity>> CRYSTALIC_BOW = register("projectile_crystalic_bow",
+			EntityType.Builder.<CrystalicArrowEntity>of(CrystalicArrowEntity::new, MobCategory.MISC).setCustomClientFactory(CrystalicArrowEntity::new).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(1).sized(0.5f, 0.5f));
 	public static final RegistryObject<EntityType<LordOfFuriesCrossbowEntity>> LORD_OF_FURIES_CROSSBOW = register("projectile_lord_of_furies_crossbow", EntityType.Builder
 			.<LordOfFuriesCrossbowEntity>of(LordOfFuriesCrossbowEntity::new, MobCategory.MISC).setCustomClientFactory(LordOfFuriesCrossbowEntity::new).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(1).sized(0.5f, 0.5f));
 	public static final RegistryObject<EntityType<ZombieOfVariousBiomesEntity>> ZOMBIE_OF_VARIOUS_BIOMES = register("zombie_of_various_biomes",
@@ -53,22 +33,19 @@ public class VariousWorldModEntities {
 	public static final RegistryObject<EntityType<SpiritofPeacefulWastelandEntity>> SPIRITOF_PEACEFUL_WASTELAND = register("spiritof_peaceful_wasteland",
 			EntityType.Builder.<SpiritofPeacefulWastelandEntity>of(SpiritofPeacefulWastelandEntity::new, MobCategory.AMBIENT).setShouldReceiveVelocityUpdates(true).clientTrackingRange(8)
 					.setCustomClientFactory(SpiritofPeacefulWastelandEntity::new).fireImmune().sized(0.6f, 0.8f));
-	public static final RegistryObject<EntityType<SpiritofDeepCavernEntity>> SPIRITOF_DEEP_CAVERN = register("spiritof_deep_cavern", EntityType.Builder.<SpiritofDeepCavernEntity>of(SpiritofDeepCavernEntity::new, MobCategory.AMBIENT)
-			.setShouldReceiveVelocityUpdates(true).clientTrackingRange(8).setCustomClientFactory(SpiritofDeepCavernEntity::new).fireImmune().sized(0.5f, 0.8f));
-	public static final RegistryObject<EntityType<ArmoredskeletonEntity>> ARMOREDSKELETON = register("armoredskeleton",
-			EntityType.Builder.<ArmoredskeletonEntity>of(ArmoredskeletonEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).clientTrackingRange(8).setCustomClientFactory(ArmoredskeletonEntity::new)
-					.sized(0.6f, 1.8f));
-	public static final RegistryObject<EntityType<WanderingSpiritSummonedOfSculksEntity>> WANDERING_SPIRIT_SUMMONED_OF_SCULKS = register("wandering_spirit_summoned_of_sculks",
-			EntityType.Builder.<WanderingSpiritSummonedOfSculksEntity>of(WanderingSpiritSummonedOfSculksEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).clientTrackingRange(8)
-					.setCustomClientFactory(WanderingSpiritSummonedOfSculksEntity::new)
-
-					.sized(0.8f, 2f));
+	public static final RegistryObject<EntityType<SpiritOfDeepCavernEntity>> SPIRITOF_DEEP_CAVERN = register("spiritof_deep_cavern", EntityType.Builder.<SpiritOfDeepCavernEntity>of(SpiritOfDeepCavernEntity::new, MobCategory.AMBIENT)
+			.setShouldReceiveVelocityUpdates(true).clientTrackingRange(8).setCustomClientFactory(SpiritOfDeepCavernEntity::new).fireImmune().sized(0.5f, 0.8f));
+	public static final RegistryObject<EntityType<ArmoredSkeletonEntity>> ARMORED_SKELETON = register("armoredskeleton",
+			EntityType.Builder.<ArmoredSkeletonEntity>of(ArmoredSkeletonEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).clientTrackingRange(8).setCustomClientFactory(ArmoredSkeletonEntity::new).sized(0.6f, 1.8f));
+	public static final RegistryObject<EntityType<WanderingSpiritOfSculksEntity>> WANDERING_SPIRIT_SUMMONED_OF_SCULKS = register("wandering_spirit_summoned_of_sculks",
+			EntityType.Builder.<WanderingSpiritOfSculksEntity>of(WanderingSpiritOfSculksEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).clientTrackingRange(8)
+					.setCustomClientFactory(WanderingSpiritOfSculksEntity::new).sized(0.8f, 2f));
 	public static final RegistryObject<EntityType<ZombieOfStonyMagmaEntity>> ZOMBIE_OF_STONY_MAGMA = register("zombie_of_stony_magma", EntityType.Builder.<ZombieOfStonyMagmaEntity>of(ZombieOfStonyMagmaEntity::new, MobCategory.MONSTER)
 			.setShouldReceiveVelocityUpdates(true).setTrackingRange(32).setUpdateInterval(3).setCustomClientFactory(ZombieOfStonyMagmaEntity::new).fireImmune().sized(0.7f, 1.8f));
 	public static final RegistryObject<EntityType<ZanyVilerWitchEntity>> ZANY_VILER_WITCH = register("zany_viler_witch",
-			EntityType.Builder.<ZanyVilerWitchEntity>of(ZanyVilerWitchEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).clientTrackingRange(16).setCustomClientFactory(ZanyVilerWitchEntity::new)
-
-					.sized(0.6f, 1.8f));
+			EntityType.Builder.<ZanyVilerWitchEntity>of(ZanyVilerWitchEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).clientTrackingRange(8).setCustomClientFactory(ZanyVilerWitchEntity::new).sized(0.6f, 1.8f));
+	public static final RegistryObject<EntityType<DromophantEntity>> DROMOPHANT = register("dromophant",
+			EntityType.Builder.<DromophantEntity>of(DromophantEntity::new, MobCategory.CREATURE).setShouldReceiveVelocityUpdates(true).clientTrackingRange(8).setCustomClientFactory(DromophantEntity::new).sized(1.5f, 2f));
 	public static final RegistryObject<EntityType<CrystalWarriorEntity>> CRYSTAL_WARRIOR = register("crystal_warrior", EntityType.Builder.<CrystalWarriorEntity>of(CrystalWarriorEntity::new, MobCategory.AMBIENT).setShouldReceiveVelocityUpdates(true)
 			.setTrackingRange(32).setCustomClientFactory(CrystalWarriorEntity::new).fireImmune().sized(1f, 2f));
 	public static final RegistryObject<EntityType<DarkSpiritEntity>> DARK_SPIRIT = register("dark_spirit", EntityType.Builder.<DarkSpiritEntity>of(DarkSpiritEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(32)
@@ -91,7 +68,7 @@ public class VariousWorldModEntities {
 	public static final RegistryObject<EntityType<DarkSpiritGlovesEntity>> DARK_SPIRIT_GLOVES = register("projectile_dark_spirit_gloves", EntityType.Builder.<DarkSpiritGlovesEntity>of(DarkSpiritGlovesEntity::new, MobCategory.MISC).sized(0.3125F, 0.3125F).clientTrackingRange(8));
 
 	private static <T extends Entity> RegistryObject<EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {
-		return REGISTRY.register(registryname, () -> entityTypeBuilder.build(registryname));
+		return ENTITIES.register(registryname, () -> entityTypeBuilder.build(registryname));
 	}
 
 	@SubscribeEvent
@@ -102,14 +79,15 @@ public class VariousWorldModEntities {
 			DarkFuryEntity.init();
 			CrystalicSlimeEntity.init();
 			SpiritofPeacefulWastelandEntity.init();
-			SpiritofDeepCavernEntity.init();
-			ArmoredskeletonEntity.init();
-			WanderingSpiritSummonedOfSculksEntity.init();
+			SpiritOfDeepCavernEntity.init();
+			ArmoredSkeletonEntity.init();
+			WanderingSpiritOfSculksEntity.init();
 			ZombieOfStonyMagmaEntity.init();
 			ZanyVilerWitchEntity.init();
 			CrystalWarriorEntity.init();
 			DarkSpiritEntity.init();
 			SculkNecromancerSkeletonEntity.init();
+			DromophantEntity.init();
 			FuryLordEntity.init();
 		});
 	}
@@ -121,14 +99,15 @@ public class VariousWorldModEntities {
 		event.put(DARK_FURY.get(), DarkFuryEntity.createAttributes().build());
 		event.put(CRYSTALIC_SLIME.get(), CrystalicSlimeEntity.createAttributes().build());
 		event.put(SPIRITOF_PEACEFUL_WASTELAND.get(), SpiritofPeacefulWastelandEntity.createAttributes().build());
-		event.put(SPIRITOF_DEEP_CAVERN.get(), SpiritofDeepCavernEntity.createAttributes().build());
-		event.put(ARMOREDSKELETON.get(), ArmoredskeletonEntity.createAttributes().build());
-		event.put(WANDERING_SPIRIT_SUMMONED_OF_SCULKS.get(), WanderingSpiritSummonedOfSculksEntity.createAttributes().build());
+		event.put(SPIRITOF_DEEP_CAVERN.get(), SpiritOfDeepCavernEntity.createAttributes().build());
+		event.put(ARMORED_SKELETON.get(), ArmoredSkeletonEntity.createAttributes().build());
+		event.put(WANDERING_SPIRIT_SUMMONED_OF_SCULKS.get(), WanderingSpiritOfSculksEntity.createAttributes().build());
 		event.put(ZOMBIE_OF_STONY_MAGMA.get(), ZombieOfStonyMagmaEntity.createAttributes().build());
 		event.put(ZANY_VILER_WITCH.get(), ZanyVilerWitchEntity.createAttributes().build());
 		event.put(CRYSTAL_WARRIOR.get(), CrystalWarriorEntity.createAttributes().build());
 		event.put(DARK_SPIRIT.get(), DarkSpiritEntity.createAttributes().build());
 		event.put(SCULK_NECROMANCER_SKELETON.get(), SculkNecromancerSkeletonEntity.createAttributes().build());
 		event.put(FURY_LORD.get(), FuryLordEntity.createAttributes().build());
+		event.put(DROMOPHANT.get(), DromophantEntity.createAttributes().build());
 	}
 }

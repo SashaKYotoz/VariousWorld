@@ -175,14 +175,14 @@ public class LordOfFuriesCrossbowItem extends ProjectileWeaponItem implements Va
 		return getChargedProjectiles(stack).stream().anyMatch((p_40870_) -> p_40870_.is(item));
 	}
 
-	private static void shootProjectile(Level level, LivingEntity entity, InteractionHand hand, ItemStack stack, ItemStack p_40899_, float p_40900_, boolean p_40901_, float p_40902_, float p_40903_, float p_40904_) {
+	private static void shootProjectile(Level level, LivingEntity entity, InteractionHand hand, ItemStack stack, ItemStack flagStack, float p_40900_, boolean p_40901_, float p_40902_, float p_40903_, float p_40904_) {
 		if (!level.isClientSide) {
-			boolean flag = p_40899_.is(Items.FIREWORK_ROCKET);
+			boolean flag = flagStack.is(Items.FIREWORK_ROCKET);
 			Projectile projectile;
 			if (flag) {
-				projectile = new FireworkRocketEntity(level, p_40899_, entity, entity.getX(), entity.getEyeY() - (double) 0.15F, entity.getZ(), true);
+				projectile = new FireworkRocketEntity(level, flagStack, entity, entity.getX(), entity.getEyeY() - (double) 0.15F, entity.getZ(), true);
 			} else {
-				projectile = getArrow(level, entity, stack, p_40899_);
+				projectile = getArrow(level, entity, stack, flagStack);
 				if (p_40901_ || p_40904_ != 0.0F) {
 					((AbstractArrow) projectile).pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
 				}
@@ -197,53 +197,51 @@ public class LordOfFuriesCrossbowItem extends ProjectileWeaponItem implements Va
 				projectile.shoot(vector3f.x(), vector3f.y(), vector3f.z(), p_40902_, p_40903_);
 				LordOfFuriesCrossbowEntity.shoot(level, entity, RandomSource.create(), 3.0f, 2.5, 1);
 			}
-			stack.hurtAndBreak(flag ? 3 : 1, entity, (p_40858_) -> {
-				p_40858_.broadcastBreakEvent(hand);
-			});
+			stack.hurtAndBreak(flag ? 3 : 1, entity, (p_40858_) -> p_40858_.broadcastBreakEvent(hand));
 			level.addFreshEntity(projectile);
 			level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.CROSSBOW_SHOOT, SoundSource.PLAYERS, 1.0F, p_40900_);
 		}
 	}
 
-	private static AbstractArrow getArrow(Level p_40915_, LivingEntity p_40916_, ItemStack p_40917_, ItemStack p_40918_) {
+	private static AbstractArrow getArrow(Level level, LivingEntity entity, ItemStack stack, ItemStack p_40918_) {
 		ArrowItem arrowitem = (ArrowItem) (p_40918_.getItem() instanceof ArrowItem ? p_40918_.getItem() : Items.ARROW);
-		AbstractArrow abstractarrow = arrowitem.createArrow(p_40915_, p_40918_, p_40916_);
-		if (p_40916_ instanceof Player) {
+		AbstractArrow abstractarrow = arrowitem.createArrow(level, p_40918_, entity);
+		if (entity instanceof Player) {
 			abstractarrow.setCritArrow(true);
-		}
+	}
 		abstractarrow.setSoundEvent(SoundEvents.CROSSBOW_HIT);
 		abstractarrow.setShotFromCrossbow(true);
-		int i = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, p_40917_);
+		int i = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PIERCING, stack);
 		if (i > 0) {
 			abstractarrow.setPierceLevel((byte) i);
 		}
 		return abstractarrow;
 	}
 
-	public static void performShooting(Level p_40888_, LivingEntity p_40889_, InteractionHand p_40890_, ItemStack p_40891_, float p_40892_, float p_40893_) {
-		if (p_40889_ instanceof Player player && net.minecraftforge.event.ForgeEventFactory.onArrowLoose(p_40891_, p_40889_.level(), player, 1, true) < 0)
+	public static void performShooting(Level level, LivingEntity livingEntity, InteractionHand hand, ItemStack stack, float p_40892_, float p_40893_) {
+		if (livingEntity instanceof Player player && net.minecraftforge.event.ForgeEventFactory.onArrowLoose(stack, livingEntity.level(), player, 1, true) < 0)
 			return;
-		List<ItemStack> list = getChargedProjectiles(p_40891_);
-		float[] afloat = getShotPitches(p_40889_.getRandom());
+		List<ItemStack> list = getChargedProjectiles(stack);
+		float[] afloat = getShotPitches(livingEntity.getRandom());
 		for (int i = 0; i < list.size(); ++i) {
 			ItemStack itemstack = list.get(i);
-			boolean flag = p_40889_ instanceof Player && ((Player) p_40889_).getAbilities().instabuild;
+			boolean flag = livingEntity instanceof Player && ((Player) livingEntity).getAbilities().instabuild;
 			if (!itemstack.isEmpty()) {
 				if (i == 0) {
-					shootProjectile(p_40888_, p_40889_, p_40890_, p_40891_, itemstack, afloat[i], flag, p_40892_, p_40893_, 0.0F);
+					shootProjectile(level, livingEntity, hand, stack, itemstack, afloat[i], flag, p_40892_, p_40893_, 0.0F);
 				} else if (i == 1) {
-					shootProjectile(p_40888_, p_40889_, p_40890_, p_40891_, itemstack, afloat[i], flag, p_40892_, p_40893_, -10.0F);
+					shootProjectile(level, livingEntity, hand, stack, itemstack, afloat[i], flag, p_40892_, p_40893_, -10.0F);
 				} else if (i == 2) {
-					shootProjectile(p_40888_, p_40889_, p_40890_, p_40891_, itemstack, afloat[i], flag, p_40892_, p_40893_, 10.0F);
+					shootProjectile(level, livingEntity, hand, stack, itemstack, afloat[i], flag, p_40892_, p_40893_, 10.0F);
 				}
 			}
 		}
-		onCrossbowShot(p_40888_, p_40889_, p_40891_);
+		onCrossbowShot(level, livingEntity, stack);
 	}
 
-	private static float[] getShotPitches(RandomSource p_220024_) {
-		boolean flag = p_220024_.nextBoolean();
-		return new float[]{1.0F, getRandomShotPitch(flag, p_220024_), getRandomShotPitch(!flag, p_220024_)};
+	private static float[] getShotPitches(RandomSource source) {
+		boolean flag = source.nextBoolean();
+		return new float[]{1.0F, getRandomShotPitch(flag, source), getRandomShotPitch(!flag, source)};
 	}
 
 	private static float getRandomShotPitch(boolean p_220026_, RandomSource source) {
@@ -251,22 +249,22 @@ public class LordOfFuriesCrossbowItem extends ProjectileWeaponItem implements Va
 		return 1.0F / (source.nextFloat() * 0.5F + 1.8F) + f;
 	}
 
-	private static void onCrossbowShot(Level level, LivingEntity p_40907_, ItemStack p_40908_) {
-		if (p_40907_ instanceof ServerPlayer serverplayer) {
+	private static void onCrossbowShot(Level level, LivingEntity entity, ItemStack stack) {
+		if (entity instanceof ServerPlayer serverplayer) {
 			if (!level.isClientSide) {
-				CriteriaTriggers.SHOT_CROSSBOW.trigger(serverplayer, p_40908_);
+				CriteriaTriggers.SHOT_CROSSBOW.trigger(serverplayer, stack);
 			}
-			serverplayer.awardStat(Stats.ITEM_USED.get(p_40908_.getItem()));
+			serverplayer.awardStat(Stats.ITEM_USED.get(stack.getItem()));
 		}
-		clearChargedProjectiles(p_40908_);
+		clearChargedProjectiles(stack);
 	}
 
-	public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int p_40913_) {
+	public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int i1) {
 		if (!level.isClientSide) {
 			int i = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.QUICK_CHARGE, stack);
 			SoundEvent soundevent = this.getStartSound(i);
 			SoundEvent soundevent1 = i == 0 ? SoundEvents.CROSSBOW_LOADING_MIDDLE : null;
-			float f = (float) (stack.getUseDuration() - p_40913_) / (float) getChargeDuration(stack);
+			float f = (float) (stack.getUseDuration() - i1) / (float) getChargeDuration(stack);
 			if (f < 0.2F) {
 				this.startSoundPlayed = false;
 				this.midLoadSoundPlayed = false;

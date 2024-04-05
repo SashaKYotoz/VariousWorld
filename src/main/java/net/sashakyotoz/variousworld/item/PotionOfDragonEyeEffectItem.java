@@ -35,9 +35,9 @@ public class PotionOfDragonEyeEffectItem extends Item {
 
 	@Override
 	public ItemStack finishUsingItem(ItemStack itemstack, Level world, LivingEntity entity) {
-		ItemStack retval = super.finishUsingItem(itemstack, world, entity);
+		ItemStack stack = super.finishUsingItem(itemstack, world, entity);
 		if (!entity.level().isClientSide())
 			entity.addEffect(new MobEffectInstance(VariousWorldModMobEffects.DRAGON_EYE.get(), 100, 0));
-		return retval;
+		return stack;
 	}
 }

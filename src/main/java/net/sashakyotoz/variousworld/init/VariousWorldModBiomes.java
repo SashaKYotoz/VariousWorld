@@ -25,6 +25,7 @@ import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.sashakyotoz.variousworld.VariousWorldConfig;
 import net.sashakyotoz.variousworld.VariousWorldMod;
 
 import java.util.ArrayList;
@@ -50,26 +51,38 @@ public class VariousWorldModBiomes {
 				ChunkGenerator chunkGenerator = levelStem.generator();
 				if (chunkGenerator.getBiomeSource() instanceof MultiNoiseBiomeSource noiseSource) {
 					List<Pair<Climate.ParameterPoint, Holder<Biome>>> parameters = new ArrayList<>(noiseSource.parameters().values());
-					parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.15f, 0.75f), Climate.Parameter.span(-0.25f, 0.45f), Climate.Parameter.span(-0.015f, 0.65f), Climate.Parameter.span(-0.2225f, 0.515f),
-							Climate.Parameter.point(0.0f), Climate.Parameter.span(-0.95f, 0.275f), 0), biomeRegistry.getHolderOrThrow(CRYSTALIC_FOREST)));
-					parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.15f, 0.75f), Climate.Parameter.span(-0.25f, 0.45f), Climate.Parameter.span(-0.015f, 0.65f), Climate.Parameter.span(-0.2225f, 0.515f),
-							Climate.Parameter.point(0.25f), Climate.Parameter.span(-0.95f, 0.275f), 0), biomeRegistry.getHolderOrThrow(CRYSTALIC_FOREST)));
-					parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.25f, 0.75f), Climate.Parameter.span(-0.1f, 0.775f), Climate.Parameter.span(-0.05f, 0.85f), Climate.Parameter.span(-0.265f, 0.635f),
-							Climate.Parameter.point(0.0f), Climate.Parameter.span(-0.75f, 0.05f), 0), biomeRegistry.getHolderOrThrow(PEACEFUL_WASTELAND)));
-					parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.25f, 0.75f), Climate.Parameter.span(-0.1f, 0.775f), Climate.Parameter.span(-0.05f, 0.85f), Climate.Parameter.span(-0.265f, 0.635f),
-							Climate.Parameter.point(0.25f), Climate.Parameter.span(-0.75f, 0.05f), 0), biomeRegistry.getHolderOrThrow(PEACEFUL_WASTELAND)));
-					parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(-0.55f, 0.45f), Climate.Parameter.span(-0.45f, 0.45f), Climate.Parameter.span(0.28f, 1.14f), Climate.Parameter.span(-0.352f, 0.232f),
-							Climate.Parameter.point(0.0f), Climate.Parameter.span(-0.125f, 0.725f), 0), biomeRegistry.getHolderOrThrow(SCULK_VALLEY)));
-					parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(-0.55f, 0.45f), Climate.Parameter.span(-0.45f, 0.45f), Climate.Parameter.span(0.28f, 1.14f), Climate.Parameter.span(-0.352f, 0.232f),
-							Climate.Parameter.point(0.25f), Climate.Parameter.span(-0.125f, 0.725f), 0), biomeRegistry.getHolderOrThrow(SCULK_VALLEY)));
-					parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.45f, 0.95f), Climate.Parameter.span(0.275f, 0.925f), Climate.Parameter.span(-0.2f, 0.55f), Climate.Parameter.span(0.325f, 1.05f),
-							Climate.Parameter.point(0.0f), Climate.Parameter.span(-0.5f, 0.75f), 0), biomeRegistry.getHolderOrThrow(SHINY_VALLEY)));
-					parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.45f, 0.95f), Climate.Parameter.span(0.275f, 0.925f), Climate.Parameter.span(-0.2f, 0.65f), Climate.Parameter.span(0.325f, 1.25f),
-							Climate.Parameter.point(0.25f), Climate.Parameter.span(-0.675f, 0.675f), 0), biomeRegistry.getHolderOrThrow(SHINY_VALLEY)));
-					parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(-0.75f, -0.25f), Climate.Parameter.span(-0.85f, -0.15f), Climate.Parameter.span(0.575f, 0.95f), Climate.Parameter.span(-0.5f, 0.375f),
-							Climate.Parameter.span(0.4f, 1.1f), Climate.Parameter.span(0.25f, 0.65f), 0), biomeRegistry.getHolderOrThrow(CAVERN_OF_DEEP)));
-					parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.35f, 1f), Climate.Parameter.span(-0.15f, 1.05f), Climate.Parameter.span(0.25f, 0.85f), Climate.Parameter.span(0.35f, 1f),
-							Climate.Parameter.span(0.3f, 1.0f), Climate.Parameter.span(0.25f, 0.75f), 0), biomeRegistry.getHolderOrThrow(CAVERNS_OF_MAGMA_GROWTH)));
+					if (VariousWorldConfig.GENERATE_CRYSTALIC_FOREST.get()){
+						parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.25f, 0.8f), Climate.Parameter.span(-0.25f, 0.5f), Climate.Parameter.span(-0.015f, 0.65f), Climate.Parameter.span(-0.2225f, 0.515f),
+								Climate.Parameter.point(0f), Climate.Parameter.span(-0.75f, 0.35f), 0), biomeRegistry.getHolderOrThrow(CRYSTALIC_FOREST)));
+						parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.25f, 0.8f), Climate.Parameter.span(-0.25f, 0.5f), Climate.Parameter.span(-0.015f, 0.65f), Climate.Parameter.span(-0.2225f, 0.515f),
+								Climate.Parameter.point(1f), Climate.Parameter.span(-0.75f, 0.35f), 0), biomeRegistry.getHolderOrThrow(CRYSTALIC_FOREST)));
+					}
+					if (VariousWorldConfig.GENERATE_PEACEFUL_WASTELAND.get()){
+						parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.25f, 0.75f), Climate.Parameter.span(-0.1f, 0.775f), Climate.Parameter.span(-0.05f, 0.85f), Climate.Parameter.span(-0.125f, 0.65f),
+								Climate.Parameter.point(0f), Climate.Parameter.span(-0.8f, 0.15f), 0), biomeRegistry.getHolderOrThrow(PEACEFUL_WASTELAND)));
+						parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.25f, 0.75f), Climate.Parameter.span(-0.1f, 0.775f), Climate.Parameter.span(-0.05f, 0.85f), Climate.Parameter.span(-0.125f, 0.65f),
+								Climate.Parameter.point(1f), Climate.Parameter.span(-0.8f, 0.15f), 0), biomeRegistry.getHolderOrThrow(PEACEFUL_WASTELAND)));
+					}
+					if (VariousWorldConfig.GENERATE_SCULK_VALLEY.get()){
+						parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(-0.55f, 0.45f), Climate.Parameter.span(-0.45f, 0.45f), Climate.Parameter.span(0.28f, 1.14f), Climate.Parameter.span(-0.25f, 0.35f),
+								Climate.Parameter.point(0f), Climate.Parameter.span(-0.1f, 0.75f), 0), biomeRegistry.getHolderOrThrow(SCULK_VALLEY)));
+						parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(-0.55f, 0.45f), Climate.Parameter.span(-0.45f, 0.45f), Climate.Parameter.span(0.28f, 1.14f), Climate.Parameter.span(-0.25f, 0.35f),
+								Climate.Parameter.point(1f), Climate.Parameter.span(-0.1f, 0.75f), 0), biomeRegistry.getHolderOrThrow(SCULK_VALLEY)));
+					}
+					if (VariousWorldConfig.GENERATE_SHINY_VALLEY.get()){
+						parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.35f, 0.95f), Climate.Parameter.span(0.35f, 0.95f), Climate.Parameter.span(-0.15f, 0.6f), Climate.Parameter.span(0.4f, 1f),
+								Climate.Parameter.point(0f), Climate.Parameter.span(-0.9f, 0.4f), 0), biomeRegistry.getHolderOrThrow(SHINY_VALLEY)));
+						parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.35f, 0.95f), Climate.Parameter.span(0.35f, 0.95f), Climate.Parameter.span(-0.15f, 0.6f), Climate.Parameter.span(0.4f, 1f),
+								Climate.Parameter.point(1f), Climate.Parameter.span(-0.9f, 0.4f), 0), biomeRegistry.getHolderOrThrow(SHINY_VALLEY)));
+					}
+					if (VariousWorldConfig.GENERATE_CAVERN_OF_DEEP.get()){
+						parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(-0.75f, -0.25f), Climate.Parameter.span(-0.85f, -0.15f), Climate.Parameter.span(0.575f, 0.95f), Climate.Parameter.span(-0.5f, 0.375f),
+								Climate.Parameter.span(0.5f, 1.1f), Climate.Parameter.span(0.25f, 0.8f), 0), biomeRegistry.getHolderOrThrow(CAVERN_OF_DEEP)));
+					}
+					if (VariousWorldConfig.GENERATE_CAVERNS_OF_MAGMA_GROWTH.get()){
+						parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.35f, 1f), Climate.Parameter.span(-0.15f, 1.05f), Climate.Parameter.span(0.25f, 0.85f), Climate.Parameter.span(0.35f, 1f),
+								Climate.Parameter.span(0.3f, 0.9f), Climate.Parameter.span(0.25f, 0.75f), 0), biomeRegistry.getHolderOrThrow(CAVERNS_OF_MAGMA_GROWTH)));
+					}
 					chunkGenerator.biomeSource = MultiNoiseBiomeSource.createFromList(new Climate.ParameterList<>(parameters));
 					chunkGenerator.featuresPerStep = Suppliers
 							.memoize(() -> FeatureSorter.buildFeaturesPerStep(List.copyOf(chunkGenerator.biomeSource.possibleBiomes()), biome -> chunkGenerator.generationSettingsGetter.apply(biome).features(), true));
@@ -100,12 +113,10 @@ public class VariousWorldModBiomes {
 			}
 		}
 	}
-
 	private static SurfaceRules.RuleSource preliminarySurfaceRule(ResourceKey<Biome> biomeKey, BlockState groundBlock, BlockState undergroundBlock, BlockState underwaterBlock) {
 		return SurfaceRules.ifTrue(SurfaceRules.isBiome(biomeKey),
 				SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(),
-						SurfaceRules.sequence(
-								SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(0, false, 0, CaveSurface.FLOOR),
+						SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(0, false, 0, CaveSurface.FLOOR),
 										SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.waterBlockCheck(-1, 0), SurfaceRules.state(groundBlock)), SurfaceRules.state(underwaterBlock))),
 								SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(0, true, 0, CaveSurface.FLOOR), SurfaceRules.state(undergroundBlock)))));
 	}

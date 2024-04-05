@@ -21,31 +21,31 @@ public class AngelStarWingsLayer<T extends LivingEntity, M extends EntityModel<T
     private static final ResourceLocation WINGS_LOCATION = new ResourceLocation("various_world:textures/entities/angel_armor_top.png");
     private final ModelAngel_Armor_Wings<T> armorModel;
 
-    public AngelStarWingsLayer(RenderLayerParent<T, M> p_174493_, EntityModelSet p_174494_) {
-        super(p_174493_);
-        this.armorModel = new ModelAngel_Armor_Wings<>(p_174494_.bakeLayer(ModelAngel_Armor_Wings.LAYER_LOCATION));
+    public AngelStarWingsLayer(RenderLayerParent<T, M> parent, EntityModelSet modelSet) {
+        super(parent);
+        this.armorModel = new ModelAngel_Armor_Wings<>(modelSet.bakeLayer(ModelAngel_Armor_Wings.LAYER_LOCATION));
     }
 
-    public void render(PoseStack p_116951_, MultiBufferSource p_116952_, int p_116953_, T p_116954_, float p_116955_, float p_116956_, float p_116957_, float p_116958_, float p_116959_, float p_116960_) {
-        ItemStack itemstack = p_116954_.getItemBySlot(EquipmentSlot.CHEST);
-        if (shouldRender(itemstack, p_116954_)) {
+    public void render(PoseStack stack, MultiBufferSource source, int p_116953_, T entity, float p_116955_, float p_116956_, float p_116957_, float p_116958_, float p_116959_, float p_116960_) {
+        ItemStack itemstack = entity.getItemBySlot(EquipmentSlot.CHEST);
+        if (shouldRender(itemstack)) {
             ResourceLocation resourcelocation;
-            resourcelocation = getRodsLocation(itemstack, p_116954_);
-            p_116951_.pushPose();
-            p_116951_.translate(0.0F, 0.0F, 0.125F);
+            resourcelocation = getWingsLocation(itemstack, entity);
+            stack.pushPose();
+            stack.translate(0.0F, 0.0F, 0.125F);
             this.getParentModel().copyPropertiesTo(this.armorModel);
-            this.armorModel.setupAnim(p_116954_, p_116955_, p_116956_, p_116958_, p_116959_, p_116960_);
-            VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(p_116952_, RenderType.armorCutoutNoCull(resourcelocation), false, itemstack.hasFoil());
-            this.armorModel.renderToBuffer(p_116951_, vertexconsumer, p_116953_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-            p_116951_.popPose();
+            this.armorModel.setupAnim(entity, p_116955_, p_116956_, p_116958_, p_116959_, p_116960_);
+            VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(source, RenderType.armorCutoutNoCull(resourcelocation), false, itemstack.hasFoil());
+            this.armorModel.renderToBuffer(stack, vertexconsumer, p_116953_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            stack.popPose();
         }
     }
 
-    public boolean shouldRender(ItemStack stack, T entity) {
+    public boolean shouldRender(ItemStack stack) {
         return stack.getItem() == VariousWorldModItems.ANGEL_CHESTPLATE.get();
     }
 
-    public ResourceLocation getRodsLocation(ItemStack stack, T entity) {
+    public ResourceLocation getWingsLocation(ItemStack stack, T entity) {
         return WINGS_LOCATION;
     }
 }

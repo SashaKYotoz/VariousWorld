@@ -1,5 +1,5 @@
 {
-  "type": "various_world:small_sculk_bush",
+  "type": "minecraft:random_patch",
   "config": {
     "tries": 64,
     "feature": {

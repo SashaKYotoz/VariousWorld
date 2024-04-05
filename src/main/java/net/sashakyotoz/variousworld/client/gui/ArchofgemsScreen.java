@@ -47,7 +47,7 @@ public class ArchofgemsScreen extends AbstractContainerScreen<ArchOfGemsMenu> {
 		ms.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
 
 		RenderSystem.setShaderTexture(0, new ResourceLocation("various_world:textures/screens/archofgems1.png"));
-		ms.blit(new ResourceLocation("various_world:textures/screens/archofgems1.png"), this.leftPos + 0, this.topPos + 0, 0, 0, 185, 185, 185, 185);
+		ms.blit(new ResourceLocation("various_world:textures/screens/archofgems1.png"), this.leftPos, this.topPos, 0, 0, 185, 185, 185, 185);
 
 		RenderSystem.setShaderTexture(0, new ResourceLocation("various_world:textures/screens/dragon_eye_effect_icon.png"));
 		ms.blit(new ResourceLocation("various_world:textures/screens/dragon_eye_effect_icon.png"), this.leftPos + 82, this.topPos + 42, 0, 0, 16, 16, 16, 16);

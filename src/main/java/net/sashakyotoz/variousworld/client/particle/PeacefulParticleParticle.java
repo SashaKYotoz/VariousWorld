@@ -32,7 +32,7 @@ public class PeacefulParticleParticle extends TextureSheetParticle {
 
 	private final SpriteSet spriteSet;
 	private float angularVelocity;
-	private float angularAcceleration;
+	private final float angularAcceleration;
 
 	protected PeacefulParticleParticle(ClientLevel world, double x, double y, double z, double vx, double vy, double vz, SpriteSet spriteSet) {
 		super(world, x, y, z);

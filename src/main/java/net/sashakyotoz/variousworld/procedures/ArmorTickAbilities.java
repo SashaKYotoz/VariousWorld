@@ -30,7 +30,7 @@ public class ArmorTickAbilities {
                 player.addEffect(new MobEffectInstance(VariousWorldModMobEffects.AMETHYST_SPIKES.get(), 120, 0));
             }
             if (isFuryArmorSet(headSlot,chestSlot,legsSlot,feetSlot) && !player.hasEffect(MobEffects.DAMAGE_RESISTANCE) && !player.level().isClientSide())
-                player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 1));
+                player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 120, 1));
             if(isLordFuryArmorSet(headSlot,chestSlot,legsSlot,feetSlot) && !player.level().isClientSide()){
                 if(!player.hasEffect(MobEffects.FIRE_RESISTANCE))
                     player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 100, 1));

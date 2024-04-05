@@ -58,10 +58,10 @@ public class MycenaFromCavernOfDeep extends FlowerBlock implements BonemealableB
 	}
 	public static void execute(LevelAccessor world, double x, double y, double z) {
 			if (Math.random() < 0.25) {
-				if (world instanceof ServerLevel _serverworld) {
-					StructureTemplate template = _serverworld.getStructureManager().getOrCreate(new ResourceLocation("various_world", "mycena_big_mushroom"));
-					template.placeInWorld(_serverworld, BlockPos.containing(x - 3, y, z - 3), BlockPos.containing(x - 3, y, z - 3), new StructurePlaceSettings().setRotation(Rotation.NONE).setMirror(Mirror.NONE).setIgnoreEntities(false),
-							_serverworld.random, 3);
+				if (world instanceof ServerLevel serverLevel) {
+					StructureTemplate template = serverLevel.getStructureManager().getOrCreate(new ResourceLocation("various_world", "mycena_big_mushroom"));
+					template.placeInWorld(serverLevel, BlockPos.containing(x - 3, y, z - 3), BlockPos.containing(x - 3, y, z - 3), new StructurePlaceSettings().setRotation(Rotation.NONE).setMirror(Mirror.NONE).setIgnoreEntities(false),
+							serverLevel.random, 3);
 				}
 			}
 		}

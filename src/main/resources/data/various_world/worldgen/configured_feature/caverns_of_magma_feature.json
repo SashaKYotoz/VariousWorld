@@ -1,5 +1,5 @@
 {
-  "type": "various_world:caverns_of_magma_feature",
+  "type": "minecraft:random_patch",
   "config": {
     "tries": 96,
     "xz_spread": 6,

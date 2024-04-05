@@ -27,7 +27,7 @@ public class VariousWorldModVillagerProfessions {
 	private static final Map<String, ProfessionPoiType> POI_TYPES = new HashMap<>();
 	public static final DeferredRegister<VillagerProfession> PROFESSIONS = DeferredRegister.create(ForgeRegistries.VILLAGER_PROFESSIONS, VariousWorldMod.MODID);
 	public static final RegistryObject<VillagerProfession> CRYSTALLOGRAPHER = registerProfession("crystallographer", VariousWorldModBlocks.ARTIFACTTABLE,
-			() -> VariousWorldModSounds.ITEM_WAND_SHOOT);
+			() ->SoundEvents.AMETHYST_BLOCK_PLACE);
 	public static final RegistryObject<VillagerProfession> MYCOLOGIST = registerProfession("mycologist", VariousWorldModBlocks.MYCOLOCYFAROGRAPH,
 			() -> SoundEvents.MOOSHROOM_CONVERT);
 

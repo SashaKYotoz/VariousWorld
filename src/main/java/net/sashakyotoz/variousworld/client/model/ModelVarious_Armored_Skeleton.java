@@ -15,12 +15,12 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.AnimationUtils;
 
-import net.sashakyotoz.variousworld.entity.ArmoredskeletonEntity;
+import net.sashakyotoz.variousworld.entity.ArmoredSkeletonEntity;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-public class ModelVarious_Armored_Skeleton<T extends ArmoredskeletonEntity> extends EntityModel<T> implements ArmedModel {
+public class ModelVarious_Armored_Skeleton<T extends ArmoredSkeletonEntity> extends EntityModel<T> implements ArmedModel {
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("various_world", "model_various_armored_skeleton"), "main");
 	public final ModelPart waist;
 	public final ModelPart head;

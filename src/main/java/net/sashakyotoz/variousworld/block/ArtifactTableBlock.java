@@ -2,7 +2,7 @@
 package net.sashakyotoz.variousworld.block;
 
 import io.netty.buffer.Unpooled;
-import net.sashakyotoz.variousworld.block.entity.ArtifacttableBlockEntity;
+import net.sashakyotoz.variousworld.block.entity.ArtifactTableBlockEntity;
 import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
 import net.sashakyotoz.variousworld.procedures.ArtifactTableRandomTickProcedure;
 import net.sashakyotoz.variousworld.procedures.ArtifactTableUpdateTickProcedure;
@@ -170,7 +170,7 @@ public class ArtifactTableBlock extends Block implements SimpleWaterloggedBlock,
 
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		return new ArtifacttableBlockEntity(pos, state);
+		return new ArtifactTableBlockEntity(pos, state);
 	}
 
 	@Override
@@ -184,7 +184,7 @@ public class ArtifactTableBlock extends Block implements SimpleWaterloggedBlock,
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
 			BlockEntity blockEntity = world.getBlockEntity(pos);
-			if (blockEntity instanceof ArtifacttableBlockEntity be) {
+			if (blockEntity instanceof ArtifactTableBlockEntity be) {
 				Containers.dropContents(world, pos, be);
 				world.updateNeighbourForOutputSignal(pos, this);
 			}
@@ -200,7 +200,7 @@ public class ArtifactTableBlock extends Block implements SimpleWaterloggedBlock,
 	@Override
 	public int getAnalogOutputSignal(BlockState blockState, Level world, BlockPos pos) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
-		if (blockEntity instanceof ArtifacttableBlockEntity be)
+		if (blockEntity instanceof ArtifactTableBlockEntity be)
 			return AbstractContainerMenu.getRedstoneSignalFromContainer(be);
 		else
 			return 0;

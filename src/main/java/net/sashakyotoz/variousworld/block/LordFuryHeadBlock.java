@@ -47,12 +47,7 @@ public class LordFuryHeadBlock extends Block implements Equipable {
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-		return switch (state.getValue(FACING)) {
-			default -> box(1, 0, 1, 15, 15, 15);
-			case NORTH -> box(1, 0, 1, 15, 15, 15);
-			case EAST -> box(1, 0, 1, 15, 15, 15);
-			case WEST -> box(1, 0, 1, 15, 15, 15);
-		};
+		return box(1, 0, 1, 15, 15, 15);
 	}
 
 	@Override

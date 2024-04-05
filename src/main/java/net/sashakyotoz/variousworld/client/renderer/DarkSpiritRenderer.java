@@ -10,13 +10,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.entity.Pose;
 import net.sashakyotoz.variousworld.client.renderer.layers.DarkSpiritEasterLayer;
 import net.sashakyotoz.variousworld.entity.DarkSpiritEntity;
-import net.sashakyotoz.variousworld.client.model.ModelSpirit_of_the_Dark;
-import net.sashakyotoz.variousworld.entity.FuryLordEntity;
+import net.sashakyotoz.variousworld.client.model.ModelSpiritOfTheDark;
 import org.jetbrains.annotations.NotNull;
 
-public class DarkSpiritRenderer extends MobRenderer<DarkSpiritEntity, ModelSpirit_of_the_Dark<DarkSpiritEntity>> {
+public class DarkSpiritRenderer extends MobRenderer<DarkSpiritEntity, ModelSpiritOfTheDark<DarkSpiritEntity>> {
     public DarkSpiritRenderer(EntityRendererProvider.Context context) {
-        super(context, new ModelSpirit_of_the_Dark(context.bakeLayer(ModelSpirit_of_the_Dark.LAYER_LOCATION)), 0.5f);
+        super(context, new ModelSpiritOfTheDark(context.bakeLayer(ModelSpiritOfTheDark.LAYER_LOCATION)), 0.5f);
         this.addLayer(new DarkSpiritEasterLayer(this,context.getModelSet()));
     }
     @Override

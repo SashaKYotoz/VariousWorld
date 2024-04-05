@@ -42,8 +42,7 @@ public class DarkniumSwordItem extends SwordItem {
 
 	@Override
 	public boolean hurtEnemy(ItemStack itemstack, LivingEntity entity, LivingEntity sourceentity) {
-		boolean retval = super.hurtEnemy(itemstack, entity, sourceentity);
 		DarkniumSwordLivingEntityIsHitWithToolProcedure.execute(entity.level(), entity.getX(), entity.getY(), entity.getZ(), entity, sourceentity);
-		return retval;
+		return super.hurtEnemy(itemstack, entity, sourceentity);
 	}
 }

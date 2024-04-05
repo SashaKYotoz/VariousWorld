@@ -1,9 +1,6 @@
 
 package net.sashakyotoz.variousworld.block;
 
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
-import net.sashakyotoz.variousworld.procedures.SculkBushPlantRightClickedProcedure;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -22,6 +19,8 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.PlantType;
+import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldModItems;
 
 import java.util.Collections;
 import java.util.List;
@@ -62,9 +61,11 @@ public class SculkBushBlock extends DoublePlantBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState blockstate, Level world, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult hit) {
-		super.use(blockstate, world, pos, entity, hand, hit);
-		SculkBushPlantRightClickedProcedure.execute(world, pos.getX(), pos.getY(), pos.getZ());
+	public InteractionResult use(BlockState blockstate, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		super.use(blockstate, world, pos, player, hand, hit);
+		BlockState state = VariousWorldModBlocks.SCULK_BUSH_WITHOUT_BERRY.get().defaultBlockState();
+		world.setBlock(pos, state, 3);
+		player.spawnAtLocation(new ItemStack(VariousWorldModItems.SCULKBERRY.get()));
 		return InteractionResult.SUCCESS;
 	}
 	@Override

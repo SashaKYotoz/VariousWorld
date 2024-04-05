@@ -43,38 +43,31 @@ public class SmallCrystalClusterBlock extends AmethystBlock implements SimpleWat
 		super(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK).sound(SoundType.AMETHYST_CLUSTER).strength(0.5f, 5f).lightLevel(s -> 1)
 				.requiresCorrectToolForDrops().noCollission().noOcclusion().hasPostProcess((bs, br, bp) -> true)
 				.emissiveRendering((bs, br, bp) -> true).isRedstoneConductor((bs, br, bp) -> false));
-		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, Boolean.valueOf(false)).setValue(FACING, Direction.UP));
-		this.upAabb = Block.box((double) 7, 0.0D, (double) 7, (double) (16 - 7), (double) 5, (double) (16 - 7));
-		this.downAabb = Block.box((double) 7, (double) (16 - 7), (double) 7, (double) (16 - 7), 16.0D, (double) (16 - 7));
-		this.northAabb = Block.box((double) 7, (double) 7, (double) (16 - 7), (double) (16 - 7), (double) (16 - 7), 16.0D);
-		this.southAabb = Block.box((double) 7, (double) 7, 0.0D, (double) (16 - 7), (double) (16 - 7), (double) 5);
-		this.eastAabb = Block.box(0.0D, (double) 7, (double) 7, (double) 7, (double) (16 - 7), (double) (16 - 7));
-		this.westAabb = Block.box((double) (16 - 5), (double) 7, (double) 7, 16.0D, (double) (16 - 7), (double) (16 - 7));
+		this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, Boolean.FALSE).setValue(FACING, Direction.UP));
+		this.upAabb = Block.box(7, 0.0D, 7, 16 - 7, 5, 16 - 7);
+		this.downAabb = Block.box(7, 16 - 7, 7, 16 - 7, 16.0D, 16 - 7);
+		this.northAabb = Block.box(7, 7, 16 - 7, 16 - 7, 16 - 7, 16.0D);
+		this.southAabb = Block.box(7, 7, 0.0D, 16 - 7, 16 - 7, 5);
+		this.eastAabb = Block.box(0.0D, 7, 7, 7, 16 - 7, 16 - 7);
+		this.westAabb = Block.box(16 - 5, 7, 7, 16.0D, 16 - 7, 16 - 7);
 	}
 
-	public VoxelShape getShape(BlockState p_152021_, BlockGetter p_152022_, BlockPos p_152023_, CollisionContext p_152024_) {
-		Direction direction = p_152021_.getValue(FACING);
-		switch (direction) {
-			case NORTH :
-				return this.northAabb;
-			case SOUTH :
-				return this.southAabb;
-			case EAST :
-				return this.eastAabb;
-			case WEST :
-				return this.westAabb;
-			case DOWN :
-				return this.downAabb;
-			case UP :
-			default :
-				return this.upAabb;
-		}
+	public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
+		Direction direction = state.getValue(FACING);
+		return switch (direction) {
+			case NORTH -> this.northAabb;
+			case SOUTH -> this.southAabb;
+			case EAST -> this.eastAabb;
+			case WEST -> this.westAabb;
+			case DOWN -> this.downAabb;
+			default -> this.upAabb;
+		};
 	}
 
-	public boolean canSurvive(BlockState p_152026_, LevelReader p_152027_, BlockPos p_152028_) {
-		Direction direction = p_152026_.getValue(FACING);
+	public boolean canSurvive(BlockState state, LevelReader reader, BlockPos p_152028_) {
+		Direction direction = state.getValue(FACING);
 		BlockPos blockpos = p_152028_.relative(direction.getOpposite());
-		return p_152027_.getBlockState(blockpos).isFaceSturdy(p_152027_, blockpos, direction);
+		return reader.getBlockState(blockpos).isFaceSturdy(reader, blockpos, direction);
 	}
 
 	@Override
@@ -84,21 +77,21 @@ public class SmallCrystalClusterBlock extends AmethystBlock implements SimpleWat
 		return false;
 	}
 
-	public BlockState updateShape(BlockState p_152036_, Direction p_152037_, BlockState p_152038_, LevelAccessor p_152039_, BlockPos p_152040_,
+	public BlockState updateShape(BlockState state, Direction direction, BlockState blockState, LevelAccessor p_152039_, BlockPos p_152040_,
 			BlockPos p_152041_) {
-		if (p_152036_.getValue(WATERLOGGED)) {
+		if (state.getValue(WATERLOGGED)) {
 			p_152039_.scheduleTick(p_152040_, Fluids.WATER, Fluids.WATER.getTickDelay(p_152039_));
 		}
-		return p_152037_ == p_152036_.getValue(FACING).getOpposite() && !p_152036_.canSurvive(p_152039_, p_152040_)
+		return direction == state.getValue(FACING).getOpposite() && !state.canSurvive(p_152039_, p_152040_)
 				? Blocks.AIR.defaultBlockState()
-				: super.updateShape(p_152036_, p_152037_, p_152038_, p_152039_, p_152040_, p_152041_);
+				: super.updateShape(state, direction, blockState, p_152039_, p_152040_, p_152041_);
 	}
 
 	@Nullable
 	public BlockState getStateForPlacement(BlockPlaceContext p_152019_) {
 		LevelAccessor levelaccessor = p_152019_.getLevel();
 		BlockPos blockpos = p_152019_.getClickedPos();
-		return this.defaultBlockState().setValue(WATERLOGGED, Boolean.valueOf(levelaccessor.getFluidState(blockpos).getType() == Fluids.WATER))
+		return this.defaultBlockState().setValue(WATERLOGGED, levelaccessor.getFluidState(blockpos).getType() == Fluids.WATER)
 				.setValue(FACING, p_152019_.getClickedFace());
 	}
 

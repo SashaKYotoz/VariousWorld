@@ -4,7 +4,8 @@ package net.sashakyotoz.variousworld.client.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.world.entity.Pose;
-import net.sashakyotoz.variousworld.client.model.Modelcrystalic_warrior;
+import net.sashakyotoz.variousworld.client.model.ModelCrystalicWarrior;
+import net.sashakyotoz.variousworld.client.renderer.layers.AmethystSpikesEffectLayer;
 import net.sashakyotoz.variousworld.entity.CrystalWarriorEntity;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -13,15 +14,16 @@ import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-public class CrystalWarriorRenderer extends MobRenderer<CrystalWarriorEntity, Modelcrystalic_warrior<CrystalWarriorEntity>> {
+public class CrystalWarriorRenderer extends MobRenderer<CrystalWarriorEntity, ModelCrystalicWarrior<CrystalWarriorEntity>> {
 	public CrystalWarriorRenderer(EntityRendererProvider.Context context) {
-		super(context, new Modelcrystalic_warrior(context.bakeLayer(Modelcrystalic_warrior.LAYER_LOCATION)), 0.5f);
+		super(context, new ModelCrystalicWarrior(context.bakeLayer(ModelCrystalicWarrior.LAYER_LOCATION)), 0.5f);
 		this.addLayer(new EyesLayer<>(this) {
 			@Override
 			public RenderType renderType() {
 				return RenderType.eyes(new ResourceLocation("various_world:textures/entities/crystal_warrior.png"));
 			}
 		});
+		this.addLayer(new AmethystSpikesEffectLayer<>(this,context.getModelSet()));
 	}
 	@Override
 	protected void setupRotations(@NotNull CrystalWarriorEntity warriorEntity, PoseStack stack, float p_115319_, float p_115320_, float p_115321_) {

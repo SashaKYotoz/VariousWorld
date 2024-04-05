@@ -37,7 +37,7 @@ public class SculkVibrationParticle extends TextureSheetParticle {
 		this.spriteSet = spriteSet;
 		this.setSize(0.2f, 0.2f);
 		this.quadSize *= 2.5f;
-		this.lifetime = (int) Math.max(1, 15 + (this.random.nextInt(2) - 1));
+		this.lifetime = Math.max(1, 15 + (this.random.nextInt(2) - 1));
 		this.gravity = -0.025f;
 		this.hasPhysics = true;
 		this.xd = vx * 1;

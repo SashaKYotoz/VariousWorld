@@ -1,5 +1,5 @@
 {
-  "type": "various_world:shiny_plumeria",
+  "type": "minecraft:random_patch",
   "config": {
     "tries": 32,
     "feature": {

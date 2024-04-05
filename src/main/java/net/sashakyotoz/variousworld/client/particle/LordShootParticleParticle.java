@@ -37,7 +37,7 @@ public class LordShootParticleParticle extends TextureSheetParticle {
 		this.spriteSet = spriteSet;
 		this.setSize(0.5f, 0.5f);
 		this.quadSize *= 1.5f;
-		this.lifetime = (int) Math.max(1, 50 + (this.random.nextInt(10) - 5));
+		this.lifetime = Math.max(1, 50 + (this.random.nextInt(10) - 5));
 		this.gravity = 0.1f;
 		this.hasPhysics = true;
 		this.xd = vx * 0.5;

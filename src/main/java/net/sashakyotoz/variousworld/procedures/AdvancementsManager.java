@@ -25,6 +25,7 @@ public class AdvancementsManager {
 	public static final ResourceLocation MINING_ALLAY_ADV = new ResourceLocation(VariousWorldMod.MODID,"mining_allay");
 	public static final ResourceLocation CRYSTALIC_WARRIOR_ADV = new ResourceLocation(VariousWorldMod.MODID,"kill_first_titan");
 	public static final ResourceLocation DARK_SPIRIT_ADV = new ResourceLocation(VariousWorldMod.MODID,"defeatthedarkspirit");
+	public static final ResourceLocation EASTER_DARK_SPIRIT_ADV = new ResourceLocation(VariousWorldMod.MODID,"easter_dark_spirit_advancement");
 	public static final ResourceLocation SCULK_NECROMANCER_ADV = new ResourceLocation(VariousWorldMod.MODID,"necromancer_dead");
 	public static final ResourceLocation LORD_OF_FURIES_ADV = new ResourceLocation(VariousWorldMod.MODID,"lord_fury_advancement");
 	public static final ResourceLocation CRYSTALIC_SWORD_ADV = new ResourceLocation(VariousWorldMod.MODID,"createacoolsword");
@@ -64,6 +65,7 @@ public class AdvancementsManager {
 		ADVANCEMENT_MAP.put(FURY_INGOT_ADV,FURY_INGOT_ADV);
 		ADVANCEMENT_MAP.put(LORD_FURY_SCALES_ADV,LORD_FURY_SCALES_ADV);
 		ADVANCEMENT_MAP.put(MORE_COLORS_ADV,MORE_COLORS_ADV);
+		ADVANCEMENT_MAP.put(EASTER_DARK_SPIRIT_ADV,EASTER_DARK_SPIRIT_ADV);
 	}
 	public static void addAdvancement(Player player, ResourceLocation location) {
 		ResourceLocation tmpLocation = ADVANCEMENT_MAP.get(location);

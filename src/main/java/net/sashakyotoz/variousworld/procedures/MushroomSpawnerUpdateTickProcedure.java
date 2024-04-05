@@ -28,13 +28,9 @@ public class MushroomSpawnerUpdateTickProcedure {
 		if ((world.getBlockState(BlockPos.containing(x, y + 1, z))).getBlock() == Blocks.AIR) {
 			Random = Math.round(Math.random());
 			if (Random == 0) {
-				VariousWorldMod.queueServerWork(60, () -> {
-					world.setBlock(BlockPos.containing(x, y + 1, z), VariousWorldModBlocks.MYCENA_FROM_CAVERN_OF_DEEP.get().defaultBlockState(), 3);
-				});
+				VariousWorldMod.queueServerWork(60, () -> world.setBlock(BlockPos.containing(x, y + 1, z), VariousWorldModBlocks.MYCENA_FROM_CAVERN_OF_DEEP.get().defaultBlockState(), 3));
 			} else if (Random == 1) {
-				VariousWorldMod.queueServerWork(60, () -> {
-					world.setBlock(BlockPos.containing(x, y + 1, z), VariousWorldModBlocks.CRYSHROOM_PLANT.get().defaultBlockState(), 3);
-				});
+				VariousWorldMod.queueServerWork(60, () -> world.setBlock(BlockPos.containing(x, y + 1, z), VariousWorldModBlocks.CRYSHROOM_PLANT.get().defaultBlockState(), 3));
 			}
 		}
 	}

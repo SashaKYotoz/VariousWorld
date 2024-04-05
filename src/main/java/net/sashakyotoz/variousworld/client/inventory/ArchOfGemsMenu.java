@@ -40,7 +40,7 @@ public class ArchOfGemsMenu extends AbstractContainerMenu implements Supplier<Ma
 	private boolean bound = false;
 
 	public ArchOfGemsMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
-		super(VariousWorldModMenus.ARCHOFGEMS.get(), id);
+		super(VariousWorldModMenus.ARCH_OF_GEMS.get(), id);
 		this.entity = inv.player;
 		this.world = inv.player.level();
 		this.internal = new ItemStackHandler(4);

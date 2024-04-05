@@ -65,14 +65,10 @@
       "minecraft:monster_room_deep"
     ],
     [],
-    [],
     [
-      "minecraft:ore_coal_upper",
-      "minecraft:ore_coal_lower",
       "minecraft:ore_iron_upper",
       "minecraft:ore_iron_middle",
       "minecraft:ore_iron_small",
-      "minecraft:ore_gold",
       "minecraft:ore_gold_lower",
       "minecraft:ore_diamond",
       "minecraft:ore_diamond_large",
@@ -83,11 +79,11 @@
       "minecraft:ore_emerald"
     ],
     [],
-    [],
     [
       "various_world:shiny_valley_tree",
-      "various_world:shiny_valley_tree1"
-    ],
-    []
+      "various_world:shiny_valley_tree1",
+      "minecraft:flower_meadow",
+      "minecraft:flower_swamp"
+    ]
   ]
 }

@@ -12,6 +12,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -24,15 +25,20 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.sashakyotoz.variousworld.VariousWorldMod;
 import net.sashakyotoz.variousworld.entity.SpiritofPeacefulWastelandEntity;
 import net.sashakyotoz.variousworld.init.*;
+
+import javax.annotation.Nullable;
+import java.util.Objects;
 
 @Mod.EventBusSubscriber
 public class EventManager {
@@ -42,6 +48,31 @@ public class EventManager {
         if (event != null && event.getEntity() != null) {
             witheredEnchantmentAction(event.getEntity(), event.getSource().getEntity());
             slimeballSwordAttackWith(event.getEntity(), event.getSource().getEntity());
+            amethystSpikesHit(event.getEntity(), event.getSource().getEntity());
+        }
+    }
+    private static double getXVector(double speed, double yaw) {
+        return speed * Math.cos((yaw + 90) * (Math.PI / 180));
+    }
+
+    private static double getZVector(double speed, double yaw) {
+        return speed * Math.sin((yaw + 90) * (Math.PI / 180));
+    }
+    @SubscribeEvent
+    public static void onPlayerGetFallDamage(LivingDamageEvent event){
+        if (event.getSource().is(DamageTypes.FALL)){
+            if (event.getEntity() instanceof Player player && player.getItemBySlot(EquipmentSlot.HEAD).is(VariousWorldModItems.SLIME_ARMOR_HELMET.get())
+                    && player.getItemBySlot(EquipmentSlot.CHEST).is(VariousWorldModItems.SLIME_ARMOR_CHESTPLATE.get())
+                    && player.getItemBySlot(EquipmentSlot.LEGS).is(VariousWorldModItems.SLIME_ARMOR_LEGGINGS.get())
+                    && player.getItemBySlot(EquipmentSlot.FEET).is(VariousWorldModItems.SLIME_ARMOR_BOOTS.get())){
+                if (player.fallDistance > 1){
+                    if (!player.isShiftKeyDown())
+                        player.setDeltaMovement(getXVector(player.fallDistance* player.fallDistance > 5 ? 0.25f : 0.75f,player.getYRot()),player.fallDistance*0.5f,getZVector(player.fallDistance *0.75f,player.getYRot()));
+                    player.getItemBySlot(EquipmentSlot.FEET).hurtAndBreak(1, player, (player1) -> player1.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+                    event.setAmount(0);
+                    player.fallDistance = 0;
+                }
+            }
         }
     }
 
@@ -224,7 +255,11 @@ public class EventManager {
             player.getItemBySlot(EquipmentSlot.FEET).setDamageValue(0);
         }
     }
-
+    private static void amethystSpikesHit(Entity entity, Entity sourceentity) {
+        if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(VariousWorldModMobEffects.AMETHYST_SPIKES.get()) && sourceentity != null) {
+            sourceentity.hurt(sourceentity.damageSources().generic(),(Objects.requireNonNull(livingEntity.getEffect(VariousWorldModMobEffects.AMETHYST_SPIKES.get())).getAmplifier() + 1));
+        }
+    }
     private static void itemUpgrading(Player entity) {
         if (entity == null)
             return;
@@ -308,7 +343,7 @@ public class EventManager {
                     && livingEntity.getItemBySlot(EquipmentSlot.CHEST).getItem() == VariousWorldModItems.SLIME_ARMOR_CHESTPLATE.get()
                     && livingEntity.getItemBySlot(EquipmentSlot.LEGS).getItem() == VariousWorldModItems.SLIME_ARMOR_LEGGINGS.get()
                     && livingEntity.getItemBySlot(EquipmentSlot.FEET).getItem() == VariousWorldModItems.SLIME_ARMOR_BOOTS.get()) {
-                entity.setDeltaMovement(new Vec3(0, 1, 0));
+                entity.setDeltaMovement(new Vec3(0, 0.65, 0));
             }
         }
     }

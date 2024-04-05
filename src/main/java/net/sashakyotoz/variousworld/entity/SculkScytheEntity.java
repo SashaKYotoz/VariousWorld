@@ -68,13 +68,12 @@ public class SculkScytheEntity extends AbstractArrow implements ItemSupplier {
 	@Override
 	public void tick() {
 		super.tick();
-		execute(this.level(), this.getX(), this.getY(), this.getZ());
 		if (this.inGround)
 			this.discard();
-	}
-	public static void execute(LevelAccessor world, double x, double y, double z) {
-		if (Math.random() < 0.25) {
-			world.addParticle(ParticleTypes.SONIC_BOOM, x, y, z, 0, 0, 0);
+		else{
+			if (this.tickCount % 20 == 0) {
+				this.level().addParticle(ParticleTypes.SONIC_BOOM, this.getX(),this.getY(),this.getZ(), 0, 0, 0);
+			}
 		}
 	}
 
@@ -91,17 +90,17 @@ public class SculkScytheEntity extends AbstractArrow implements ItemSupplier {
 	}
 
 	public static SculkScytheEntity shoot(LivingEntity entity, LivingEntity target) {
-		SculkScytheEntity entityarrow = new SculkScytheEntity(VariousWorldModEntities.SCULK_SCYTHE_RANGED_ITEM.get(), entity, entity.level());
+		SculkScytheEntity scythe = new SculkScytheEntity(VariousWorldModEntities.SCULK_SCYTHE_RANGED_ITEM.get(), entity, entity.level());
 		double dx = target.getX() - entity.getX();
 		double dy = target.getY() + target.getEyeHeight() - 1.1;
 		double dz = target.getZ() - entity.getZ();
-		entityarrow.shoot(dx, dy - entityarrow.getY() + Math.hypot(dx, dz) * 0.2F, dz, 2f, 12.0F);
-		entityarrow.setSilent(true);
-		entityarrow.setBaseDamage(5);
-		entityarrow.setKnockback(3);
-		entityarrow.setCritArrow(false);
-		entity.level().addFreshEntity(entityarrow);
+		scythe.shoot(dx, dy - scythe.getY() + Math.hypot(dx, dz) * 0.2F, dz, 2f, 12.0F);
+		scythe.setSilent(true);
+		scythe.setBaseDamage(5);
+		scythe.setKnockback(3);
+		scythe.setCritArrow(false);
+		entity.level().addFreshEntity(scythe);
 		entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), VariousWorldModSounds.ITEM_WAND_SHOOT, SoundSource.PLAYERS, 1, 1f / (RandomSource.create().nextFloat() * 0.5f + 1));
-		return entityarrow;
+		return scythe;
 	}
 }

@@ -34,14 +34,14 @@ public class SculkberryItem extends Item {
 
 	@Override
 	public ItemStack finishUsingItem(ItemStack itemstack, Level world, LivingEntity entity) {
-		ItemStack retval = new ItemStack(VariousWorldModItems.SCULK_SHARD.get());
+		ItemStack stack = new ItemStack(VariousWorldModItems.SCULK_SHARD.get());
 		super.finishUsingItem(itemstack, world, entity);
 		if (itemstack.isEmpty()) {
-			return retval;
+			return stack;
 		} else {
 			if (entity instanceof Player player && !player.getAbilities().instabuild) {
-				if (!player.getInventory().add(retval))
-					player.drop(retval, false);
+				if (!player.getInventory().add(stack))
+					player.drop(stack, false);
 			}
 			return itemstack;
 		}

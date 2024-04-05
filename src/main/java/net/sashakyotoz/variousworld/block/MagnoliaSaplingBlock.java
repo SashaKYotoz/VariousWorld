@@ -25,9 +25,6 @@ public class MagnoliaSaplingBlock extends SaplingBlock implements BonemealableBl
 	public MagnoliaSaplingBlock() {
 		super(new MagnoliaTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING).sound(SoundType.GRASS).instabreak().noCollission());
 	}
-
-
-
 	@Override
 	public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
 		return 50;

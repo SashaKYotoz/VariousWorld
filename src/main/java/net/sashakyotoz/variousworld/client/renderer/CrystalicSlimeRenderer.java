@@ -23,30 +23,26 @@ public class CrystalicSlimeRenderer extends MobRenderer<CrystalicSlimeEntity, Mo
 		this.addLayer(new CrystalicSlimeOuterLayer<>(this, context.getModelSet()));
 	}
 
-	public void render(CrystalicSlimeEntity p_115976_, float p_115977_, float p_115978_, PoseStack p_115979_, MultiBufferSource p_115980_, int p_115981_) {
-		this.shadowRadius = 0.25F * (float) p_115976_.getSize();
-		super.render(p_115976_, p_115977_, p_115978_, p_115979_, p_115980_, p_115981_);
+	public void render(CrystalicSlimeEntity entity, float p_115977_, float p_115978_, PoseStack stack, MultiBufferSource p_115980_, int p_115981_) {
+		this.shadowRadius = 0.25F * (float) entity.getSize();
+		super.render(entity, p_115977_, p_115978_, stack, p_115980_, p_115981_);
 	}
 
-	protected void scale(CrystalicSlimeEntity p_115983_, PoseStack p_115984_, float p_115985_) {
-		p_115984_.scale(0.999F, 0.999F, 0.999F);
-		p_115984_.translate(0.0D, 0.001F, 0.0D);
-		float f1 = (float) p_115983_.getSize();
-		float f2 = Mth.lerp(p_115985_, p_115983_.oSquish, p_115983_.squish) / (f1 * 0.5F + 1.0F);
+	protected void scale(CrystalicSlimeEntity entity, PoseStack stack, float p_115985_) {
+		stack.scale(0.999F, 0.999F, 0.999F);
+		stack.translate(0.0D, 0.001F, 0.0D);
+		float f1 = (float) entity.getSize();
+		float f2 = Mth.lerp(p_115985_, entity.oSquish, entity.squish) / (f1 * 0.5F + 1.0F);
 		float f3 = 1.0F / (f2 + 1.0F);
-		p_115984_.scale(f3 * f1, 1.0F / f3 * f1, f3 * f1);
+		stack.scale(f3 * f1, 1.0F / f3 * f1, f3 * f1);
 	}
 
 	@Override
 	public ResourceLocation getTextureLocation(CrystalicSlimeEntity entity) {
-		switch (entity.texture) {
-			case 0 :
-				return SLIME_LOCATION;
-			case 1 :
-				return SLIME_LOCATION1;
-			case 2 :
-				return SLIME_LOCATION2;
-		}
-		return SLIME_LOCATION;
+		return switch (entity.texture) {
+			case 1 -> SLIME_LOCATION1;
+			case 2 -> SLIME_LOCATION2;
+			default -> SLIME_LOCATION;
+		};
 	}
 }

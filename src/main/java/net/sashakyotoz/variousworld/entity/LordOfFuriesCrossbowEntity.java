@@ -77,31 +77,31 @@ public class LordOfFuriesCrossbowEntity extends AbstractArrow implements ItemSup
 	}
 
 	public static LordOfFuriesCrossbowEntity shoot(Level world, LivingEntity entity, RandomSource random, float power, double damage, int knockback) {
-		LordOfFuriesCrossbowEntity entityarrow = new LordOfFuriesCrossbowEntity(VariousWorldModEntities.LORD_OF_FURIES_CROSSBOW.get(), entity, world);
-		entityarrow.shoot(entity.getViewVector(1).x, entity.getViewVector(1).y, entity.getViewVector(1).z, power * 2, 0);
-		entityarrow.setSilent(true);
-		entityarrow.setCritArrow(false);
-		entityarrow.setBaseDamage(damage);
-		entityarrow.setKnockback(knockback);
-		entityarrow.setSecondsOnFire(100);
-		world.addFreshEntity(entityarrow);
+		LordOfFuriesCrossbowEntity arrow = new LordOfFuriesCrossbowEntity(VariousWorldModEntities.LORD_OF_FURIES_CROSSBOW.get(), entity, world);
+		arrow.shoot(entity.getViewVector(1).x, entity.getViewVector(1).y, entity.getViewVector(1).z, power * 2, 0);
+		arrow.setSilent(true);
+		arrow.setCritArrow(false);
+		arrow.setBaseDamage(damage);
+		arrow.setKnockback(knockback);
+		arrow.setSecondsOnFire(100);
+		world.addFreshEntity(arrow);
 		world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.CROSSBOW_SHOOT, SoundSource.PLAYERS, 1, 1f / (random.nextFloat() * 0.5f + 1) + (power / 2));
-		return entityarrow;
+		return arrow;
 	}
 
-	public static LordOfFuriesCrossbowEntity shoot(LivingEntity entity, LivingEntity target) {
-		LordOfFuriesCrossbowEntity entityarrow = new LordOfFuriesCrossbowEntity(VariousWorldModEntities.LORD_OF_FURIES_CROSSBOW.get(), entity, entity.level());
-		double dx = target.getX() - entity.getX();
-		double dy = target.getY() + target.getEyeHeight() - 1.1;
-		double dz = target.getZ() - entity.getZ();
-		entityarrow.shoot(dx, dy - entityarrow.getY() + Math.hypot(dx, dz) * 0.2F, dz, 1.25f * 2, 12.0F);
-		entityarrow.setSilent(true);
-		entityarrow.setBaseDamage(8);
-		entityarrow.setKnockback(5);
-		entityarrow.setCritArrow(false);
-		entityarrow.setSecondsOnFire(100);
-		entity.level().addFreshEntity(entityarrow);
-		entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.CROSSBOW_SHOOT, SoundSource.PLAYERS, 1, 1f / (RandomSource.create().nextFloat() * 0.5f + 1));
-		return entityarrow;
-	}
+//	public static LordOfFuriesCrossbowEntity shoot(LivingEntity entity, LivingEntity target) {
+//		LordOfFuriesCrossbowEntity arrow = new LordOfFuriesCrossbowEntity(VariousWorldModEntities.LORD_OF_FURIES_CROSSBOW.get(), entity, entity.level());
+//		double dx = target.getX() - entity.getX();
+//		double dy = target.getY() + target.getEyeHeight() - 1.1;
+//		double dz = target.getZ() - entity.getZ();
+//		arrow.shoot(dx, dy - arrow.getY() + Math.hypot(dx, dz) * 0.2F, dz, 1.25f * 2, 12.0F);
+//		arrow.setSilent(true);
+//		arrow.setBaseDamage(8);
+//		arrow.setKnockback(5);
+//		arrow.setCritArrow(false);
+//		arrow.setSecondsOnFire(100);
+//		entity.level().addFreshEntity(arrow);
+//		entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.CROSSBOW_SHOOT, SoundSource.PLAYERS, 1, 1f / (RandomSource.create().nextFloat() * 0.5f + 1));
+//		return arrow;
+//	}
 }

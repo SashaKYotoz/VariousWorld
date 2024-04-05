@@ -1,4 +1,3 @@
-
 package net.sashakyotoz.variousworld.block;
 
 import net.sashakyotoz.variousworld.init.VariousWorldModItems;
@@ -84,22 +83,22 @@ public class CrystalClusterBlock extends AmethystBlock implements SimpleWaterlog
 		return false;
 	}
 
-	public BlockState updateShape(BlockState p_152036_, Direction p_152037_, BlockState p_152038_, LevelAccessor p_152039_, BlockPos p_152040_,
+	public BlockState updateShape(BlockState state, Direction direction, BlockState p_152038_, LevelAccessor p_152039_, BlockPos p_152040_,
 			BlockPos p_152041_) {
-		if (p_152036_.getValue(WATERLOGGED)) {
+		if (state.getValue(WATERLOGGED)) {
 			p_152039_.scheduleTick(p_152040_, Fluids.WATER, Fluids.WATER.getTickDelay(p_152039_));
 		}
-		return p_152037_ == p_152036_.getValue(FACING).getOpposite() && !p_152036_.canSurvive(p_152039_, p_152040_)
+		return direction == state.getValue(FACING).getOpposite() && !state.canSurvive(p_152039_, p_152040_)
 				? Blocks.AIR.defaultBlockState()
-				: super.updateShape(p_152036_, p_152037_, p_152038_, p_152039_, p_152040_, p_152041_);
+				: super.updateShape(state, direction, p_152038_, p_152039_, p_152040_, p_152041_);
 	}
 
 	@Nullable
-	public BlockState getStateForPlacement(BlockPlaceContext p_152019_) {
-		LevelAccessor levelaccessor = p_152019_.getLevel();
-		BlockPos blockpos = p_152019_.getClickedPos();
-		return this.defaultBlockState().setValue(WATERLOGGED, Boolean.valueOf(levelaccessor.getFluidState(blockpos).getType() == Fluids.WATER))
-				.setValue(FACING, p_152019_.getClickedFace());
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		LevelAccessor levelaccessor = context.getLevel();
+		BlockPos blockpos = context.getClickedPos();
+		return this.defaultBlockState().setValue(WATERLOGGED, levelaccessor.getFluidState(blockpos).getType() == Fluids.WATER)
+				.setValue(FACING, context.getClickedFace());
 	}
 
 	public BlockState rotate(BlockState p_152033_, Rotation p_152034_) {
@@ -110,8 +109,8 @@ public class CrystalClusterBlock extends AmethystBlock implements SimpleWaterlog
 		return p_152030_.rotate(p_152031_.getRotation(p_152030_.getValue(FACING)));
 	}
 
-	public FluidState getFluidState(BlockState p_152045_) {
-		return p_152045_.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(p_152045_);
+	public FluidState getFluidState(BlockState state) {
+		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
 
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_152043_) {

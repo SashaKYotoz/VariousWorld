@@ -1,5 +1,6 @@
 package net.sashakyotoz.variousworld.block.entity;
 
+import net.minecraft.world.item.Items;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.common.util.LazyOptional;
@@ -31,7 +32,7 @@ import java.util.stream.IntStream;
 import io.netty.buffer.Unpooled;
 
 public class DisenchantTableBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {
-	private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>withSize(3, ItemStack.EMPTY);
+	private NonNullList<ItemStack> stacks = NonNullList.withSize(3, ItemStack.EMPTY);
 	private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());
 
 	public DisenchantTableBlockEntity(BlockPos position, BlockState state) {
@@ -53,7 +54,15 @@ public class DisenchantTableBlockEntity extends RandomizableContainerBlockEntity
 			ContainerHelper.saveAllItems(compound, this.stacks);
 		}
 	}
-
+	public ItemStack getItemStackToShow(){
+		if (!this.getItem(0).isEmpty() && !this.getItem(2).is(Items.ENCHANTED_BOOK))
+			return this.getItem(0);
+		if (this.getItem(2).is(Items.ENCHANTED_BOOK))
+			return this.getItem(2);
+		if (this.getItem(0).isEmpty() && !this.getItem(1).isEmpty() && this.getItem(2).isEmpty())
+			return this.getItem(1);
+		return ItemStack.EMPTY;
+	}
 	@Override
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {
 		return ClientboundBlockEntityDataPacket.create(this);
@@ -94,7 +103,7 @@ public class DisenchantTableBlockEntity extends RandomizableContainerBlockEntity
 
 	@Override
 	public Component getDisplayName() {
-		return Component.literal("Disenchant Table");
+		return Component.translatable("block.various_world.disenchant_table");
 	}
 
 	@Override

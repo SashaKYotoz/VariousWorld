@@ -73,7 +73,7 @@ public class MycolocyfarographBlockEntity extends BlockEntity implements MenuPro
 
 	@Override
 	public Component getDisplayName() {
-		return Component.literal("Mycolocyfarograph");
+		return Component.translatable("block.various_world.mycolocyfarograph");
 	}
 
 	@Nullable
@@ -124,18 +124,18 @@ public class MycolocyfarographBlockEntity extends BlockEntity implements MenuPro
 		Containers.dropContents(this.level, this.worldPosition, inventory);
 	}
 
-	public void tick(Level level, BlockPos pos, BlockState state, MycolocyfarographBlockEntity pEntity) {
+	public void tick(Level level, BlockPos pos, BlockState state, MycolocyfarographBlockEntity blockEntity) {
 		if (level.isClientSide()) {
 			return;
 		}
-		if (hasRecipe(pEntity)) {
-			pEntity.progress++;
+		if (hasRecipe(blockEntity)) {
+			blockEntity.progress++;
 			setChanged(level, pos, state);
-			if (pEntity.progress >= pEntity.maxProgress) {
-				craftItem(pEntity);
+			if (blockEntity.progress >= blockEntity.maxProgress) {
+				craftItem(blockEntity);
 			}
 		} else {
-			pEntity.resetProgress();
+			blockEntity.resetProgress();
 			setChanged(level, pos, state);
 		}
 	}
@@ -148,8 +148,7 @@ public class MycolocyfarographBlockEntity extends BlockEntity implements MenuPro
 		if (hasRecipe(pEntity)) {
 			pEntity.itemHandler.extractItem(1, 1, false);
 			pEntity.itemHandler.setStackInSlot(0, new ItemStack(Items.ROTTEN_FLESH, pEntity.itemHandler.getStackInSlot(0).getCount() + 1));
-			pEntity.itemHandler.setStackInSlot(2,
-					new ItemStack(ForgeRegistries.ITEMS.tags().getTag(ItemTags.create(new ResourceLocation("various_world:mushroom_drop"))).getRandomElement(RandomSource.create()).get(), pEntity.itemHandler.getStackInSlot(2).getCount() + 1));
+			pEntity.itemHandler.setStackInSlot(2, new ItemStack(ForgeRegistries.ITEMS.tags().getTag(ItemTags.create(new ResourceLocation("various_world:mushroom_drop"))).getRandomElement(RandomSource.create()).get(), pEntity.itemHandler.getStackInSlot(2).getCount() + 1));
 			pEntity.resetProgress();
 		}
 	}
@@ -159,8 +158,8 @@ public class MycolocyfarographBlockEntity extends BlockEntity implements MenuPro
 		for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
 			inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
 		}
-		boolean hasRawGemInFirstSlot = entity.itemHandler.getStackInSlot(1).getItem() == VariousWorldModItems.MYCENA_FROM_CAVERN_OF_DEEP_FOOD.get() ||entity.itemHandler.getStackInSlot(1).getItem() == VariousWorldModItems.CRYSHROOM.get() || entity.itemHandler.getStackInSlot(1).getItem() == Items.BROWN_MUSHROOM || entity.itemHandler.getStackInSlot(1).getItem() == Items.RED_MUSHROOM;
-		return hasRawGemInFirstSlot && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory, new ItemStack(ForgeRegistries.ITEMS.tags().getTag(ItemTags.create(new ResourceLocation("various_world:mushroom_drop"))).getRandomElement(RandomSource.create()).get()));
+		boolean hasItemInFirstSlot = entity.itemHandler.getStackInSlot(1).getItem() == VariousWorldModItems.MYCENA_FROM_CAVERN_OF_DEEP_FOOD.get() ||entity.itemHandler.getStackInSlot(1).getItem() == VariousWorldModItems.CRYSHROOM.get() || entity.itemHandler.getStackInSlot(1).getItem() == Items.BROWN_MUSHROOM || entity.itemHandler.getStackInSlot(1).getItem() == Items.RED_MUSHROOM;
+		return hasItemInFirstSlot && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory, new ItemStack(ForgeRegistries.ITEMS.tags().getTag(ItemTags.create(new ResourceLocation("various_world:mushroom_drop"))).getRandomElement(RandomSource.create()).get()));
 	}
 
 	private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack stack) {

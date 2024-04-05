@@ -19,7 +19,7 @@ public class SculkScytheRangedItemProjectileHitsLivingEntityProcedure {
 			}
 		}
 		if (entity instanceof LivingEntity livingEntity && !livingEntity.level().isClientSide()){
-			if(Math.random() > 0.5)
+			if(livingEntity.getRandom().nextBoolean())
 				livingEntity.addEffect(new MobEffectInstance(MobEffects.WITHER, 60, 1, false, false));
 			else
 				livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 1, false, false));

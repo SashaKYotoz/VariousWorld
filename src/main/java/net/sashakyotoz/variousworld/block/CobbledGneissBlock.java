@@ -1,4 +1,3 @@
-
 package net.sashakyotoz.variousworld.block;
 
 import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;

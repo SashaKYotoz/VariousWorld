@@ -51,67 +51,62 @@ public class DarkSpiritGlovesEntity extends Projectile {
 		this.noPhysics = true;
 	}
 
-	public DarkSpiritGlovesEntity(Level p_37330_, LivingEntity p_37331_, Entity p_37332_, Direction.Axis p_37333_) {
-		this(VariousWorldModEntities.DARK_SPIRIT_GLOVES.get(), p_37330_);
-		this.setOwner(p_37331_);
-		BlockPos blockpos = p_37331_.blockPosition();
+	public DarkSpiritGlovesEntity(Level level, LivingEntity living, Entity entity, Direction.Axis axis) {
+		this(VariousWorldModEntities.DARK_SPIRIT_GLOVES.get(), level);
+		this.setOwner(living);
+		BlockPos blockpos = living.blockPosition();
 		double d0 = (double)blockpos.getX() + 0.5D;
 		double d1 = (double)blockpos.getY() + 0.5D;
 		double d2 = (double)blockpos.getZ() + 0.5D;
 		this.moveTo(d0, d1, d2, this.getYRot(), this.getXRot());
-		this.finalTarget = p_37332_;
+		this.finalTarget = entity;
 		this.currentMoveDirection = Direction.UP;
-		this.selectNextMoveDirection(p_37333_);
+		this.selectNextMoveDirection(axis);
 	}
 
 	public SoundSource getSoundSource() {
 		return SoundSource.HOSTILE;
 	}
 
-	protected void addAdditionalSaveData(CompoundTag p_37357_) {
-		super.addAdditionalSaveData(p_37357_);
+	protected void addAdditionalSaveData(CompoundTag tag) {
+		super.addAdditionalSaveData(tag);
 		if (this.finalTarget != null) {
-			p_37357_.putUUID("Target", this.finalTarget.getUUID());
+			tag.putUUID("Target", this.finalTarget.getUUID());
 		}
 
 		if (this.currentMoveDirection != null) {
-			p_37357_.putInt("Dir", this.currentMoveDirection.get3DDataValue());
+			tag.putInt("Dir", this.currentMoveDirection.get3DDataValue());
 		}
 
-		p_37357_.putInt("Steps", this.flightSteps);
-		p_37357_.putDouble("TXD", this.targetDeltaX);
-		p_37357_.putDouble("TYD", this.targetDeltaY);
-		p_37357_.putDouble("TZD", this.targetDeltaZ);
+		tag.putInt("Steps", this.flightSteps);
+		tag.putDouble("TXD", this.targetDeltaX);
+		tag.putDouble("TYD", this.targetDeltaY);
+		tag.putDouble("TZD", this.targetDeltaZ);
 	}
 
-	protected void readAdditionalSaveData(CompoundTag p_37353_) {
-		super.readAdditionalSaveData(p_37353_);
-		this.flightSteps = p_37353_.getInt("Steps");
-		this.targetDeltaX = p_37353_.getDouble("TXD");
-		this.targetDeltaY = p_37353_.getDouble("TYD");
-		this.targetDeltaZ = p_37353_.getDouble("TZD");
-		if (p_37353_.contains("Dir", 99)) {
-			this.currentMoveDirection = Direction.from3DDataValue(p_37353_.getInt("Dir"));
+	protected void readAdditionalSaveData(CompoundTag tag) {
+		super.readAdditionalSaveData(tag);
+		this.flightSteps = tag.getInt("Steps");
+		this.targetDeltaX = tag.getDouble("TXD");
+		this.targetDeltaY = tag.getDouble("TYD");
+		this.targetDeltaZ = tag.getDouble("TZD");
+		if (tag.contains("Dir", 99)) {
+			this.currentMoveDirection = Direction.from3DDataValue(tag.getInt("Dir"));
 		}
 
-		if (p_37353_.hasUUID("Target")) {
-			this.targetId = p_37353_.getUUID("Target");
+		if (tag.hasUUID("Target")) {
+			this.targetId = tag.getUUID("Target");
 		}
 
 	}
-
 	protected void defineSynchedData() {
-	}
-	@Nullable
-	private Direction getMoveDirection() {
-		return this.currentMoveDirection;
 	}
 
 	private void setMoveDirection(@Nullable Direction p_37351_) {
 		this.currentMoveDirection = p_37351_;
 	}
 
-	private void selectNextMoveDirection(@Nullable Direction.Axis p_37349_) {
+	private void selectNextMoveDirection(@Nullable Direction.Axis axis) {
 		double d0 = 0.5D;
 		BlockPos blockpos;
 		if (this.finalTarget == null) {
@@ -128,7 +123,7 @@ public class DarkSpiritGlovesEntity extends Projectile {
 		if (!blockpos.closerToCenterThan(this.position(), 2.0D)) {
 			BlockPos blockpos1 = this.blockPosition();
 			List<Direction> list = Lists.newArrayList();
-			if (p_37349_ != Direction.Axis.X) {
+			if (axis != Direction.Axis.X) {
 				if (blockpos1.getX() < blockpos.getX() && this.level().isEmptyBlock(blockpos1.east())) {
 					list.add(Direction.EAST);
 				} else if (blockpos1.getX() > blockpos.getX() && this.level().isEmptyBlock(blockpos1.west())) {
@@ -136,7 +131,7 @@ public class DarkSpiritGlovesEntity extends Projectile {
 				}
 			}
 
-			if (p_37349_ != Direction.Axis.Y) {
+			if (axis != Direction.Axis.Y) {
 				if (blockpos1.getY() < blockpos.getY() && this.level().isEmptyBlock(blockpos1.above())) {
 					list.add(Direction.UP);
 				} else if (blockpos1.getY() > blockpos.getY() && this.level().isEmptyBlock(blockpos1.below())) {
@@ -144,7 +139,7 @@ public class DarkSpiritGlovesEntity extends Projectile {
 				}
 			}
 
-			if (p_37349_ != Direction.Axis.Z) {
+			if (axis != Direction.Axis.Z) {
 				if (blockpos1.getZ() < blockpos.getZ() && this.level().isEmptyBlock(blockpos1.south())) {
 					list.add(Direction.SOUTH);
 				} else if (blockpos1.getZ() > blockpos.getZ() && this.level().isEmptyBlock(blockpos1.north())) {
@@ -189,7 +184,6 @@ public class DarkSpiritGlovesEntity extends Projectile {
 		if (this.level().getDifficulty() == Difficulty.PEACEFUL) {
 			this.discard();
 		}
-
 	}
 
 	public void tick() {
@@ -250,40 +244,39 @@ public class DarkSpiritGlovesEntity extends Projectile {
 
 	}
 
-	protected boolean canHitEntity(Entity p_37341_) {
-		return super.canHitEntity(p_37341_) && !p_37341_.noPhysics;
+	protected boolean canHitEntity(Entity entity) {
+		return super.canHitEntity(entity) && !entity.noPhysics;
 	}
 
 	public boolean isOnFire() {
 		return false;
 	}
 
-	public boolean shouldRenderAtSqrDistance(double p_37336_) {
-		return p_37336_ < 16384.0D;
+	public boolean shouldRenderAtSqrDistance(double distance) {
+		return distance < 16384.0D;
 	}
 
 	public float getLightLevelDependentMagicValue() {
 		return 2.0F;
 	}
 
-	protected void onHitEntity(EntityHitResult p_37345_) {
-		super.onHitEntity(p_37345_);
-		Entity entity = p_37345_.getEntity();
+	protected void onHitEntity(EntityHitResult result) {
+		super.onHitEntity(result);
+		Entity entity = result.getEntity();
 		Entity entity1 = this.getOwner();
 		LivingEntity livingentity = entity1 instanceof LivingEntity ? (LivingEntity)entity1 : null;
 		boolean flag = entity.hurt(this.damageSources().mobProjectile(this, livingentity), 4.0F);
 		if (flag) {
 			this.doEnchantDamageEffects(livingentity, entity);
-			if (entity instanceof LivingEntity) {
-				LivingEntity livingentity1 = (LivingEntity)entity;
-				livingentity1.addEffect(new MobEffectInstance(MobEffects.WITHER, 100), MoreObjects.firstNonNull(entity1, this));
+			if (entity instanceof LivingEntity livingEntity) {
+				livingEntity.addEffect(new MobEffectInstance(MobEffects.WITHER, 100), MoreObjects.firstNonNull(entity1, this));
 			}
 		}
 
 	}
 
-	protected void onHitBlock(BlockHitResult p_37343_) {
-		super.onHitBlock(p_37343_);
+	protected void onHitBlock(BlockHitResult result) {
+		super.onHitBlock(result);
 		((ServerLevel)this.level()).sendParticles(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 2, 0.2D, 0.2D, 0.2D, 0.0D);
 		this.playSound(SoundEvents.SHULKER_BULLET_HIT, 1.0F, 1.0F);
 	}
@@ -293,8 +286,8 @@ public class DarkSpiritGlovesEntity extends Projectile {
 		this.level().gameEvent(GameEvent.ENTITY_DAMAGE, this.position(), GameEvent.Context.of(this));
 	}
 
-	protected void onHit(HitResult p_37347_) {
-		super.onHit(p_37347_);
+	protected void onHit(HitResult result) {
+		super.onHit(result);
 		this.destroy();
 	}
 
@@ -302,7 +295,7 @@ public class DarkSpiritGlovesEntity extends Projectile {
 		return true;
 	}
 
-	public boolean hurt(DamageSource p_37338_, float p_37339_) {
+	public boolean hurt(DamageSource source, float p_37339_) {
 		if (!this.level().isClientSide) {
 			this.playSound(SoundEvents.SHULKER_BULLET_HURT, 1.0F, 1.0F);
 			((ServerLevel)this.level()).sendParticles(ParticleTypes.CRIT, this.getX(), this.getY(), this.getZ(), 15, 0.2D, 0.2D, 0.2D, 0.0D);
@@ -312,11 +305,11 @@ public class DarkSpiritGlovesEntity extends Projectile {
 		return true;
 	}
 
-	public void recreateFromPacket(ClientboundAddEntityPacket p_150185_) {
-		super.recreateFromPacket(p_150185_);
-		double d0 = p_150185_.getXa();
-		double d1 = p_150185_.getYa();
-		double d2 = p_150185_.getZa();
+	public void recreateFromPacket(ClientboundAddEntityPacket packet) {
+		super.recreateFromPacket(packet);
+		double d0 = packet.getXa();
+		double d1 = packet.getYa();
+		double d2 = packet.getZa();
 		this.setDeltaMovement(d0, d1, d2);
 	}
 }

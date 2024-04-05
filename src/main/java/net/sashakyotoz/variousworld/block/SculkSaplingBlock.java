@@ -54,13 +54,13 @@ public class SculkSaplingBlock extends SaplingBlock implements BonemealableBlock
 
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader p_256559_, BlockPos p_50898_, BlockState p_50899_, boolean p_50900_) {
+	public boolean isValidBonemealTarget(LevelReader reader, BlockPos p_50898_, BlockState p_50899_, boolean p_50900_) {
 		return true;
 	}
 
 	@Override
-	public boolean isBonemealSuccess(Level p_220878_, RandomSource p_220879_, BlockPos p_220880_, BlockState p_220881_) {
-		return (double)p_220878_.random.nextFloat() < 0.35D;
+	public boolean isBonemealSuccess(Level level, RandomSource p_220879_, BlockPos p_220880_, BlockState p_220881_) {
+		return (double)level.random.nextFloat() < 0.35D;
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {

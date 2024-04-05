@@ -7,30 +7,15 @@ import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 
-import net.sashakyotoz.variousworld.client.renderer.ZombieOfStonyMagmaRenderer;
-import net.sashakyotoz.variousworld.client.renderer.ZanyVilerWitchRenderer;
-import net.sashakyotoz.variousworld.client.renderer.WanderingSpiritSummonedOfSculksRenderer;
-import net.sashakyotoz.variousworld.client.renderer.WanderingSpiritAbilityShootRenderer;
-import net.sashakyotoz.variousworld.client.renderer.SpiritofPeacefulWastelandRenderer;
-import net.sashakyotoz.variousworld.client.renderer.SpiritofDeepCavernRenderer;
-import net.sashakyotoz.variousworld.client.renderer.SculkSkeletonRenderer;
-import net.sashakyotoz.variousworld.client.renderer.SculkScytheRangedItemRenderer;
-import net.sashakyotoz.variousworld.client.renderer.SculkNecromancerSkeletonRenderer;
-import net.sashakyotoz.variousworld.client.renderer.NecromancerStaffRenderer;
-import net.sashakyotoz.variousworld.client.renderer.FuryLordRenderer;
-import net.sashakyotoz.variousworld.client.renderer.ZombieOfVariousBiomesRenderer;
-import net.sashakyotoz.variousworld.client.renderer.DarkSpiritRenderer;
-import net.sashakyotoz.variousworld.client.renderer.DarkSpiritGlovesRenderer;
-import net.sashakyotoz.variousworld.client.renderer.DarkFuryRenderer;
-import net.sashakyotoz.variousworld.client.renderer.CrystalicSlimeRenderer;
-import net.sashakyotoz.variousworld.client.renderer.CrystalWarriorRenderer;
-import net.sashakyotoz.variousworld.client.renderer.ArmoredskeletonRenderer;
+import net.sashakyotoz.variousworld.block.entity.renderer.ArmorStationBlockEntityRenderer;
+import net.sashakyotoz.variousworld.block.entity.renderer.DisenchantTableBlockEntityRenderer;
+import net.sashakyotoz.variousworld.client.renderer.*;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class VariousWorldModRenderers {
 	@SubscribeEvent
 	public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-		event.registerEntityRenderer(VariousWorldModEntities.CRYSTALIC_BOW.get(), ThrownItemRenderer::new);
+		event.registerEntityRenderer(VariousWorldModEntities.CRYSTALIC_BOW.get(), CrystalicArrowRenderer::new);
 		event.registerEntityRenderer(VariousWorldModEntities.LORD_OF_FURIES_CROSSBOW.get(), ThrownItemRenderer::new);
 		event.registerEntityRenderer(VariousWorldModEntities.ZOMBIE_OF_VARIOUS_BIOMES.get(), ZombieOfVariousBiomesRenderer::new);
 		event.registerEntityRenderer(VariousWorldModEntities.SCULK_SKELETON.get(), SculkSkeletonRenderer::new);
@@ -38,7 +23,8 @@ public class VariousWorldModRenderers {
 		event.registerEntityRenderer(VariousWorldModEntities.CRYSTALIC_SLIME.get(), CrystalicSlimeRenderer::new);
 		event.registerEntityRenderer(VariousWorldModEntities.SPIRITOF_PEACEFUL_WASTELAND.get(), SpiritofPeacefulWastelandRenderer::new);
 		event.registerEntityRenderer(VariousWorldModEntities.SPIRITOF_DEEP_CAVERN.get(), SpiritofDeepCavernRenderer::new);
-		event.registerEntityRenderer(VariousWorldModEntities.ARMOREDSKELETON.get(), ArmoredskeletonRenderer::new);
+		event.registerEntityRenderer(VariousWorldModEntities.ARMORED_SKELETON.get(), ArmoredSkeletonRenderer::new);
+		event.registerEntityRenderer(VariousWorldModEntities.DROMOPHANT.get(), DromophantRenderer::new);
 		event.registerEntityRenderer(VariousWorldModEntities.WANDERING_SPIRIT_SUMMONED_OF_SCULKS.get(), WanderingSpiritSummonedOfSculksRenderer::new);
 		event.registerEntityRenderer(VariousWorldModEntities.ZOMBIE_OF_STONY_MAGMA.get(), ZombieOfStonyMagmaRenderer::new);
 		event.registerEntityRenderer(VariousWorldModEntities.ZANY_VILER_WITCH.get(), ZanyVilerWitchRenderer::new);
@@ -51,5 +37,7 @@ public class VariousWorldModRenderers {
 		event.registerEntityRenderer(VariousWorldModEntities.NECROMANCER_STAFF.get(), NecromancerStaffRenderer::new);
 		event.registerEntityRenderer(VariousWorldModEntities.MULTIPLE_ENDER_PEARL.get(), ThrownItemRenderer::new);
 		event.registerEntityRenderer(VariousWorldModEntities.DARK_SPIRIT_GLOVES.get(), DarkSpiritGlovesRenderer::new);
+		event.registerBlockEntityRenderer(VariousWorldModBlockEntities.DISENCHANT_TABLE.get(), DisenchantTableBlockEntityRenderer::new);
+		event.registerBlockEntityRenderer(VariousWorldModBlockEntities.ARMOR_STATION_BLOCK.get(), ArmorStationBlockEntityRenderer::new);
 	}
 }

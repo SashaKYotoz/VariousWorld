@@ -1,5 +1,5 @@
 {
-  "type": "various_world:caverns_of_magma_growth_features",
+  "type": "minecraft:delta_feature",
   "config": {
     "contents": {
       "Name": "minecraft:lava",

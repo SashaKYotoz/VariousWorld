@@ -7,12 +7,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
 
 public class UndergroundSculkFruitBushUpdateTickProcedure {
-    public static void execute(LevelAccessor world, double x, double y, double z) {
-        if ((world.getBlockState(BlockPos.containing(x, y + 1, z))).getBlock() == Blocks.AIR) {
+    public static void execute(LevelAccessor world, BlockPos pos) {
+        if (world.getBlockState(pos.above()).getBlock() == Blocks.AIR) {
             if (Math.random() < 0.05) {
-                BlockPos _bp = BlockPos.containing(x, y, z);
-                BlockState _bs = VariousWorldModBlocks.UNDERGROUND_SCULK_FRUIT_BUSH.get().defaultBlockState();
-                world.setBlock(_bp, _bs, 3);
+                BlockState state = VariousWorldModBlocks.UNDERGROUND_SCULK_FRUIT_BUSH.get().defaultBlockState();
+                world.setBlock(pos, state, 3);
             }
         }
     }

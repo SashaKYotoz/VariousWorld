@@ -10,10 +10,10 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.RenderType;
 
-import net.sashakyotoz.variousworld.entity.SpiritofDeepCavernEntity;
+import net.sashakyotoz.variousworld.entity.SpiritOfDeepCavernEntity;
 import net.sashakyotoz.variousworld.client.model.ModelSpirit_of_Deep_Cavern;
 
-public class SpiritofDeepCavernRenderer extends MobRenderer<SpiritofDeepCavernEntity, ModelSpirit_of_Deep_Cavern<SpiritofDeepCavernEntity>> {
+public class SpiritofDeepCavernRenderer extends MobRenderer<SpiritOfDeepCavernEntity, ModelSpirit_of_Deep_Cavern<SpiritOfDeepCavernEntity>> {
 	public SpiritofDeepCavernRenderer(EntityRendererProvider.Context context) {
 		super(context, new ModelSpirit_of_Deep_Cavern(context.bakeLayer(ModelSpirit_of_Deep_Cavern.LAYER_LOCATION)), 0.5f);
 		this.addLayer(new EyesLayer<>(this) {
@@ -26,12 +26,12 @@ public class SpiritofDeepCavernRenderer extends MobRenderer<SpiritofDeepCavernEn
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(SpiritofDeepCavernEntity entity) {
+	public ResourceLocation getTextureLocation(SpiritOfDeepCavernEntity entity) {
 		return new ResourceLocation("various_world:textures/entities/spirit_of_deep_cavern.png");
 	}
 
 	@Override
-	protected boolean isShaking(SpiritofDeepCavernEntity cavernEntity) {
+	protected boolean isShaking(SpiritOfDeepCavernEntity cavernEntity) {
 		Level world = cavernEntity.level();
 		double x = cavernEntity.getX();
 		double y = cavernEntity.getY();

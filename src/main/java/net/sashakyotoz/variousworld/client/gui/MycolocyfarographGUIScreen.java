@@ -10,8 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class MycolocyfarographGUIScreen extends AbstractContainerScreen<MycolocyfarographGUIMenu> {
-    private static final ResourceLocation TEXTURE =
-            new ResourceLocation("various_world:textures/screens/mycolocyfarograph_gui_image.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation("various_world:textures/screens/mycolocyfarograph_gui_image.png");
 
     public MycolocyfarographGUIScreen(MycolocyfarographGUIMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);

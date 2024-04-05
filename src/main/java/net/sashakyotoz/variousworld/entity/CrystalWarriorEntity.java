@@ -68,7 +68,7 @@ public class CrystalWarriorEntity extends IronGolem {
 
     @Override
     public void die(DamageSource source) {
-        this.deathTime = -40;
+        this.deathTime = -80;
         if(source.getEntity() instanceof Player player)
             AdvancementsManager.addAdvancement(player,AdvancementsManager.CRYSTALIC_WARRIOR_ADV);
         this.spawnAtLocation(new ItemStack(VariousWorldModItems.CRYSTALSHARD.get(),this.getRandom().nextIntBetweenInclusive(2,6)));
@@ -87,6 +87,8 @@ public class CrystalWarriorEntity extends IronGolem {
     public void tick() {
         if (this.level().isClientSide())
             setupAnimationStates();
+        if (this.isDeadOrDying() && this.hasEffect(VariousWorldModMobEffects.AMETHYST_SPIKES.get()))
+            this.removeEffect(VariousWorldModMobEffects.AMETHYST_SPIKES.get());
         super.tick();
     }
 
@@ -100,12 +102,12 @@ public class CrystalWarriorEntity extends IronGolem {
         }
     }
 
-    static boolean hurtAndThrowTarget(LivingEntity entity, LivingEntity p_34644_) {
-        float f = (float) entity.getAttributeValue(Attributes.ATTACK_DAMAGE);
-        boolean flag = p_34644_.hurt(entity.damageSources().mobAttack(entity), f);
+    static boolean hurtAndThrowTarget(LivingEntity warrior, LivingEntity target) {
+        float f = (float) warrior.getAttributeValue(Attributes.ATTACK_DAMAGE);
+        boolean flag = target.hurt(warrior.damageSources().mobAttack(warrior), f);
         if (flag) {
-            entity.doEnchantDamageEffects(entity, p_34644_);
-            throwTarget(entity, p_34644_);
+            warrior.doEnchantDamageEffects(warrior, target);
+            throwTarget(warrior, target);
         }
         return flag;
     }
@@ -118,19 +120,19 @@ public class CrystalWarriorEntity extends IronGolem {
         }
     }
 
-    static void throwTarget(LivingEntity p_34646_, LivingEntity p_34647_) {
-        double d0 = p_34646_.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
-        double d1 = p_34647_.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
+    static void throwTarget(LivingEntity warrior, LivingEntity target) {
+        double d0 = warrior.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+        double d1 = target.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
         double d2 = 0.5D + d0 - d1;
         if (!(d2 <= 0.0D)) {
-            double d3 = p_34647_.getX() - p_34646_.getX();
-            double d4 = p_34647_.getZ() - p_34646_.getZ();
-            float f = (float) (p_34646_.level().random.nextInt(21) - 8);
-            double d5 = d2 * (double) (p_34646_.level().random.nextFloat() * 0.75F + 0.25F);
+            double d3 = target.getX() - warrior.getX();
+            double d4 = target.getZ() - warrior.getZ();
+            float f = (float) (warrior.level().random.nextInt(21) - 8);
+            double d5 = d2 * (double) (warrior.level().random.nextFloat() * 0.75F + 0.25F);
             Vec3 vec3 = (new Vec3(d3, 0.0D, d4)).normalize().scale(d5).yRot(f);
-            double d6 = d2 * (double) p_34646_.level().random.nextFloat() * 0.5D;
-            p_34647_.push(vec3.x, d6, vec3.z);
-            p_34647_.hurtMarked = true;
+            double d6 = d2 * (double) warrior.level().random.nextFloat() * 0.5D;
+            target.push(vec3.x, d6, vec3.z);
+            target.hurtMarked = true;
         }
     }
 
@@ -184,7 +186,8 @@ public class CrystalWarriorEntity extends IronGolem {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        hurtAction(source.getEntity());
+        if (source.getEntity() != null)
+            hurtAction(source.getEntity());
         if (source.getDirectEntity() instanceof ThrownPotion || source.getDirectEntity() instanceof AreaEffectCloud)
             return false;
         if (source.is(DamageTypes.CACTUS))
@@ -203,16 +206,15 @@ public class CrystalWarriorEntity extends IronGolem {
     }
 
     private void hurtAction(Entity sourceentity) {
-        double Random;
+        boolean flag = this.getRandom().nextBoolean();
         double speed;
         double Yaw;
-        if (Math.random() < 0.5) {
-            Random = Math.round(Math.random());
-            if (Random == 0 && sourceentity != null) {
+        if (this.getRandom().nextBoolean()) {
+            if (flag && sourceentity != null) {
                 speed = 0.8;
                 Yaw = this.getYRot();
                 sourceentity.setDeltaMovement(new Vec3((speed * Math.cos((Yaw + 90) * (Math.PI / 180))), 0.4, (speed * Math.sin((Yaw + 90) * (Math.PI / 180)))));
-            } else if (Random == 1 && !this.hasEffect(VariousWorldModMobEffects.AMETHYST_SPIKES.get())) {
+            } else if (!flag && !this.hasEffect(VariousWorldModMobEffects.AMETHYST_SPIKES.get())) {
                 this.addEffect(new MobEffectInstance(VariousWorldModMobEffects.AMETHYST_SPIKES.get(), 100, 1));
                 this.addEffect(new MobEffectInstance(MobEffects.REGENERATION,60,3));
             }

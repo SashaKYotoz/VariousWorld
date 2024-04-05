@@ -17,7 +17,7 @@ public class VariousWorldVillagerType {
     public static final Set<VillagerType> CUSTOM_TYPES;
     public static VillagerType CRYSTAL;
 
-    public static void initVillagerTypes() {
+    public void initVillagerTypes() {
         VariousWorldMod.LOGGER.debug("Registering villager types: " + VillagerTrades.TRADES.size());
         CRYSTAL = registerType("crystalic_forest");
         putTypeToBiome(VariousWorldModBiomes.CRYSTALIC_FOREST, CRYSTAL);

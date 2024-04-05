@@ -43,18 +43,16 @@ public class SculkScytheItem extends SwordItem {
 		}, 3, -2.8f, new Item.Properties());
 	}
 	@Override
-	public void releaseUsing(ItemStack p_40667_, Level p_40668_, LivingEntity p_40669_, int p_40670_) {
-		if (p_40669_ instanceof Player player) {
-			int i = this.getUseDuration(p_40667_) - p_40670_;
+	public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int j) {
+		if (entity instanceof Player player) {
+			int i = this.getUseDuration(stack) - j;
 			if (i < 0)
 				return;
 			var f = getPowerForTime(i);
 				if (!((double) f < 0.325D)) {
-					SculkScytheEntity sculkScytheRangedItem = SculkScytheEntity.shoot(p_40668_,p_40669_, RandomSource.create(),2 * f,5,1);
-					p_40668_.addFreshEntity(sculkScytheRangedItem);
-					p_40667_.hurtAndBreak(1, player, (p_40665_) -> {
-						p_40665_.broadcastBreakEvent(player.getUsedItemHand());
-					});
+					SculkScytheEntity sculkScytheRangedItem = SculkScytheEntity.shoot(level,entity, RandomSource.create(),2 * f,5,1);
+					level.addFreshEntity(sculkScytheRangedItem);
+					stack.hurtAndBreak(1, player, (player1) -> player1.broadcastBreakEvent(player.getUsedItemHand()));
 					player.awardStat(Stats.ITEM_USED.get(this));
 				}
 		}
@@ -73,8 +71,8 @@ public class SculkScytheItem extends SwordItem {
 	public int getUseDuration(ItemStack itemstack) {
 		return 72000;
 	}
-	private static float getPowerForTime(int p_40662_) {
-		float f = (float) p_40662_ / 20.0F;
+	private static float getPowerForTime(int i) {
+		float f = (float) i / 20.0F;
 		f = (f * f + f * 2.0F) / 3.0F;
 		if (f > 1.0F) {
 			f = 1.0F;

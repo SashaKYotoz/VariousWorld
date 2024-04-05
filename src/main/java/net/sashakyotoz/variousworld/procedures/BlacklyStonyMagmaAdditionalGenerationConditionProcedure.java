@@ -8,9 +8,7 @@ import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
 
 public class BlacklyStonyMagmaAdditionalGenerationConditionProcedure {
 	public static boolean execute(LevelAccessor world, double x, double y, double z) {
-		double sx = 0;
-		double sy = 0;
-		double sz = 0;
+		double sx, sy, sz;
 		if (!world.getBlockState(BlockPos.containing(x, y + 1, z)).canOcclude() && world.getBlockState(BlockPos.containing(x, y - 1, z)).canOcclude()) {
 			sx = -4;
 			for (int index0 = 0; index0 < 8; index0++) {

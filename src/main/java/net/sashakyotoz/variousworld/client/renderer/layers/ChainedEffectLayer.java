@@ -21,27 +21,27 @@ public class ChainedEffectLayer<T extends LivingEntity, M extends EntityModel<T>
     private static final ResourceLocation CHAIN_LOCATION = new ResourceLocation("various_world:textures/entities/chained.png");
     private final ModelChained<T> armorModel;
 
-    public ChainedEffectLayer(RenderLayerParent<T, M> p_174493_, EntityModelSet p_174494_) {
-        super(p_174493_);
-        this.armorModel = new ModelChained<>(p_174494_.bakeLayer(ModelChained.LAYER_LOCATION));
+    public ChainedEffectLayer(RenderLayerParent<T, M> layerParent, EntityModelSet set) {
+        super(layerParent);
+        this.armorModel = new ModelChained<>(set.bakeLayer(ModelChained.LAYER_LOCATION));
     }
 
-    public void render(PoseStack p_116951_, MultiBufferSource p_116952_, int p_116953_, T p_116954_, float p_116955_, float p_116956_, float p_116957_, float p_116958_, float p_116959_, float p_116960_) {
-        ItemStack itemstack = p_116954_.getItemBySlot(EquipmentSlot.CHEST);
-        if (shouldRender(itemstack, p_116954_)) {
+    public void render(PoseStack stack, MultiBufferSource bufferSource, int p_116953_, T location, float p_116955_, float p_116956_, float p_116957_, float p_116958_, float p_116959_, float p_116960_) {
+        ItemStack itemstack = location.getItemBySlot(EquipmentSlot.CHEST);
+        if (shouldRender(location)) {
             ResourceLocation resourcelocation;
-            resourcelocation = getRodsLocation(itemstack, p_116954_);
-            p_116951_.pushPose();
-            p_116951_.translate(0.0F, 0.0F, 0.125F);
+            resourcelocation = getRodsLocation(itemstack, location);
+            stack.pushPose();
+            stack.translate(0.0F, 0.0F, 0.125F);
             this.getParentModel().copyPropertiesTo(this.armorModel);
-            this.armorModel.setupAnim(p_116954_, p_116955_, p_116956_, p_116958_, p_116959_, p_116960_);
-            VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(p_116952_, RenderType.armorCutoutNoCull(resourcelocation), false, itemstack.hasFoil());
-            this.armorModel.renderToBuffer(p_116951_, vertexconsumer, p_116953_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-            p_116951_.popPose();
+            this.armorModel.setupAnim(location, p_116955_, p_116956_, p_116958_, p_116959_, p_116960_);
+            VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(bufferSource, RenderType.armorCutoutNoCull(resourcelocation), false, itemstack.hasFoil());
+            this.armorModel.renderToBuffer(stack, vertexconsumer, p_116953_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            stack.popPose();
         }
     }
 
-    public boolean shouldRender(ItemStack stack, T entity) {
+    public boolean shouldRender(T entity) {
         return entity.hasEffect(VariousWorldModMobEffects.CHAINED_OF_CHAIN.get());
     }
 

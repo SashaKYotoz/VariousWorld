@@ -19,7 +19,7 @@ import java.util.List;
 
 public class EnderBricksStairsBlock extends StairBlock {
 	public EnderBricksStairsBlock() {
-		super(() -> Blocks.AIR.defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.STONE).strength(3f, 15f).lightLevel(s -> 1).requiresCorrectToolForDrops().friction(0.4f).dynamicShape());
+		super(Blocks.AIR::defaultBlockState, BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.STONE).strength(3f, 15f).lightLevel(s -> 1).requiresCorrectToolForDrops().friction(0.4f).dynamicShape());
 	}
 
 	@Override

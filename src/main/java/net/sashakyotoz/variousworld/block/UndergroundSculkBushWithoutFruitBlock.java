@@ -1,10 +1,6 @@
 
 package net.sashakyotoz.variousworld.block;
 
-import net.minecraft.world.level.block.BushBlock;
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
-import net.sashakyotoz.variousworld.procedures.SculkBushWithoutFruitRightClickedProcedure;
-import net.sashakyotoz.variousworld.procedures.UndergroundSculkFruitBushUpdateTickProcedure;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -12,10 +8,12 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,6 +22,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.procedures.UndergroundSculkFruitBushUpdateTickProcedure;
 
 public class UndergroundSculkBushWithoutFruitBlock extends BushBlock {
 	public UndergroundSculkBushWithoutFruitBlock() {
@@ -63,13 +63,20 @@ public class UndergroundSculkBushWithoutFruitBlock extends BushBlock {
 	@Override
 	public void tick(BlockState blockstate, ServerLevel world, BlockPos pos, RandomSource random) {
 		super.tick(blockstate, world, pos, random);
-		UndergroundSculkFruitBushUpdateTickProcedure.execute(world, pos.getX(), pos.getY(), pos.getZ());
+		UndergroundSculkFruitBushUpdateTickProcedure.execute(world, pos);
 	}
 
 	@Override
-	public InteractionResult use(BlockState blockstate, Level world, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult hit) {
-		super.use(blockstate, world, pos, entity, hand, hit);
-		SculkBushWithoutFruitRightClickedProcedure.execute(world, pos.getX(), pos.getY(), pos.getZ(), entity);
+	public InteractionResult use(BlockState blockstate, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		super.use(blockstate, world, pos, player, hand, hit);
+		if (player.getMainHandItem().is(Items.BONE_MEAL)) {
+			player.getInventory().clearOrCountMatchingItems(p -> player.getMainHandItem().getItem() == p.getItem(), 1, player.inventoryMenu.getCraftSlots());
+			player.getInventory().setChanged();
+			if (player.getRandom().nextBoolean()) {
+				BlockState state = VariousWorldModBlocks.UNDERGROUND_SCULK_FRUIT_BUSH.get().defaultBlockState();
+				world.setBlock(pos, state, 3);
+			}
+		}
 		return InteractionResult.SUCCESS;
 	}
 }

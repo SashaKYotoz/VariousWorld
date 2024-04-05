@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "various_world:totem_of_dark_spirit"
+    },
+    "title": {
+      "translate": "advancements.easter_dark_spirit_advancement.title"
+    },
+    "description": {
+      "translate": "advancements.easter_dark_spirit_advancement.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "easter_dark_spirit_advancement": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 5
+  },
+  "parent": "various_world:defeatthedarkspirit"
+}

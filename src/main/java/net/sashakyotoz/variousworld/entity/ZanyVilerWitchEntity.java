@@ -66,30 +66,30 @@ public class ZanyVilerWitchEntity extends Witch {
 		this.goalSelector.addGoal(6, new FloatGoal(this));
 	}
 
-	public void performRangedAttack(LivingEntity p_34143_, float p_34144_) {
+	public void performRangedAttack(LivingEntity entity, float p_34144_) {
 		if (!this.isDrinkingPotion()) {
-			Vec3 vec3 = p_34143_.getDeltaMovement();
-			double d0 = p_34143_.getX() + vec3.x - this.getX();
-			double d1 = p_34143_.getEyeY() - (double) 1.1F - this.getY();
-			double d2 = p_34143_.getZ() + vec3.z - this.getZ();
+			Vec3 vec3 = entity.getDeltaMovement();
+			double d0 = entity.getX() + vec3.x - this.getX();
+			double d1 = entity.getEyeY() - (double) 1.1F - this.getY();
+			double d2 = entity.getZ() + vec3.z - this.getZ();
 			double d3 = Math.sqrt(d0 * d0 + d2 * d2);
 			Potion potion = Potions.HARMING;
-			if (p_34143_ instanceof Raider) {
-				if (p_34143_.getHealth() <= 4.0F) {
+			if (entity instanceof Raider) {
+				if (entity.getHealth() <= 4.0F) {
 					potion = Potions.HEALING;
 				} else {
 					potion = Potions.REGENERATION;
 				}
 				this.setTarget(null);
-			} else if (d3 >= 8.0D && !p_34143_.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
+			} else if (d3 >= 8.0D && !entity.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
 				potion = Potions.SLOWNESS;
-			} else if (p_34143_.getHealth() >= 8.0F && !p_34143_.hasEffect(MobEffects.POISON)) {
+			} else if (entity.getHealth() >= 8.0F && !entity.hasEffect(MobEffects.POISON)) {
 				potion = Potions.POISON;
-			} else if (d3 <= 3.0D && !p_34143_.hasEffect(MobEffects.WEAKNESS) && this.random.nextFloat() < 0.25F) {
+			} else if (d3 <= 3.0D && !entity.hasEffect(MobEffects.WEAKNESS) && this.random.nextFloat() < 0.25F) {
 				potion = Potions.WEAKNESS;
 			}
 			ThrownPotion thrownpotion = new ThrownPotion(this.level(), this);
-			thrownpotion.setItem(PotionUtils.setPotion(new ItemStack(Items.SPLASH_POTION), potion));
+			thrownpotion.setItem(PotionUtils.setPotion(new ItemStack(Items.LINGERING_POTION), potion));
 			thrownpotion.setXRot(thrownpotion.getXRot() - -20.0F);
 			thrownpotion.shoot(d0, d1 + d3 * 0.2D, d2, 0.75F, 8.0F);
 			if (!this.isSilent()) {

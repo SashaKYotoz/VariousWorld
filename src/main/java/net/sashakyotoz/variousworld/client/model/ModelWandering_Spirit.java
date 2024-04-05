@@ -9,9 +9,9 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.sashakyotoz.variousworld.entity.WanderingSpiritSummonedOfSculksEntity;
+import net.sashakyotoz.variousworld.entity.WanderingSpiritOfSculksEntity;
 
-public class ModelWandering_Spirit<T extends WanderingSpiritSummonedOfSculksEntity> extends EntityModel<T> {
+public class ModelWandering_Spirit<T extends WanderingSpiritOfSculksEntity> extends EntityModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("various_world", "model_wandering_spirit"), "main");
     public final ModelPart head;
     public final ModelPart body;

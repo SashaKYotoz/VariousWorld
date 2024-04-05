@@ -14,7 +14,7 @@ import net.sashakyotoz.variousworld.client.model.ModelSpirit_of_Peaceful_Wastela
 public class SpiritofPeacefulWastelandRenderer extends MobRenderer<SpiritofPeacefulWastelandEntity, ModelSpirit_of_Peaceful_Wasteland<SpiritofPeacefulWastelandEntity>> {
 	public SpiritofPeacefulWastelandRenderer(EntityRendererProvider.Context context) {
 		super(context, new ModelSpirit_of_Peaceful_Wasteland(context.bakeLayer(ModelSpirit_of_Peaceful_Wasteland.LAYER_LOCATION)), 0.3f);
-		this.addLayer(new EyesLayer<SpiritofPeacefulWastelandEntity, ModelSpirit_of_Peaceful_Wasteland<SpiritofPeacefulWastelandEntity>>(this) {
+		this.addLayer(new EyesLayer<>(this) {
 			@Override
 			public RenderType renderType() {
 				return RenderType.eyes(new ResourceLocation("various_world:textures/entities/glow_spirit_texture.png"));

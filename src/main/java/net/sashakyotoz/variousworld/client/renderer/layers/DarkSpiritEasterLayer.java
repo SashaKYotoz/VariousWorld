@@ -10,19 +10,16 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.sashakyotoz.variousworld.VariousWorldMod;
-import net.sashakyotoz.variousworld.client.model.ModelSpirit_of_the_Dark;
-import net.sashakyotoz.variousworld.client.model.Modelcrystalic_warrior;
-import net.sashakyotoz.variousworld.client.renderer.DarkSpiritRenderer;
-import net.sashakyotoz.variousworld.entity.CrystalWarriorEntity;
+import net.sashakyotoz.variousworld.client.model.ModelSpiritOfTheDark;
 import net.sashakyotoz.variousworld.entity.DarkSpiritEntity;
 
-public class DarkSpiritEasterLayer extends RenderLayer<DarkSpiritEntity, ModelSpirit_of_the_Dark<DarkSpiritEntity>> {
+public class DarkSpiritEasterLayer extends RenderLayer<DarkSpiritEntity, ModelSpiritOfTheDark<DarkSpiritEntity>> {
 
-    private final ModelSpirit_of_the_Dark<DarkSpiritEntity> model;
+    private final ModelSpiritOfTheDark<DarkSpiritEntity> model;
 
-    public DarkSpiritEasterLayer(RenderLayerParent<DarkSpiritEntity, ModelSpirit_of_the_Dark<DarkSpiritEntity>> layerParent, EntityModelSet modelPart) {
+    public DarkSpiritEasterLayer(RenderLayerParent<DarkSpiritEntity, ModelSpiritOfTheDark<DarkSpiritEntity>> layerParent, EntityModelSet modelPart) {
         super(layerParent);
-        this.model = new ModelSpirit_of_the_Dark<>(modelPart.bakeLayer(ModelSpirit_of_the_Dark.LAYER_LOCATION));
+        this.model = new ModelSpiritOfTheDark<>(modelPart.bakeLayer(ModelSpiritOfTheDark.LAYER_LOCATION));
     }
     public void render(PoseStack poseStack, MultiBufferSource buffer, int p_117034_, DarkSpiritEntity spiritEntity, float p_117036_, float p_117037_, float p_117038_, float p_117039_, float p_117040_, float p_117041_) {
         ResourceLocation location = new ResourceLocation(VariousWorldMod.MODID,"textures/entities/spirit_of_the_dark_easter.png");

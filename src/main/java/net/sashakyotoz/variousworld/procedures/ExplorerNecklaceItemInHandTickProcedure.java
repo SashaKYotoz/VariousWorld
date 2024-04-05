@@ -24,10 +24,9 @@ public class ExplorerNecklaceItemInHandTickProcedure {
 			if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide())
 				_entity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 60, 1));
 		}
-		if (!world.getBlockState(BlockPos.containing(x, y, z)).canOcclude()
-				&& !((world.getBlockState(BlockPos.containing(x, y - 3, z))).getBlock() == Blocks.AIR && !((world.getBlockState(BlockPos.containing(x, y - 3, z))).getBlock() == Blocks.CAVE_AIR))) {
-			if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide())
-				_entity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 60, 1));
+		if (!world.getBlockState(BlockPos.containing(x, y, z).below()).canOcclude()) {
+			if (entity instanceof LivingEntity living && !living.level().isClientSide())
+				living.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 60, 1));
 		}
 	}
 }

@@ -33,13 +33,12 @@ import net.minecraftforge.jarjar.nio.util.Lazy;
 import java.util.UUID;
 
 public class LordSwordItem extends SwordItem {
-    public static final UUID REACH_MOD = UUID.fromString("dccd59ec-6391-436d-9e00-47f2e6005e20"); //A randomly generated version 4 UUID
-    public static float damage;
+    public static final UUID REACH_MOD = UUID.fromString("dccd59ec-6391-436d-9e00-47f2e6005e20");
     public static float reach = 2;
     public static Lazy<? extends Multimap<Attribute, AttributeModifier>> ATTRIBUTE_LAZY_MAP = Lazy.of(() -> {
         Multimap<Attribute, AttributeModifier> map;
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", damage, AttributeModifier.Operation.ADDITION));
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", 11.5f, AttributeModifier.Operation.ADDITION));
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", -2.4, AttributeModifier.Operation.ADDITION));
         if (ForgeMod.ENTITY_REACH.isPresent()) {
             builder.put(ForgeMod.ENTITY_REACH.get(), new AttributeModifier(REACH_MOD, "Weapon modifier", reach, AttributeModifier.Operation.ADDITION));
@@ -59,8 +58,7 @@ public class LordSwordItem extends SwordItem {
             }
 
             public float getAttackDamageBonus() {
-                damage = 11.5f;
-                return damage;
+                return 11.5f;
             }
 
             public int getLevel() {
@@ -113,4 +111,3 @@ public class LordSwordItem extends SwordItem {
         return ar;
     }
 }
-//https://forums.minecraftforge.net/topic/110247-how-would-one-go-about-registering-custom-attributes/

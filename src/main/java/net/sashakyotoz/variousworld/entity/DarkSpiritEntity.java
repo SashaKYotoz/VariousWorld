@@ -142,40 +142,43 @@ public class DarkSpiritEntity extends Monster {
         }
     }
 
+    @Override
+    public void tick() {
+        if (chargeToShield >= 4 && Math.random() < 0.75) {
+            setShieldArise(true);
+        } else if (chargeToShield < 2) {
+            setShieldArise(false);
+        }
+        if (this.getTarget() != null && this.getTarget().isAlive())
+            this.getNavigation().moveTo(this.getTarget(), 2);
+        this.noPhysics = this.getTarget() != null && this.getTarget().isAlive();
+        this.setNoGravity(true);
+        super.tick();
+    }
+
     public void aiStep() {
         super.aiStep();
         if (isMovingInAir()) {
             if (shieldRose()) {
                 this.idleWithShieldAnimationState.stop();
                 this.idleWithShieldAnimationState.stop();
-                this.flightWithShieldAnimationState.start(this.tickCount);
-            } else if (!(shieldRose())) {
+                this.flightWithShieldAnimationState.startIfStopped(this.tickCount);
+            } else {
                 this.idleWithShieldAnimationState.stop();
                 this.idleWithShieldAnimationState.stop();
-                this.flightAnimationState.start(this.tickCount);
+                this.flightAnimationState.startIfStopped(this.tickCount);
             }
         } else {
             if (shieldRose()) {
                 this.flightWithShieldAnimationState.stop();
                 this.flightAnimationState.stop();
-                this.idleWithShieldAnimationState.start(this.tickCount);
-            } else if (!(shieldRose())) {
+                this.idleWithShieldAnimationState.startIfStopped(this.tickCount);
+            } else {
+                this.flightWithShieldAnimationState.stop();
                 this.flightAnimationState.stop();
-                this.idleAnimationState.start(this.tickCount);
+                this.idleAnimationState.startIfStopped(this.tickCount);
             }
         }
-        if (chargeToShield >= 4 && Math.random() < 0.75) {
-            setShieldArise(true);
-        } else if (chargeToShield < 2) {
-            setShieldArise(false);
-        }
-        if (this.getTarget() != null && this.getTarget().isAlive()) {
-            this.noPhysics = true;
-            this.getNavigation().moveTo(this.getTarget(), 2);
-        } else {
-            this.noPhysics = false;
-        }
-        this.setNoGravity(true);
     }
 
     static boolean hurtAndThrowTarget(LivingEntity livingEntity, LivingEntity target) {
@@ -195,11 +198,9 @@ public class DarkSpiritEntity extends Monster {
             {
                 this.setFlags(EnumSet.of(Goal.Flag.MOVE));
             }
-
             public boolean canUse() {
                 return DarkSpiritEntity.this.getTarget() != null && !DarkSpiritEntity.this.getMoveControl().hasWanted();
             }
-
             @Override
             public boolean canContinueToUse() {
                 return DarkSpiritEntity.this.getMoveControl().hasWanted() && DarkSpiritEntity.this.getTarget() != null && DarkSpiritEntity.this.getTarget().isAlive();
@@ -209,9 +210,8 @@ public class DarkSpiritEntity extends Monster {
             public void start() {
                 LivingEntity livingentity = DarkSpiritEntity.this.getTarget();
                 Vec3 vec3d = livingentity.getEyePosition(1);
-                DarkSpiritEntity.this.moveControl.setWantedPosition(vec3d.x, vec3d.y, vec3d.z, 2);
+                DarkSpiritEntity.this.moveControl.setWantedPosition(vec3d.x, vec3d.y, vec3d.z, 3);
             }
-
             @Override
             public void tick() {
                 LivingEntity livingentity = DarkSpiritEntity.this.getTarget();
@@ -221,7 +221,7 @@ public class DarkSpiritEntity extends Monster {
                     double d0 = DarkSpiritEntity.this.distanceToSqr(livingentity);
                     if (d0 < 32) {
                         Vec3 vec3d = livingentity.getEyePosition(1);
-                        DarkSpiritEntity.this.moveControl.setWantedPosition(vec3d.x, vec3d.y, vec3d.z, 2);
+                        DarkSpiritEntity.this.moveControl.setWantedPosition(vec3d.x, vec3d.y, vec3d.z, 3);
                     }
                 }
             }
@@ -252,7 +252,7 @@ public class DarkSpiritEntity extends Monster {
 
         public void tick() {
             LivingEntity target = this.spirit.getTarget();
-            if (target != null && target.distanceToSqr(this.spirit) < 1024.0D && this.spirit.hasLineOfSight(target)) {
+            if (target != null && target.distanceToSqr(this.spirit) < 512.0D && this.spirit.hasLineOfSight(target)) {
                 if (attackTime == 60) {
                     attackTime = 0;
                     this.spirit.spellAriseAnimationState.stop();
@@ -320,7 +320,7 @@ public class DarkSpiritEntity extends Monster {
         }
         if (source.getEntity() instanceof Projectile projectile && this.shieldRose() && amount > 2 && Math.random() < 0.75) {
             this.hurt(this.damageSources().arrow((AbstractArrow) projectile,projectile.getOwner()), amount / 2f);
-            chargeToShield = -2;
+            chargeToShield -= 3;
         }
         if (source.is(DamageTypes.IN_FIRE))
             return false;
@@ -357,8 +357,11 @@ public class DarkSpiritEntity extends Monster {
     @Override
     public void die(DamageSource source) {
         super.die(source);
-        if(source.getEntity() instanceof ServerPlayer player)
-            AdvancementsManager.addAdvancement(player,AdvancementsManager.DARK_SPIRIT_ADV);
+        if(source.getEntity() instanceof ServerPlayer player) {
+            AdvancementsManager.addAdvancement(player, AdvancementsManager.DARK_SPIRIT_ADV);
+            if (this.getDisplayName().getString().equals("Basics"))
+                AdvancementsManager.addAdvancement(player,AdvancementsManager.EASTER_DARK_SPIRIT_ADV);
+        }
         this.spawnAtLocation(new ItemStack(VariousWorldModItems.TOTEM_OF_DARK_SPIRIT.get()));
         this.convertTo(EntityType.VEX,true);
     }

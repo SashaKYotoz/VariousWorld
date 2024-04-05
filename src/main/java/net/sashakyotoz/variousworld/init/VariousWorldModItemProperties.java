@@ -34,8 +34,8 @@ public class VariousWorldModItemProperties {
 			}
 		});
 		ItemProperties.register(item, new ResourceLocation("pulling"), (stack, level, entity, p_174618_) -> entity != null && entity.isUsingItem() && entity.getUseItem() == stack && !LordOfFuriesCrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
-		ItemProperties.register(item, new ResourceLocation("charged"), (stack, p_174611_, entity, p_174613_) -> entity != null && LordOfFuriesCrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
-		ItemProperties.register(item, new ResourceLocation("firework"), (stack, p_174606_, entity, p_174608_) -> entity != null && LordOfFuriesCrossbowItem.isCharged(stack) && LordOfFuriesCrossbowItem.containsChargedProjectile(stack, Items.FIREWORK_ROCKET) ? 1.0F : 0.0F);
+		ItemProperties.register(item, new ResourceLocation("charged"), (stack, level, entity, p_174613_) -> entity != null && LordOfFuriesCrossbowItem.isCharged(stack) ? 1.0F : 0.0F);
+		ItemProperties.register(item, new ResourceLocation("firework"), (stack, level, entity, p_174608_) -> entity != null && LordOfFuriesCrossbowItem.isCharged(stack) && LordOfFuriesCrossbowItem.containsChargedProjectile(stack, Items.FIREWORK_ROCKET) ? 1.0F : 0.0F);
 	}
 
 }

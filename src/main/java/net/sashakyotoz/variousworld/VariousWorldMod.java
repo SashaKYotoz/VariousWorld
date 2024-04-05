@@ -1,10 +1,8 @@
-
 package net.sashakyotoz.variousworld;
 
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.network.FriendlyByteBuf;
@@ -17,8 +15,9 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
@@ -29,8 +28,6 @@ import net.sashakyotoz.variousworld.client.gui.ArchofgemsScreen;
 import net.sashakyotoz.variousworld.client.gui.ArmorStationScreen;
 import net.sashakyotoz.variousworld.client.gui.DisenchantTableGUIScreen;
 import net.sashakyotoz.variousworld.client.gui.MycolocyfarographGUIScreen;
-import net.sashakyotoz.variousworld.client.renderer.CrystalWarriorRenderer;
-import net.sashakyotoz.variousworld.entity.CrystalWarriorEntity;
 import net.sashakyotoz.variousworld.client.renderer.layers.AmethystSpikesEffectLayer;
 import net.sashakyotoz.variousworld.client.renderer.layers.AngelStarWingsLayer;
 import net.sashakyotoz.variousworld.client.renderer.layers.ChainedEffectLayer;
@@ -56,18 +53,19 @@ public class VariousWorldMod {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         VariousWorldModSounds.init();
-        VariousWorldModBlocks.REGISTRY.register(bus);
-        VariousWorldModItems.REGISTRY.register(bus);
-        VariousWorldModEntities.REGISTRY.register(bus);
-        VariousWorldModBlockEntities.REGISTRY.register(bus);
-        VariousWorldModEnchantments.REGISTRY.register(bus);
-        VariousWorldModPaintings.REGISTRY.register(bus);
+        VariousWorldModBlocks.BLOCKS.register(bus);
+        VariousWorldModItems.ITEMS.register(bus);
+        VariousWorldModEntities.ENTITIES.register(bus);
+        VariousWorldModBlockEntities.BLOCK_ENTITIES.register(bus);
+        VariousWorldModEnchantments.ENCHANTMENTS.register(bus);
+        VariousWorldModPaintings.PAINTINGS.register(bus);
         VariousWorldModParticleTypes.REGISTRY.register(bus);
         VariousWorldModMobEffects.REGISTRY.register(bus);
         VariousWorldModTabs.CREATIVE_MODE_TABS.register(bus);
         VariousWorldModMenus.REGISTRY.register(bus);
         VariousWorldModFeatures.REGISTRY.register(bus);
         VariousWorldModVillagerProfessions.PROFESSIONS.register(bus);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON,VariousWorldConfig.SPEC);
         if (FMLEnvironment.dist.isClient()) {
             bus.addListener(this::registerLayer);
             bus.addListener(this::commonSetup);
@@ -86,10 +84,6 @@ public class VariousWorldMod {
                     playerRenderer.addLayer(new ChainedEffectLayer<>(playerRenderer, entityModels));
                 }
             });
-            LivingEntityRenderer<CrystalWarriorEntity, ? extends EntityModel<CrystalWarriorEntity>> livingEntityRenderer = addLayersEvent.getRenderer(VariousWorldModEntities.CRYSTAL_WARRIOR.get());
-            if (livingEntityRenderer instanceof CrystalWarriorRenderer armorStandRenderer) {
-                armorStandRenderer.addLayer(new AmethystSpikesEffectLayer<>(armorStandRenderer, entityModels));
-            }
         }
     }
 
@@ -105,7 +99,7 @@ public class VariousWorldMod {
     private static final Collection<AbstractMap.SimpleEntry<Runnable, Integer>> workQueue = new ConcurrentLinkedQueue<>();
 
     public static void queueServerWork(int tick, Runnable action) {
-        workQueue.add(new AbstractMap.SimpleEntry(action, tick));
+        workQueue.add(new AbstractMap.SimpleEntry<>(action, tick));
     }
 
     @SubscribeEvent
@@ -125,9 +119,10 @@ public class VariousWorldMod {
     @OnlyIn(Dist.CLIENT)
     private void commonSetup(final FMLCommonSetupEvent event) {
         VariousWorldModItemProperties.addCustomItemProperties();
-        new VariousWorldVillagerType().initVillagerTypes();
+        VariousWorldVillagerType villagerType = new VariousWorldVillagerType();
+        villagerType.initVillagerTypes();
 		event.enqueueWork(() -> {
-			MenuScreens.register(VariousWorldModMenus.ARCHOFGEMS.get(), ArchofgemsScreen::new);
+			MenuScreens.register(VariousWorldModMenus.ARCH_OF_GEMS.get(), ArchofgemsScreen::new);
 			MenuScreens.register(VariousWorldModMenus.ARMOR_STATION.get(), ArmorStationScreen::new);
 			MenuScreens.register(VariousWorldModMenus.DISENCHANT_TABLE_GUI.get(), DisenchantTableGUIScreen::new);
 			MenuScreens.register(VariousWorldModMenus.MYCOLOCYFAROGRAPH_GUI.get(), MycolocyfarographGUIScreen::new);

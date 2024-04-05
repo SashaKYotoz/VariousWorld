@@ -71,16 +71,12 @@ public class AnthuriumSproutedOfMagmaBlock extends FlowerBlock {
 
 	@OnlyIn(Dist.CLIENT)
 	public static void blockColorLoad(RegisterColorHandlersEvent.Block event) {
-		event.getBlockColors().register((bs, world, pos, index) -> {
-			return world != null && pos != null ? Minecraft.getInstance().level.getBiome(pos).value().getFogColor() : 12638463;
-		}, VariousWorldModBlocks.ANTHURIUM_SPROUTED_OF_MAGMA.get());
+		event.getBlockColors().register((bs, world, pos, index) -> world != null && pos != null ? Minecraft.getInstance().level.getBiome(pos).value().getFogColor() : 12638463, VariousWorldModBlocks.ANTHURIUM_SPROUTED_OF_MAGMA.get());
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	public static void itemColorLoad(RegisterColorHandlersEvent.Item event) {
-		event.getItemColors().register((stack, index) -> {
-			return 12638463;
-		}, VariousWorldModBlocks.ANTHURIUM_SPROUTED_OF_MAGMA.get());
+		event.getItemColors().register((stack, index) -> 12638463, VariousWorldModBlocks.ANTHURIUM_SPROUTED_OF_MAGMA.get());
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {

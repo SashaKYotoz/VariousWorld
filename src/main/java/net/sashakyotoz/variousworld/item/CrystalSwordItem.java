@@ -42,13 +42,12 @@ public class CrystalSwordItem extends SwordItem{
 	}
 
 	@Override
-	public boolean hurtEnemy(ItemStack itemstack, LivingEntity entity, LivingEntity sourceentity) {
-		boolean retval = super.hurtEnemy(itemstack, entity, sourceentity);
-		if (sourceentity.getMainHandItem().getOrCreateTag().getDouble("CustomModelData") == 1) {
-			if (sourceentity.level() instanceof ServerLevel level)
-				level.sendParticles(ParticleTypes.CRIT, sourceentity.getX(), sourceentity.getY(), sourceentity.getZ(), 15, 3, 3, 3, 1);
+	public boolean hurtEnemy(ItemStack itemstack, LivingEntity entity, LivingEntity livingEntity) {
+		if (livingEntity.getMainHandItem().getOrCreateTag().getDouble("CustomModelData") == 1) {
+			if (livingEntity.level() instanceof ServerLevel level)
+				level.sendParticles(ParticleTypes.CRIT, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), 15, 3, 3, 3, 1);
 			entity.setSecondsOnFire(3);
 		}
-		return retval;
+		return super.hurtEnemy(itemstack, entity, livingEntity);
 	}
 }

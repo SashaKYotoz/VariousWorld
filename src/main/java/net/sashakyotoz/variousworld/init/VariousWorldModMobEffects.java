@@ -10,9 +10,9 @@ import net.minecraftforge.registries.DeferredRegister;
 
 import net.minecraft.world.effect.MobEffect;
 
-import net.sashakyotoz.variousworld.potion.DragonEyeMobEffect;
-import net.sashakyotoz.variousworld.potion.ChainedOfChainMobEffect;
-import net.sashakyotoz.variousworld.potion.AmethystSpikesMobEffect;
+import net.sashakyotoz.variousworld.effects.DragonEyeMobEffect;
+import net.sashakyotoz.variousworld.effects.ChainedOfChainMobEffect;
+import net.sashakyotoz.variousworld.effects.AmethystSpikesMobEffect;
 import net.sashakyotoz.variousworld.VariousWorldMod;
 
 public class VariousWorldModMobEffects {

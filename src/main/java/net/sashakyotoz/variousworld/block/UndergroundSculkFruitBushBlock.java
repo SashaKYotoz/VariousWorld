@@ -1,10 +1,6 @@
 
 package net.sashakyotoz.variousworld.block;
 
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
-import net.sashakyotoz.variousworld.procedures.UndergroundSculkFruitBushPlantRightClickedProcedure;
-import net.sashakyotoz.variousworld.procedures.UndergroundSculkFruitBushUpdateTickProcedure;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -14,6 +10,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -28,6 +25,9 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.procedures.UndergroundSculkFruitBushUpdateTickProcedure;
 
 import java.util.Collections;
 import java.util.List;
@@ -74,13 +74,24 @@ public class UndergroundSculkFruitBushBlock extends FlowerBlock {
 	@Override
 	public void tick(BlockState blockstate, ServerLevel world, BlockPos pos, RandomSource random) {
 		super.tick(blockstate, world, pos, random);
-		UndergroundSculkFruitBushUpdateTickProcedure.execute(world, pos.getX(), pos.getY(), pos.getZ());
+		UndergroundSculkFruitBushUpdateTickProcedure.execute(world, pos);
 	}
 
 	@Override
-	public InteractionResult use(BlockState blockstate, Level world, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult hit) {
-		super.use(blockstate, world, pos, entity, hand, hit);
-		UndergroundSculkFruitBushPlantRightClickedProcedure.execute(world, pos.getX(), pos.getY(), pos.getZ(), entity);
+	public InteractionResult use(BlockState blockstate, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		super.use(blockstate, level, pos, player, hand, hit);
+		if (player.getMainHandItem().is(Items.BONE_MEAL) && !player.level().isClientSide()) {
+			if (level.getBlockState(pos.above()).is(Blocks.AIR)) {
+				ItemStack stack = new ItemStack(Items.BONE_MEAL);
+				player.getInventory().clearOrCountMatchingItems(p -> stack.getItem() == p.getItem(), 1, player.inventoryMenu.getCraftSlots());
+				player.getInventory().setChanged();
+				if (Math.random() < 0.25) {
+					BlockState state = VariousWorldModBlocks.UNDERGROUND_SCULK_BUSH_WITHOUT_FRUIT.get().defaultBlockState();
+					level.setBlock(pos, state, 3);
+					player.spawnAtLocation(new ItemStack(VariousWorldModItems.SCULK_FRUIT.get()));
+				}
+			}
+		}
 		return InteractionResult.SUCCESS;
 	}
 	@Override

@@ -20,13 +20,14 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.common.IForgeShearable;
 
 import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class MagicVinesBlock extends Block implements net.minecraftforge.common.IForgeShearable {
+public class MagicVinesBlock extends Block implements IForgeShearable {
 	public static final BooleanProperty UP = PipeBlock.UP;
 	public static final BooleanProperty NORTH = PipeBlock.NORTH;
 	public static final BooleanProperty EAST = PipeBlock.EAST;
@@ -44,35 +45,35 @@ public class MagicVinesBlock extends Block implements net.minecraftforge.common.
 		super(BlockBehaviour.Properties.copy(Blocks.VINE).sound(SoundType.VINE).strength(0.15f, 5f).lightLevel(s -> 5).noCollission().noOcclusion().hasPostProcess((bs, br, bp) -> true)
 				.emissiveRendering((bs, br, bp) -> true).isRedstoneConductor((bs, br, bp) -> false));
 		this.registerDefaultState(
-				this.stateDefinition.any().setValue(UP, Boolean.valueOf(false)).setValue(NORTH, Boolean.valueOf(false)).setValue(EAST, Boolean.valueOf(false)).setValue(SOUTH, Boolean.valueOf(false)).setValue(WEST, Boolean.valueOf(false)));
+				this.stateDefinition.any().setValue(UP, Boolean.FALSE).setValue(NORTH, Boolean.FALSE).setValue(EAST, Boolean.FALSE).setValue(SOUTH, Boolean.FALSE).setValue(WEST, Boolean.FALSE));
 		this.shapesCache = ImmutableMap.copyOf(this.stateDefinition.getPossibleStates().stream().collect(Collectors.toMap(Function.identity(), MagicVinesBlock::calculateShape)));
 	}
 
-	private static VoxelShape calculateShape(BlockState p_57906_) {
+	private static VoxelShape calculateShape(BlockState state) {
 		VoxelShape voxelshape = Shapes.empty();
-		if (p_57906_.getValue(UP)) {
+		if (state.getValue(UP)) {
 			voxelshape = UP_AABB;
 		}
-		if (p_57906_.getValue(NORTH)) {
+		if (state.getValue(NORTH)) {
 			voxelshape = Shapes.or(voxelshape, NORTH_AABB);
 		}
-		if (p_57906_.getValue(SOUTH)) {
+		if (state.getValue(SOUTH)) {
 			voxelshape = Shapes.or(voxelshape, SOUTH_AABB);
 		}
-		if (p_57906_.getValue(EAST)) {
+		if (state.getValue(EAST)) {
 			voxelshape = Shapes.or(voxelshape, EAST_AABB);
 		}
-		if (p_57906_.getValue(WEST)) {
+		if (state.getValue(WEST)) {
 			voxelshape = Shapes.or(voxelshape, WEST_AABB);
 		}
 		return voxelshape.isEmpty() ? Shapes.block() : voxelshape;
 	}
 
-	public VoxelShape getShape(BlockState p_57897_, BlockGetter p_57898_, BlockPos p_57899_, CollisionContext p_57900_) {
-		return this.shapesCache.get(p_57897_);
+	public VoxelShape getShape(BlockState state, BlockGetter p_57898_, BlockPos p_57899_, CollisionContext p_57900_) {
+		return this.shapesCache.get(state);
 	}
 
-	public boolean propagatesSkylightDown(BlockState p_181239_, BlockGetter p_181240_, BlockPos p_181241_) {
+	public boolean propagatesSkylightDown(BlockState state, BlockGetter p_181240_, BlockPos p_181241_) {
 		return true;
 	}
 
@@ -81,12 +82,12 @@ public class MagicVinesBlock extends Block implements net.minecraftforge.common.
 		return true;
 	}
 
-	public boolean canSurvive(BlockState p_57861_, LevelReader p_57862_, BlockPos p_57863_) {
-		return this.hasFaces(this.getUpdatedState(p_57861_, p_57862_, p_57863_));
+	public boolean canSurvive(BlockState state, LevelReader p_57862_, BlockPos p_57863_) {
+		return this.hasFaces(this.getUpdatedState(state, p_57862_, p_57863_));
 	}
 
-	private boolean hasFaces(BlockState p_57908_) {
-		return this.countFaces(p_57908_) > 0;
+	private boolean hasFaces(BlockState state) {
+		return this.countFaces(state) > 0;
 	}
 
 	private int countFaces(BlockState p_57910_) {
@@ -99,18 +100,18 @@ public class MagicVinesBlock extends Block implements net.minecraftforge.common.
 		return i;
 	}
 
-	private boolean canSupportAtFace(BlockGetter p_57888_, BlockPos p_57889_, Direction p_57890_) {
-		if (p_57890_ == Direction.DOWN) {
+	private boolean canSupportAtFace(BlockGetter getter, BlockPos pos, Direction direction) {
+		if (direction == Direction.DOWN) {
 			return false;
 		} else {
-			BlockPos blockpos = p_57889_.relative(p_57890_);
-			if (isAcceptableNeighbour(p_57888_, blockpos, p_57890_)) {
+			BlockPos blockpos = pos.relative(direction);
+			if (isAcceptableNeighbour(getter, blockpos, direction)) {
 				return true;
-			} else if (p_57890_.getAxis() == Direction.Axis.Y) {
+			} else if (direction.getAxis() == Direction.Axis.Y) {
 				return false;
 			} else {
-				BooleanProperty booleanproperty = PROPERTY_BY_DIRECTION.get(p_57890_);
-				BlockState blockstate = p_57888_.getBlockState(p_57889_.above());
+				BooleanProperty booleanproperty = PROPERTY_BY_DIRECTION.get(direction);
+				BlockState blockstate = getter.getBlockState(pos.above());
 				return blockstate.is(this) && blockstate.getValue(booleanproperty);
 			}
 		}
@@ -123,7 +124,7 @@ public class MagicVinesBlock extends Block implements net.minecraftforge.common.
 	private BlockState getUpdatedState(BlockState p_57902_, BlockGetter p_57903_, BlockPos p_57904_) {
 		BlockPos blockpos = p_57904_.above();
 		if (p_57902_.getValue(UP)) {
-			p_57902_ = p_57902_.setValue(UP, Boolean.valueOf(isAcceptableNeighbour(p_57903_, blockpos, Direction.DOWN)));
+			p_57902_ = p_57902_.setValue(UP, isAcceptableNeighbour(p_57903_, blockpos, Direction.DOWN));
 		}
 		BlockState blockstate = null;
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
@@ -136,34 +137,34 @@ public class MagicVinesBlock extends Block implements net.minecraftforge.common.
 					}
 					flag = blockstate.is(this) && blockstate.getValue(booleanproperty);
 				}
-				p_57902_ = p_57902_.setValue(booleanproperty, Boolean.valueOf(flag));
+				p_57902_ = p_57902_.setValue(booleanproperty, flag);
 			}
 		}
 		return p_57902_;
 	}
 
-	public BlockState updateShape(BlockState p_57875_, Direction p_57876_, BlockState p_57877_, LevelAccessor p_57878_, BlockPos p_57879_, BlockPos p_57880_) {
-		if (p_57876_ == Direction.DOWN) {
-			return super.updateShape(p_57875_, p_57876_, p_57877_, p_57878_, p_57879_, p_57880_);
+	public BlockState updateShape(BlockState state, Direction direction, BlockState state1, LevelAccessor accessor, BlockPos p_57879_, BlockPos p_57880_) {
+		if (direction == Direction.DOWN) {
+			return super.updateShape(state, direction, state1, accessor, p_57879_, p_57880_);
 		} else {
-			BlockState blockstate = this.getUpdatedState(p_57875_, p_57878_, p_57879_);
+			BlockState blockstate = this.getUpdatedState(state, accessor, p_57879_);
 			return !this.hasFaces(blockstate) ? Blocks.AIR.defaultBlockState() : blockstate;
 		}
 	}
 
-	public void randomTick(BlockState p_222655_, ServerLevel p_222656_, BlockPos p_222657_, RandomSource p_222658_) {
+	public void randomTick(BlockState state, ServerLevel p_222656_, BlockPos p_222657_, RandomSource p_222658_) {
 		if (p_222656_.random.nextInt(4) == 0 && p_222656_.isAreaLoaded(p_222657_, 4)) { // Forge: check area to prevent loading unloaded chunks
 			Direction direction = Direction.getRandom(p_222658_);
 			BlockPos blockpos = p_222657_.above();
-			if (direction.getAxis().isHorizontal() && !p_222655_.getValue(getPropertyForFace(direction))) {
+			if (direction.getAxis().isHorizontal() && !state.getValue(getPropertyForFace(direction))) {
 				if (this.canSpread(p_222656_, p_222657_)) {
 					BlockPos blockpos4 = p_222657_.relative(direction);
 					BlockState blockstate4 = p_222656_.getBlockState(blockpos4);
 					if (blockstate4.isAir()) {
 						Direction direction3 = direction.getClockWise();
 						Direction direction4 = direction.getCounterClockWise();
-						boolean flag = p_222655_.getValue(getPropertyForFace(direction3));
-						boolean flag1 = p_222655_.getValue(getPropertyForFace(direction4));
+						boolean flag = state.getValue(getPropertyForFace(direction3));
+						boolean flag1 = state.getValue(getPropertyForFace(direction4));
 						BlockPos blockpos2 = blockpos4.relative(direction3);
 						BlockPos blockpos3 = blockpos4.relative(direction4);
 						if (flag && isAcceptableNeighbour(p_222656_, blockpos2, direction3)) {
@@ -181,20 +182,20 @@ public class MagicVinesBlock extends Block implements net.minecraftforge.common.
 							}
 						}
 					} else if (isAcceptableNeighbour(p_222656_, blockpos4, direction)) {
-						p_222656_.setBlock(p_222657_, p_222655_.setValue(getPropertyForFace(direction), Boolean.valueOf(true)), 2);
+						p_222656_.setBlock(p_222657_, state.setValue(getPropertyForFace(direction), Boolean.valueOf(true)), 2);
 					}
 				}
 			} else {
 				if (direction == Direction.UP && p_222657_.getY() < p_222656_.getMaxBuildHeight() - 1) {
 					if (this.canSupportAtFace(p_222656_, p_222657_, direction)) {
-						p_222656_.setBlock(p_222657_, p_222655_.setValue(UP, Boolean.valueOf(true)), 2);
+						p_222656_.setBlock(p_222657_, state.setValue(UP, Boolean.valueOf(true)), 2);
 						return;
 					}
 					if (p_222656_.isEmptyBlock(blockpos)) {
 						if (!this.canSpread(p_222656_, p_222657_)) {
 							return;
 						}
-						BlockState blockstate3 = p_222655_;
+						BlockState blockstate3 = state;
 						for (Direction direction2 : Direction.Plane.HORIZONTAL) {
 							if (p_222658_.nextBoolean() || !isAcceptableNeighbour(p_222656_, blockpos.relative(direction2), direction2)) {
 								blockstate3 = blockstate3.setValue(getPropertyForFace(direction2), Boolean.valueOf(false));
@@ -211,7 +212,7 @@ public class MagicVinesBlock extends Block implements net.minecraftforge.common.
 					BlockState blockstate = p_222656_.getBlockState(blockpos1);
 					if (blockstate.isAir() || blockstate.is(this)) {
 						BlockState blockstate1 = blockstate.isAir() ? this.defaultBlockState() : blockstate;
-						BlockState blockstate2 = this.copyRandomFaces(p_222655_, blockstate1, p_222658_);
+						BlockState blockstate2 = this.copyRandomFaces(state, blockstate1, p_222658_);
 						if (blockstate1 != blockstate2 && this.hasHorizontalConnection(blockstate2)) {
 							p_222656_.setBlock(blockpos1, blockstate2, 2);
 						}

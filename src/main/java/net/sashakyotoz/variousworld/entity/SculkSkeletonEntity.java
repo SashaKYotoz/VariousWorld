@@ -4,7 +4,6 @@ package net.sashakyotoz.variousworld.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.Difficulty;
@@ -29,7 +28,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.sashakyotoz.variousworld.init.VariousWorldModEntities;
 import net.sashakyotoz.variousworld.init.VariousWorldModItems;
 
@@ -38,8 +36,8 @@ import javax.annotation.Nullable;
 public class SculkSkeletonEntity extends Zombie {
 	@Nullable
 	Mob owner;
-	public void setOwner(Mob p_33995_) {
-		this.owner = p_33995_;
+	public void setOwner(Mob mob) {
+		this.owner = mob;
 	}
 
 	public SculkSkeletonEntity(PlayMessages.SpawnEntity packet, Level world) {
@@ -77,15 +75,15 @@ public class SculkSkeletonEntity extends Zombie {
 		this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
 		this.goalSelector.addGoal(3, new RandomStrollGoal(this, 0.8));
 		this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-		this.targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, ArmoredskeletonEntity.class, false, false));
+		this.targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, ArmoredSkeletonEntity.class, false, false));
 		this.targetSelector.addGoal(6, new NearestAttackableTargetGoal(this, Player.class, false, false));
 		this.targetSelector.addGoal(7, new SculkSkeletonEntity.SculkSkeletonCopyOwnerTarget(this));
 	}
 	class SculkSkeletonCopyOwnerTarget extends TargetGoal {
 		private final TargetingConditions copyOwnerTargeting = TargetingConditions.forNonCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
 
-		public SculkSkeletonCopyOwnerTarget(PathfinderMob p_34056_) {
-			super(p_34056_, false);
+		public SculkSkeletonCopyOwnerTarget(PathfinderMob mob) {
+			super(mob, false);
 		}
 
 		public boolean canUse() {

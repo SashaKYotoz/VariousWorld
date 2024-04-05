@@ -1,4 +1,3 @@
-
 package net.sashakyotoz.variousworld.entity;
 
 import net.minecraft.core.BlockPos;
@@ -52,8 +51,8 @@ public class SpiritofPeacefulWastelandEntity extends TamableAnimal {
 
     public SpiritofPeacefulWastelandEntity(EntityType<SpiritofPeacefulWastelandEntity> type, Level world) {
         super(type, world);
-        xpReward = 1;
-        setNoAi(false);
+        this.setNoGravity(true);
+        xpReward = 3;
         this.moveControl = new FlyingMoveControl(this, 10, true);
         double randomItem = Math.random();
         if (randomItem <= 0.25)
@@ -111,8 +110,8 @@ public class SpiritofPeacefulWastelandEntity extends TamableAnimal {
     static class SitWhenOrderedToGoal extends Goal {
         private final TamableAnimal mob;
 
-        public SitWhenOrderedToGoal(TamableAnimal p_25898_) {
-            this.mob = p_25898_;
+        public SitWhenOrderedToGoal(TamableAnimal animal) {
+            this.mob = animal;
             this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
         }
 
@@ -233,9 +232,9 @@ public class SpiritofPeacefulWastelandEntity extends TamableAnimal {
 
     @Override
     public AgeableMob getBreedOffspring(ServerLevel serverWorld, AgeableMob ageable) {
-        SpiritofPeacefulWastelandEntity retval = VariousWorldModEntities.SPIRITOF_PEACEFUL_WASTELAND.get().create(serverWorld);
-        retval.finalizeSpawn(serverWorld, serverWorld.getCurrentDifficultyAt(retval.blockPosition()), MobSpawnType.BREEDING, null, null);
-        return retval;
+        SpiritofPeacefulWastelandEntity entity = VariousWorldModEntities.SPIRITOF_PEACEFUL_WASTELAND.get().create(serverWorld);
+        entity.finalizeSpawn(serverWorld, serverWorld.getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.BREEDING, null, null);
+        return entity;
     }
 
     @Override
@@ -245,16 +244,6 @@ public class SpiritofPeacefulWastelandEntity extends TamableAnimal {
 
     @Override
     protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
-    }
-
-    @Override
-    public void setNoGravity(boolean ignored) {
-        super.setNoGravity(true);
-    }
-
-    public void aiStep() {
-        super.aiStep();
-        this.setNoGravity(true);
     }
 
     public static void init() {

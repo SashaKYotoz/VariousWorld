@@ -43,19 +43,19 @@ public class SculkNecromancerSkeletonEntity extends Monster implements RangedAtt
     public AnimationState deathAnimationState = new AnimationState();
     public AnimationState spawnAnimationState = new AnimationState();
     public static int attackAnimationRemainingTicks;
-    public final AnimationState walkAnimationState = new AnimationState();
     private final ServerBossEvent bossInfo = new ServerBossEvent(this.getDisplayName(), ServerBossEvent.BossBarColor.BLUE, ServerBossEvent.BossBarOverlay.NOTCHED_10);
+
     public SculkNecromancerSkeletonEntity(EntityType<SculkNecromancerSkeletonEntity> type, Level world) {
         super(type, world);
         xpReward = 25;
         setNoAi(false);
         setPersistenceRequired();
-        int randomAttack = (int) Math.round(Math.random());
-        if (randomAttack == 0)
+        if (this.getRandom().nextBoolean())
             this.setItemSlotAndDropWhenKilled(EquipmentSlot.MAINHAND, new ItemStack(VariousWorldModItems.NECROMANCER_WAND.get()));
         else
             this.setItemSlotAndDropWhenKilled(EquipmentSlot.MAINHAND, new ItemStack(VariousWorldModItems.SCULK_SCYTHE.get()));
     }
+
     public SculkNecromancerSkeletonEntity(PlayMessages.SpawnEntity packet, Level world) {
         this(VariousWorldModEntities.SCULK_NECROMANCER_SKELETON.get(), world);
     }
@@ -97,21 +97,6 @@ public class SculkNecromancerSkeletonEntity extends Monster implements RangedAtt
         }
     }
 
-    private boolean isMovingOnLand() {
-        return this.onGround() && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
-    }
-
-    public void tick() {
-        if (this.level().isClientSide()) {
-            if (this.isMovingOnLand()) {
-                this.walkAnimationState.startIfStopped(this.tickCount);
-            } else {
-                this.walkAnimationState.stop();
-            }
-        }
-        super.tick();
-    }
-
     @Override
     protected void registerGoals() {
         super.registerGoals();
@@ -123,7 +108,7 @@ public class SculkNecromancerSkeletonEntity extends Monster implements RangedAtt
         });
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Player.class, false, true));
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal(this, ArmoredskeletonEntity.class, false, true));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal(this, ArmoredSkeletonEntity.class, false, true));
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 0.75));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(7, new SculkNecromancerSkeletonEntity.SculkNecromancerSkeletonAbility(this));
@@ -179,8 +164,8 @@ public class SculkNecromancerSkeletonEntity extends Monster implements RangedAtt
         private final TargetingConditions skeletonCountTargeting = TargetingConditions.forNonCombat().range(16.0D).ignoreLineOfSight().ignoreInvisibilityTesting();
         private final SculkNecromancerSkeletonEntity skeleton;
 
-        public NecromancerSummonSpellGoal(SculkNecromancerSkeletonEntity p_32776_) {
-            this.skeleton = p_32776_;
+        public NecromancerSummonSpellGoal(SculkNecromancerSkeletonEntity entity) {
+            this.skeleton = entity;
         }
 
         public void start() {
@@ -219,13 +204,11 @@ public class SculkNecromancerSkeletonEntity extends Monster implements RangedAtt
     }
 
     @Override
-    public void performRangedAttack(LivingEntity target, float flval) {
-        int attackVariant = (int) Math.round((Math.random()));
-        if (attackVariant == 0)
+    public void performRangedAttack(LivingEntity target, float f) {
+        if (this.getRandom().nextBoolean())
             SculkScytheEntity.shoot(this, target);
-        else {
+        else
             NecromancerStaffEntity.shoot(this, target);
-        }
     }
 
     @Override
@@ -275,6 +258,7 @@ public class SculkNecromancerSkeletonEntity extends Monster implements RangedAtt
             this.deathAnimationState.start(this.tickCount);
         super.tickDeath();
     }
+
     public void onAddedToWorld() {
         super.onAddedToWorld();
         spawnAnimationState.start(this.tickCount);
@@ -294,11 +278,11 @@ public class SculkNecromancerSkeletonEntity extends Monster implements RangedAtt
     @Override
     public void die(DamageSource source) {
         this.deathTime = -40;
-        if(source.getEntity() instanceof Player player)
-            AdvancementsManager.addAdvancement(player,AdvancementsManager.SCULK_NECROMANCER_ADV);
-        if (this.random.nextBoolean()){
-            this.spawnAtLocation(new ItemStack(Items.BONE),this.random.nextIntBetweenInclusive(2,11));
-            this.spawnAtLocation(new ItemStack(Items.SCULK_SENSOR),this.random.nextIntBetweenInclusive(1,3));
+        if (source.getEntity() instanceof Player player)
+            AdvancementsManager.addAdvancement(player, AdvancementsManager.SCULK_NECROMANCER_ADV);
+        if (this.random.nextBoolean()) {
+            this.spawnAtLocation(new ItemStack(Items.BONE), this.random.nextIntBetweenInclusive(2, 11));
+            this.spawnAtLocation(new ItemStack(Items.SCULK_SENSOR), this.random.nextIntBetweenInclusive(1, 3));
         }
         super.die(source);
     }

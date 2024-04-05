@@ -95,19 +95,4 @@ public class MultipleEnderPearlEntity extends AbstractArrow implements ItemSuppl
 		world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENDER_PEARL_THROW, SoundSource.PLAYERS, 1, 1f / (random.nextFloat() * 0.5f + 1) + (power / 2));
 		return entityarrow;
 	}
-
-	public static MultipleEnderPearlEntity shoot(LivingEntity entity, LivingEntity target) {
-		MultipleEnderPearlEntity entityarrow = new MultipleEnderPearlEntity(VariousWorldModEntities.MULTIPLE_ENDER_PEARL.get(), entity, entity.level());
-		double dx = target.getX() - entity.getX();
-		double dy = target.getY() + target.getEyeHeight() - 1.1;
-		double dz = target.getZ() - entity.getZ();
-		entityarrow.shoot(dx, dy - entityarrow.getY() + Math.hypot(dx, dz) * 0.2F, dz, 2f * 2, 12.0F);
-		entityarrow.setSilent(true);
-		entityarrow.setBaseDamage(1);
-		entityarrow.setKnockback(0);
-		entityarrow.setCritArrow(false);
-		entity.level().addFreshEntity(entityarrow);
-		entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENDER_PEARL_THROW, SoundSource.PLAYERS, 1, 1f / (RandomSource.create().nextFloat() * 0.5f + 1));
-		return entityarrow;
-	}
 }

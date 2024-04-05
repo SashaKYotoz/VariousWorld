@@ -1,5 +1,5 @@
 {
-  "type": "various_world:blackly_stony_magma",
+  "type": "minecraft:ore",
   "config": {
     "size": 4,
     "discard_chance_on_air_exposure": 0,
