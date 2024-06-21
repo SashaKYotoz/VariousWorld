@@ -38,9 +38,8 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PlayMessages;
-import net.sashakyotoz.variousworld.init.VariousWorldModEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.init.VariousWorldEntities;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
 import net.sashakyotoz.variousworld.procedures.AdvancementsManager;
 
 import java.util.Comparator;
@@ -188,8 +187,8 @@ public class SpiritOfDeepCavernEntity extends TamableAnimal {
         }
         if (this.isOwnedBy(player))
             AdvancementsManager.addAdvancement(player, AdvancementsManager.MINING_ALLAY_ADV);
-        if (player.getMainHandItem().is(VariousWorldModItems.BRANCH_WITH_DRAGON_EYE_FRUIT.get())) {
-            ItemStack stack = new ItemStack(VariousWorldModItems.BRANCH_WITH_DRAGON_EYE_FRUIT.get());
+        if (player.getMainHandItem().is(VariousWorldItems.BRANCH_WITH_DRAGON_EYE_FRUIT.get())) {
+            ItemStack stack = new ItemStack(VariousWorldItems.BRANCH_WITH_DRAGON_EYE_FRUIT.get());
             player.getInventory().clearOrCountMatchingItems(p -> stack.getItem() == p.getItem(), 1, player.inventoryMenu.getCraftSlots());
             player.getInventory().setChanged();
             if (player.getRandom().nextBoolean()) {
@@ -220,14 +219,14 @@ public class SpiritOfDeepCavernEntity extends TamableAnimal {
 
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob ageable) {
-        SpiritOfDeepCavernEntity entity = VariousWorldModEntities.SPIRITOF_DEEP_CAVERN.get().create(level);
+        SpiritOfDeepCavernEntity entity = VariousWorldEntities.SPIRITOF_DEEP_CAVERN.get().create(level);
         entity.finalizeSpawn(level, level.getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.BREEDING, null, null);
         return entity;
     }
 
     @Override
     public boolean isFood(ItemStack stack) {
-        return List.of(VariousWorldModItems.BRANCH_WITH_DRAGON_EYE_FRUIT.get(), VariousWorldModItems.MYCENA_FROM_CAVERN_OF_DEEP_FOOD.get(), VariousWorldModItems.SCULKBERRY.get()).contains(stack.getItem());
+        return List.of(VariousWorldItems.BRANCH_WITH_DRAGON_EYE_FRUIT.get(), VariousWorldItems.MYCENA_FROM_CAVERN_OF_DEEP_FOOD.get(), VariousWorldItems.SCULKBERRY.get()).contains(stack.getItem());
     }
 
     @Override
@@ -235,7 +234,7 @@ public class SpiritOfDeepCavernEntity extends TamableAnimal {
     }
 
     public static void init() {
-        SpawnPlacements.register(VariousWorldModEntities.SPIRITOF_DEEP_CAVERN.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
+        SpawnPlacements.register(VariousWorldEntities.SPIRITOF_DEEP_CAVERN.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

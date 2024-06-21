@@ -1,6 +1,6 @@
 package net.sashakyotoz.variousworld.block;
 
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -47,7 +47,7 @@ public class CobbledGneissBlock extends Block {
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldModBlocks.COBBLED_GNEISS.get());
+		ItemStack itemStack = new ItemStack(VariousWorldBlocks.COBBLED_GNEISS.get());
 		return Collections.singletonList(itemStack);
 	}
 }

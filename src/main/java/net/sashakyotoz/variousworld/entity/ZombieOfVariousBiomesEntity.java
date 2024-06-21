@@ -21,10 +21,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.network.PlayMessages;
-import net.sashakyotoz.variousworld.init.VariousWorldModEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
-import net.sashakyotoz.variousworld.init.VariousWorldModSounds;
+import net.sashakyotoz.variousworld.init.VariousWorldEntities;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VariousWorldSounds;
 import org.jetbrains.annotations.NotNull;
 
 public class ZombieOfVariousBiomesEntity extends Monster {
@@ -36,9 +35,9 @@ public class ZombieOfVariousBiomesEntity extends Monster {
 		xpReward = 4;
 		float randomItem = (float) Math.random();
 		if(randomItem <= 0.125)
-			this.itemStack = new ItemStack(VariousWorldModItems.SLIME_CRYSTALIC.get());
+			this.itemStack = new ItemStack(VariousWorldItems.SLIME_CRYSTALIC.get());
 		else if(randomItem >= 0.875)
-			this.itemStack = new ItemStack(VariousWorldModItems.CRYSTALIC_STRENGTH.get());
+			this.itemStack = new ItemStack(VariousWorldItems.CRYSTALIC_STRENGTH.get());
 		if(itemStack != null)
 			this.setItemSlotAndDropWhenKilled(EquipmentSlot.MAINHAND,itemStack);
 	}
@@ -97,7 +96,7 @@ public class ZombieOfVariousBiomesEntity extends Monster {
 
 	@Override
 	public SoundEvent getAmbientSound() {
-		return VariousWorldModSounds.ENTITY_VARIOUS_ZOMBIE_AMBIENT;
+		return VariousWorldSounds.ENTITY_VARIOUS_ZOMBIE_AMBIENT;
 	}
 
 	@Override
@@ -129,7 +128,7 @@ public class ZombieOfVariousBiomesEntity extends Monster {
 	}
 
 	public static void init() {
-		SpawnPlacements.register(VariousWorldModEntities.ZOMBIE_OF_VARIOUS_BIOMES.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+		SpawnPlacements.register(VariousWorldEntities.ZOMBIE_OF_VARIOUS_BIOMES.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				(entityType, world, reason, pos, random) -> (world.getDifficulty() != Difficulty.PEACEFUL && Monster.isDarkEnoughToSpawn(world, pos, random) && Mob.checkMobSpawnRules(entityType, world, reason, pos, random)));
 	}
 

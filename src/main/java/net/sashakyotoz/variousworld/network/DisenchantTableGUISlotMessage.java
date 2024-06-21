@@ -12,7 +12,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.BlockPos;
 
 import net.sashakyotoz.variousworld.procedures.DisenchantTableUpdateTickProcedure;
-import net.sashakyotoz.variousworld.VariousWorldMod;
+import net.sashakyotoz.variousworld.VariousWorld;
 
 import java.util.function.Supplier;
 
@@ -74,6 +74,6 @@ public class DisenchantTableGUISlotMessage {
 
 	@SubscribeEvent
 	public static void registerMessage(FMLCommonSetupEvent event) {
-		VariousWorldMod.addNetworkMessage(DisenchantTableGUISlotMessage.class, DisenchantTableGUISlotMessage::buffer, DisenchantTableGUISlotMessage::new, DisenchantTableGUISlotMessage::handler);
+		VariousWorld.addNetworkMessage(DisenchantTableGUISlotMessage.class, DisenchantTableGUISlotMessage::buffer, DisenchantTableGUISlotMessage::new, DisenchantTableGUISlotMessage::handler);
 	}
 }

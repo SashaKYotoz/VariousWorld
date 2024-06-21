@@ -2,8 +2,8 @@
 package net.sashakyotoz.variousworld.block;
 
 import net.sashakyotoz.variousworld.block.entity.MycolocyfarographBlockEntity;
-import net.sashakyotoz.variousworld.init.VariousWorldModBlockEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldBlockEntities;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -105,11 +105,11 @@ public class MycolocyfarographBlock extends BaseEntityBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, VariousWorldModBlockEntities.MYCOLOCYFAROGRAPH.get(), (level1, pos, state1, entity) -> ((MycolocyfarographBlockEntity) entity).tick(level1, pos, state1,(MycolocyfarographBlockEntity) entity));
+		return createTickerHelper(type, VariousWorldBlockEntities.MYCOLOCYFAROGRAPH.get(), (level1, pos, state1, entity) -> ((MycolocyfarographBlockEntity) entity).tick(level1, pos, state1,(MycolocyfarographBlockEntity) entity));
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldModBlocks.MYCOLOCYFAROGRAPH.get());
+		ItemStack itemStack = new ItemStack(VariousWorldBlocks.MYCOLOCYFAROGRAPH.get());
 		return Collections.singletonList(itemStack);
 	}
 }

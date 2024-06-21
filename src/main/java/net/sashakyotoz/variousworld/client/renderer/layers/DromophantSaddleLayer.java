@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.sashakyotoz.variousworld.VariousWorldMod;
+import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.client.model.ModelDromophant;
 import net.sashakyotoz.variousworld.entity.DromophantEntity;
 
@@ -20,7 +20,7 @@ public class DromophantSaddleLayer extends RenderLayer<DromophantEntity, ModelDr
         this.model = new ModelDromophant<>(modelPart.bakeLayer(ModelDromophant.LAYER_LOCATION));
     }
     public void render(PoseStack poseStack, MultiBufferSource buffer, int p_117034_, DromophantEntity dromophant, float p_117036_, float p_117037_, float p_117038_, float p_117039_, float p_117040_, float p_117041_) {
-        ResourceLocation location = new ResourceLocation(VariousWorldMod.MODID,"textures/entities/dromophant_saddled.png");
+        ResourceLocation location = new ResourceLocation(VariousWorld.MODID,"textures/entities/dromophant_saddled.png");
         if (dromophant.isSaddled()) {
             this.getParentModel().copyPropertiesTo(this.model);
             this.model.prepareMobModel(dromophant, p_117036_, p_117037_, p_117038_);

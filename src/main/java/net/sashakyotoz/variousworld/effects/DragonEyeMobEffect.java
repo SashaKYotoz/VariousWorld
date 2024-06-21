@@ -9,7 +9,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffect;
 
 import net.minecraft.world.level.GameType;
-import net.sashakyotoz.variousworld.init.VariousWorldModMobEffects;
+import net.sashakyotoz.variousworld.init.VariousWorldMobEffects;
 import net.sashakyotoz.variousworld.network.VariousWorldModVariables;
 
 public class DragonEyeMobEffect extends MobEffect {
@@ -36,7 +36,7 @@ public class DragonEyeMobEffect extends MobEffect {
 			capability.playerz = entity.getZ();
 			capability.syncPlayerVariables(entity);
 		});
-		if (entity.hasEffect(VariousWorldModMobEffects.DRAGON_EYE.get())) {
+		if (entity.hasEffect(VariousWorldMobEffects.DRAGON_EYE.get())) {
 			if (entity instanceof ServerPlayer player)
 				player.setGameMode(GameType.SPECTATOR);
 		}

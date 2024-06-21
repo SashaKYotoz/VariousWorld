@@ -1,8 +1,6 @@
 
 package net.sashakyotoz.variousworld.item;
 
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -11,27 +9,21 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.sashakyotoz.variousworld.client.model.ModelSculkArmorBottom;
 import net.sashakyotoz.variousworld.client.model.ModelSculkArmorTop;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.UUID;
 import java.util.function.Consumer;
 
 public abstract class SculkArmorItem extends ArmorItem {
@@ -59,7 +51,7 @@ public abstract class SculkArmorItem extends ArmorItem {
 
 			@Override
 			public Ingredient getRepairIngredient() {
-				return Ingredient.of(new ItemStack(VariousWorldModItems.SCULK_SHARD.get()), new ItemStack(Blocks.SCULK_SENSOR));
+				return Ingredient.of(new ItemStack(VariousWorldItems.SCULK_SHARD.get()), new ItemStack(Blocks.SCULK_SENSOR));
 			}
 
 			@Override

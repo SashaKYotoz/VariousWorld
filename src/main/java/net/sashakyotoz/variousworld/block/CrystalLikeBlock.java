@@ -25,7 +25,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
 
 import java.util.Collections;
 import java.util.List;
@@ -92,10 +92,10 @@ public class CrystalLikeBlock extends RotatedPillarBlock implements SimpleWaterl
 
     @OnlyIn(Dist.CLIENT)
     public static void blockColorLoad(RegisterColorHandlersEvent.Block event) {
-        event.register((bs, world, pos, index) -> world != null && pos != null ? Minecraft.getInstance().level.getBiome(pos).value().getSkyColor() : 8562943, VariousWorldModBlocks.CRYSTAL_BLOCK.get(),VariousWorldModBlocks.CRYSTAL_OF_CHARGED_BLOCK.get());
+        event.register((bs, world, pos, index) -> world != null && pos != null ? Minecraft.getInstance().level.getBiome(pos).value().getSkyColor() : 8562943, VariousWorldBlocks.CRYSTAL_BLOCK.get(), VariousWorldBlocks.CRYSTAL_OF_CHARGED_BLOCK.get());
     }
     @Override
     public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-        return Collections.singletonList(this.dropCharged ? new ItemStack(VariousWorldModBlocks.CRYSTAL_OF_CHARGED_BLOCK.get()) : new ItemStack(VariousWorldModBlocks.CRYSTAL_BLOCK.get()));
+        return Collections.singletonList(this.dropCharged ? new ItemStack(VariousWorldBlocks.CRYSTAL_OF_CHARGED_BLOCK.get()) : new ItemStack(VariousWorldBlocks.CRYSTAL_BLOCK.get()));
     }
 }

@@ -34,10 +34,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.PartEntity;
-import net.minecraftforge.network.PlayMessages;
-import net.sashakyotoz.variousworld.VariousWorldMod;
-import net.sashakyotoz.variousworld.init.VariousWorldModEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.VariousWorld;
+import net.sashakyotoz.variousworld.init.VariousWorldEntities;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
 import net.sashakyotoz.variousworld.procedures.AdvancementsManager;
 import org.jetbrains.annotations.NotNull;
 
@@ -176,7 +175,7 @@ public class FuryLordEntity extends Monster {
                         int randomCount = this.getRandom().nextIntBetweenInclusive(1, 6);
                         for (int i = 0; i < randomCount; i++) {
                             if (this.level() instanceof ServerLevel level) {
-                                DarkFuryEntity entityToSpawn = new DarkFuryEntity(VariousWorldModEntities.DARK_FURY.get(), level);
+                                DarkFuryEntity entityToSpawn = new DarkFuryEntity(VariousWorldEntities.DARK_FURY.get(), level);
                                 entityToSpawn.moveTo(this.getX(), this.getY(), this.getZ(), level.getRandom().nextFloat() * 360F, 0);
                                 entityToSpawn.finalizeSpawn(level, level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                                 level.addFreshEntity(entityToSpawn);
@@ -187,7 +186,7 @@ public class FuryLordEntity extends Monster {
                 }
                 case "winding" -> {
                     this.windAttackAnimationState.start(this.tickCount);
-                    VariousWorldMod.queueServerWork(20, () -> {
+                    VariousWorld.queueServerWork(20, () -> {
                         target.setDeltaMovement(new Vec3(getXVector(this.getYRot()), this.getY(), getZVector(this.getYRot())));
                         target.hurt(this.damageSources().dryOut(), 10);
                         setAttackAbility("tailAttack");
@@ -417,11 +416,11 @@ public class FuryLordEntity extends Monster {
         super.die(source);
         if (source.getEntity() instanceof ServerPlayer player)
             AdvancementsManager.addAdvancement(player, AdvancementsManager.LORD_OF_FURIES_ADV);
-        this.spawnAtLocation(new ItemStack(VariousWorldModItems.LORD_FURY_HEAD.get()));
-        this.spawnAtLocation(new ItemStack(VariousWorldModItems.LORD_FURY_SCALE.get(), this.random.nextIntBetweenInclusive(4, 9)));
+        this.spawnAtLocation(new ItemStack(VariousWorldItems.LORD_FURY_HEAD.get()));
+        this.spawnAtLocation(new ItemStack(VariousWorldItems.LORD_FURY_SCALE.get(), this.random.nextIntBetweenInclusive(4, 9)));
         for (int i = 0; i < (int) Mth.nextDouble(RandomSource.create(), 2, 5); i++) {
             if (this.level() instanceof ServerLevel level) {
-                DarkFuryEntity entityToSpawn = new DarkFuryEntity(VariousWorldModEntities.DARK_FURY.get(), level);
+                DarkFuryEntity entityToSpawn = new DarkFuryEntity(VariousWorldEntities.DARK_FURY.get(), level);
                 entityToSpawn.moveTo(this.getX(), this.getY(), this.getZ(), this.level().getRandom().nextFloat() * 360F, 0);
                 entityToSpawn.finalizeSpawn(level, level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                 level.addFreshEntity(entityToSpawn);
@@ -500,7 +499,7 @@ public class FuryLordEntity extends Monster {
             if (lordEntity.getBoundingBox().intersects(livingentity.getBoundingBox().inflate(2))) {
                 if (!lordEntity.tailAttackAnimationState.isStarted()){
                     lordEntity.tailAttackAnimationState.start(this.lordEntity.tickCount);
-                    VariousWorldMod.queueServerWork(10, () -> {
+                    VariousWorld.queueServerWork(10, () -> {
                         lordEntity.doHurtTarget(livingentity);
                         livingentity.setDeltaMovement(new Vec3(lordEntity.getXVector(lordEntity.getYRot()), 0, lordEntity.getZVector(lordEntity.getYRot())));
                     });

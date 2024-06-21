@@ -22,7 +22,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 
 import net.sashakyotoz.variousworld.client.menus.ArmorStationMenu;
-import net.sashakyotoz.variousworld.init.VariousWorldModBlockEntities;
+import net.sashakyotoz.variousworld.init.VariousWorldBlockEntities;
 
 import javax.annotation.Nullable;
 
@@ -35,7 +35,7 @@ public class ArmorStationBlockEntity extends RandomizableContainerBlockEntity im
 	private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());
 
 	public ArmorStationBlockEntity(BlockPos position, BlockState state) {
-		super(VariousWorldModBlockEntities.ARMOR_STATION_BLOCK.get(), position, state);
+		super(VariousWorldBlockEntities.ARMOR_STATION_BLOCK.get(), position, state);
 	}
 
 	@Override

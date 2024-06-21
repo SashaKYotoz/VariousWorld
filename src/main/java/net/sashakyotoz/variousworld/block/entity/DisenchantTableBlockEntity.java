@@ -23,7 +23,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 
 import net.sashakyotoz.variousworld.client.menus.DisenchantTableGUIMenu;
-import net.sashakyotoz.variousworld.init.VariousWorldModBlockEntities;
+import net.sashakyotoz.variousworld.init.VariousWorldBlockEntities;
 
 import javax.annotation.Nullable;
 
@@ -36,7 +36,7 @@ public class DisenchantTableBlockEntity extends RandomizableContainerBlockEntity
 	private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());
 
 	public DisenchantTableBlockEntity(BlockPos position, BlockState state) {
-		super(VariousWorldModBlockEntities.DISENCHANT_TABLE.get(), position, state);
+		super(VariousWorldBlockEntities.DISENCHANT_TABLE.get(), position, state);
 	}
 
 	@Override

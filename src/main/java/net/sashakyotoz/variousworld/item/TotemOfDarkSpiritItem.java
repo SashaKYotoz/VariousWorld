@@ -4,7 +4,6 @@ package net.sashakyotoz.variousworld.item;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -14,7 +13,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
 
 public class TotemOfDarkSpiritItem extends Item {
 
@@ -53,14 +52,14 @@ public class TotemOfDarkSpiritItem extends Item {
 	}
 
 	private boolean hasTotemOfDarkSpirit(Player player) {
-		return player.getInventory().contains(new ItemStack(VariousWorldModItems.TOTEM_OF_DARK_SPIRIT.get()));
+		return player.getInventory().contains(new ItemStack(VariousWorldItems.TOTEM_OF_DARK_SPIRIT.get()));
 	}
 
 	private boolean isWearingAngelArmor(Player player) {
-		return player.getItemBySlot(EquipmentSlot.HEAD).is(VariousWorldModItems.ANGEL_HELMET.get()) &&
-				player.getItemBySlot(EquipmentSlot.CHEST).is(VariousWorldModItems.ANGEL_CHESTPLATE.get()) &&
-				player.getItemBySlot(EquipmentSlot.LEGS).is(VariousWorldModItems.ANGEL_LEGGINGS.get()) &&
-				player.getItemBySlot(EquipmentSlot.FEET).is(VariousWorldModItems.ANGEL_BOOTS.get());
+		return player.getItemBySlot(EquipmentSlot.HEAD).is(VariousWorldItems.ANGEL_HELMET.get()) &&
+				player.getItemBySlot(EquipmentSlot.CHEST).is(VariousWorldItems.ANGEL_CHESTPLATE.get()) &&
+				player.getItemBySlot(EquipmentSlot.LEGS).is(VariousWorldItems.ANGEL_LEGGINGS.get()) &&
+				player.getItemBySlot(EquipmentSlot.FEET).is(VariousWorldItems.ANGEL_BOOTS.get());
 	}
 
 	private boolean isValidGroundBelow(Level level, Player player) {

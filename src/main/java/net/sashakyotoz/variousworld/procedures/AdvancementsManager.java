@@ -7,39 +7,39 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.Advancement;
 
-import net.sashakyotoz.variousworld.VariousWorldMod;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.VariousWorld;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class AdvancementsManager {
 	private static final Map<ResourceLocation,ResourceLocation> ADVANCEMENT_MAP = new HashMap<>();
-	public static final ResourceLocation WELCOME_TO_VARIOUS_WORLD_ADV = new ResourceLocation(VariousWorldMod.MODID,"welcome_to_the_various_world");
-	public static final ResourceLocation THUNDER_HAMMER_ADV = new ResourceLocation(VariousWorldMod.MODID,"changedhammer");
-	public static final ResourceLocation ARMOR_STATION_ADV = new ResourceLocation(VariousWorldMod.MODID,"whatastrangeforge");
-	public static final ResourceLocation ARTIFACTS_TABLE_ADV = new ResourceLocation(VariousWorldMod.MODID,"portable_beacon");
-	public static final ResourceLocation MUSHROOM_TABLE_ADV = new ResourceLocation(VariousWorldMod.MODID,"in_searching_of_mushrooms");
-	public static final ResourceLocation DISENCHANT_TABLE_ADV = new ResourceLocation(VariousWorldMod.MODID,"it_isnot_enchanting_table");
-	public static final ResourceLocation COMBAT_ALLAY_ADV = new ResourceLocation(VariousWorldMod.MODID,"combat_allay");
-	public static final ResourceLocation MINING_ALLAY_ADV = new ResourceLocation(VariousWorldMod.MODID,"mining_allay");
-	public static final ResourceLocation CRYSTALIC_WARRIOR_ADV = new ResourceLocation(VariousWorldMod.MODID,"kill_first_titan");
-	public static final ResourceLocation DARK_SPIRIT_ADV = new ResourceLocation(VariousWorldMod.MODID,"defeatthedarkspirit");
-	public static final ResourceLocation EASTER_DARK_SPIRIT_ADV = new ResourceLocation(VariousWorldMod.MODID,"easter_dark_spirit_advancement");
-	public static final ResourceLocation SCULK_NECROMANCER_ADV = new ResourceLocation(VariousWorldMod.MODID,"necromancer_dead");
-	public static final ResourceLocation LORD_OF_FURIES_ADV = new ResourceLocation(VariousWorldMod.MODID,"lord_fury_advancement");
-	public static final ResourceLocation CRYSTALIC_SWORD_ADV = new ResourceLocation(VariousWorldMod.MODID,"createacoolsword");
-	public static final ResourceLocation CAVERN_OF_DEEP_ADV = new ResourceLocation(VariousWorldMod.MODID,"dark_deltas");
-	public static final ResourceLocation PEACEFUL_WASTELAND_ADV = new ResourceLocation(VariousWorldMod.MODID,"enter_peacefulwasteland");
-	public static final ResourceLocation CRYSTALIC_FOREST_ADV = new ResourceLocation(VariousWorldMod.MODID,"forwardin_cristalicforest");
-	public static final ResourceLocation MAGMA_CAVERNS_ADV = new ResourceLocation(VariousWorldMod.MODID,"road_of_stony_magma");
-	public static final ResourceLocation SCULK_VALLEY_ADV = new ResourceLocation(VariousWorldMod.MODID,"sculk_valley_advancement");
-	public static final ResourceLocation SHINY_VALLEY_ADV = new ResourceLocation(VariousWorldMod.MODID,"shiny_valley_advancement");
-	public static final ResourceLocation CRYSTAL_SHARD_ADV = new ResourceLocation(VariousWorldMod.MODID,"the_brightest_radiance");
-	public static final ResourceLocation DARKNIUM_INGOT_ADV = new ResourceLocation(VariousWorldMod.MODID,"darker_material_cant_be_found");
-	public static final ResourceLocation FURY_INGOT_ADV = new ResourceLocation(VariousWorldMod.MODID,"weighs_like_a_feather");
-	public static final ResourceLocation LORD_FURY_SCALES_ADV = new ResourceLocation(VariousWorldMod.MODID,"powerof_slayed_dragon");
-	public static final ResourceLocation MORE_COLORS_ADV = new ResourceLocation(VariousWorldMod.MODID,"more_colors");
+	public static final ResourceLocation WELCOME_TO_VARIOUS_WORLD_ADV = new ResourceLocation(VariousWorld.MODID,"welcome_to_the_various_world");
+	public static final ResourceLocation THUNDER_HAMMER_ADV = new ResourceLocation(VariousWorld.MODID,"changedhammer");
+	public static final ResourceLocation ARMOR_STATION_ADV = new ResourceLocation(VariousWorld.MODID,"whatastrangeforge");
+	public static final ResourceLocation ARTIFACTS_TABLE_ADV = new ResourceLocation(VariousWorld.MODID,"portable_beacon");
+	public static final ResourceLocation MUSHROOM_TABLE_ADV = new ResourceLocation(VariousWorld.MODID,"in_searching_of_mushrooms");
+	public static final ResourceLocation DISENCHANT_TABLE_ADV = new ResourceLocation(VariousWorld.MODID,"it_isnot_enchanting_table");
+	public static final ResourceLocation COMBAT_ALLAY_ADV = new ResourceLocation(VariousWorld.MODID,"combat_allay");
+	public static final ResourceLocation MINING_ALLAY_ADV = new ResourceLocation(VariousWorld.MODID,"mining_allay");
+	public static final ResourceLocation CRYSTALIC_WARRIOR_ADV = new ResourceLocation(VariousWorld.MODID,"kill_first_titan");
+	public static final ResourceLocation DARK_SPIRIT_ADV = new ResourceLocation(VariousWorld.MODID,"defeatthedarkspirit");
+	public static final ResourceLocation EASTER_DARK_SPIRIT_ADV = new ResourceLocation(VariousWorld.MODID,"easter_dark_spirit_advancement");
+	public static final ResourceLocation SCULK_NECROMANCER_ADV = new ResourceLocation(VariousWorld.MODID,"necromancer_dead");
+	public static final ResourceLocation LORD_OF_FURIES_ADV = new ResourceLocation(VariousWorld.MODID,"lord_fury_advancement");
+	public static final ResourceLocation CRYSTALIC_SWORD_ADV = new ResourceLocation(VariousWorld.MODID,"createacoolsword");
+	public static final ResourceLocation CAVERN_OF_DEEP_ADV = new ResourceLocation(VariousWorld.MODID,"dark_deltas");
+	public static final ResourceLocation PEACEFUL_WASTELAND_ADV = new ResourceLocation(VariousWorld.MODID,"enter_peacefulwasteland");
+	public static final ResourceLocation CRYSTALIC_FOREST_ADV = new ResourceLocation(VariousWorld.MODID,"forwardin_cristalicforest");
+	public static final ResourceLocation MAGMA_CAVERNS_ADV = new ResourceLocation(VariousWorld.MODID,"road_of_stony_magma");
+	public static final ResourceLocation SCULK_VALLEY_ADV = new ResourceLocation(VariousWorld.MODID,"sculk_valley_advancement");
+	public static final ResourceLocation SHINY_VALLEY_ADV = new ResourceLocation(VariousWorld.MODID,"shiny_valley_advancement");
+	public static final ResourceLocation CRYSTAL_SHARD_ADV = new ResourceLocation(VariousWorld.MODID,"the_brightest_radiance");
+	public static final ResourceLocation DARKNIUM_INGOT_ADV = new ResourceLocation(VariousWorld.MODID,"darker_material_cant_be_found");
+	public static final ResourceLocation FURY_INGOT_ADV = new ResourceLocation(VariousWorld.MODID,"weighs_like_a_feather");
+	public static final ResourceLocation LORD_FURY_SCALES_ADV = new ResourceLocation(VariousWorld.MODID,"powerof_slayed_dragon");
+	public static final ResourceLocation MORE_COLORS_ADV = new ResourceLocation(VariousWorld.MODID,"more_colors");
 	static {
 		ADVANCEMENT_MAP.put(WELCOME_TO_VARIOUS_WORLD_ADV,WELCOME_TO_VARIOUS_WORLD_ADV);
 		ADVANCEMENT_MAP.put(THUNDER_HAMMER_ADV,THUNDER_HAMMER_ADV);
@@ -85,17 +85,17 @@ public class AdvancementsManager {
 	public static void tickCheckingAdvancements(Player player) {
 		if (player == null)
 			return;
-		if (player.getInventory().contains(new ItemStack(VariousWorldModItems.DARKNIUM_INGOT.get()))) {
+		if (player.getInventory().contains(new ItemStack(VariousWorldItems.DARKNIUM_INGOT.get()))) {
 			addAdvancement(player,DARKNIUM_INGOT_ADV);
 		}
-		if ((player.getInventory().contains(new ItemStack(VariousWorldModItems.CRYSTALSHARD.get())))
-				|| (player.getInventory().contains(new ItemStack(VariousWorldModItems.DARKSHARD.get())))) {
+		if ((player.getInventory().contains(new ItemStack(VariousWorldItems.CRYSTALSHARD.get())))
+				|| (player.getInventory().contains(new ItemStack(VariousWorldItems.DARKSHARD.get())))) {
 			addAdvancement(player,CRYSTAL_SHARD_ADV);
 		}
-		if (player.getInventory().contains(new ItemStack(VariousWorldModItems.FURY_INGOT.get()))) {
+		if (player.getInventory().contains(new ItemStack(VariousWorldItems.FURY_INGOT.get()))) {
 			addAdvancement(player,FURY_INGOT_ADV);
 		}
-		if (player.getInventory().contains(new ItemStack(VariousWorldModItems.LORD_FURY_SCALE.get()))) {
+		if (player.getInventory().contains(new ItemStack(VariousWorldItems.LORD_FURY_SCALE.get()))) {
 			addAdvancement(player,LORD_FURY_SCALES_ADV);
 		}
 	}

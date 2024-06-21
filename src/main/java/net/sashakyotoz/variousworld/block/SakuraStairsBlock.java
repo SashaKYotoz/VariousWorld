@@ -1,7 +1,7 @@
 
 package net.sashakyotoz.variousworld.block;
 
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
@@ -42,7 +42,7 @@ public class SakuraStairsBlock extends StairBlock {
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldModBlocks.SAKURA_STAIRS.get());
+		ItemStack itemStack = new ItemStack(VariousWorldBlocks.SAKURA_STAIRS.get());
 		return Collections.singletonList(itemStack);
 	}
 }

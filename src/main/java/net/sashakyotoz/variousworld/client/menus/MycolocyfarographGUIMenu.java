@@ -2,8 +2,8 @@
 package net.sashakyotoz.variousworld.client.menus;
 
 import net.sashakyotoz.variousworld.block.entity.MycolocyfarographBlockEntity;
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
-import net.sashakyotoz.variousworld.init.VariousWorldModMenus;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldMenus;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -24,7 +24,7 @@ public class MycolocyfarographGUIMenu extends AbstractContainerMenu {
 	}
 
 	public MycolocyfarographGUIMenu(int id, Inventory inv, BlockEntity entity, ContainerData data) {
-		super(VariousWorldModMenus.MYCOLOCYFAROGRAPH_GUI.get(), id);
+		super(VariousWorldMenus.MYCOLOCYFAROGRAPH_GUI.get(), id);
 		checkContainerSize(inv, 3);
 		blockEntity = (MycolocyfarographBlockEntity) entity;
 		this.level = inv.player.level();
@@ -91,7 +91,7 @@ public class MycolocyfarographGUIMenu extends AbstractContainerMenu {
 	@Override
 	public boolean stillValid(Player player) {
 		return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()),
-				player, VariousWorldModBlocks.MYCOLOCYFAROGRAPH.get());
+				player, VariousWorldBlocks.MYCOLOCYFAROGRAPH.get());
 	}
 
 	private void addPlayerInventory(Inventory playerInventory) {

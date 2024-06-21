@@ -3,7 +3,7 @@ package net.sashakyotoz.variousworld.client.renderer.layers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.sashakyotoz.variousworld.client.model.ModelSculk_Necromancer_Skeleton;
-import net.sashakyotoz.variousworld.entity.SculkNecromancerSkeletonEntity;
+import net.sashakyotoz.variousworld.entity.technical.SculkNecromancerSkeletonEntity;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;

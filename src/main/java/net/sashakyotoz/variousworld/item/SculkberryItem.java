@@ -14,8 +14,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.InteractionResult;
 
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
 
 public class SculkberryItem extends Item {
 	public SculkberryItem() {
@@ -34,7 +34,7 @@ public class SculkberryItem extends Item {
 
 	@Override
 	public ItemStack finishUsingItem(ItemStack itemstack, Level world, LivingEntity entity) {
-		ItemStack stack = new ItemStack(VariousWorldModItems.SCULK_SHARD.get());
+		ItemStack stack = new ItemStack(VariousWorldItems.SCULK_SHARD.get());
 		super.finishUsingItem(itemstack, world, entity);
 		if (itemstack.isEmpty()) {
 			return stack;
@@ -54,9 +54,9 @@ public class SculkberryItem extends Item {
 		return InteractionResult.SUCCESS;
 	}
 	private void execute(LevelAccessor world, double x, double y, double z) {
-		if ((world.getBlockState(BlockPos.containing(x, y, z))).getBlock() == VariousWorldModBlocks.SCULK_GRASS.get()) {
+		if ((world.getBlockState(BlockPos.containing(x, y, z))).getBlock() == VariousWorldBlocks.SCULK_GRASS.get()) {
 			if (Math.random() < 0.5) {
-				world.setBlock(BlockPos.containing(x, y + 1, z), VariousWorldModBlocks.SMALL_SCULK_BUSH.get().defaultBlockState(), 3);
+				world.setBlock(BlockPos.containing(x, y + 1, z), VariousWorldBlocks.SMALL_SCULK_BUSH.get().defaultBlockState(), 3);
 			}
 		}
 	}

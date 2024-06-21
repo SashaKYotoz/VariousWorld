@@ -13,7 +13,7 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.resources.ResourceKey;
 
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
 
 import java.util.Set;
 
@@ -38,7 +38,7 @@ public class ShinyValleyDecorGeneratorFeature extends Feature<NoneFeatureConfigu
 					sz = -4;
 					for (int l = 0; l < 8; l++) {
 						BlockPos pos1 = pos.offset(sx,sy,sz);
-						if (level.getBlockState(pos1).isAir() && level.getBlockState(pos1).is(VariousWorldModBlocks.SHINY_GRASS.get())
+						if (level.getBlockState(pos1).isAir() && level.getBlockState(pos1).is(VariousWorldBlocks.SHINY_GRASS.get())
 								&& (level.getBlockState(pos.offset(sx+1,sy,sz)).is(Blocks.WATER) || level.getBlockState(pos.offset(sx+1,sy,sz)).canOcclude())
 								&& (level.getBlockState(pos.offset(sx-1,sy,sz)).is(Blocks.WATER) || level.getBlockState(pos.offset(sx-1,sy,sz)).canOcclude())
 								&& (level.getBlockState(pos.offset(sx,sy,sz-1)).is(Blocks.WATER) || level.getBlockState(pos.offset(sx,sy,sz-1)).canOcclude())

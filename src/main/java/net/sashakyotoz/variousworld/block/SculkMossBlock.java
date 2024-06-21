@@ -4,7 +4,7 @@ package net.sashakyotoz.variousworld.block;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
 import net.sashakyotoz.variousworld.procedures.SculkMossBlockOnBlockRightClickedProcedure;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -54,7 +54,7 @@ public class SculkMossBlock extends Block implements BonemealableBlock {
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldModBlocks.SCULK_MOSS_BLOCK.get());
+		ItemStack itemStack = new ItemStack(VariousWorldBlocks.SCULK_MOSS_BLOCK.get());
 		return Collections.singletonList(itemStack);
 	}
 

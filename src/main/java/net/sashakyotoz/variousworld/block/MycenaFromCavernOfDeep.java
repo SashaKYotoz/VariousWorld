@@ -9,8 +9,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
@@ -36,13 +36,13 @@ public class MycenaFromCavernOfDeep extends FlowerBlock implements BonemealableB
 	}
 	@Override
 	public ItemStack getCloneItemStack(BlockGetter p_152966_, BlockPos p_152967_, BlockState p_152968_) {
-		return new ItemStack(VariousWorldModItems.MYCENA_FROM_CAVERN_OF_DEEP_FOOD.get());
+		return new ItemStack(VariousWorldItems.MYCENA_FROM_CAVERN_OF_DEEP_FOOD.get());
 	}
 
 	@Override
 	public boolean mayPlaceOn(BlockState groundState, BlockGetter worldIn, BlockPos pos) {
-		return groundState.is(VariousWorldModBlocks.DEEP_MOSS.get()) || groundState.is(Blocks.MOSS_BLOCK) || groundState.is(VariousWorldModBlocks.SCULK_MOSS_BLOCK.get()) || groundState.is(VariousWorldModBlocks.MUSHROOM_SPAWNER.get())
-				|| groundState.is(VariousWorldModBlocks.FLOWER_DEEP_MOSS.get()) || groundState.is(Blocks.GRANITE);
+		return groundState.is(VariousWorldBlocks.DEEP_MOSS.get()) || groundState.is(Blocks.MOSS_BLOCK) || groundState.is(VariousWorldBlocks.SCULK_MOSS_BLOCK.get()) || groundState.is(VariousWorldBlocks.MUSHROOM_SPAWNER.get())
+				|| groundState.is(VariousWorldBlocks.FLOWER_DEEP_MOSS.get()) || groundState.is(Blocks.GRANITE);
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class MycenaFromCavernOfDeep extends FlowerBlock implements BonemealableB
 		}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldModItems.MYCENA_FROM_CAVERN_OF_DEEP_FOOD.get());
+		ItemStack itemStack = new ItemStack(VariousWorldItems.MYCENA_FROM_CAVERN_OF_DEEP_FOOD.get());
 		return Collections.singletonList(itemStack);
 	}
 

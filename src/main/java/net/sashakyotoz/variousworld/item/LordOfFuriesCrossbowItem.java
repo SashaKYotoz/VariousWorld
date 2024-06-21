@@ -2,7 +2,7 @@
 package net.sashakyotoz.variousworld.item;
 
 import com.google.common.collect.Lists;
-import net.sashakyotoz.variousworld.entity.LordOfFuriesCrossbowEntity;
+import net.sashakyotoz.variousworld.entity.technical.LordOfFuriesCrossbowEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
@@ -18,7 +18,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.monster.CrossbowAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;

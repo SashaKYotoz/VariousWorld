@@ -13,7 +13,7 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.resources.ResourceKey;
 
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
 
 import java.util.Set;
 
@@ -39,7 +39,7 @@ public class SculkGemOreFeature extends OreFeature {
 					for (int k = 0; k < (int) Mth.nextDouble(RandomSource.create(), 5, 7); k++) {
 						if (level.getBlockState(pos.offset(sx,sy,sz)).is(BlockTags.BASE_STONE_OVERWORLD)) {
 							if (RandomSource.create().nextBoolean())
-								level.setBlock(pos.above(), VariousWorldModBlocks.SCULK_MOSS_BLOCK.get().defaultBlockState(), 3);
+								level.setBlock(pos.above(), VariousWorldBlocks.SCULK_MOSS_BLOCK.get().defaultBlockState(), 3);
 							else
 								level.setBlock(pos.below(), Blocks.SCULK.defaultBlockState(), 3);
 						}

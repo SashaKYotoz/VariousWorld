@@ -5,9 +5,9 @@ import net.minecraft.data.PackOutput;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.sashakyotoz.variousworld.VariousWorldMod;
+import net.sashakyotoz.variousworld.VariousWorld;
 
-@Mod.EventBusSubscriber(modid = VariousWorldMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = VariousWorld.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class VariousWorldDataGen {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event){

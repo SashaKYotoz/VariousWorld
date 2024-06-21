@@ -1,7 +1,7 @@
 
 package net.sashakyotoz.variousworld.block;
 
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
@@ -101,7 +101,7 @@ public class CrystalicSlimeBlock extends Block {
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldModBlocks.CRYSTALIC_SLIME_BLOCK.get());
+		ItemStack itemStack = new ItemStack(VariousWorldBlocks.CRYSTALIC_SLIME_BLOCK.get());
 		return Collections.singletonList(itemStack);
 	}
 }

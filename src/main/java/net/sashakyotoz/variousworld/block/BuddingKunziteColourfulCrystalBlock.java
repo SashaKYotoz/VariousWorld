@@ -1,6 +1,6 @@
 package net.sashakyotoz.variousworld.block;
 
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -41,10 +41,10 @@ public class BuddingKunziteColourfulCrystalBlock extends AmethystBlock {
 			BlockState blockstate = level.getBlockState(blockpos);
 			Block block = null;
 			if (canClusterGrowAtState(blockstate)) {
-				block = VariousWorldModBlocks.SMALL_CRYSTAL_CLUSTER.get();
-			} else if (blockstate.is(VariousWorldModBlocks.SMALL_CRYSTAL_CLUSTER.get())
+				block = VariousWorldBlocks.SMALL_CRYSTAL_CLUSTER.get();
+			} else if (blockstate.is(VariousWorldBlocks.SMALL_CRYSTAL_CLUSTER.get())
 					&& blockstate.getValue(CrystalClusterBlock.FACING) == direction) {
-				block = VariousWorldModBlocks.CRYSTAL_CLUSTER.get();
+				block = VariousWorldBlocks.CRYSTAL_CLUSTER.get();
 			}
 			if (block != null) {
 				BlockState blockstate1 = block.defaultBlockState().setValue(CrystalClusterBlock.FACING, direction)
@@ -66,7 +66,7 @@ public class BuddingKunziteColourfulCrystalBlock extends AmethystBlock {
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldModBlocks.BUDDING_KUNZITE_COLOURFUL_CRYSTAL.get());
+		ItemStack itemStack = new ItemStack(VariousWorldBlocks.BUDDING_KUNZITE_COLOURFUL_CRYSTAL.get());
 		return Collections.singletonList(itemStack);
 	}
 }

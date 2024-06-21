@@ -21,8 +21,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
 
 public class FlowerVineFromCavernOfDeepBlock extends GrowingPlantHeadBlock implements BonemealableBlock, DeepCavernsVines {
     public FlowerVineFromCavernOfDeepBlock() {
@@ -31,7 +31,7 @@ public class FlowerVineFromCavernOfDeepBlock extends GrowingPlantHeadBlock imple
     }
 
     protected Block getBodyBlock() {
-        return VariousWorldModBlocks.VINE_FROM_CAVERNOF_DEEP.get();
+        return VariousWorldBlocks.VINE_FROM_CAVERNOF_DEEP.get();
     }
 
     @Override
@@ -71,7 +71,7 @@ public class FlowerVineFromCavernOfDeepBlock extends GrowingPlantHeadBlock imple
     }
     @Override
     public ItemStack getCloneItemStack(BlockGetter p_152966_, BlockPos p_152967_, BlockState p_152968_) {
-        return new ItemStack(VariousWorldModItems.BRANCH_WITH_DRAGON_EYE_FRUIT.get());
+        return new ItemStack(VariousWorldItems.BRANCH_WITH_DRAGON_EYE_FRUIT.get());
     }
 
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {

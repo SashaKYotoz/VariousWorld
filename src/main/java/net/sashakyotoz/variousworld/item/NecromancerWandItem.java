@@ -20,10 +20,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.sashakyotoz.variousworld.entity.NecromancerStaffEntity;
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

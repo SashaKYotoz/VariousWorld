@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.sashakyotoz.variousworld.VariousWorldMod;
+import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.client.model.ModelSpiritOfTheDark;
 import net.sashakyotoz.variousworld.entity.DarkSpiritEntity;
 
@@ -22,7 +22,7 @@ public class DarkSpiritEasterLayer extends RenderLayer<DarkSpiritEntity, ModelSp
         this.model = new ModelSpiritOfTheDark<>(modelPart.bakeLayer(ModelSpiritOfTheDark.LAYER_LOCATION));
     }
     public void render(PoseStack poseStack, MultiBufferSource buffer, int p_117034_, DarkSpiritEntity spiritEntity, float p_117036_, float p_117037_, float p_117038_, float p_117039_, float p_117040_, float p_117041_) {
-        ResourceLocation location = new ResourceLocation(VariousWorldMod.MODID,"textures/entities/spirit_of_the_dark_easter.png");
+        ResourceLocation location = new ResourceLocation(VariousWorld.MODID,"textures/entities/spirit_of_the_dark_easter.png");
         if (spiritEntity.getDisplayName().getString().equals("Basics")) {
             this.getParentModel().copyPropertiesTo(this.model);
             this.model.prepareMobModel(spiritEntity, p_117036_, p_117037_, p_117038_);

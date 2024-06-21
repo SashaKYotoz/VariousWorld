@@ -11,7 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
 import net.sashakyotoz.variousworld.procedures.ArmorTickAbilities;
 
 public abstract class CrystalArmorItem extends ArmorItem {
@@ -39,7 +39,7 @@ public abstract class CrystalArmorItem extends ArmorItem {
 
 			@Override
 			public Ingredient getRepairIngredient() {
-				return Ingredient.of(new ItemStack(VariousWorldModItems.DARKSHARD.get()));
+				return Ingredient.of(new ItemStack(VariousWorldItems.DARKSHARD.get()));
 			}
 
 			@Override

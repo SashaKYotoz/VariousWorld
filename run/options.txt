@@ -45,7 +45,7 @@ renderClouds:"true"
 resourcePacks:[]
 incompatibleResourcePacks:[]
 lastServer:192.168.1.1:25565
-lang:be_by
+lang:uk_ua
 soundDevice:""
 chatVisibility:0
 chatOpacity:1.0
@@ -118,7 +118,7 @@ key_key.hotbar.6:key.keyboard.6
 key_key.hotbar.7:key.keyboard.7
 key_key.hotbar.8:key.keyboard.8
 key_key.hotbar.9:key.keyboard.9
-soundCategory_master:0.0
+soundCategory_master:0.5082781456953642
 soundCategory_music:0.5052816901408451
 soundCategory_record:1.0
 soundCategory_weather:1.0

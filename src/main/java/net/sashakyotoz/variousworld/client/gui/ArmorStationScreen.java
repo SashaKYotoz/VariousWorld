@@ -1,7 +1,7 @@
 package net.sashakyotoz.variousworld.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.sashakyotoz.variousworld.VariousWorldMod;
+import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.network.ArmorStationButtonMessage;
 import net.sashakyotoz.variousworld.client.menus.ArmorStationMenu;
 import net.minecraft.client.gui.GuiGraphics;
@@ -11,7 +11,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 
 import java.util.HashMap;
 
@@ -76,7 +75,7 @@ public class ArmorStationScreen extends AbstractContainerScreen<ArmorStationMenu
 	public void init() {
 		super.init();
 		imagebutton_hammer = new ImageButton(this.leftPos + 90, this.topPos + 38, 16, 16, 0, 0, 16, new ResourceLocation("various_world:textures/screens/atlas/imagebutton_hammer.png"), 16, 32, e -> {
-			VariousWorldMod.PACKET_HANDLER.sendToServer(new ArmorStationButtonMessage(0, x, y, z));
+			VariousWorld.PACKET_HANDLER.sendToServer(new ArmorStationButtonMessage(0, x, y, z));
 			ArmorStationButtonMessage.handleButtonAction(entity, 0, x, y, z);
 		});
 		guistate.put("button:imagebutton_hammer", imagebutton_hammer);

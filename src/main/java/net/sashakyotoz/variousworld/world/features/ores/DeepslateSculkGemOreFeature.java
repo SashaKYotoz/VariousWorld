@@ -11,7 +11,7 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.resources.ResourceKey;
 
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
 
 import java.util.Set;
 
@@ -34,16 +34,16 @@ public class DeepslateSculkGemOreFeature extends OreFeature {
 			for (int j = 0; j < 8; j++) {
 				sz = -5;
 				for (int k = 0; k < 8; k++) {
-					if (world.getBlockState(pos.offset(sx,sy,sz)).is(VariousWorldModBlocks.DEEPSLATE_SCULK_GEM_ORE.get())) {
+					if (world.getBlockState(pos.offset(sx,sy,sz)).is(VariousWorldBlocks.DEEPSLATE_SCULK_GEM_ORE.get())) {
 						BlockPos pos1 = pos.offset(sx,sy,sz);
 						if (Math.random() < 0.5) {
-							BlockState _bs = VariousWorldModBlocks.SCULK_MOSS_BLOCK.get().defaultBlockState();
+							BlockState _bs = VariousWorldBlocks.SCULK_MOSS_BLOCK.get().defaultBlockState();
 							world.setBlock(pos1, _bs, 3);
 						} else if (Math.random() < 0.25) {
 							BlockState _bs = Blocks.AIR.defaultBlockState();
 							world.setBlock(pos1, _bs, 3);
 						} else if (Math.random() < 0.125) {
-							BlockState _bs = VariousWorldModBlocks.SCULK_MAGMA.get().defaultBlockState();
+							BlockState _bs = VariousWorldBlocks.SCULK_MAGMA.get().defaultBlockState();
 							world.setBlock(pos1, _bs, 3);
 						}
 					}

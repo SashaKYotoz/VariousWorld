@@ -1,8 +1,8 @@
 
 package net.sashakyotoz.variousworld.block;
 
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -18,9 +18,7 @@ import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BubbleColumnBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -42,7 +40,7 @@ public class SculkMagmaBlock extends Block {
 	}
 
 	public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity1) {
-		if (!entity1.isSteppingCarefully() && entity1 instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entity1) && !((entity1 instanceof LivingEntity entity ? entity.getItemBySlot(EquipmentSlot.FEET) : ItemStack.EMPTY).getItem() == VariousWorldModItems.SCULK_ARMOR_BOOTS.get())) {
+		if (!entity1.isSteppingCarefully() && entity1 instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entity1) && !((entity1 instanceof LivingEntity entity ? entity.getItemBySlot(EquipmentSlot.FEET) : ItemStack.EMPTY).getItem() == VariousWorldItems.SCULK_ARMOR_BOOTS.get())) {
 			entity1.hurt(level.damageSources().hotFloor(), 1.0F);
 		}
 		super.stepOn(level, pos, state, entity1);
@@ -68,7 +66,7 @@ public class SculkMagmaBlock extends Block {
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldModBlocks.SCULK_MAGMA.get());
+		ItemStack itemStack = new ItemStack(VariousWorldBlocks.SCULK_MAGMA.get());
 		return Collections.singletonList(itemStack);
 	}
 }

@@ -1,7 +1,7 @@
 
 package net.sashakyotoz.variousworld.block;
 
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
@@ -50,7 +50,7 @@ public class KunziteColourfulCrystalBlock extends Block {
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldModBlocks.KUNZITE_COLOURFUL_CRYSTAL.get());
+		ItemStack itemStack = new ItemStack(VariousWorldBlocks.KUNZITE_COLOURFUL_CRYSTAL.get());
 		return Collections.singletonList(itemStack);
 	}
 }

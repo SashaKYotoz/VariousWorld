@@ -14,7 +14,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.sounds.SoundEvents;
 
-import net.sashakyotoz.variousworld.entity.CrystalicArrowEntity;
+import net.sashakyotoz.variousworld.entity.technical.CrystalicArrowEntity;
 
 import java.util.function.Predicate;
 

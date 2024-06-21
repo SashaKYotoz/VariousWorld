@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
 
 public class SculkMossBlockOnBlockRightClickedProcedure {
     public static void execute(LevelAccessor world, double x, double y, double z) {
@@ -20,7 +20,7 @@ public class SculkMossBlockOnBlockRightClickedProcedure {
                     if ((world.getBlockState(BlockPos.containing(x + sx, y + sy, z + sz))).getBlock() == Blocks.STONE) {
                         if (Math.random() < 0.5) {
                             BlockPos _bp = BlockPos.containing(x + sx, y + sy, z + sz);
-                            BlockState _bs = VariousWorldModBlocks.SCULK_MOSS_BLOCK.get().defaultBlockState();
+                            BlockState _bs = VariousWorldBlocks.SCULK_MOSS_BLOCK.get().defaultBlockState();
                             world.setBlock(_bp, _bs, 3);
                         }
                     }

@@ -25,8 +25,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
 import net.sashakyotoz.variousworld.procedures.UndergroundSculkFruitBushUpdateTickProcedure;
 
 import java.util.Collections;
@@ -61,7 +61,7 @@ public class UndergroundSculkFruitBushBlock extends FlowerBlock {
 
 	@Override
 	public boolean mayPlaceOn(BlockState groundState, BlockGetter worldIn, BlockPos pos) {
-		return groundState.is(VariousWorldModBlocks.SCULK_MOSS_BLOCK.get()) || groundState.is(Blocks.STONE) || groundState.is(Blocks.COBBLESTONE) || groundState.is(Blocks.DEEPSLATE) || groundState.is(VariousWorldModBlocks.SCULK_GRASS.get());
+		return groundState.is(VariousWorldBlocks.SCULK_MOSS_BLOCK.get()) || groundState.is(Blocks.STONE) || groundState.is(Blocks.COBBLESTONE) || groundState.is(Blocks.DEEPSLATE) || groundState.is(VariousWorldBlocks.SCULK_GRASS.get());
 	}
 
 	@Override
@@ -86,9 +86,9 @@ public class UndergroundSculkFruitBushBlock extends FlowerBlock {
 				player.getInventory().clearOrCountMatchingItems(p -> stack.getItem() == p.getItem(), 1, player.inventoryMenu.getCraftSlots());
 				player.getInventory().setChanged();
 				if (Math.random() < 0.25) {
-					BlockState state = VariousWorldModBlocks.UNDERGROUND_SCULK_BUSH_WITHOUT_FRUIT.get().defaultBlockState();
+					BlockState state = VariousWorldBlocks.UNDERGROUND_SCULK_BUSH_WITHOUT_FRUIT.get().defaultBlockState();
 					level.setBlock(pos, state, 3);
-					player.spawnAtLocation(new ItemStack(VariousWorldModItems.SCULK_FRUIT.get()));
+					player.spawnAtLocation(new ItemStack(VariousWorldItems.SCULK_FRUIT.get()));
 				}
 			}
 		}
@@ -96,7 +96,7 @@ public class UndergroundSculkFruitBushBlock extends FlowerBlock {
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldModItems.SCULK_FRUIT.get());
+		ItemStack itemStack = new ItemStack(VariousWorldItems.SCULK_FRUIT.get());
 		return Collections.singletonList(itemStack);
 	}
 }

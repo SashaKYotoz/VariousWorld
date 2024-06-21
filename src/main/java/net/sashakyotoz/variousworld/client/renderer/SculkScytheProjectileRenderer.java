@@ -1,6 +1,5 @@
 package net.sashakyotoz.variousworld.client.renderer;
 
-import net.minecraft.util.Mth;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -8,7 +7,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.MultiBufferSource;
 
-import net.sashakyotoz.variousworld.entity.SculkScytheEntity;
+import net.sashakyotoz.variousworld.entity.technical.SculkScytheEntity;
 import net.sashakyotoz.variousworld.client.model.ModelProjectileCycle;
 
 import com.mojang.math.Axis;

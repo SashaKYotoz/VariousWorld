@@ -3,7 +3,7 @@ package net.sashakyotoz.variousworld.block;
 
 import io.netty.buffer.Unpooled;
 import net.sashakyotoz.variousworld.block.entity.ArtifactTableBlockEntity;
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
 import net.sashakyotoz.variousworld.procedures.ArtifactTableRandomTickProcedure;
 import net.sashakyotoz.variousworld.procedures.ArtifactTableUpdateTickProcedure;
 import net.sashakyotoz.variousworld.client.menus.ArchOfGemsMenu;
@@ -204,7 +204,7 @@ public class ArtifactTableBlock extends Block implements SimpleWaterloggedBlock,
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldModBlocks.ARTIFACTTABLE.get());
+		ItemStack itemStack = new ItemStack(VariousWorldBlocks.ARTIFACTTABLE.get());
 		return Collections.singletonList(itemStack);
 	}
 }

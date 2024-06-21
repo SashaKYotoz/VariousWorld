@@ -1,7 +1,7 @@
 
 package net.sashakyotoz.variousworld.block;
 
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.effect.MobEffects;
@@ -42,8 +42,8 @@ public class PurpleSaffronBlock extends FlowerBlock {
 	@Override
 	public boolean mayPlaceOn(BlockState groundState, BlockGetter worldIn, BlockPos pos) {
 		return groundState.is(Blocks.GRASS_BLOCK) || groundState.is(Blocks.DIRT_PATH) || groundState.is(Blocks.MYCELIUM) || groundState.is(Blocks.DIRT) || groundState.is(Blocks.COARSE_DIRT) || groundState.is(Blocks.PODZOL)
-				|| groundState.is(Blocks.ROOTED_DIRT) || groundState.is(Blocks.MOSS_BLOCK) || groundState.is(VariousWorldModBlocks.SCULK_GRASS.get()) || groundState.is(VariousWorldModBlocks.SHINY_GRASS.get())
-				|| groundState.is(VariousWorldModBlocks.CRYSTALIC_GRASS.get());
+				|| groundState.is(Blocks.ROOTED_DIRT) || groundState.is(Blocks.MOSS_BLOCK) || groundState.is(VariousWorldBlocks.SCULK_GRASS.get()) || groundState.is(VariousWorldBlocks.SHINY_GRASS.get())
+				|| groundState.is(VariousWorldBlocks.CRYSTALIC_GRASS.get());
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class PurpleSaffronBlock extends FlowerBlock {
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldModBlocks.PURPLE_SAFFRON.get());
+		ItemStack itemStack = new ItemStack(VariousWorldBlocks.PURPLE_SAFFRON.get());
 		return Collections.singletonList(itemStack);
 	}
 }

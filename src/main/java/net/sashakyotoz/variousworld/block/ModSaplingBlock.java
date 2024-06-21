@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
 
 public class ModSaplingBlock extends SaplingBlock {
     public ModSaplingBlock(AbstractTreeGrower grower, Properties properties) {
@@ -25,9 +25,9 @@ public class ModSaplingBlock extends SaplingBlock {
     }
     @Override
     public boolean mayPlaceOn(BlockState groundState, BlockGetter getter, BlockPos pos) {
-        return groundState.is(Blocks.MYCELIUM) || groundState.is(Blocks.PODZOL) || groundState.is(VariousWorldModBlocks.SCULK_GRASS.get()) || groundState.is(VariousWorldModBlocks.CRYSTALIC_GRASS.get())
-                || groundState.is(VariousWorldModBlocks.SHINY_GRASS.get()) || groundState.is(Blocks.GRASS_BLOCK) || groundState.is(VariousWorldModBlocks.SCULK_MOSS_BLOCK.get()) || groundState.is(VariousWorldModBlocks.DEEP_MOSS.get())
-                || groundState.is(VariousWorldModBlocks.FLOWER_DEEP_MOSS.get()) || groundState.is(Blocks.MOSS_BLOCK);
+        return groundState.is(Blocks.MYCELIUM) || groundState.is(Blocks.PODZOL) || groundState.is(VariousWorldBlocks.SCULK_GRASS.get()) || groundState.is(VariousWorldBlocks.CRYSTALIC_GRASS.get())
+                || groundState.is(VariousWorldBlocks.SHINY_GRASS.get()) || groundState.is(Blocks.GRASS_BLOCK) || groundState.is(VariousWorldBlocks.SCULK_MOSS_BLOCK.get()) || groundState.is(VariousWorldBlocks.DEEP_MOSS.get())
+                || groundState.is(VariousWorldBlocks.FLOWER_DEEP_MOSS.get()) || groundState.is(Blocks.MOSS_BLOCK);
     }
 
     @Override

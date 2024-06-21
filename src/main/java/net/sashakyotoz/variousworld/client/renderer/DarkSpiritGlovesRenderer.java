@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.MultiBufferSource;
 
-import net.sashakyotoz.variousworld.entity.DarkSpiritGlovesEntity;
+import net.sashakyotoz.variousworld.entity.technical.DarkSpiritGlovesEntity;
 import net.sashakyotoz.variousworld.client.model.ModelDark_Spirit_Boom;
 
 import com.mojang.math.Axis;

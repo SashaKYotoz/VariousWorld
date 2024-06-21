@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.entity.LivingEntity;
 
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
 
 public class CrystalSwordItem extends SwordItem{
 	public CrystalSwordItem() {
@@ -36,7 +36,7 @@ public class CrystalSwordItem extends SwordItem{
 			}
 
 			public Ingredient getRepairIngredient() {
-				return Ingredient.of(new ItemStack(VariousWorldModItems.DARKSHARD.get()));
+				return Ingredient.of(new ItemStack(VariousWorldItems.DARKSHARD.get()));
 			}
 		}, 3, -2.4f, new Item.Properties().fireResistant());
 	}

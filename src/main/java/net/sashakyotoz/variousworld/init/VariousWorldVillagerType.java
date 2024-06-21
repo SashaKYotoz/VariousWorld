@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.level.biome.Biome;
-import net.sashakyotoz.variousworld.VariousWorldMod;
+import net.sashakyotoz.variousworld.VariousWorld;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -18,9 +18,9 @@ public class VariousWorldVillagerType {
     public static VillagerType CRYSTAL;
 
     public void initVillagerTypes() {
-        VariousWorldMod.LOGGER.debug("Registering villager types: " + VillagerTrades.TRADES.size());
+        VariousWorld.LOGGER.debug("Registering villager types: " + VillagerTrades.TRADES.size());
         CRYSTAL = registerType("crystalic_forest");
-        putTypeToBiome(VariousWorldModBiomes.CRYSTALIC_FOREST, CRYSTAL);
+        putTypeToBiome(VariousWorldBiomes.CRYSTALIC_FOREST, CRYSTAL);
     }
 
     public static void putTypeToBiome(ResourceKey<Biome> biomeIn, VillagerType type) {

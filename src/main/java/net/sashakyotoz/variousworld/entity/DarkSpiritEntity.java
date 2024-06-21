@@ -2,7 +2,6 @@
 package net.sashakyotoz.variousworld.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -12,7 +11,6 @@ import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
@@ -34,10 +32,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PlayMessages;
-import net.sashakyotoz.variousworld.init.VariousWorldModEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
-import net.sashakyotoz.variousworld.init.VariousWorldModParticleTypes;
+import net.sashakyotoz.variousworld.entity.technical.DarkSpiritGlovesEntity;
+import net.sashakyotoz.variousworld.entity.technical.SculkNecromancerSkeletonEntity;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VariousWorldParticleTypes;
 import net.sashakyotoz.variousworld.procedures.AdvancementsManager;
 
 import java.util.EnumSet;
@@ -65,11 +63,11 @@ public class DarkSpiritEntity extends Monster {
         setNoAi(false);
         setPersistenceRequired();
         this.moveControl = new FlyingMoveControl(this, 12, true);
-        this.setItemSlotAndDropWhenKilled(EquipmentSlot.HEAD, new ItemStack(VariousWorldModItems.ANGEL_HELMET.get()));
-        this.setItemSlotAndDropWhenKilled(EquipmentSlot.CHEST, new ItemStack(VariousWorldModItems.ANGEL_CHESTPLATE.get()));
-        this.setItemSlotAndDropWhenKilled(EquipmentSlot.LEGS, new ItemStack(VariousWorldModItems.ANGEL_LEGGINGS.get()));
-        this.setItemSlotAndDropWhenKilled(EquipmentSlot.FEET, new ItemStack(VariousWorldModItems.ANGEL_BOOTS.get()));
-        this.setItemSlotAndDropWhenKilled(EquipmentSlot.FEET, new ItemStack(VariousWorldModItems.ANGEL_BOOTS.get()));
+        this.setItemSlotAndDropWhenKilled(EquipmentSlot.HEAD, new ItemStack(VariousWorldItems.ANGEL_HELMET.get()));
+        this.setItemSlotAndDropWhenKilled(EquipmentSlot.CHEST, new ItemStack(VariousWorldItems.ANGEL_CHESTPLATE.get()));
+        this.setItemSlotAndDropWhenKilled(EquipmentSlot.LEGS, new ItemStack(VariousWorldItems.ANGEL_LEGGINGS.get()));
+        this.setItemSlotAndDropWhenKilled(EquipmentSlot.FEET, new ItemStack(VariousWorldItems.ANGEL_BOOTS.get()));
+        this.setItemSlotAndDropWhenKilled(EquipmentSlot.FEET, new ItemStack(VariousWorldItems.ANGEL_BOOTS.get()));
         this.getItemBySlot(EquipmentSlot.HEAD).setDamageValue(random.nextInt(33));
         this.getItemBySlot(EquipmentSlot.CHEST).setDamageValue(random.nextInt(71));
         this.getItemBySlot(EquipmentSlot.LEGS).setDamageValue(random.nextInt(52));
@@ -119,7 +117,7 @@ public class DarkSpiritEntity extends Monster {
     private void spawnFoundParticles() {
         for (int i = 0; i < 360; i++) {
             if (i % 20 == 0) {
-                this.level().addParticle(VariousWorldModParticleTypes.LORD_SHOOT_PARTICLE.get(),
+                this.level().addParticle(VariousWorldParticleTypes.LORD_SHOOT_PARTICLE.get(),
                         this.getX() + 0.5d, this.getY() + 1, this.getZ() + 0.5d,
                         Math.cos(i) * 0.15d, 0.15d, Math.sin(i) * 0.15d);
             }
@@ -357,7 +355,7 @@ public class DarkSpiritEntity extends Monster {
             if (this.getDisplayName().getString().equals("Basics"))
                 AdvancementsManager.addAdvancement(player,AdvancementsManager.EASTER_DARK_SPIRIT_ADV);
         }
-        this.spawnAtLocation(new ItemStack(VariousWorldModItems.TOTEM_OF_DARK_SPIRIT.get()));
+        this.spawnAtLocation(new ItemStack(VariousWorldItems.TOTEM_OF_DARK_SPIRIT.get()));
         this.convertTo(EntityType.VEX,true);
     }
 

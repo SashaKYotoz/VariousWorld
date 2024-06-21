@@ -3,7 +3,6 @@ package net.sashakyotoz.variousworld.entity;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.network.PlayMessages;
 
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.block.state.BlockState;
@@ -14,7 +13,6 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.AreaEffectCloud;
@@ -24,8 +22,8 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.core.BlockPos;
 
-import net.sashakyotoz.variousworld.init.VariousWorldModEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.init.VariousWorldEntities;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
 
 public class CrystalicSlimeEntity extends Slime {
 	public int texture;
@@ -65,12 +63,12 @@ public class CrystalicSlimeEntity extends Slime {
 	@Override
 	public void die(DamageSource source) {
 		super.die(source);
-		this.spawnAtLocation(new ItemStack(VariousWorldModItems.SLIME_CRYSTALIC.get(),this.random.nextIntBetweenInclusive(1,6)));
-		this.spawnAtLocation(new ItemStack(VariousWorldModItems.CRYSTALSHARD.get(),this.random.nextIntBetweenInclusive(1,2)));
+		this.spawnAtLocation(new ItemStack(VariousWorldItems.SLIME_CRYSTALIC.get(),this.random.nextIntBetweenInclusive(1,6)));
+		this.spawnAtLocation(new ItemStack(VariousWorldItems.CRYSTALSHARD.get(),this.random.nextIntBetweenInclusive(1,2)));
 	}
 
 	public static void init() {
-		SpawnPlacements.register(VariousWorldModEntities.CRYSTALIC_SLIME.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+		SpawnPlacements.register(VariousWorldEntities.CRYSTALIC_SLIME.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				(entityType, world, reason, pos, random) -> (world.getDifficulty() != Difficulty.PEACEFUL && Monster.isDarkEnoughToSpawn(world, pos, random) && Mob.checkMobSpawnRules(entityType, world, reason, pos, random)));
 	}
 

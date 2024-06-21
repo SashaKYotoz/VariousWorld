@@ -1,7 +1,7 @@
 
 package net.sashakyotoz.variousworld.block;
 
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -26,7 +26,7 @@ public class MycenaFromCavernOfDeepBlock extends Block {
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldModBlocks.MYCENA_FROM_CAVERN_OF_DEEP_BLOCK.get());
+		ItemStack itemStack = new ItemStack(VariousWorldBlocks.MYCENA_FROM_CAVERN_OF_DEEP_BLOCK.get());
 		return Collections.singletonList(itemStack);
 	}
 }

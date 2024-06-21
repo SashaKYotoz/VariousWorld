@@ -27,8 +27,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
 import net.sashakyotoz.variousworld.procedures.SculkBushEntityCollidesWithPlantProcedure;
 
 import java.util.Collections;
@@ -58,7 +58,7 @@ public class SmallSculkBushBlock extends FlowerBlock {
 
 	@Override
 	public boolean mayPlaceOn(BlockState groundState, BlockGetter worldIn, BlockPos pos) {
-		return groundState.is(VariousWorldModBlocks.SCULK_GRASS.get());
+		return groundState.is(VariousWorldBlocks.SCULK_GRASS.get());
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class SmallSculkBushBlock extends FlowerBlock {
 		if ((world.getBlockState(BlockPos.containing(x, y + 1, z))).isAir()) {
 			if (Math.random() < 0.025) {
 				BlockPos blockPos = BlockPos.containing(x, y, z);
-				BlockState state = VariousWorldModBlocks.SCULK_BUSH_WITHOUT_BERRY.get().defaultBlockState();
+				BlockState state = VariousWorldBlocks.SCULK_BUSH_WITHOUT_BERRY.get().defaultBlockState();
 				world.setBlock(blockPos, state, 3);
 			}
 		}
@@ -94,7 +94,7 @@ public class SmallSculkBushBlock extends FlowerBlock {
 		super.use(blockstate, world, pos, player, hand, hit);
 		if (player.getMainHandItem().is(Items.BONE_MEAL)) {
 			if (Math.random() < 0.25) {
-				BlockState _bs = VariousWorldModBlocks.SCULK_BUSH_WITHOUT_BERRY.get().defaultBlockState();
+				BlockState _bs = VariousWorldBlocks.SCULK_BUSH_WITHOUT_BERRY.get().defaultBlockState();
 				world.setBlock(pos, _bs, 3);
 				ItemStack stack = player.getMainHandItem();
 				player.getInventory().clearOrCountMatchingItems(p -> stack.getItem() == p.getItem(), 1, player.inventoryMenu.getCraftSlots());
@@ -106,11 +106,11 @@ public class SmallSculkBushBlock extends FlowerBlock {
 
 	@OnlyIn(Dist.CLIENT)
 	public static void blockColorLoad(RegisterColorHandlersEvent.Block event) {
-		event.getBlockColors().register((bs, world, pos, index) -> world != null && pos != null ? Minecraft.getInstance().level.getBiome(pos).value().getSkyColor() : 8562943, VariousWorldModBlocks.SMALL_SCULK_BUSH.get());
+		event.getBlockColors().register((bs, world, pos, index) -> world != null && pos != null ? Minecraft.getInstance().level.getBiome(pos).value().getSkyColor() : 8562943, VariousWorldBlocks.SMALL_SCULK_BUSH.get());
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldModItems.SCULKBERRY.get());
+		ItemStack itemStack = new ItemStack(VariousWorldItems.SCULKBERRY.get());
 		return Collections.singletonList(itemStack);
 	}
 }

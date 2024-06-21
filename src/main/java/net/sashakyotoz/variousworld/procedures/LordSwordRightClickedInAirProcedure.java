@@ -1,11 +1,7 @@
 package net.sashakyotoz.variousworld.procedures;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -13,7 +9,7 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.sashakyotoz.variousworld.init.VariousWorldModParticleTypes;
+import net.sashakyotoz.variousworld.init.VariousWorldParticleTypes;
 
 import java.util.Comparator;
 import java.util.List;
@@ -33,7 +29,7 @@ public class LordSwordRightClickedInAirProcedure {
             } else {
                 break;
             }
-            accessor.addParticle(VariousWorldModParticleTypes.LORD_SHOOT_PARTICLE.get(),
+            accessor.addParticle(VariousWorldParticleTypes.LORD_SHOOT_PARTICLE.get(),
                     (entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getX()),
                     (entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getY()),
                     (entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getZ()), 0, 0.25, 0);

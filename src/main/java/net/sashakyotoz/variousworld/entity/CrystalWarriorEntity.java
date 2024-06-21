@@ -24,11 +24,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.PlayMessages;
-import net.sashakyotoz.variousworld.VariousWorldMod;
-import net.sashakyotoz.variousworld.init.VariousWorldModEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
-import net.sashakyotoz.variousworld.init.VariousWorldModMobEffects;
+import net.sashakyotoz.variousworld.VariousWorld;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VariousWorldMobEffects;
 import net.sashakyotoz.variousworld.procedures.AdvancementsManager;
 import net.sashakyotoz.variousworld.procedures.EventManager;
 
@@ -43,7 +41,7 @@ public class CrystalWarriorEntity extends IronGolem {
         super(type, world);
         xpReward = 25;
         setPersistenceRequired();
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(VariousWorldModItems.CRYSTAL_SWORD.get()));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(VariousWorldItems.CRYSTAL_SWORD.get()));
     }
 
     private void setupAnimationStates() {
@@ -63,15 +61,15 @@ public class CrystalWarriorEntity extends IronGolem {
         this.deathTime = -80;
         if(source.getEntity() instanceof Player player)
             AdvancementsManager.addAdvancement(player,AdvancementsManager.CRYSTALIC_WARRIOR_ADV);
-        this.spawnAtLocation(new ItemStack(VariousWorldModItems.CRYSTALSHARD.get(),this.getRandom().nextIntBetweenInclusive(2,6)));
-        this.spawnAtLocation(new ItemStack(VariousWorldModItems.DARKSHARD.get(),this.getRandom().nextIntBetweenInclusive(1,5)));
+        this.spawnAtLocation(new ItemStack(VariousWorldItems.CRYSTALSHARD.get(),this.getRandom().nextIntBetweenInclusive(2,6)));
+        this.spawnAtLocation(new ItemStack(VariousWorldItems.DARKSHARD.get(),this.getRandom().nextIntBetweenInclusive(1,5)));
         this.spawnAtLocation(new ItemStack(Items.AMETHYST_SHARD,this.getRandom().nextIntBetweenInclusive(1,7)));
         if(this.getRandom().nextBoolean()){
-            this.spawnAtLocation(new ItemStack(VariousWorldModItems.CRYSTAL_ARMOR_BOOTS.get()));
-            this.spawnAtLocation(new ItemStack(VariousWorldModItems.CRYSTAL_ARMOR_LEGGINGS.get()));
+            this.spawnAtLocation(new ItemStack(VariousWorldItems.CRYSTAL_ARMOR_BOOTS.get()));
+            this.spawnAtLocation(new ItemStack(VariousWorldItems.CRYSTAL_ARMOR_LEGGINGS.get()));
         }else{
-            this.spawnAtLocation(new ItemStack(VariousWorldModItems.CRYSTAL_ARMOR_CHESTPLATE.get()));
-            this.spawnAtLocation(new ItemStack(VariousWorldModItems.CRYSTAL_ARMOR_HELMET.get()));
+            this.spawnAtLocation(new ItemStack(VariousWorldItems.CRYSTAL_ARMOR_CHESTPLATE.get()));
+            this.spawnAtLocation(new ItemStack(VariousWorldItems.CRYSTAL_ARMOR_HELMET.get()));
         }
         super.die(source);
     }
@@ -79,8 +77,8 @@ public class CrystalWarriorEntity extends IronGolem {
     public void tick() {
         if (this.level().isClientSide())
             setupAnimationStates();
-        if (this.isDeadOrDying() && this.hasEffect(VariousWorldModMobEffects.AMETHYST_SPIKES.get()))
-            this.removeEffect(VariousWorldModMobEffects.AMETHYST_SPIKES.get());
+        if (this.isDeadOrDying() && this.hasEffect(VariousWorldMobEffects.AMETHYST_SPIKES.get()))
+            this.removeEffect(VariousWorldMobEffects.AMETHYST_SPIKES.get());
         super.tick();
     }
 
@@ -94,7 +92,7 @@ public class CrystalWarriorEntity extends IronGolem {
         }
     }
 
-    static boolean hurtAndThrowTarget(LivingEntity warrior, LivingEntity target) {
+    public static boolean hurtAndThrowTarget(LivingEntity warrior, LivingEntity target) {
         float f = (float) warrior.getAttributeValue(Attributes.ATTACK_DAMAGE);
         boolean flag = target.hurt(warrior.damageSources().mobAttack(warrior), f);
         if (flag) {
@@ -153,7 +151,7 @@ public class CrystalWarriorEntity extends IronGolem {
 
     protected void dropCustomDeathLoot(DamageSource source, int looting, boolean recentlyHitIn) {
         super.dropCustomDeathLoot(source, looting, recentlyHitIn);
-        this.spawnAtLocation(new ItemStack(VariousWorldModItems.CRYSTAL_GEM.get()));
+        this.spawnAtLocation(new ItemStack(VariousWorldItems.CRYSTAL_GEM.get()));
     }
 
     @Override
@@ -206,8 +204,8 @@ public class CrystalWarriorEntity extends IronGolem {
                 speed = 0.8;
                 Yaw = this.getYRot();
                 sourceentity.setDeltaMovement(new Vec3((speed * Math.cos((Yaw + 90) * (Math.PI / 180))), 0.4, (speed * Math.sin((Yaw + 90) * (Math.PI / 180)))));
-            } else if (!flag && !this.hasEffect(VariousWorldModMobEffects.AMETHYST_SPIKES.get())) {
-                this.addEffect(new MobEffectInstance(VariousWorldModMobEffects.AMETHYST_SPIKES.get(), 100, 1));
+            } else if (!flag && !this.hasEffect(VariousWorldMobEffects.AMETHYST_SPIKES.get())) {
+                this.addEffect(new MobEffectInstance(VariousWorldMobEffects.AMETHYST_SPIKES.get(), 100, 1));
                 this.addEffect(new MobEffectInstance(MobEffects.REGENERATION,60,3));
             }
             if (sourceentity != null && sourceentity.getY() > this.getY() + 2) {
@@ -215,7 +213,7 @@ public class CrystalWarriorEntity extends IronGolem {
                 this.groundAttackAnimationState.start(this.tickCount);
                 this.walkAnimationState.stop();
                 this.attackAnimationState.stop();
-                VariousWorldMod.queueServerWork(20, () -> {
+                VariousWorld.queueServerWork(20, () -> {
                     this.doHurtTarget(sourceentity);
                     sourceentity.setDeltaMovement(0, 1, 0);
                 });

@@ -2,8 +2,6 @@
 package net.sashakyotoz.variousworld.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -23,18 +21,16 @@ import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Skeleton;
-import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PlayMessages;
-import net.sashakyotoz.variousworld.init.VariousWorldModEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.entity.technical.SculkNecromancerSkeletonEntity;
+import net.sashakyotoz.variousworld.entity.technical.SculkScytheEntity;
+import net.sashakyotoz.variousworld.init.VariousWorldEntities;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
 
 import javax.annotation.Nullable;
 
@@ -48,15 +44,15 @@ public class SculkSkeletonEntity extends AbstractSkeleton {
 	public SculkSkeletonEntity(EntityType<SculkSkeletonEntity> type, Level world) {
 		super(type, world);
 		xpReward = 8;
-		this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(VariousWorldModItems.SCULK_ARMOR_HELMET.get()));
-		this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(VariousWorldModItems.SCULK_ARMOR_CHESTPLATE.get()));
-		this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(VariousWorldModItems.SCULK_ARMOR_LEGGINGS.get()));
-		this.setItemSlot(EquipmentSlot.FEET, new ItemStack(VariousWorldModItems.SCULK_ARMOR_BOOTS.get()));
+		this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(VariousWorldItems.SCULK_ARMOR_HELMET.get()));
+		this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(VariousWorldItems.SCULK_ARMOR_CHESTPLATE.get()));
+		this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(VariousWorldItems.SCULK_ARMOR_LEGGINGS.get()));
+		this.setItemSlot(EquipmentSlot.FEET, new ItemStack(VariousWorldItems.SCULK_ARMOR_BOOTS.get()));
 	}
 	@Override
 	public void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance instance) {
 		super.populateDefaultEquipmentSlots(random, instance);
-		ItemStack itemStack = new ItemStack(VariousWorldModItems.DARKNIUM_SWORD.get());
+		ItemStack itemStack = new ItemStack(VariousWorldItems.DARKNIUM_SWORD.get());
 		if(0.5 <= Math.round((Math.random())))
 			itemStack.getOrCreateTag().putDouble("CustomModelData", 1);
 		this.setItemSlot(EquipmentSlot.MAINHAND, random.nextFloat() > 0.875 ? new ItemStack(Items.BOW) : itemStack);
@@ -140,7 +136,7 @@ public class SculkSkeletonEntity extends AbstractSkeleton {
 	}
 
 	public static void init() {
-		SpawnPlacements.register(VariousWorldModEntities.SCULK_SKELETON.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+		SpawnPlacements.register(VariousWorldEntities.SCULK_SKELETON.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				(entityType, world, reason, pos, random) -> (world.getDifficulty() != Difficulty.PEACEFUL && Monster.isDarkEnoughToSpawn(world, pos, random) && Mob.checkMobSpawnRules(entityType, world, reason, pos, random)));
 	}
 

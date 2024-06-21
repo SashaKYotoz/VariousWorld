@@ -15,7 +15,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.sashakyotoz.variousworld.client.model.ModelAngelArmorWings;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
 
 public class AngelStarWingsLayer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
     private static final ResourceLocation WINGS_LOCATION = new ResourceLocation("various_world:textures/entities/angel_armor_top.png");
@@ -42,7 +42,7 @@ public class AngelStarWingsLayer<T extends LivingEntity, M extends EntityModel<T
     }
 
     public boolean shouldRender(ItemStack stack) {
-        return stack.getItem() == VariousWorldModItems.ANGEL_CHESTPLATE.get();
+        return stack.getItem() == VariousWorldItems.ANGEL_CHESTPLATE.get();
     }
 
     public ResourceLocation getWingsLocation(ItemStack stack, T entity) {

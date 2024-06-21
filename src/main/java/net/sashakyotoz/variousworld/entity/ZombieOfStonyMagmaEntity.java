@@ -21,9 +21,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.network.PlayMessages;
-import net.sashakyotoz.variousworld.init.VariousWorldModEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldModSounds;
+import net.sashakyotoz.variousworld.init.VariousWorldEntities;
+import net.sashakyotoz.variousworld.init.VariousWorldSounds;
 
 public class ZombieOfStonyMagmaEntity extends Monster {
 	private int attackAnimationRemainingTicks;
@@ -82,7 +81,7 @@ public class ZombieOfStonyMagmaEntity extends Monster {
 
 	@Override
 	public SoundEvent getAmbientSound() {
-		return VariousWorldModSounds.ENTITY_VARIOUS_ZOMBIE_AMBIENT;
+		return VariousWorldSounds.ENTITY_VARIOUS_ZOMBIE_AMBIENT;
 	}
 
 	@Override
@@ -110,7 +109,7 @@ public class ZombieOfStonyMagmaEntity extends Monster {
 	}
 
 	public static void init() {
-		SpawnPlacements.register(VariousWorldModEntities.ZOMBIE_OF_STONY_MAGMA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+		SpawnPlacements.register(VariousWorldEntities.ZOMBIE_OF_STONY_MAGMA.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				(entityType, world, reason, pos, random) -> (world.getDifficulty() != Difficulty.PEACEFUL && Monster.isDarkEnoughToSpawn(world, pos, random) && Mob.checkMobSpawnRules(entityType, world, reason, pos, random)));
 	}
 

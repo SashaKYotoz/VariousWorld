@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
 
 import javax.annotation.Nullable;
 import java.util.function.ToIntFunction;
@@ -25,7 +25,7 @@ public interface DeepCavernsVines {
 
     static InteractionResult use(@Nullable Entity p_270738_, BlockState p_270772_, Level p_270721_, BlockPos p_270587_) {
         if (p_270772_.getValue(BERRIES)) {
-            Block.popResource(p_270721_, p_270587_, new ItemStack(VariousWorldModItems.BRANCH_WITH_DRAGON_EYE_FRUIT.get(), 1));
+            Block.popResource(p_270721_, p_270587_, new ItemStack(VariousWorldItems.BRANCH_WITH_DRAGON_EYE_FRUIT.get(), 1));
             float f = Mth.randomBetween(p_270721_.random, 0.8F, 1.2F);
             p_270721_.playSound(null, p_270587_, SoundEvents.CAVE_VINES_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, f);
             BlockState blockstate = p_270772_.setValue(BERRIES, Boolean.FALSE);

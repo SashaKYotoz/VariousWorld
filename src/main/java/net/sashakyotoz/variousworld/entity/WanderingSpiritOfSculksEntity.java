@@ -2,8 +2,6 @@
 package net.sashakyotoz.variousworld.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -25,8 +23,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.network.NetworkHooks;
-import net.sashakyotoz.variousworld.init.VariousWorldModEntities;
+import net.sashakyotoz.variousworld.entity.technical.WanderingSpiritProjectileEntity;
+import net.sashakyotoz.variousworld.init.VariousWorldEntities;
 import net.sashakyotoz.variousworld.procedures.EventManager;
 import org.jetbrains.annotations.NotNull;
 
@@ -123,7 +121,7 @@ public class WanderingSpiritOfSculksEntity extends Monster implements RangedAtta
     }
 
     public static void init() {
-        SpawnPlacements.register(VariousWorldModEntities.WANDERING_SPIRIT_SUMMONED_OF_SCULKS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WanderingSpiritOfSculksEntity::checkSpiritConditions);
+        SpawnPlacements.register(VariousWorldEntities.WANDERING_SPIRIT_SUMMONED_OF_SCULKS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WanderingSpiritOfSculksEntity::checkSpiritConditions);
     }
 
     public static boolean checkSpiritConditions(EntityType<? extends WanderingSpiritOfSculksEntity> type, ServerLevelAccessor accessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {

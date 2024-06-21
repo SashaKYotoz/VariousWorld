@@ -13,8 +13,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.sashakyotoz.variousworld.VariousWorldMod;
-import net.sashakyotoz.variousworld.entity.CrystalicArrowEntity;
+import net.sashakyotoz.variousworld.VariousWorld;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
@@ -62,7 +61,7 @@ public class CrystalicArrowRenderer<T extends AbstractArrow> extends EntityRende
 
     @Override
     public ResourceLocation getTextureLocation(T entity) {
-        return new ResourceLocation(VariousWorldMod.MODID,"textures/entities/crystalic_arrow.png");
+        return new ResourceLocation(VariousWorld.MODID,"textures/entities/crystalic_arrow.png");
     }
 
     public void vertex(Matrix4f matrix4f, Matrix3f matrix3f, VertexConsumer consumer, int p_254058_, int p_254338_, int p_254196_, float p_254003_, float p_254165_, int p_253982_, int p_254037_, int p_254038_, int p_254271_) {

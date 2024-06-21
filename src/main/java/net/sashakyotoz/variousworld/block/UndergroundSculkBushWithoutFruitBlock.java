@@ -22,7 +22,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
 import net.sashakyotoz.variousworld.procedures.UndergroundSculkFruitBushUpdateTickProcedure;
 
 public class UndergroundSculkBushWithoutFruitBlock extends BushBlock {
@@ -48,8 +48,8 @@ public class UndergroundSculkBushWithoutFruitBlock extends BushBlock {
 
 	@Override
 	public boolean mayPlaceOn(BlockState groundState, BlockGetter worldIn, BlockPos pos) {
-		return groundState.is(VariousWorldModBlocks.SCULK_MOSS_BLOCK.get()) || groundState.is(Blocks.STONE) || groundState.is(Blocks.GRANITE) || groundState.is(Blocks.DIORITE) || groundState.is(Blocks.COBBLESTONE) || groundState.is(Blocks.DEEPSLATE)
-				|| groundState.is(Blocks.ANDESITE) || groundState.is(VariousWorldModBlocks.SCULK_GRASS.get()) || groundState.is(VariousWorldModBlocks.DEEP_MOSS.get()) || groundState.is(VariousWorldModBlocks.FLOWER_DEEP_MOSS.get())
+		return groundState.is(VariousWorldBlocks.SCULK_MOSS_BLOCK.get()) || groundState.is(Blocks.STONE) || groundState.is(Blocks.GRANITE) || groundState.is(Blocks.DIORITE) || groundState.is(Blocks.COBBLESTONE) || groundState.is(Blocks.DEEPSLATE)
+				|| groundState.is(Blocks.ANDESITE) || groundState.is(VariousWorldBlocks.SCULK_GRASS.get()) || groundState.is(VariousWorldBlocks.DEEP_MOSS.get()) || groundState.is(VariousWorldBlocks.FLOWER_DEEP_MOSS.get())
 				|| groundState.is(Blocks.MOSS_BLOCK);
 	}
 
@@ -73,7 +73,7 @@ public class UndergroundSculkBushWithoutFruitBlock extends BushBlock {
 			player.getInventory().clearOrCountMatchingItems(p -> player.getMainHandItem().getItem() == p.getItem(), 1, player.inventoryMenu.getCraftSlots());
 			player.getInventory().setChanged();
 			if (player.getRandom().nextBoolean()) {
-				BlockState state = VariousWorldModBlocks.UNDERGROUND_SCULK_FRUIT_BUSH.get().defaultBlockState();
+				BlockState state = VariousWorldBlocks.UNDERGROUND_SCULK_FRUIT_BUSH.get().defaultBlockState();
 				world.setBlock(pos, state, 3);
 			}
 		}

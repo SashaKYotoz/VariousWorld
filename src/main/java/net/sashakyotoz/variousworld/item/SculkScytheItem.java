@@ -11,8 +11,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.sashakyotoz.variousworld.entity.SculkScytheEntity;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.entity.technical.SculkScytheEntity;
+import net.sashakyotoz.variousworld.init.VariousWorldItems;
 
 public class SculkScytheItem extends SwordItem {
 	public SculkScytheItem() {
@@ -38,7 +38,7 @@ public class SculkScytheItem extends SwordItem {
 			}
 
 			public Ingredient getRepairIngredient() {
-				return Ingredient.of(new ItemStack(VariousWorldModItems.SCULK_GEM.get()));
+				return Ingredient.of(new ItemStack(VariousWorldItems.SCULK_GEM.get()));
 			}
 		}, 3, -2.8f, new Item.Properties());
 	}
