@@ -1,7 +1,7 @@
 package net.sashakyotoz.variousworld.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.sashakyotoz.variousworld.client.inventory.MycolocyfarographGUIMenu;
+import net.sashakyotoz.variousworld.client.menus.MycolocyfarographGUIMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -10,15 +10,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class MycolocyfarographGUIScreen extends AbstractContainerScreen<MycolocyfarographGUIMenu> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation("various_world:textures/screens/mycolocyfarograph_gui_image.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation("various_world:textures/screens/mycolocyfarograph.png");
 
     public MycolocyfarographGUIScreen(MycolocyfarographGUIMenu menu, Inventory inventory, Component component) {
         super(menu, inventory, component);
-    }
-
-    @Override
-    protected void init() {
-        super.init();
     }
 
     @Override

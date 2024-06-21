@@ -7,10 +7,10 @@ import net.minecraftforge.common.extensions.IForgeMenuType;
 
 import net.minecraft.world.inventory.MenuType;
 
-import net.sashakyotoz.variousworld.client.inventory.ArchOfGemsMenu;
-import net.sashakyotoz.variousworld.client.inventory.MycolocyfarographGUIMenu;
-import net.sashakyotoz.variousworld.client.inventory.DisenchantTableGUIMenu;
-import net.sashakyotoz.variousworld.client.inventory.ArmorStationMenu;
+import net.sashakyotoz.variousworld.client.menus.ArchOfGemsMenu;
+import net.sashakyotoz.variousworld.client.menus.MycolocyfarographGUIMenu;
+import net.sashakyotoz.variousworld.client.menus.DisenchantTableGUIMenu;
+import net.sashakyotoz.variousworld.client.menus.ArmorStationMenu;
 import net.sashakyotoz.variousworld.VariousWorldMod;
 
 public class VariousWorldModMenus {

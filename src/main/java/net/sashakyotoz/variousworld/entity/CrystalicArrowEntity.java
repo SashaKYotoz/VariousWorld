@@ -28,9 +28,6 @@ import net.minecraftforge.network.PlayMessages;
 import net.sashakyotoz.variousworld.init.VariousWorldModEntities;
 
 public class CrystalicArrowEntity extends AbstractArrow {
-    public CrystalicArrowEntity(PlayMessages.SpawnEntity packet, Level world) {
-        super(VariousWorldModEntities.CRYSTALIC_BOW.get(), world);
-    }
 
     public CrystalicArrowEntity(EntityType<? extends CrystalicArrowEntity> type, Level world) {
         super(type, world);
@@ -38,11 +35,6 @@ public class CrystalicArrowEntity extends AbstractArrow {
 
     public CrystalicArrowEntity(EntityType<? extends CrystalicArrowEntity> type, LivingEntity entity, Level world) {
         super(type, entity, world);
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
     @Override
     protected ItemStack getPickupItem() {
@@ -75,9 +67,9 @@ public class CrystalicArrowEntity extends AbstractArrow {
         }
     }
 
-    public static CrystalicArrowEntity shoot(Level world,ItemStack stack, LivingEntity entity, RandomSource random, float power, double damage, int knockback) {
-        CrystalicArrowEntity bowEntity = new CrystalicArrowEntity(VariousWorldModEntities.CRYSTALIC_BOW.get(), entity, world);
-        bowEntity.shoot(entity.getViewVector(1).x, entity.getViewVector(1).y, entity.getViewVector(1).z, power * 1, 0);
+    public static CrystalicArrowEntity shoot(Level level,ItemStack stack, LivingEntity entity, RandomSource random, float power, double damage, int knockback) {
+        CrystalicArrowEntity bowEntity = new CrystalicArrowEntity(VariousWorldModEntities.CRYSTALIC_BOW.get(), entity, level);
+        bowEntity.shoot(entity.getViewVector(1).x, entity.getViewVector(1).y, entity.getViewVector(1).z, power * 1.5f, 0);
         bowEntity.setSilent(true);
         bowEntity.setCritArrow(false);
         bowEntity.setBaseDamage(damage);
@@ -90,8 +82,8 @@ public class CrystalicArrowEntity extends AbstractArrow {
         int k = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PUNCH_ARROWS, stack);
         if (k > 0)
             bowEntity.setKnockback(k);
-        world.addFreshEntity(bowEntity);
-        world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1, 1f / (random.nextFloat() * 0.5f + 1) + (power / 2));
+        level.addFreshEntity(bowEntity);
+        level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1, 1f / (random.nextFloat() * 0.5f + 1) + (power / 2));
         return bowEntity;
     }
 
@@ -105,17 +97,14 @@ public class CrystalicArrowEntity extends AbstractArrow {
         bowEntity.setBaseDamage(4);
         bowEntity.setKnockback(2);
         bowEntity.setCritArrow(false);
-        if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FLAMING_ARROWS, entity.getMainHandItem()) > 0) {
+        if (EnchantmentHelper.getTagEnchantmentLevel(Enchantments.FLAMING_ARROWS, entity.getMainHandItem()) > 0)
             bowEntity.setSecondsOnFire(100);
-        }
         int j = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.POWER_ARROWS, entity.getMainHandItem());
-        if (j > 0) {
+        if (j > 0)
             bowEntity.setBaseDamage(bowEntity.getBaseDamage() + (double) j * 0.5D + 0.5D);
-        }
         int k = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.PUNCH_ARROWS, entity.getMainHandItem());
-        if (k > 0) {
+        if (k > 0)
             bowEntity.setKnockback(k);
-        }
         entity.level().addFreshEntity(bowEntity);
         entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1, 1f / (RandomSource.create().nextFloat() * 0.5f + 1));
         return bowEntity;

@@ -22,12 +22,8 @@ import net.sashakyotoz.variousworld.init.VariousWorldModEntities;
 import net.sashakyotoz.variousworld.init.VariousWorldModSounds;
 import net.sashakyotoz.variousworld.procedures.NecromancerStaffProjectileHitsLivingEntityProcedure;
 
-@OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
-public class NecromancerStaffEntity extends AbstractArrow implements ItemSupplier {
+public class NecromancerStaffEntity extends AbstractArrow {
 	private static boolean isMagmaColor = false;
-	public NecromancerStaffEntity(PlayMessages.SpawnEntity packet, Level world) {
-		super(VariousWorldModEntities.NECROMANCER_STAFF.get(), world);
-	}
 
 	public NecromancerStaffEntity(EntityType<? extends NecromancerStaffEntity> type, Level world) {
 		super(type, world);
@@ -36,18 +32,6 @@ public class NecromancerStaffEntity extends AbstractArrow implements ItemSupplie
 	public NecromancerStaffEntity(EntityType<? extends NecromancerStaffEntity> type, LivingEntity entity, Level world) {
 		super(type, entity, world);
 	}
-
-	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
-	}
-
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public ItemStack getItem() {
-		return ItemStack.EMPTY;
-	}
-
 	@Override
 	protected ItemStack getPickupItem() {
 		return ItemStack.EMPTY;
@@ -87,31 +71,31 @@ public class NecromancerStaffEntity extends AbstractArrow implements ItemSupplie
 		}
 	}
 
-	public static NecromancerStaffEntity shoot(Level world, LivingEntity entity,ItemStack stack, RandomSource random, float power, double damage, int knockback) {
-		NecromancerStaffEntity arrow = new NecromancerStaffEntity(VariousWorldModEntities.NECROMANCER_STAFF.get(), entity, world);
+	public static NecromancerStaffEntity shoot(Level level, LivingEntity entity,ItemStack stack, RandomSource random, float power, double damage, int knockback) {
+		NecromancerStaffEntity arrow = new NecromancerStaffEntity(VariousWorldModEntities.NECROMANCER_STAFF.get(), entity, level);
 		arrow.shoot(entity.getViewVector(1).x, entity.getViewVector(1).y, entity.getViewVector(1).z, power * 2, 0);
 		isMagmaColor = stack.getOrCreateTag().getDouble("CustomModelData") == 1;
 		arrow.setSilent(true);
 		arrow.setCritArrow(false);
 		arrow.setBaseDamage(damage);
 		arrow.setKnockback(knockback);
-		world.addFreshEntity(arrow);
-		world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), VariousWorldModSounds.ITEM_WAND_SHOOT, SoundSource.PLAYERS, 1, 1f / (random.nextFloat() * 0.5f + 1) + (power / 2));
+		level.addFreshEntity(arrow);
+		level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), VariousWorldModSounds.ITEM_WAND_SHOOT, SoundSource.PLAYERS, 1, 1f / (random.nextFloat() * 0.5f + 1) + (power / 2));
 		return arrow;
 	}
 
 	public static NecromancerStaffEntity shoot(LivingEntity entity, LivingEntity target) {
-		NecromancerStaffEntity entityarrow = new NecromancerStaffEntity(VariousWorldModEntities.NECROMANCER_STAFF.get(), entity, entity.level());
+		NecromancerStaffEntity staffEntity = new NecromancerStaffEntity(VariousWorldModEntities.NECROMANCER_STAFF.get(), entity, entity.level());
 		double dx = target.getX() - entity.getX();
 		double dy = target.getY() + target.getEyeHeight() - 1.1;
 		double dz = target.getZ() - entity.getZ();
-		entityarrow.shoot(dx, dy - entityarrow.getY() + Math.hypot(dx, dz) * 0.2F, dz, 2f * 2, 12.0F);
-		entityarrow.setSilent(true);
-		entityarrow.setBaseDamage(5);
-		entityarrow.setKnockback(2);
-		entityarrow.setCritArrow(false);
-		entity.level().addFreshEntity(entityarrow);
+		staffEntity.shoot(dx, dy - staffEntity.getY() + Math.hypot(dx, dz) * 0.2F, dz, 2f * 2, 12.0F);
+		staffEntity.setSilent(true);
+		staffEntity.setBaseDamage(5);
+		staffEntity.setKnockback(2);
+		staffEntity.setCritArrow(false);
+		entity.level().addFreshEntity(staffEntity);
 		entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), VariousWorldModSounds.ITEM_WAND_SHOOT, SoundSource.PLAYERS, 1, 1f / (RandomSource.create().nextFloat() * 0.5f + 1));
-		return entityarrow;
+		return staffEntity;
 	}
 }

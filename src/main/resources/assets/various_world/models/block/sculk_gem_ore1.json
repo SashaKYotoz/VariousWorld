@@ -1,7 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "various_world:block/sculk_gem_ore1",
-    "particle": "various_world:block/sculk_gem_ore1"
-  }
-}

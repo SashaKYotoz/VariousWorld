@@ -3,7 +3,6 @@ package net.sashakyotoz.variousworld;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = VariousWorldMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class VariousWorldConfig {
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
     public static final ForgeConfigSpec.BooleanValue GENERATE_SCULK_VALLEY = BUILDER.comment("Determine if Sculk Valley have to be generated").define("generate_sculk_valley",true);

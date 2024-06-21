@@ -2,7 +2,7 @@ package net.sashakyotoz.variousworld.block.entity;
 
 import net.sashakyotoz.variousworld.init.VariousWorldModBlockEntities;
 import net.sashakyotoz.variousworld.init.VariousWorldModItems;
-import net.sashakyotoz.variousworld.client.inventory.MycolocyfarographGUIMenu;
+import net.sashakyotoz.variousworld.client.menus.MycolocyfarographGUIMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -104,7 +104,7 @@ public class MycolocyfarographBlockEntity extends BlockEntity implements MenuPro
 
 	@Override
 	protected void saveAdditional(CompoundTag nbt) {
-		nbt.put("inventory", itemHandler.serializeNBT());
+		nbt.put("menus", itemHandler.serializeNBT());
 		nbt.putInt("mycolocyfarograph.progress", this.progress);
 		super.saveAdditional(nbt);
 	}
@@ -112,7 +112,7 @@ public class MycolocyfarographBlockEntity extends BlockEntity implements MenuPro
 	@Override
 	public void load(CompoundTag nbt) {
 		super.load(nbt);
-		itemHandler.deserializeNBT(nbt.getCompound("inventory"));
+		itemHandler.deserializeNBT(nbt.getCompound("menus"));
 		progress = nbt.getInt("mycolocyfarograph.progress");
 	}
 

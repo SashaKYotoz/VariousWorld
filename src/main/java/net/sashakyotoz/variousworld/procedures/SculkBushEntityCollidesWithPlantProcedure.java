@@ -1,14 +1,9 @@
 package net.sashakyotoz.variousworld.procedures;
 
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.sashakyotoz.variousworld.entity.WanderingSpiritOfSculksEntity;
 import net.sashakyotoz.variousworld.init.VariousWorldModItems;
@@ -18,14 +13,9 @@ public class SculkBushEntityCollidesWithPlantProcedure {
 		if (entity == null)
 			return;
 		if(entity instanceof LivingEntity livingEntity){
-			if (!(entity instanceof Animal || entity instanceof WanderingSpiritOfSculksEntity || entity instanceof ItemEntity
+			if (!(entity instanceof Animal || entity instanceof WanderingSpiritOfSculksEntity
 					|| entity instanceof Player player && player.getItemBySlot(EquipmentSlot.LEGS).is(VariousWorldModItems.SCULK_ARMOR_LEGGINGS.get()))) {
-				livingEntity.hurt(new DamageSource(livingEntity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.GENERIC)) {
-					@Override
-					public Component getLocalizedDeathMessage(LivingEntity livingEntity) {
-						return Component.translatable("death.attack." + "Sculk Spikes");
-					}
-				}, 1);
+				livingEntity.hurt(livingEntity.damageSources().sweetBerryBush(), 1);
 			}
 		}
 	}

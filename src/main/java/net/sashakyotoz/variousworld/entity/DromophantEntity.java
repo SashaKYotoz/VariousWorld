@@ -65,10 +65,6 @@ public class DromophantEntity extends TamableAnimal implements Saddleable {
         timer = this.getRandom().nextIntBetweenInclusive(100, 300);
     }
 
-    public DromophantEntity(PlayMessages.SpawnEntity entity, Level level) {
-        super(VariousWorldModEntities.DROMOPHANT.get(), level);
-    }
-
     @Override
     public void tick() {
         if (timer > 0)

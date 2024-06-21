@@ -37,13 +37,13 @@ public class MycolocyfarographBlock extends BaseEntityBlock {
 
 	public MycolocyfarographBlock() {
 		super(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.METAL).strength(1.5f, 2f).lightLevel(s -> 8).requiresCorrectToolForDrops().noOcclusion().randomTicks().hasPostProcess((bs, br, bp) -> true)
-				.emissiveRendering((bs, br, bp) -> true).isRedstoneConductor((bs, br, bp) -> false));
+				.emissiveRendering((bs, br, bp) -> true));
 	}
 
-	private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 13, 16);
+	private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 12, 16);
 
 	@Override
-	public VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
+	public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 
@@ -68,7 +68,7 @@ public class MycolocyfarographBlock extends BaseEntityBlock {
 	}
 
 	@Override
-	public RenderShape getRenderShape(BlockState p_49232_) {
+	public RenderShape getRenderShape(BlockState state) {
 		return RenderShape.MODEL;
 	}
 

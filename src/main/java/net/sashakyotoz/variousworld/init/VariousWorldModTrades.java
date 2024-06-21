@@ -46,7 +46,7 @@ public class VariousWorldModTrades {
             event.getTrades().get(2).add(new BasicItemListing(new ItemStack(Items.EMERALD, 4),
                     new ItemStack(VariousWorldModItems.CRYSTALSHARD.get()), 10, 5, 0.05f));
             event.getTrades().get(2)
-                    .add(new BasicItemListing(new ItemStack(VariousWorldModItems.DARKSHARD.get()), new ItemStack(VariousWorldModItems.CRYSTALSHARD.get(), 3), new ItemStack(VariousWorldModBlocks.CRYSTAL_OF_CHANGED_BLOCK.get()), 1, 8, 0.25f));
+                    .add(new BasicItemListing(new ItemStack(VariousWorldModItems.DARKSHARD.get()), new ItemStack(VariousWorldModItems.CRYSTALSHARD.get(), 3), new ItemStack(VariousWorldModBlocks.CRYSTAL_OF_CHARGED_BLOCK.get()), 1, 8, 0.25f));
             event.getTrades().get(3).add(new BasicItemListing(new ItemStack(VariousWorldModItems.SCULK_GEM.get()), new ItemStack(VariousWorldModItems.SCULK_SHARD.get(), 3), new ItemStack(Items.EMERALD, 2), 10, 5, 0.05f));
             event.getTrades().get(4).add(new BasicItemListing(new ItemStack(Items.EMERALD, 8), new ItemStack(VariousWorldModItems.DARKSHARD.get(), 4), new ItemStack(VariousWorldModItems.CRYSTALIC_STRENGTH.get()), 4, 5, 0.05f));
             event.getTrades().get(5).add(new BasicItemListing(new ItemStack(VariousWorldModBlocks.CRYSTALIC_GRASS.get()), new ItemStack(Items.EMERALD, 4), new ItemStack(Items.AMETHYST_SHARD, 2), 10, 10, 0.25f));

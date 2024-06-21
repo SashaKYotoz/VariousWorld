@@ -95,7 +95,7 @@ public class AdvancementsManager {
 		if (player.getInventory().contains(new ItemStack(VariousWorldModItems.FURY_INGOT.get()))) {
 			addAdvancement(player,FURY_INGOT_ADV);
 		}
-		if (player.getInventory().contains(new ItemStack(VariousWorldModItems.LORD_FURY_SCALES_DUST.get()))) {
+		if (player.getInventory().contains(new ItemStack(VariousWorldModItems.LORD_FURY_SCALE.get()))) {
 			addAdvancement(player,LORD_FURY_SCALES_ADV);
 		}
 	}

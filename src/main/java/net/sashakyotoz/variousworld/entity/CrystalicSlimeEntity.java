@@ -30,25 +30,10 @@ import net.sashakyotoz.variousworld.init.VariousWorldModItems;
 public class CrystalicSlimeEntity extends Slime {
 	public int texture;
 
-	public CrystalicSlimeEntity(PlayMessages.SpawnEntity packet, Level world) {
-		this(VariousWorldModEntities.CRYSTALIC_SLIME.get(), world);
-	}
-
-	public CrystalicSlimeEntity(EntityType<CrystalicSlimeEntity> type, Level world) {
-		super(type, world);
+	public CrystalicSlimeEntity(EntityType<CrystalicSlimeEntity> type, Level level) {
+		super(type, level);
 		xpReward = 2;
-		setNoAi(false);
-		texture = (int) Math.round((Math.random() * 2));
-	}
-
-	@Override
-	protected void registerGoals() {
-		super.registerGoals();
-	}
-
-	@Override
-	public MobType getMobType() {
-		return MobType.UNDEFINED;
+		texture = this.getRandom().nextIntBetweenInclusive(0,2);
 	}
 
 	@Override

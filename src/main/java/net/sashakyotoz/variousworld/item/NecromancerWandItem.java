@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.sashakyotoz.variousworld.entity.NecromancerStaffEntity;
 import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -88,12 +89,12 @@ public class NecromancerWandItem extends Item {
 	}
 
 	@Override
-	public int getEnchantmentValue() {
-		return 10;
+	public int getEnchantmentValue(ItemStack stack) {
+		return 16;
 	}
 
 	@Override
-	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
+	public @NotNull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
 		if (equipmentSlot == EquipmentSlot.MAINHAND) {
 			ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
 			builder.putAll(super.getDefaultAttributeModifiers(equipmentSlot));

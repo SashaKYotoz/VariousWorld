@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.sashakyotoz.variousworld.VariousWorldMod;
@@ -18,7 +19,7 @@ import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
 @OnlyIn(Dist.CLIENT)
-public class CrystalicArrowRenderer<T extends CrystalicArrowEntity> extends EntityRenderer<T> {
+public class CrystalicArrowRenderer<T extends AbstractArrow> extends EntityRenderer<T> {
     public CrystalicArrowRenderer(EntityRendererProvider.Context context) {
         super(context);
     }
@@ -60,7 +61,7 @@ public class CrystalicArrowRenderer<T extends CrystalicArrowEntity> extends Enti
     }
 
     @Override
-    public ResourceLocation getTextureLocation(T p_114482_) {
+    public ResourceLocation getTextureLocation(T entity) {
         return new ResourceLocation(VariousWorldMod.MODID,"textures/entities/crystalic_arrow.png");
     }
 

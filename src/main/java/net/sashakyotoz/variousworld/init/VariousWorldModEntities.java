@@ -19,52 +19,52 @@ import net.sashakyotoz.variousworld.VariousWorldMod;
 public class VariousWorldModEntities {
 	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, VariousWorldMod.MODID);
 	public static final RegistryObject<EntityType<CrystalicArrowEntity>> CRYSTALIC_BOW = register("projectile_crystalic_bow",
-			EntityType.Builder.<CrystalicArrowEntity>of(CrystalicArrowEntity::new, MobCategory.MISC).setCustomClientFactory(CrystalicArrowEntity::new).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(1).sized(0.5f, 0.5f));
+			EntityType.Builder.<CrystalicArrowEntity>of(CrystalicArrowEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(1).sized(0.5f, 0.5f));
 	public static final RegistryObject<EntityType<LordOfFuriesCrossbowEntity>> LORD_OF_FURIES_CROSSBOW = register("projectile_lord_of_furies_crossbow", EntityType.Builder
-			.<LordOfFuriesCrossbowEntity>of(LordOfFuriesCrossbowEntity::new, MobCategory.MISC).setCustomClientFactory(LordOfFuriesCrossbowEntity::new).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(1).sized(0.5f, 0.5f));
+			.<LordOfFuriesCrossbowEntity>of(LordOfFuriesCrossbowEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(1).sized(0.5f, 0.5f));
 	public static final RegistryObject<EntityType<ZombieOfVariousBiomesEntity>> ZOMBIE_OF_VARIOUS_BIOMES = register("zombie_of_various_biomes",
-			EntityType.Builder.<ZombieOfVariousBiomesEntity>of(ZombieOfVariousBiomesEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).clientTrackingRange(8).setCustomClientFactory(ZombieOfVariousBiomesEntity::new).sized(0.8f, 1.8f));
+			EntityType.Builder.<ZombieOfVariousBiomesEntity>of(ZombieOfVariousBiomesEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).clientTrackingRange(8).sized(0.8f, 1.8f));
 	public static final RegistryObject<EntityType<SculkSkeletonEntity>> SCULK_SKELETON = register("sculk_skeleton", EntityType.Builder.<SculkSkeletonEntity>of(SculkSkeletonEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true)
-			.clientTrackingRange(8).setCustomClientFactory(SculkSkeletonEntity::new).fireImmune().sized(0.6f, 2f));
+			.clientTrackingRange(8).fireImmune().sized(0.6f, 2f));
 	public static final RegistryObject<EntityType<DarkFuryEntity>> DARK_FURY = register("dark_fury",
-			EntityType.Builder.<DarkFuryEntity>of(DarkFuryEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(16).setCustomClientFactory(DarkFuryEntity::new).fireImmune().sized(1f, 0.5f));
+			EntityType.Builder.<DarkFuryEntity>of(DarkFuryEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(16).fireImmune().sized(1f, 0.5f));
 	public static final RegistryObject<EntityType<CrystalicSlimeEntity>> CRYSTALIC_SLIME = register("crystalic_slime", EntityType.Builder.<CrystalicSlimeEntity>of(CrystalicSlimeEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true)
-			.clientTrackingRange(12).setCustomClientFactory(CrystalicSlimeEntity::new).fireImmune().sized(1f, 1f));
+			.clientTrackingRange(12).fireImmune().sized(1f, 1f));
 	public static final RegistryObject<EntityType<SpiritofPeacefulWastelandEntity>> SPIRITOF_PEACEFUL_WASTELAND = register("spiritof_peaceful_wasteland",
 			EntityType.Builder.<SpiritofPeacefulWastelandEntity>of(SpiritofPeacefulWastelandEntity::new, MobCategory.AMBIENT).setShouldReceiveVelocityUpdates(true).clientTrackingRange(8)
-					.setCustomClientFactory(SpiritofPeacefulWastelandEntity::new).fireImmune().sized(0.6f, 0.8f));
+					.fireImmune().sized(0.6f, 0.8f));
 	public static final RegistryObject<EntityType<SpiritOfDeepCavernEntity>> SPIRITOF_DEEP_CAVERN = register("spiritof_deep_cavern", EntityType.Builder.<SpiritOfDeepCavernEntity>of(SpiritOfDeepCavernEntity::new, MobCategory.AMBIENT)
-			.setShouldReceiveVelocityUpdates(true).clientTrackingRange(8).setCustomClientFactory(SpiritOfDeepCavernEntity::new).fireImmune().sized(0.5f, 0.8f));
+			.setShouldReceiveVelocityUpdates(true).clientTrackingRange(8).fireImmune().sized(0.5f, 0.8f));
 	public static final RegistryObject<EntityType<ArmoredSkeletonEntity>> ARMORED_SKELETON = register("armoredskeleton",
-			EntityType.Builder.<ArmoredSkeletonEntity>of(ArmoredSkeletonEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).clientTrackingRange(8).setCustomClientFactory(ArmoredSkeletonEntity::new).sized(0.6f, 1.8f));
+			EntityType.Builder.<ArmoredSkeletonEntity>of(ArmoredSkeletonEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).clientTrackingRange(8).sized(0.6f, 1.8f));
 	public static final RegistryObject<EntityType<WanderingSpiritOfSculksEntity>> WANDERING_SPIRIT_SUMMONED_OF_SCULKS = register("wandering_spirit_summoned_of_sculks",
 			EntityType.Builder.<WanderingSpiritOfSculksEntity>of(WanderingSpiritOfSculksEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).clientTrackingRange(8)
-					.setCustomClientFactory(WanderingSpiritOfSculksEntity::new).sized(0.8f, 2f));
+					.sized(1f, 2f));
 	public static final RegistryObject<EntityType<ZombieOfStonyMagmaEntity>> ZOMBIE_OF_STONY_MAGMA = register("zombie_of_stony_magma", EntityType.Builder.<ZombieOfStonyMagmaEntity>of(ZombieOfStonyMagmaEntity::new, MobCategory.MONSTER)
-			.setShouldReceiveVelocityUpdates(true).setTrackingRange(32).setUpdateInterval(3).setCustomClientFactory(ZombieOfStonyMagmaEntity::new).fireImmune().sized(0.7f, 1.8f));
+			.setShouldReceiveVelocityUpdates(true).setTrackingRange(32).setUpdateInterval(3).fireImmune().sized(0.7f, 1.8f));
 	public static final RegistryObject<EntityType<ZanyVilerWitchEntity>> ZANY_VILER_WITCH = register("zany_viler_witch",
-			EntityType.Builder.<ZanyVilerWitchEntity>of(ZanyVilerWitchEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).clientTrackingRange(8).setCustomClientFactory(ZanyVilerWitchEntity::new).sized(0.6f, 1.8f));
+			EntityType.Builder.<ZanyVilerWitchEntity>of(ZanyVilerWitchEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).clientTrackingRange(8).sized(0.6f, 1.8f));
 	public static final RegistryObject<EntityType<DromophantEntity>> DROMOPHANT = register("dromophant",
-			EntityType.Builder.<DromophantEntity>of(DromophantEntity::new, MobCategory.CREATURE).setShouldReceiveVelocityUpdates(true).clientTrackingRange(8).setCustomClientFactory(DromophantEntity::new).sized(1.5f, 2f));
+			EntityType.Builder.<DromophantEntity>of(DromophantEntity::new, MobCategory.CREATURE).setShouldReceiveVelocityUpdates(true).clientTrackingRange(8).sized(1.5f, 2f));
 	public static final RegistryObject<EntityType<CrystalWarriorEntity>> CRYSTAL_WARRIOR = register("crystal_warrior", EntityType.Builder.<CrystalWarriorEntity>of(CrystalWarriorEntity::new, MobCategory.AMBIENT).setShouldReceiveVelocityUpdates(true)
-			.setTrackingRange(32).setCustomClientFactory(CrystalWarriorEntity::new).fireImmune().sized(1f, 2f));
+			.setTrackingRange(32).fireImmune().sized(1f, 2f));
 	public static final RegistryObject<EntityType<DarkSpiritEntity>> DARK_SPIRIT = register("dark_spirit", EntityType.Builder.<DarkSpiritEntity>of(DarkSpiritEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(32)
-			.setCustomClientFactory(DarkSpiritEntity::new).fireImmune().sized(0.7f, 1.8f));
+			.fireImmune().sized(0.7f, 1.8f));
 	public static final RegistryObject<EntityType<SculkNecromancerSkeletonEntity>> SCULK_NECROMANCER_SKELETON = register("sculk_necromancer_skeleton",
 			EntityType.Builder.<SculkNecromancerSkeletonEntity>of(SculkNecromancerSkeletonEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(32)
-					.setCustomClientFactory(SculkNecromancerSkeletonEntity::new).fireImmune().sized(1f, 2.5f));
+					.fireImmune().sized(1f, 2.5f));
 	public static final RegistryObject<EntityType<FuryLordEntity>> FURY_LORD = register("fury_lord",
-			EntityType.Builder.<FuryLordEntity>of(FuryLordEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setCustomClientFactory(FuryLordEntity::new).fireImmune().sized(2.5f, 2f));
-	public static final RegistryObject<EntityType<SculkScytheEntity>> SCULK_SCYTHE_RANGED_ITEM = register("projectile_sculk_scythe_ranged_item",
-			EntityType.Builder.<SculkScytheEntity>of(SculkScytheEntity::new, MobCategory.MISC).setCustomClientFactory(SculkScytheEntity::new).setShouldReceiveVelocityUpdates(true).setTrackingRange(64)
+			EntityType.Builder.<FuryLordEntity>of(FuryLordEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).fireImmune().sized(2.5f, 2f));
+	public static final RegistryObject<EntityType<SculkScytheEntity>> SCULK_SCYTHE_PROJECTILE = register("projectile_sculk_scythe_ranged_item",
+			EntityType.Builder.<SculkScytheEntity>of(SculkScytheEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(64)
 					.setUpdateInterval(1).sized(0.5f, 0.5f));
-	public static final RegistryObject<EntityType<WanderingSpiritAbilityShootEntity>> WANDERING_SPIRIT_ABILITY_SHOOT = register("projectile_wandering_spirit_ability_shoot",
-			EntityType.Builder.<WanderingSpiritAbilityShootEntity>of(WanderingSpiritAbilityShootEntity::new, MobCategory.MISC).setCustomClientFactory(WanderingSpiritAbilityShootEntity::new).setShouldReceiveVelocityUpdates(true).setTrackingRange(64)
-					.setUpdateInterval(1).sized(0.75f, 0.75f));
+	public static final RegistryObject<EntityType<WanderingSpiritProjectileEntity>> WANDERING_SPIRIT_PROJECTILE = register("projectile_wandering_spirit_ability_shoot",
+			EntityType.Builder.<WanderingSpiritProjectileEntity>of(WanderingSpiritProjectileEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(64)
+					.setUpdateInterval(1).sized(1f, 1f));
 	public static final RegistryObject<EntityType<NecromancerStaffEntity>> NECROMANCER_STAFF = register("projectile_necromancer_staff", EntityType.Builder.<NecromancerStaffEntity>of(NecromancerStaffEntity::new, MobCategory.MISC)
-			.setCustomClientFactory(NecromancerStaffEntity::new).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(1).sized(0.5f, 0.5f));
+			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(1).sized(0.5f, 0.5f));
 	public static final RegistryObject<EntityType<MultipleEnderPearlEntity>> MULTIPLE_ENDER_PEARL = register("projectile_multiple_ender_pearl", EntityType.Builder.<MultipleEnderPearlEntity>of(MultipleEnderPearlEntity::new, MobCategory.MISC)
-			.setCustomClientFactory(MultipleEnderPearlEntity::new).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(1).sized(0.5f, 0.5f));
+			.setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(1).sized(0.5f, 0.5f));
 	public static final RegistryObject<EntityType<DarkSpiritGlovesEntity>> DARK_SPIRIT_GLOVES = register("projectile_dark_spirit_gloves", EntityType.Builder.<DarkSpiritGlovesEntity>of(DarkSpiritGlovesEntity::new, MobCategory.MISC).sized(0.3125F, 0.3125F).clientTrackingRange(8));
 
 	private static <T extends Entity> RegistryObject<EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {

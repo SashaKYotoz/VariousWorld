@@ -43,9 +43,9 @@ public class SculkGrowthsBlock extends MultifaceBlock implements BonemealableBlo
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
     }
 
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_57882_) {
-        super.createBlockStateDefinition(p_57882_);
-        p_57882_.add(WATERLOGGED);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(WATERLOGGED);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class SculkGrowthsBlock extends MultifaceBlock implements BonemealableBlo
     @Override
     public void entityInside(BlockState blockstate, Level world, BlockPos pos, Entity entity) {
         super.entityInside(blockstate, world, pos, entity);
-        entity.hurt(new DamageSource(entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.STALAGMITE)), 1);
+        entity.hurt(entity.damageSources().stalagmite(), 1);
     }
 
     @Override
@@ -76,36 +76,36 @@ public class SculkGrowthsBlock extends MultifaceBlock implements BonemealableBlo
         return Collections.singletonList(itemStack);
     }
 
-    public BlockState updateShape(BlockState p_153302_, Direction p_153303_, BlockState p_153304_, LevelAccessor p_153305_, BlockPos p_153306_, BlockPos p_153307_) {
-        if (p_153302_.getValue(WATERLOGGED)) {
-            p_153305_.scheduleTick(p_153306_, Fluids.WATER, Fluids.WATER.getTickDelay(p_153305_));
+    public BlockState updateShape(BlockState state, Direction direction, BlockState blockState, LevelAccessor accessor, BlockPos p_153306_, BlockPos p_153307_) {
+        if (state.getValue(WATERLOGGED)) {
+            accessor.scheduleTick(p_153306_, Fluids.WATER, Fluids.WATER.getTickDelay(accessor));
         }
 
-        return super.updateShape(p_153302_, p_153303_, p_153304_, p_153305_, p_153306_, p_153307_);
+        return super.updateShape(state, direction, blockState, accessor, p_153306_, p_153307_);
     }
 
     public boolean canBeReplaced(BlockState p_153299_, BlockPlaceContext p_153300_) {
         return !p_153300_.getItemInHand().is(VariousWorldModItems.SCULK_GROWTHS.get()) || super.canBeReplaced(p_153299_, p_153300_);
     }
 
-    public boolean isValidBonemealTarget(LevelReader p_256569_, BlockPos p_153290_, BlockState p_153291_, boolean p_153292_) {
-        return Direction.stream().anyMatch((p_153316_) -> this.spreader.canSpreadInAnyDirection(p_153291_, p_256569_, p_153290_, p_153316_.getOpposite()));
+    public boolean isValidBonemealTarget(LevelReader reader, BlockPos pos, BlockState state, boolean p_153292_) {
+        return Direction.stream().anyMatch((p_153316_) -> this.spreader.canSpreadInAnyDirection(state, reader, pos, p_153316_.getOpposite()));
     }
 
     public boolean isBonemealSuccess(Level p_221264_, RandomSource p_221265_, BlockPos p_221266_, BlockState p_221267_) {
         return true;
     }
 
-    public void performBonemeal(ServerLevel p_221259_, RandomSource p_221260_, BlockPos p_221261_, BlockState p_221262_) {
-        this.spreader.spreadFromRandomFaceTowardRandomDirection(p_221262_, p_221259_, p_221261_, p_221260_);
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState p_221262_) {
+        this.spreader.spreadFromRandomFaceTowardRandomDirection(p_221262_, level, pos, random);
     }
 
-    public FluidState getFluidState(BlockState p_153311_) {
-        return p_153311_.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(p_153311_);
+    public FluidState getFluidState(BlockState state) {
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
-    public boolean propagatesSkylightDown(BlockState p_181225_, BlockGetter p_181226_, BlockPos p_181227_) {
-        return p_181225_.getFluidState().isEmpty();
+    public boolean propagatesSkylightDown(BlockState state, BlockGetter getter, BlockPos pos) {
+        return state.getFluidState().isEmpty();
     }
 
     public MultifaceSpreader getSpreader() {

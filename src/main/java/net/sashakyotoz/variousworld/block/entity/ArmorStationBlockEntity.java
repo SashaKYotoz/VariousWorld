@@ -21,7 +21,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 
-import net.sashakyotoz.variousworld.client.inventory.ArmorStationMenu;
+import net.sashakyotoz.variousworld.client.menus.ArmorStationMenu;
 import net.sashakyotoz.variousworld.init.VariousWorldModBlockEntities;
 
 import javax.annotation.Nullable;

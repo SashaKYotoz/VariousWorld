@@ -30,7 +30,7 @@ public class SuperVisionCharmItem extends Item {
 		return stack;
 	}
 
-	public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int p_151216_) {
+	public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int i) {
 		this.stopUsing(entity);
 	}
 

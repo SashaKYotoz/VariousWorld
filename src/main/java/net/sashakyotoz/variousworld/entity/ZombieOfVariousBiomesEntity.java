@@ -31,23 +31,18 @@ public class ZombieOfVariousBiomesEntity extends Monster {
 	private int attackAnimationRemainingTicks;
 	private ItemStack itemStack;
 
-	public ZombieOfVariousBiomesEntity(PlayMessages.SpawnEntity packet, Level world) {
-		this(VariousWorldModEntities.ZOMBIE_OF_VARIOUS_BIOMES.get(), world);
-	}
-
 	public ZombieOfVariousBiomesEntity(EntityType<ZombieOfVariousBiomesEntity> type, Level world) {
 		super(type, world);
 		xpReward = 4;
-		setNoAi(false);
 		float randomItem = (float) Math.random();
 		if(randomItem <= 0.125)
 			this.itemStack = new ItemStack(VariousWorldModItems.SLIME_CRYSTALIC.get());
-		else if(randomItem >= 0.85)
+		else if(randomItem >= 0.875)
 			this.itemStack = new ItemStack(VariousWorldModItems.CRYSTALIC_STRENGTH.get());
 		if(itemStack != null)
 			this.setItemSlotAndDropWhenKilled(EquipmentSlot.MAINHAND,itemStack);
 	}
-	protected void dropCustomDeathLoot(@NotNull DamageSource source, int looting, boolean recentlyHitIn) {
+	public void dropCustomDeathLoot(@NotNull DamageSource source, int looting, boolean recentlyHitIn) {
 		super.dropCustomDeathLoot(source, looting, recentlyHitIn);
 		if(itemStack != null)
 			this.spawnAtLocation(itemStack);
@@ -58,14 +53,14 @@ public class ZombieOfVariousBiomesEntity extends Monster {
 		return this.attackAnimationRemainingTicks;
 	}
 
-	public boolean doHurtTarget(@NotNull Entity p_34491_) {
-		if (!(p_34491_ instanceof LivingEntity)) {
+	public boolean doHurtTarget(@NotNull Entity entity) {
+		if (!(entity instanceof LivingEntity)) {
 			return false;
 		} else {
 			this.attackAnimationRemainingTicks = 30;
 			this.level().broadcastEntityEvent(this, (byte) 4);
 			this.playSound(SoundEvents.RAVAGER_ATTACK, 1.0F, this.getVoicePitch());
-			return CrystalWarriorEntity.hurtAndThrowTarget(this, (LivingEntity) p_34491_);
+			return CrystalWarriorEntity.hurtAndThrowTarget(this, (LivingEntity) entity);
 		}
 	}
 
@@ -76,25 +71,20 @@ public class ZombieOfVariousBiomesEntity extends Monster {
 		super.aiStep();
 	}
 
-	public void handleEntityEvent(byte p_34496_) {
-		if (p_34496_ == 4) {
+	public void handleEntityEvent(byte bytes) {
+		if (bytes == 4) {
 			this.attackAnimationRemainingTicks = 30;
 			this.playSound(SoundEvents.ZOMBIE_HURT, 1.0F, this.getVoicePitch());
 		} else {
-			super.handleEntityEvent(p_34496_);
+			super.handleEntityEvent(bytes);
 		}
 	}
 
 	@Override
 	protected void registerGoals() {
 		super.registerGoals();
-		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.5, false) {
-			@Override
-			protected double getAttackReachSqr(LivingEntity entity) {
-				return this.mob.getBbWidth() * this.mob.getBbWidth() + entity.getBbWidth();
-			}
-		});
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Player.class, false, true));
+		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.5, false));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, false, true));
 		this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
 		this.goalSelector.addGoal(4, new RandomStrollGoal(this, 0.8));
 		this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));

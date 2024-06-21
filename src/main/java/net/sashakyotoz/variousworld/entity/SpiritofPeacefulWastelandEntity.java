@@ -45,9 +45,6 @@ import java.util.List;
 
 public class SpiritofPeacefulWastelandEntity extends TamableAnimal {
 
-    public SpiritofPeacefulWastelandEntity(PlayMessages.SpawnEntity packet, Level world) {
-        this(VariousWorldModEntities.SPIRITOF_PEACEFUL_WASTELAND.get(), world);
-    }
 
     public SpiritofPeacefulWastelandEntity(EntityType<SpiritofPeacefulWastelandEntity> type, Level world) {
         super(type, world);
@@ -194,7 +191,6 @@ public class SpiritofPeacefulWastelandEntity extends TamableAnimal {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        Item item = itemstack.getItem();
         if (this.level().isClientSide) {
             boolean flag = this.isOwnedBy(player) || this.isTame() || isFood(itemstack) && !this.isTame();
             return flag ? InteractionResult.CONSUME : InteractionResult.PASS;
@@ -210,10 +206,8 @@ public class SpiritofPeacefulWastelandEntity extends TamableAnimal {
                     return InteractionResult.SUCCESS;
                 }
             } else if (isFood(itemstack)) {
-                if (!player.getAbilities().instabuild) {
+                if (!player.getAbilities().instabuild)
                     itemstack.shrink(1);
-                }
-
                 if (this.random.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
                     this.tame(player);
                     this.navigation.stop();

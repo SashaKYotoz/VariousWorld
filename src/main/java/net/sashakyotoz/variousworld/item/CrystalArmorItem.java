@@ -34,7 +34,7 @@ public abstract class CrystalArmorItem extends ArmorItem {
 
 			@Override
 			public SoundEvent getEquipSound() {
-				return SoundEvents.EMPTY;
+				return SoundEvents.AMETHYST_BLOCK_HIT;
 			}
 
 			@Override

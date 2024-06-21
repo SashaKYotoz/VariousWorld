@@ -11,12 +11,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.BlockPos;
 
-import net.sashakyotoz.variousworld.client.inventory.DisenchantTableGUIMenu;
 import net.sashakyotoz.variousworld.procedures.DisenchantTableUpdateTickProcedure;
 import net.sashakyotoz.variousworld.VariousWorldMod;
 
 import java.util.function.Supplier;
-import java.util.HashMap;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DisenchantTableGUISlotMessage {
@@ -68,12 +66,10 @@ public class DisenchantTableGUISlotMessage {
 		Level world = entity.level();
 		if (!world.hasChunkAt(new BlockPos(x, y, z)))
 			return;
-		if (slotID == 0 && changeType == 0) {
+		if (slotID == 0 && changeType == 0)
 			DisenchantTableUpdateTickProcedure.execute(world, x, y, z);
-		}
-		if (slotID == 1 && changeType == 0) {
+		if (slotID == 1 && changeType == 0)
 			DisenchantTableUpdateTickProcedure.execute(world, x, y, z);
-		}
 	}
 
 	@SubscribeEvent

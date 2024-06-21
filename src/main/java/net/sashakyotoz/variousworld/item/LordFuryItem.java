@@ -52,7 +52,7 @@ public abstract class LordFuryItem extends ArmorItem {
 
 			@Override
 			public Ingredient getRepairIngredient() {
-				return Ingredient.of(new ItemStack(VariousWorldModItems.LORD_FURY_SCALES_DUST.get()));
+				return Ingredient.of(new ItemStack(VariousWorldModItems.LORD_FURY_SCALE.get()));
 			}
 
 			@Override

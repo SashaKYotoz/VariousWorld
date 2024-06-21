@@ -51,8 +51,8 @@ public class CrystalLeavesBlock extends Block implements SimpleWaterloggedBlock,
 
     }
 
-    protected boolean decaying(BlockState p_221386_) {
-        return !p_221386_.getValue(PERSISTENT) && p_221386_.getValue(DISTANCE) == 9;
+    protected boolean decaying(BlockState state) {
+        return !state.getValue(PERSISTENT) && state.getValue(DISTANCE) == 9;
     }
 
     public boolean isRandomlyTicking(BlockState state) {

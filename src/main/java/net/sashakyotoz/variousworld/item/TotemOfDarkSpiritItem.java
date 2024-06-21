@@ -17,6 +17,7 @@ import net.minecraft.world.level.Level;
 import net.sashakyotoz.variousworld.init.VariousWorldModItems;
 
 public class TotemOfDarkSpiritItem extends Item {
+
 	public TotemOfDarkSpiritItem() {
 		super(new Item.Properties().stacksTo(64).fireResistant().rarity(Rarity.EPIC));
 	}
@@ -29,43 +30,64 @@ public class TotemOfDarkSpiritItem extends Item {
 	@Override
 	public void inventoryTick(ItemStack itemstack, Level level, Entity entity, int slot, boolean selected) {
 		super.inventoryTick(itemstack, level, entity, slot, selected);
-		double x = entity.getX();
-		double y = entity.getY();
-		double z = entity.getZ();
-		if (!(new Object() {
-			public boolean checkGamemode(Entity entity1) {
-				if (entity1 instanceof ServerPlayer player) {
-					return player.gameMode.getGameModeForPlayer() == GameType.CREATIVE;
-				} else if (entity1.level().isClientSide() && entity1 instanceof Player _player) {
-					return Minecraft.getInstance().getConnection().getPlayerInfo(_player.getGameProfile().getId()) != null && Minecraft.getInstance().getConnection().getPlayerInfo(_player.getGameProfile().getId()).getGameMode() == GameType.CREATIVE;
-				}
-				return false;
-			}
-		}.checkGamemode(entity) || new Object() {
-			public boolean checkGamemode(Entity entity1) {
-				if (entity1 instanceof ServerPlayer player) {
-					return player.gameMode.getGameModeForPlayer() == GameType.SPECTATOR;
-				} else if (entity1.level().isClientSide() && entity1 instanceof Player _player) {
-					return Minecraft.getInstance().getConnection().getPlayerInfo(_player.getGameProfile().getId()) != null && Minecraft.getInstance().getConnection().getPlayerInfo(_player.getGameProfile().getId()).getGameMode() == GameType.SPECTATOR;
-				}
-				return false;
-			}
-		}.checkGamemode(entity))) {
-			if (entity instanceof Player player && player.getInventory().contains(new ItemStack(VariousWorldModItems.TOTEM_OF_DARK_SPIRIT.get()))
-					&& !(player.getItemBySlot(EquipmentSlot.HEAD).is(VariousWorldModItems.ANGEL_HELMET.get())
-					&& player.getItemBySlot(EquipmentSlot.CHEST).is(VariousWorldModItems.ANGEL_CHESTPLATE.get())
-					&& player.getItemBySlot(EquipmentSlot.LEGS).is(VariousWorldModItems.ANGEL_LEGGINGS.get())
-					&& player.getItemBySlot(EquipmentSlot.FEET).is(VariousWorldModItems.ANGEL_BOOTS.get()))) {
-				if (level.getBlockState(BlockPos.containing(x, y - 3, z)).canOcclude() || level.getBlockState(BlockPos.containing(x, y - 4, z)).canOcclude() || level.getBlockState(BlockPos.containing(x, y - 5, z)).canOcclude()) {
-					player.getAbilities().mayfly = true;
-					player.onUpdateAbilities();
-					if (Math.random() < 0.125)
-						level.addParticle(ParticleTypes.SPIT, x, y, z, 0, 0.5, 0);
+
+		if (entity instanceof Player player) {
+			if (!isCreativeOrSpectator(player) && hasTotemOfDarkSpirit(player)) {
+				if (isWearingAngelArmor(player) || !isValidGroundBelow(level, player)) {
+					disableFlying(player);
 				} else {
-					player.getAbilities().mayfly = false;
-					player.onUpdateAbilities();
+					enableFlying(player);
+					spawnSpitParticle(level, player);
 				}
 			}
 		}
+	}
+
+	private boolean isCreativeOrSpectator(Player player) {
+		if (player.level().isClientSide()) {
+			return Minecraft.getInstance().getConnection().getPlayerInfo(player.getGameProfile().getId())
+					.getGameMode().isCreative() || Minecraft.getInstance().getConnection().getPlayerInfo(player.getGameProfile().getId())
+					.getGameMode() == GameType.SPECTATOR;
+		}
+		return player.isCreative() || player.isSpectator();
+	}
+
+	private boolean hasTotemOfDarkSpirit(Player player) {
+		return player.getInventory().contains(new ItemStack(VariousWorldModItems.TOTEM_OF_DARK_SPIRIT.get()));
+	}
+
+	private boolean isWearingAngelArmor(Player player) {
+		return player.getItemBySlot(EquipmentSlot.HEAD).is(VariousWorldModItems.ANGEL_HELMET.get()) &&
+				player.getItemBySlot(EquipmentSlot.CHEST).is(VariousWorldModItems.ANGEL_CHESTPLATE.get()) &&
+				player.getItemBySlot(EquipmentSlot.LEGS).is(VariousWorldModItems.ANGEL_LEGGINGS.get()) &&
+				player.getItemBySlot(EquipmentSlot.FEET).is(VariousWorldModItems.ANGEL_BOOTS.get());
+	}
+
+	private boolean isValidGroundBelow(Level level, Player player) {
+		BlockPos pos = player.blockPosition().below();
+		return isOccludingBlock(level, pos.below(2)) || isOccludingBlock(level, pos.below(3)) || isOccludingBlock(level, pos.below(4));
+	}
+
+	private boolean isOccludingBlock(Level level, BlockPos pos) {
+		return level.getBlockState(pos).canOcclude();
+	}
+
+	private void enableFlying(Player player) {
+		if (!player.getAbilities().mayfly) {
+			player.getAbilities().mayfly = true;
+			player.onUpdateAbilities();
+		}
+	}
+
+	private void disableFlying(Player player) {
+		if (player.getAbilities().mayfly) {
+			player.getAbilities().mayfly = false;
+			player.onUpdateAbilities();
+		}
+	}
+
+	private void spawnSpitParticle(Level level, Player player) {
+		if (Math.random() < 0.125)
+			level.addParticle(ParticleTypes.SPIT, player.getX(), player.getY(), player.getZ(), 0, 0.5, 0);
 	}
 }

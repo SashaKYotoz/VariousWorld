@@ -30,7 +30,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.PlayMessages;
 import net.sashakyotoz.variousworld.VariousWorldMod;
 import net.sashakyotoz.variousworld.init.VariousWorldModEntities;
 import net.sashakyotoz.variousworld.init.VariousWorldModItems;
@@ -56,11 +55,7 @@ public class SculkNecromancerSkeletonEntity extends Monster implements RangedAtt
             this.setItemSlotAndDropWhenKilled(EquipmentSlot.MAINHAND, new ItemStack(VariousWorldModItems.SCULK_SCYTHE.get()));
     }
 
-    public SculkNecromancerSkeletonEntity(PlayMessages.SpawnEntity packet, Level world) {
-        this(VariousWorldModEntities.SCULK_NECROMANCER_SKELETON.get(), world);
-    }
-
-    protected void defineSynchedData() {
+    public void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_SUMMON_COOLDOWN, 0);
     }
@@ -107,8 +102,8 @@ public class SculkNecromancerSkeletonEntity extends Monster implements RangedAtt
             }
         });
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Player.class, false, true));
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal(this, ArmoredSkeletonEntity.class, false, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, false, true));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, ArmoredSkeletonEntity.class, false, true));
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 0.75));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(7, new SculkNecromancerSkeletonEntity.SculkNecromancerSkeletonAbility(this));
@@ -187,7 +182,7 @@ public class SculkNecromancerSkeletonEntity extends Monster implements RangedAtt
             this.skeleton.getNavigation().stop();
             int i = this.skeleton.level().getNearbyEntities(SculkSkeletonEntity.class, this.skeletonCountTargeting, this.skeleton, this.skeleton.getBoundingBox().inflate(16.0D)).size();
             if (i == 0)
-                i += 1 + (Math.round(Math.random()));
+                i += 1 + this.skeleton.random.nextIntBetweenInclusive(0,2);
             for (int j = 0; j < i; j++) {
                 SculkSkeletonEntity sculkSkeleton = new SculkSkeletonEntity(VariousWorldModEntities.SCULK_SKELETON.get(), this.skeleton.level());
                 sculkSkeleton.moveTo(new BlockPos((int) this.skeleton.getX(), (int) this.skeleton.getY(), (int) this.skeleton.getZ()), 0, 0);
@@ -239,7 +234,6 @@ public class SculkNecromancerSkeletonEntity extends Monster implements RangedAtt
     @Override
     public boolean hurt(DamageSource source, float amount) {
         setSummonCooldown(summonCooldown() + (int) (Math.random() * 20));
-        VariousWorldMod.LOGGER.debug("" + summonCooldown());
         if (source.is(DamageTypes.FALL))
             return false;
         if (source.is(DamageTypes.CACTUS))
@@ -268,7 +262,7 @@ public class SculkNecromancerSkeletonEntity extends Monster implements RangedAtt
     private void spawnFoundParticles() {
         for (int i = 0; i < 360; i++) {
             if (i % 20 == 0) {
-                this.level().addParticle(VariousWorldModParticleTypes.WANDERING_SPIRIT_ABILITY_SHOOT_PARTICLE.get(),
+                this.level().addParticle(VariousWorldModParticleTypes.WANDERING_SPIRIT_PROJECTILE_PARTICLE.get(),
                         this.getX() + 0.5d, this.getY() + 1, this.getZ() + 0.5d,
                         Math.cos(i) * 0.15d, 0.15d, Math.sin(i) * 0.15d);
             }

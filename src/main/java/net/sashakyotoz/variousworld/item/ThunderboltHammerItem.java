@@ -52,9 +52,8 @@ public class ThunderboltHammerItem extends PickaxeItem {
 
 	@Override
 	public boolean mineBlock(ItemStack itemstack, Level world, BlockState blockstate, BlockPos pos, LivingEntity entity) {
-		boolean retval = super.mineBlock(itemstack, world, blockstate, pos, entity);
 		ThunderboltHammerBlockDestroyedWithToolProcedure.execute(world, pos.getX(), pos.getY(), pos.getZ(), entity);
-		return retval;
+		return super.mineBlock(itemstack, world, blockstate, pos, entity);
 	}
 
 	@Override

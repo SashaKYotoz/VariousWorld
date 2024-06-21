@@ -33,7 +33,7 @@ public abstract class DarkniumArmorItem extends ArmorItem {
 
 			@Override
 			public SoundEvent getEquipSound() {
-				return SoundEvents.EMPTY;
+				return SoundEvents.ARMOR_EQUIP_IRON;
 			}
 
 			@Override

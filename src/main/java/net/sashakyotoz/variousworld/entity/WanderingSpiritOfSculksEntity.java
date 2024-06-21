@@ -4,6 +4,7 @@ package net.sashakyotoz.variousworld.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -25,64 +26,74 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PlayMessages;
 import net.sashakyotoz.variousworld.init.VariousWorldModEntities;
+import net.sashakyotoz.variousworld.procedures.EventManager;
 import org.jetbrains.annotations.NotNull;
 
 public class WanderingSpiritOfSculksEntity extends Monster implements RangedAttackMob {
+    public final AnimationState spawn = new AnimationState();
+    public final AnimationState walk = new AnimationState();
+    public final AnimationState attack = new AnimationState();
+    public final AnimationState abilityAttack = new AnimationState();
     public static boolean spiritShot = false;
-    private int attackAnimationRemainingTicks;
     private int rangedAttackAnimationRemainingTicks;
-
-    public int getAttackAnimationRemainingTicks() {
-        return this.attackAnimationRemainingTicks;
-    }
-
-    public int getRangedAttackAnimationRemainingTicks() {
-        return this.rangedAttackAnimationRemainingTicks;
-    }
-
-    public WanderingSpiritOfSculksEntity(PlayMessages.SpawnEntity packet, Level world) {
-        this(VariousWorldModEntities.WANDERING_SPIRIT_SUMMONED_OF_SCULKS.get(), world);
-    }
-
     public WanderingSpiritOfSculksEntity(EntityType<WanderingSpiritOfSculksEntity> type, Level world) {
         super(type, world);
         xpReward = 3;
-        setNoAi(false);
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
+        this.setMaxUpStep(1.5f);
     }
 
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.5, false) {
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.5, false){
             @Override
-            protected double getAttackReachSqr(LivingEntity entity) {
-                return this.mob.getBbWidth() * this.mob.getBbWidth() + entity.getBbWidth();
+            protected void checkAndPerformAttack(LivingEntity entity, double distance) {
+                double d0 = this.getAttackReachSqr(entity);
+                if (distance <= d0 && this.mob instanceof WanderingSpiritOfSculksEntity entity1)
+                    entity1.attack.start(entity1.tickCount);
+                super.checkAndPerformAttack(entity, distance);
             }
         });
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, AgeableMob.class, false, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, false, true) {
+            @Override
+            protected void findTarget() {
+                if (!this.targetType.equals(Player.class) && !this.targetType.equals(ServerPlayer.class)) {
+                    LivingEntity entity = this.mob.level().getNearestEntity(this.mob.level().getEntitiesOfClass(this.targetType, this.getTargetSearchArea(this.getFollowDistance()), (entity1) -> true), this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+                    if (entity != null && entity.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D && !(entity instanceof WanderingSpiritOfSculksEntity))
+                        this.target = entity;
+                } else {
+                    this.target = this.mob.level().getNearestPlayer(this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+                }
+            }
+        });
         this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
         this.goalSelector.addGoal(4, new FollowMobGoal(this, (float) 1.2, 8, 4));
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 0.8));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, (float) 16));
-        this.goalSelector.addGoal(7, new LeapAtTargetGoal(this, (float) 0.5));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(9, new WanderingSpiritOfSculksEntity.WanderingSpiritAbility(this));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(7, new WanderingSpiritOfSculksEntity.WanderingSpiritAbility(this));
     }
 
     @Override
-    public MobType getMobType() {
-        return MobType.UNDEFINED;
+    public void onAddedToWorld() {
+        super.onAddedToWorld();
+        this.spawn.start(this.tickCount);
+    }
+    private void setupAnimationStates() {
+        if (EventManager.isMovingOnLand(this))
+            this.walk.startIfStopped(this.tickCount);
+        else
+            this.walk.stop();
+    }
+    @Override
+    public void tick() {
+        if (this.level().isClientSide())
+            setupAnimationStates();
+        super.tick();
     }
 
     @Override
-    public void playStepSound(BlockPos pos, BlockState blockIn) {
+    public void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.SCULK_BLOCK_STEP, 0.15f, 1);
     }
 
@@ -115,16 +126,17 @@ public class WanderingSpiritOfSculksEntity extends Monster implements RangedAtta
         SpawnPlacements.register(VariousWorldModEntities.WANDERING_SPIRIT_SUMMONED_OF_SCULKS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WanderingSpiritOfSculksEntity::checkSpiritConditions);
     }
 
-    public static boolean checkSpiritConditions(EntityType<? extends WanderingSpiritOfSculksEntity> p_219014_, ServerLevelAccessor p_219015_, MobSpawnType p_219016_, BlockPos p_219017_, RandomSource p_219018_) {
-        return p_219015_.getDifficulty() != Difficulty.PEACEFUL && checkMobSpawnRules(p_219014_, p_219015_, p_219016_, p_219017_, p_219018_);
+    public static boolean checkSpiritConditions(EntityType<? extends WanderingSpiritOfSculksEntity> type, ServerLevelAccessor accessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        return accessor.getDifficulty() != Difficulty.PEACEFUL && checkMobSpawnRules(type, accessor, spawnType, pos, random);
     }
+
     static class WanderingSpiritAbility extends Goal {
         private final WanderingSpiritOfSculksEntity spirit;
         private int attackTime = 0;
         float f1 = Mth.clamp(0.1F, 0.1F, 1.0F);
 
-        public WanderingSpiritAbility(WanderingSpiritOfSculksEntity p_32776_) {
-            this.spirit = p_32776_;
+        public WanderingSpiritAbility(WanderingSpiritOfSculksEntity entity) {
+            this.spirit = entity;
         }
 
         public boolean canUse() {
@@ -147,10 +159,11 @@ public class WanderingSpiritOfSculksEntity extends Monster implements RangedAtta
         public void tick() {
             LivingEntity livingentity = this.spirit.getTarget();
             if (livingentity != null) {
-                if (livingentity.distanceToSqr(this.spirit) < 4096.0D && this.spirit.hasLineOfSight(livingentity)) {
+                if (livingentity.distanceToSqr(this.spirit) < 4096.0D && livingentity.distanceToSqr(this.spirit) > 16.0D && this.spirit.hasLineOfSight(livingentity)) {
                     if (attackTime == 30) {
                         spiritShot = true;
                         this.spirit.performRangedAttack(livingentity, f1);
+                        this.spirit.abilityAttack.start(this.spirit.tickCount);
                         this.spirit.getNavigation().moveTo(livingentity, 0.3);
                         this.spirit.rangedAttackAnimationRemainingTicks = 0;
                         attackTime = 0;
@@ -175,31 +188,35 @@ public class WanderingSpiritOfSculksEntity extends Monster implements RangedAtta
         return builder;
     }
 
-    static boolean hurtAndTarget(LivingEntity p_34643_, LivingEntity p_34644_) {
-        float f = (float) p_34643_.getAttributeValue(Attributes.ATTACK_DAMAGE);
-        boolean flag = p_34644_.hurt(p_34643_.damageSources().mobAttack(p_34643_), f);
-        if (flag) {
-            p_34643_.doEnchantDamageEffects(p_34643_, p_34644_);
-        }
+    static boolean hurtAndTarget(LivingEntity spirit, LivingEntity entity) {
+        float f = (float) spirit.getAttributeValue(Attributes.ATTACK_DAMAGE);
+        boolean flag = entity.hurt(spirit.damageSources().mobAttack(spirit), f);
+        if (flag)
+            spirit.doEnchantDamageEffects(spirit, entity);
         return flag;
     }
-
-    public boolean doHurtTarget(Entity p_34491_) {
-        if(Math.random() > 0.5)
+    public void handleEntityEvent(byte handleByte) {
+        if (handleByte >= 4 && handleByte <= 20 && !(this.getTarget() != null && this.getTarget().getY() > this.getY() + 2)) {
+            this.attack.start(this.tickCount);
+        } else
+            super.handleEntityEvent(handleByte);
+    }
+    public boolean doHurtTarget(Entity entity) {
+        if (this.random.nextBoolean())
             spiritShot = false;
-        if (!(p_34491_ instanceof LivingEntity))
+        if (!(entity instanceof LivingEntity))
             return false;
-         else {
-            attackAnimationRemainingTicks = 30;
+        else {
             this.level().broadcastEntityEvent(this, (byte) 4);
             this.playSound(SoundEvents.WARDEN_ATTACK_IMPACT, 0.75F, this.getVoicePitch());
-            return hurtAndTarget(this, (LivingEntity) p_34491_);
+            return hurtAndTarget(this, (LivingEntity) entity);
         }
     }
 
     @Override
-    public void performRangedAttack(@NotNull LivingEntity p_33317_, float p_33318_) {
-        rangedAttackAnimationRemainingTicks = RandomSource.create().nextInt(20,40);
-        WanderingSpiritAbilityShootEntity.shoot(this,p_33317_);
+    public void performRangedAttack(@NotNull LivingEntity livingEntity, float v) {
+        rangedAttackAnimationRemainingTicks = RandomSource.create().nextInt(20, 40);
+        this.abilityAttack.start(this.tickCount);
+        WanderingSpiritProjectileEntity.shoot(this, livingEntity);
     }
 }

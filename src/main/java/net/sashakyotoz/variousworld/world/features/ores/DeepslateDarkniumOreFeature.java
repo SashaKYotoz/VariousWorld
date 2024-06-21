@@ -31,11 +31,11 @@ public class DeepslateDarkniumOreFeature extends OreFeature {
 		if (!generate_dimensions.contains(world.getLevel().dimension()))
 			return false;
 		sx = -5;
-		for (int index0 = 0; index0 < 8; index0++) {
+		for (int i = 0; i < 8; i++) {
 			sy = -5;
-			for (int index1 = 0; index1 < 8; index1++) {
+			for (int j = 0; j < 8; j++) {
 				sz = -5;
-				for (int index2 = 0; index2 < 8; index2++) {
+				for (int k = 0; k < 8; k++) {
 					if ((world.getBlockState(BlockPos.containing(x + sx, y + sy, z + sz))).getBlock() == VariousWorldModBlocks.DEEPSLATE_SCULK_GEM_ORE.get()) {
 						BlockPos blockPos = BlockPos.containing(x + sx, y + sy, z + sz);
 						if (Math.random() < 0.5) {

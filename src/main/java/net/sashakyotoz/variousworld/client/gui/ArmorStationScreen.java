@@ -3,7 +3,7 @@ package net.sashakyotoz.variousworld.client.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.sashakyotoz.variousworld.VariousWorldMod;
 import net.sashakyotoz.variousworld.network.ArmorStationButtonMessage;
-import net.sashakyotoz.variousworld.client.inventory.ArmorStationMenu;
+import net.sashakyotoz.variousworld.client.menus.ArmorStationMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -23,7 +23,6 @@ public class ArmorStationScreen extends AbstractContainerScreen<ArmorStationMenu
 
 	public ArmorStationScreen(ArmorStationMenu container, Inventory inventory, Component text) {
 		super(container, inventory, text);
-		Level world = container.world;
 		this.x = container.x;
 		this.y = container.y;
 		this.z = container.z;
@@ -40,7 +39,6 @@ public class ArmorStationScreen extends AbstractContainerScreen<ArmorStationMenu
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderTooltip(ms, mouseX, mouseY);
 	}
-
 	@Override
 	protected void renderBg(GuiGraphics ms, float partialTicks, int gx, int gy) {
 		RenderSystem.setShaderColor(1, 1, 1, 1);
@@ -48,10 +46,6 @@ public class ArmorStationScreen extends AbstractContainerScreen<ArmorStationMenu
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.setShaderTexture(0, texture);
 		ms.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
-
-		RenderSystem.setShaderTexture(0, new ResourceLocation("various_world:textures/screens/armor_station1.png"));
-		ms.blit(new ResourceLocation("various_world:textures/screens/armor_station1.png"), this.leftPos, this.topPos, 0, 0, 200, 175, 200, 175);
-
 		RenderSystem.setShaderTexture(0, new ResourceLocation("various_world:textures/screens/feather.png"));
 		ms.blit(new ResourceLocation("various_world:textures/screens/feather.png"), this.leftPos + 55, this.topPos + 66, 0, 0, 16, 16, 16, 16);
 
@@ -71,11 +65,6 @@ public class ArmorStationScreen extends AbstractContainerScreen<ArmorStationMenu
 			return true;
 		}
 		return super.keyPressed(key, b, c);
-	}
-
-	@Override
-	public void containerTick() {
-		super.containerTick();
 	}
 
 	@Override

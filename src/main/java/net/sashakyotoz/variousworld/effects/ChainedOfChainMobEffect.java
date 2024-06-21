@@ -12,11 +12,11 @@ public class ChainedOfChainMobEffect extends MobEffect {
 		addAttributeModifier(Attributes.MOVEMENT_SPEED, "7107DE5E-7CE8-4030-940E-514C1F160890", -1F, AttributeModifier.Operation.ADDITION);
 	}
 	@Override
-	public double getAttributeModifierValue(int p_19457_, AttributeModifier p_19458_) {
-		if (p_19457_ > 1)
-			return p_19458_.getAmount() * (p_19457_ + 0.25f);
+	public double getAttributeModifierValue(int i, AttributeModifier modifier) {
+		if (i > 1)
+			return modifier.getAmount() * (i + 0.25f);
 		else
-			return p_19458_.getAmount() * (p_19457_ + 1f);
+			return modifier.getAmount() * (i + 1f);
 	}
 
 	@Override

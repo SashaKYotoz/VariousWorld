@@ -14,8 +14,6 @@
     "facing=west": {
       "model": "various_world:block/sculk_gem_ore",
       "y": 270
-    },
-    "clicked=true": { "model": "various_world:block/sculk_gem_ore" },
-    "clicked=false": { "model": "various_world:block/sculk_gem_ore1" }
+    }
   }
 }

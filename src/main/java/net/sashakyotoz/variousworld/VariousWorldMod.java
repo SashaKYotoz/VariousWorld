@@ -1,16 +1,9 @@
 package net.sashakyotoz.variousworld;
 
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -18,19 +11,17 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
+import net.sashakyotoz.variousworld.block.signs.ModWoodType;
 import net.sashakyotoz.variousworld.client.gui.ArchofgemsScreen;
 import net.sashakyotoz.variousworld.client.gui.ArmorStationScreen;
 import net.sashakyotoz.variousworld.client.gui.DisenchantTableGUIScreen;
 import net.sashakyotoz.variousworld.client.gui.MycolocyfarographGUIScreen;
-import net.sashakyotoz.variousworld.client.renderer.layers.AmethystSpikesEffectLayer;
-import net.sashakyotoz.variousworld.client.renderer.layers.AngelStarWingsLayer;
-import net.sashakyotoz.variousworld.client.renderer.layers.ChainedEffectLayer;
 import net.sashakyotoz.variousworld.init.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -66,25 +57,8 @@ public class VariousWorldMod {
         VariousWorldModFeatures.REGISTRY.register(bus);
         VariousWorldModVillagerProfessions.PROFESSIONS.register(bus);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON,VariousWorldConfig.SPEC);
-        if (FMLEnvironment.dist.isClient()) {
-            bus.addListener(this::registerLayer);
-            bus.addListener(this::commonSetup);
-        }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private void registerLayer(EntityRenderersEvent event) {
-        if (event instanceof EntityRenderersEvent.AddLayers addLayersEvent) {
-            EntityModelSet entityModels = addLayersEvent.getEntityModels();
-            addLayersEvent.getSkins().forEach((s) -> {
-                LivingEntityRenderer<? extends Player, ? extends EntityModel<? extends Player>> livingEntityRenderer = addLayersEvent.getSkin(s);
-                if (livingEntityRenderer instanceof PlayerRenderer playerRenderer) {
-                    playerRenderer.addLayer(new AngelStarWingsLayer<>(playerRenderer, entityModels));
-                    playerRenderer.addLayer(new AmethystSpikesEffectLayer<>(playerRenderer, entityModels));
-                    playerRenderer.addLayer(new ChainedEffectLayer<>(playerRenderer, entityModels));
-                }
-            });
-        }
+        bus.addListener(this::commonSetup);
+        bus.addListener(this::clientSetup);
     }
 
     private static final String PROTOCOL_VERSION = "1";
@@ -115,17 +89,20 @@ public class VariousWorldMod {
             workQueue.removeAll(actions);
         }
     }
-
-    @OnlyIn(Dist.CLIENT)
-    private void commonSetup(final FMLCommonSetupEvent event) {
+    private void clientSetup(final FMLClientSetupEvent event){
         VariousWorldModItemProperties.addCustomItemProperties();
+        event.enqueueWork(() -> {
+            Sheets.addWoodType(ModWoodType.CRYSTALIC_OAK);
+            Sheets.addWoodType(ModWoodType.SCULK);
+            Sheets.addWoodType(ModWoodType.MAGNOLIA);
+            MenuScreens.register(VariousWorldModMenus.ARCH_OF_GEMS.get(), ArchofgemsScreen::new);
+            MenuScreens.register(VariousWorldModMenus.ARMOR_STATION.get(), ArmorStationScreen::new);
+            MenuScreens.register(VariousWorldModMenus.DISENCHANT_TABLE_GUI.get(), DisenchantTableGUIScreen::new);
+            MenuScreens.register(VariousWorldModMenus.MYCOLOCYFAROGRAPH_GUI.get(), MycolocyfarographGUIScreen::new);
+        });
+    }
+    private void commonSetup(final FMLCommonSetupEvent event) {
         VariousWorldVillagerType villagerType = new VariousWorldVillagerType();
         villagerType.initVillagerTypes();
-		event.enqueueWork(() -> {
-			MenuScreens.register(VariousWorldModMenus.ARCH_OF_GEMS.get(), ArchofgemsScreen::new);
-			MenuScreens.register(VariousWorldModMenus.ARMOR_STATION.get(), ArmorStationScreen::new);
-			MenuScreens.register(VariousWorldModMenus.DISENCHANT_TABLE_GUI.get(), DisenchantTableGUIScreen::new);
-			MenuScreens.register(VariousWorldModMenus.MYCOLOCYFAROGRAPH_GUI.get(), MycolocyfarographGUIScreen::new);
-		});
     }
 }

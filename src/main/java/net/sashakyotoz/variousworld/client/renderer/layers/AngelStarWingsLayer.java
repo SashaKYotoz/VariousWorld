@@ -14,16 +14,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.sashakyotoz.variousworld.client.model.ModelAngel_Armor_Wings;
+import net.sashakyotoz.variousworld.client.model.ModelAngelArmorWings;
 import net.sashakyotoz.variousworld.init.VariousWorldModItems;
 
 public class AngelStarWingsLayer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
     private static final ResourceLocation WINGS_LOCATION = new ResourceLocation("various_world:textures/entities/angel_armor_top.png");
-    private final ModelAngel_Armor_Wings<T> armorModel;
+    private final ModelAngelArmorWings<T> armorModel;
 
     public AngelStarWingsLayer(RenderLayerParent<T, M> parent, EntityModelSet modelSet) {
         super(parent);
-        this.armorModel = new ModelAngel_Armor_Wings<>(modelSet.bakeLayer(ModelAngel_Armor_Wings.LAYER_LOCATION));
+        this.armorModel = new ModelAngelArmorWings<>(modelSet.bakeLayer(ModelAngelArmorWings.LAYER_LOCATION));
     }
 
     public void render(PoseStack stack, MultiBufferSource source, int p_116953_, T entity, float p_116955_, float p_116956_, float p_116957_, float p_116958_, float p_116959_, float p_116960_) {

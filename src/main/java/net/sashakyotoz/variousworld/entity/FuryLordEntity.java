@@ -67,10 +67,6 @@ public class FuryLordEntity extends Monster {
     public final AnimationState flyAnimationState = new AnimationState();
     public final AnimationState idleInAirAnimationState = new AnimationState();
 
-    public FuryLordEntity(PlayMessages.SpawnEntity packet, Level world) {
-        this(VariousWorldModEntities.FURY_LORD.get(), world);
-    }
-
     public FuryLordEntity(EntityType<FuryLordEntity> type, Level world) {
         super(type, world);
         xpReward = 50;
@@ -422,7 +418,7 @@ public class FuryLordEntity extends Monster {
         if (source.getEntity() instanceof ServerPlayer player)
             AdvancementsManager.addAdvancement(player, AdvancementsManager.LORD_OF_FURIES_ADV);
         this.spawnAtLocation(new ItemStack(VariousWorldModItems.LORD_FURY_HEAD.get()));
-        this.spawnAtLocation(new ItemStack(VariousWorldModItems.LORD_FURY_SCALES_DUST.get(), this.random.nextIntBetweenInclusive(4, 9)));
+        this.spawnAtLocation(new ItemStack(VariousWorldModItems.LORD_FURY_SCALE.get(), this.random.nextIntBetweenInclusive(4, 9)));
         for (int i = 0; i < (int) Mth.nextDouble(RandomSource.create(), 2, 5); i++) {
             if (this.level() instanceof ServerLevel level) {
                 DarkFuryEntity entityToSpawn = new DarkFuryEntity(VariousWorldModEntities.DARK_FURY.get(), level);

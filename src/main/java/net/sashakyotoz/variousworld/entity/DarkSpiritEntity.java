@@ -57,10 +57,6 @@ public class DarkSpiritEntity extends Monster {
     private static final EntityDataAccessor<Boolean> DATA_SHIELD_ROSE = SynchedEntityData.defineId(DarkSpiritEntity.class, EntityDataSerializers.BOOLEAN);
     private final ServerBossEvent bossInfo = new ServerBossEvent(this.getDisplayName(), ServerBossEvent.BossBarColor.BLUE, ServerBossEvent.BossBarOverlay.NOTCHED_6);
 
-    public DarkSpiritEntity(PlayMessages.SpawnEntity packet, Level world) {
-        this(VariousWorldModEntities.DARK_SPIRIT.get(), world);
-    }
-
     public DarkSpiritEntity(EntityType<DarkSpiritEntity> type, Level world) {
         super(type, world);
         Random random = new Random();
@@ -105,8 +101,7 @@ public class DarkSpiritEntity extends Monster {
     @Override
     public void handleEntityEvent(byte handleByte) {
         if (handleByte >= 4 && handleByte <= 24) {
-            int randomAttack = (int) Math.round(Math.random());
-            if (randomAttack == 0)
+            if (this.random.nextBoolean())
                 this.attackAnimationState.start(this.tickCount);
             else
                 this.attack1AnimationState.start(this.tickCount);
@@ -227,8 +222,8 @@ public class DarkSpiritEntity extends Monster {
             }
         });
         this.goalSelector.addGoal(2, new RandomStrollGoal(this, 2, 20));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Player.class, false, true));
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal(this, SculkNecromancerSkeletonEntity.class, false, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, false, true));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, SculkNecromancerSkeletonEntity.class, false, true));
         this.targetSelector.addGoal(5, new HurtByTargetGoal(this));
         this.goalSelector.addGoal(6, new DarkSpiritEntity.Teleport(this));
     }

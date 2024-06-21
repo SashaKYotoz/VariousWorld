@@ -23,11 +23,6 @@ public class MultipleEnderPearlItem extends Item {
 	}
 
 	@Override
-	public UseAnim getUseAnimation(ItemStack itemstack) {
-		return UseAnim.EAT;
-	}
-
-	@Override
 	public boolean hasCraftingRemainingItem() {
 		return true;
 	}
@@ -43,14 +38,9 @@ public class MultipleEnderPearlItem extends Item {
 	}
 
 	@Override
-	public float getDestroySpeed(ItemStack par1ItemStack, BlockState par2Block) {
-		return 1.2F;
-	}
-
-	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
-		InteractionResultHolder<ItemStack> ar = super.use(world, player, hand);
-		ItemStack itemstack = ar.getObject();
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+		InteractionResultHolder<ItemStack> stack = super.use(level, player, hand);
+		ItemStack itemstack = stack.getObject();
 		Level projectileLevel = player.level();
 		if (!projectileLevel.isClientSide()) {
 			Projectile projectile = new Object() {
@@ -71,6 +61,6 @@ public class MultipleEnderPearlItem extends Item {
 			itemstack.shrink(1);
 			itemstack.setDamageValue(0);
 		}
-		return ar;
+		return stack;
 	}
 }

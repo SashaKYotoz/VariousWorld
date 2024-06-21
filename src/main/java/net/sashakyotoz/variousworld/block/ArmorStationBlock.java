@@ -2,7 +2,7 @@ package net.sashakyotoz.variousworld.block;
 import io.netty.buffer.Unpooled;
 import net.sashakyotoz.variousworld.block.entity.ArmorStationBlockEntity;
 import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
-import net.sashakyotoz.variousworld.client.inventory.ArmorStationMenu;
+import net.sashakyotoz.variousworld.client.menus.ArmorStationMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
@@ -118,7 +118,7 @@ public class ArmorStationBlock extends Block implements SimpleWaterloggedBlock, 
 			NetworkHooks.openScreen(player, new MenuProvider() {
 				@Override
 				public Component getDisplayName() {
-					return Component.literal("§8Armor Station");
+					return Component.translatable("block.various_world.armor_station_block");
 				}
 
 				@Override

@@ -33,32 +33,16 @@ import net.sashakyotoz.variousworld.init.VariousWorldModEntities;
 public class ZanyVilerWitchEntity extends Witch {
 	public int texture;
 
-	public ZanyVilerWitchEntity(PlayMessages.SpawnEntity packet, Level world) {
-		this(VariousWorldModEntities.ZANY_VILER_WITCH.get(), world);
-	}
-
 	public ZanyVilerWitchEntity(EntityType<ZanyVilerWitchEntity> type, Level world) {
 		super(type, world);
 		xpReward = 0;
-		setNoAi(false);
 		setPersistenceRequired();
-		texture = (int) Math.round((Math.random()) * 2);
+		texture = this.getRandom().nextIntBetweenInclusive(0,2);
 	}
-
-	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
-	}
-
 	@Override
 	protected void registerGoals() {
 		super.registerGoals();
-		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.5, false) {
-			@Override
-			protected double getAttackReachSqr(LivingEntity entity) {
-				return this.mob.getBbWidth() * this.mob.getBbWidth() + entity.getBbWidth();
-			}
-		});
+		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.5, false));
 		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, IronGolem.class, (float) 6, 1, 1.2));
 		this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1));
 		this.targetSelector.addGoal(4, new HurtByTargetGoal(this).setAlertOthers());
@@ -92,9 +76,8 @@ public class ZanyVilerWitchEntity extends Witch {
 			thrownpotion.setItem(PotionUtils.setPotion(new ItemStack(Items.LINGERING_POTION), potion));
 			thrownpotion.setXRot(thrownpotion.getXRot() - -20.0F);
 			thrownpotion.shoot(d0, d1 + d3 * 0.2D, d2, 0.75F, 8.0F);
-			if (!this.isSilent()) {
+			if (!this.isSilent())
 				this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.WITCH_THROW, this.getSoundSource(), 1.0F, 0.8F + this.random.nextFloat() * 0.4F);
-			}
 			this.level().addFreshEntity(thrownpotion);
 		}
 	}

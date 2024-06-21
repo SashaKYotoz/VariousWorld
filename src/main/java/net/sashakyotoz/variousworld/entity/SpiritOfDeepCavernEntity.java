@@ -48,14 +48,11 @@ import java.util.List;
 
 public class SpiritOfDeepCavernEntity extends TamableAnimal {
 
-    public SpiritOfDeepCavernEntity(PlayMessages.SpawnEntity packet, Level world) {
-        this(VariousWorldModEntities.SPIRITOF_DEEP_CAVERN.get(), world);
-    }
 
     public SpiritOfDeepCavernEntity(EntityType<SpiritOfDeepCavernEntity> type, Level world) {
         super(type, world);
         xpReward = 1;
-        setNoAi(false);
+        setNoGravity(true);
         this.moveControl = new FlyingMoveControl(this, 10, true);
         double randomItem = Math.round((Math.random()));
         if (randomItem <= 0.125)
@@ -96,7 +93,7 @@ public class SpiritOfDeepCavernEntity extends TamableAnimal {
                 LivingEntity player;
                 player = world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 9, 9, 9), e -> true).stream().min(new Object() {
                     Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-                        return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
+                        return Comparator.comparingDouble(entity -> entity.distanceToSqr(_x, _y, _z));
                     }
                 }.compareDistOf(x, y, z)).orElse(null);
                 if(player != null)
@@ -222,9 +219,9 @@ public class SpiritOfDeepCavernEntity extends TamableAnimal {
     }
 
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel serverWorld, AgeableMob ageable) {
-        SpiritOfDeepCavernEntity entity = VariousWorldModEntities.SPIRITOF_DEEP_CAVERN.get().create(serverWorld);
-        entity.finalizeSpawn(serverWorld, serverWorld.getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.BREEDING, null, null);
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob ageable) {
+        SpiritOfDeepCavernEntity entity = VariousWorldModEntities.SPIRITOF_DEEP_CAVERN.get().create(level);
+        entity.finalizeSpawn(level, level.getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.BREEDING, null, null);
         return entity;
     }
 
@@ -235,16 +232,6 @@ public class SpiritOfDeepCavernEntity extends TamableAnimal {
 
     @Override
     protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
-    }
-
-    @Override
-    public void setNoGravity(boolean ignored) {
-        super.setNoGravity(true);
-    }
-
-    public void aiStep() {
-        super.aiStep();
-        this.setNoGravity(true);
     }
 
     public static void init() {

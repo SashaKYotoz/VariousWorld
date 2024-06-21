@@ -30,6 +30,7 @@ import net.sashakyotoz.variousworld.init.VariousWorldModEntities;
 import net.sashakyotoz.variousworld.init.VariousWorldModItems;
 import net.sashakyotoz.variousworld.init.VariousWorldModMobEffects;
 import net.sashakyotoz.variousworld.procedures.AdvancementsManager;
+import net.sashakyotoz.variousworld.procedures.EventManager;
 
 public class CrystalWarriorEntity extends IronGolem {
     public AnimationState attackAnimationState = new AnimationState();
@@ -38,24 +39,15 @@ public class CrystalWarriorEntity extends IronGolem {
     public final AnimationState deathAnimationState = new AnimationState();
     private final ServerBossEvent bossInfo = new ServerBossEvent(this.getDisplayName(), ServerBossEvent.BossBarColor.PURPLE, ServerBossEvent.BossBarOverlay.NOTCHED_10);
 
-    public CrystalWarriorEntity(PlayMessages.SpawnEntity packet, Level world) {
-        this(VariousWorldModEntities.CRYSTAL_WARRIOR.get(), world);
-    }
-
     public CrystalWarriorEntity(EntityType<CrystalWarriorEntity> type, Level world) {
         super(type, world);
         xpReward = 25;
-        setNoAi(false);
         setPersistenceRequired();
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(VariousWorldModItems.CRYSTAL_SWORD.get()));
     }
 
-    private boolean isMovingOnLand() {
-        return this.onGround() && this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
-    }
-
     private void setupAnimationStates() {
-        if (this.isMovingOnLand())
+        if (EventManager.isMovingOnLand(this))
             this.walkAnimationState.startIfStopped(this.tickCount);
          else
             this.walkAnimationState.stop();
@@ -145,7 +137,7 @@ public class CrystalWarriorEntity extends IronGolem {
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LeapAtTargetGoal(this, (float) 0.5));
         this.goalSelector.addGoal(6, new FloatGoal(this));
-        this.targetSelector.addGoal(7, new NearestAttackableTargetGoal(this, Player.class, false, false));
+        this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, Player.class, false, false));
 
     }
 

@@ -6,7 +6,9 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
@@ -19,10 +21,13 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -33,50 +38,38 @@ import net.sashakyotoz.variousworld.init.VariousWorldModItems;
 
 import javax.annotation.Nullable;
 
-public class SculkSkeletonEntity extends Zombie {
+public class SculkSkeletonEntity extends AbstractSkeleton {
 	@Nullable
 	Mob owner;
 	public void setOwner(Mob mob) {
 		this.owner = mob;
 	}
 
-	public SculkSkeletonEntity(PlayMessages.SpawnEntity packet, Level world) {
-		this(VariousWorldModEntities.SCULK_SKELETON.get(), world);
-	}
-
 	public SculkSkeletonEntity(EntityType<SculkSkeletonEntity> type, Level world) {
 		super(type, world);
 		xpReward = 8;
-		setNoAi(false);
-		ItemStack itemStack = new ItemStack(VariousWorldModItems.DARKNIUM_SWORD.get());
-		this.setItemSlot(EquipmentSlot.MAINHAND, itemStack);
-		if(0.5 <= Math.round((Math.random())))
-			itemStack.getOrCreateTag().putDouble("CustomModelData", 1);
 		this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(VariousWorldModItems.SCULK_ARMOR_HELMET.get()));
 		this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(VariousWorldModItems.SCULK_ARMOR_CHESTPLATE.get()));
 		this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(VariousWorldModItems.SCULK_ARMOR_LEGGINGS.get()));
 		this.setItemSlot(EquipmentSlot.FEET, new ItemStack(VariousWorldModItems.SCULK_ARMOR_BOOTS.get()));
 	}
-
 	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
+	public void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance instance) {
+		super.populateDefaultEquipmentSlots(random, instance);
+		ItemStack itemStack = new ItemStack(VariousWorldModItems.DARKNIUM_SWORD.get());
+		if(0.5 <= Math.round((Math.random())))
+			itemStack.getOrCreateTag().putDouble("CustomModelData", 1);
+		this.setItemSlot(EquipmentSlot.MAINHAND, random.nextFloat() > 0.875 ? new ItemStack(Items.BOW) : itemStack);
 	}
-
 	@Override
 	protected void registerGoals() {
 		super.registerGoals();
-		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2, false) {
-			@Override
-			protected double getAttackReachSqr(LivingEntity entity) {
-				return this.mob.getBbWidth() * this.mob.getBbWidth() + entity.getBbWidth();
-			}
-		});
+		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2, false));
 		this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
 		this.goalSelector.addGoal(3, new RandomStrollGoal(this, 0.8));
 		this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-		this.targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, ArmoredSkeletonEntity.class, false, false));
-		this.targetSelector.addGoal(6, new NearestAttackableTargetGoal(this, Player.class, false, false));
+		this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, ArmoredSkeletonEntity.class, false, false));
+		this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, Player.class, false, false));
 		this.targetSelector.addGoal(7, new SculkSkeletonEntity.SculkSkeletonCopyOwnerTarget(this));
 	}
 	class SculkSkeletonCopyOwnerTarget extends TargetGoal {
@@ -112,6 +105,11 @@ public class SculkSkeletonEntity extends Zombie {
 	@Override
 	public void playStepSound(BlockPos pos, BlockState blockIn) {
 		this.playSound(SoundEvents.SCULK_BLOCK_FALL, 0.15f, 1);
+	}
+
+	@Override
+	protected SoundEvent getStepSound() {
+		return SoundEvents.CHAIN_HIT;
 	}
 
 	@Override

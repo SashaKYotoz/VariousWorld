@@ -6,10 +6,7 @@ import net.minecraftforge.registries.DeferredRegister;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
-import net.sashakyotoz.variousworld.block.entity.MycolocyfarographBlockEntity;
-import net.sashakyotoz.variousworld.block.entity.DisenchantTableBlockEntity;
-import net.sashakyotoz.variousworld.block.entity.ArtifactTableBlockEntity;
-import net.sashakyotoz.variousworld.block.entity.ArmorStationBlockEntity;
+import net.sashakyotoz.variousworld.block.entity.*;
 import net.sashakyotoz.variousworld.VariousWorldMod;
 
 public class VariousWorldModBlockEntities {
@@ -22,4 +19,8 @@ public class VariousWorldModBlockEntities {
 			BlockEntityType.Builder.of(DisenchantTableBlockEntity::new,VariousWorldModBlocks.DISENCHANT_TABLE.get()).build(null));
 	public static final RegistryObject<BlockEntityType<MycolocyfarographBlockEntity>> MYCOLOCYFAROGRAPH = BLOCK_ENTITIES.register("mycolocyfarograph", ()->
 			BlockEntityType.Builder.of(MycolocyfarographBlockEntity::new,VariousWorldModBlocks.MYCOLOCYFAROGRAPH.get()).build(null));
+	public static final RegistryObject<BlockEntityType<ModSignBlockEntity>> MOD_SIGN = BLOCK_ENTITIES.register("mod_signs", () -> BlockEntityType.Builder.of(ModSignBlockEntity::new,
+			VariousWorldModBlocks.SAKURA_SIGN.get(), VariousWorldModBlocks.SAKURA_WALL_SIGN.get(),
+			VariousWorldModBlocks.SCULK_SIGN.get(),VariousWorldModBlocks.SCULK_WALL_SIGN.get(),
+			VariousWorldModBlocks.CRYSTALIC_OAK_SIGN.get(),VariousWorldModBlocks.CRYSTALIC_OAK_WALL_SIGN.get()).build(null));
 }

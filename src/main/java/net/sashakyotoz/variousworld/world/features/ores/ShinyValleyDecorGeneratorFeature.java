@@ -25,12 +25,10 @@ public class ShinyValleyDecorGeneratorFeature extends Feature<NoneFeatureConfigu
 	}
 
 	public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-		WorldGenLevel world = context.level();
-		int x = context.origin().getX();
-		int y = context.origin().getY();
-		int z = context.origin().getZ();
-		double sx, sy, sz;
-		if (!(generate_dimensions.contains(world.getLevel().dimension()) && world.getBlockState(BlockPos.containing(x, y + 1, z)).getBlock() == Blocks.AIR && world.getBlockState(BlockPos.containing(x, y - 1, z)).canOcclude()))
+		WorldGenLevel level = context.level();
+		BlockPos pos = context.origin();
+		int sx, sy, sz;
+		if (!(generate_dimensions.contains(level.getLevel().dimension()) && level.getBlockState(pos.above()).isAir() && level.getBlockState(pos.below()).canOcclude()))
 			return false;
 		else{
 			sx = -4;
@@ -39,20 +37,20 @@ public class ShinyValleyDecorGeneratorFeature extends Feature<NoneFeatureConfigu
 				for (int j = 0; j < 4; j++) {
 					sz = -4;
 					for (int l = 0; l < 8; l++) {
-						if ((world.getBlockState(BlockPos.containing(x + sx, y + sy + 1, z + sz))).getBlock() == Blocks.AIR && (world.getBlockState(BlockPos.containing(x + sx, y + sy, z + sz))).getBlock() == VariousWorldModBlocks.SHINY_GRASS.get()
-								&& ((world.getBlockState(BlockPos.containing(x + sx + 1, y + sy, z + sz))).getBlock() == Blocks.WATER || world.getBlockState(BlockPos.containing(x + sx + 1, y + sy, z + sz)).canOcclude())
-								&& ((world.getBlockState(BlockPos.containing((x + sx) - 1, y + sy, z + sz))).getBlock() == Blocks.WATER || world.getBlockState(BlockPos.containing((x + sx) - 1, y + sy, z + sz)).canOcclude())
-								&& ((world.getBlockState(BlockPos.containing(x + sx, y + sy, (z + sz) - 1))).getBlock() == Blocks.WATER || world.getBlockState(BlockPos.containing(x + sx, y + sy, (z + sz) - 1)).canOcclude())
-								&& world.getBlockState(BlockPos.containing(x + sx, y + sy, z + sz + 1)).canOcclude()) {
-								BlockPos pos = BlockPos.containing(x + sx, y + sy, z + sz);
+						BlockPos pos1 = pos.offset(sx,sy,sz);
+						if (level.getBlockState(pos1).isAir() && level.getBlockState(pos1).is(VariousWorldModBlocks.SHINY_GRASS.get())
+								&& (level.getBlockState(pos.offset(sx+1,sy,sz)).is(Blocks.WATER) || level.getBlockState(pos.offset(sx+1,sy,sz)).canOcclude())
+								&& (level.getBlockState(pos.offset(sx-1,sy,sz)).is(Blocks.WATER) || level.getBlockState(pos.offset(sx-1,sy,sz)).canOcclude())
+								&& (level.getBlockState(pos.offset(sx,sy,sz-1)).is(Blocks.WATER) || level.getBlockState(pos.offset(sx,sy,sz-1)).canOcclude())
+								&& level.getBlockState(pos.offset(sx,sy,sz+1)).canOcclude()) {
 								BlockState waterState = Blocks.WATER.defaultBlockState();
-								world.setBlock(pos, waterState, 3);
+								level.setBlock(pos1, waterState, 3);
 							if (Math.random() < 0.25) {
-								BlockPos pos1 = BlockPos.containing(x + sx, (y + sy) - 1, z + sz);
-								world.setBlock(pos1, waterState, 3);
+								BlockPos pos2 = pos1.below();
+								level.setBlock(pos2, waterState, 3);
 							}
 						}
-						sz = sz + Mth.nextDouble(RandomSource.create(), 1, 2);
+						sz = sz + Mth.nextInt(RandomSource.create(), 1, 2);
 					}
 					sy = sy + 1;
 				}

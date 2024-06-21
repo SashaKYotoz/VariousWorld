@@ -19,12 +19,12 @@ import java.util.Comparator;
 import java.util.List;
 
 public class LordSwordRightClickedInAirProcedure {
-    public static void execute(LevelAccessor world, Entity entity, ItemStack itemstack) {
+    public static void execute(LevelAccessor accessor, Entity entity, ItemStack itemstack) {
         if (entity == null)
             return;
         double scaling = 0;
-        for (int index0 = 0; index0 < 16; index0++) {
-            if (!world.getBlockState(new BlockPos(
+        for (int i = 0; i < 16; i++) {
+            if (!accessor.getBlockState(new BlockPos(
                             entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getX(),
                             entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getY(),
                             entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getZ()))
@@ -33,7 +33,7 @@ public class LordSwordRightClickedInAirProcedure {
             } else {
                 break;
             }
-            world.addParticle(VariousWorldModParticleTypes.LORD_SHOOT_PARTICLE.get(),
+            accessor.addParticle(VariousWorldModParticleTypes.LORD_SHOOT_PARTICLE.get(),
                     (entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getX()),
                     (entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getY()),
                     (entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getZ()), 0, 0.25, 0);
@@ -41,17 +41,11 @@ public class LordSwordRightClickedInAirProcedure {
                     (entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getX()),
                     (entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getY()),
                     (entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getZ()));
-            List<Entity> entityList = world.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(1.5 / 2d), e -> true).stream().sorted(Comparator.comparingDouble(entcnd -> entcnd.distanceToSqr(center)))
-                    .toList();
+            List<Entity> entityList = accessor.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(1.5d), e -> true).stream().sorted(Comparator.comparingDouble(entity1 -> entity1.distanceToSqr(center))).toList();
             for (Entity entityiterator : entityList) {
                 if (!(entityiterator == entity)) {
-                    if (entityiterator instanceof LivingEntity _entity)
-                        _entity.hurt(new DamageSource(_entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.GENERIC)) {
-                            @Override
-                            public Component getLocalizedDeathMessage(LivingEntity _msgEntity) {
-                                return Component.translatable("death.attack." + "Fury Breath");
-                            }
-                        }, 5);
+                    if (entityiterator instanceof LivingEntity livingEntity)
+                        livingEntity.hurt(livingEntity.damageSources().dragonBreath(), 3 + livingEntity.getRandom().nextIntBetweenInclusive(2,6));
                     if (itemstack.hurt(1, RandomSource.create(), null)) {
                         itemstack.shrink(1);
                         itemstack.setDamageValue(0);

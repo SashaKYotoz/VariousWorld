@@ -1,8 +1,12 @@
 
 package net.sashakyotoz.variousworld.block;
 
+import net.minecraft.commands.CommandSource;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.phys.Vec2;
+import net.minecraft.world.phys.Vec3;
 import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
-import net.sashakyotoz.variousworld.procedures.ShinyPlumeriaClientDisplayRandomTickProcedure;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -21,35 +25,38 @@ import java.util.Collections;
 import java.util.List;
 
 public class ShinyPlumeriaBlock extends FlowerBlock {
-	public ShinyPlumeriaBlock() {
-		super(() -> MobEffects.SLOW_FALLING, 600,
-				BlockBehaviour.Properties.copy(Blocks.GRASS).randomTicks().sound(SoundType.GRASS).instabreak().hasPostProcess((bs, br, bp) -> true).emissiveRendering((bs, br, bp) -> true).lightLevel(s -> 4).noCollission());
-	}
+    public ShinyPlumeriaBlock() {
+        super(() -> MobEffects.SLOW_FALLING, 600,
+                BlockBehaviour.Properties.copy(Blocks.GRASS).randomTicks().sound(SoundType.GRASS).instabreak().hasPostProcess((bs, br, bp) -> true).emissiveRendering((bs, br, bp) -> true).lightLevel(s -> 4).noCollission());
+    }
 
-	@Override
-	public int getEffectDuration() {
-		return 600;
-	}
+    @Override
+    public int getEffectDuration() {
+        return 600;
+    }
 
-	@Override
-	public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-		return 100;
-	}
+    @Override
+    public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
+        return 100;
+    }
 
-	@Override
-	public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-		return 60;
-	}
+    @Override
+    public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
+        return 60;
+    }
 
 
-	@Override
-	public void randomTick(BlockState blockstate, ServerLevel world, BlockPos pos, RandomSource random) {
-		super.tick(blockstate, world, pos, random);
-		ShinyPlumeriaClientDisplayRandomTickProcedure.execute(world, pos.getX(), pos.getY(), pos.getZ());
-	}
-	@Override
-	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldModBlocks.SHINY_PLUMERIA.get());
-		return Collections.singletonList(itemStack);
-	}
+    @Override
+    public void randomTick(BlockState blockstate, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (Math.random() < 0.125) {
+            level.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(pos.getX(), pos.getY(), pos.getZ()), Vec2.ZERO, level, 4, "", Component.literal(""), level.getServer(), null).withSuppressedOutput(),
+                    "/effect give @e[distance=..9] minecraft:glowing 20");
+        }
+    }
+
+    @Override
+    public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
+        ItemStack itemStack = new ItemStack(VariousWorldModBlocks.SHINY_PLUMERIA.get());
+        return Collections.singletonList(itemStack);
+    }
 }

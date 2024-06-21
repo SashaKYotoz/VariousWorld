@@ -131,8 +131,8 @@ public class VariousWorldModTabs {
                         tabData.accept(VariousWorldModBlocks.ENDER_BRICKS_WALL.get().asItem());
                         tabData.accept(VariousWorldModBlocks.SCULK_BRICKS.get().asItem());
                         tabData.accept(VariousWorldModBlocks.SCULK_BRICK_STAIRS.get().asItem());
-                        tabData.accept(VariousWorldModBlocks.SCULK_BRIKS_SLAB.get().asItem());
-                        tabData.accept(VariousWorldModBlocks.SCULK_BRICKS_FENCE.get().asItem());
+                        tabData.accept(VariousWorldModBlocks.SCULK_BRICKS_SLAB.get().asItem());
+                        tabData.accept(VariousWorldModBlocks.SCULK_BRICKS_WALL.get().asItem());
                         tabData.accept(VariousWorldModBlocks.ROSE_QUARTZ.get().asItem());
                         tabData.accept(VariousWorldModBlocks.ROSE_QUARTZ_SLAB.get().asItem());
                         tabData.accept(VariousWorldModBlocks.ROSE_QUARTZ_STAIRS.get().asItem());
@@ -151,7 +151,7 @@ public class VariousWorldModTabs {
                         tabData.accept(VariousWorldModItems.CRYSTALSHARD.get());
                         tabData.accept(VariousWorldModItems.DARKSHARD.get());
                         tabData.accept(VariousWorldModBlocks.CRYSTAL_BLOCK.get().asItem());
-                        tabData.accept(VariousWorldModBlocks.CRYSTAL_OF_CHANGED_BLOCK.get().asItem());
+                        tabData.accept(VariousWorldModBlocks.CRYSTAL_OF_CHARGED_BLOCK.get().asItem());
                         tabData.accept(VariousWorldModBlocks.SCULK_GEM_ORE.get().asItem());
                         tabData.accept(VariousWorldModBlocks.DEEPSLATE_SCULK_GEM_ORE.get().asItem());
                         tabData.accept(VariousWorldModBlocks.SCULK_GEM_BLOCK.get().asItem());
@@ -166,7 +166,7 @@ public class VariousWorldModTabs {
                         tabData.accept(VariousWorldModItems.FURY_INGOT.get());
                         tabData.accept(VariousWorldModItems.FURY_SCALES.get());
                         tabData.accept(VariousWorldModBlocks.LORD_FURY_SCALES_BLOCK.get().asItem());
-                        tabData.accept(VariousWorldModItems.LORD_FURY_SCALES_DUST.get());
+                        tabData.accept(VariousWorldModItems.LORD_FURY_SCALE.get());
                         tabData.accept(VariousWorldModItems.SLIME_CRYSTALIC.get());
                         tabData.accept(VariousWorldModItems.GLOW_PURPLE_DYE.get());
                         tabData.accept(VariousWorldModItems.CRYSTALIC_STICK.get());
@@ -210,6 +210,11 @@ public class VariousWorldModTabs {
             tabData.accept(VariousWorldModItems.SCULK_FRUIT.get());
             tabData.accept(VariousWorldModItems.BRANCH_WITH_DRAGON_EYE_FRUIT.get());
             tabData.accept(VariousWorldModItems.POTION_OF_DRAGON_EYE_EFFECT.get());
+        }
+        if (tabData.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS){
+            tabData.accept(VariousWorldModItems.CRYSTALIC_OAK_SIGN.get());
+            tabData.accept(VariousWorldModItems.SAKURA_SIGN.get());
+            tabData.accept(VariousWorldModItems.SCULK_SIGN.get());
         }
     }
 }

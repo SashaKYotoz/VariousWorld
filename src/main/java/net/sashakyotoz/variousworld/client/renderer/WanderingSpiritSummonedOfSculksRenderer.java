@@ -2,17 +2,18 @@
 package net.sashakyotoz.variousworld.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.sashakyotoz.variousworld.client.model.ModelWandering_Spirit;
+import net.sashakyotoz.variousworld.client.model.ModelWanderingSpirit;
 import net.sashakyotoz.variousworld.entity.WanderingSpiritOfSculksEntity;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
-public class WanderingSpiritSummonedOfSculksRenderer extends MobRenderer<WanderingSpiritOfSculksEntity, ModelWandering_Spirit<WanderingSpiritOfSculksEntity>> {
+public class WanderingSpiritSummonedOfSculksRenderer extends MobRenderer<WanderingSpiritOfSculksEntity, ModelWanderingSpirit<WanderingSpiritOfSculksEntity>> {
 	public WanderingSpiritSummonedOfSculksRenderer(EntityRendererProvider.Context context) {
-		super(context, new ModelWandering_Spirit(context.bakeLayer(ModelWandering_Spirit.LAYER_LOCATION)), 0.5f);
+		super(context, new ModelWanderingSpirit<>(context.bakeLayer(ModelWanderingSpirit.LAYER_LOCATION)), 0.5f);
 		this.addLayer(new EyesLayer<>(this) {
 			@Override
 			public RenderType renderType() {
@@ -20,9 +21,11 @@ public class WanderingSpiritSummonedOfSculksRenderer extends MobRenderer<Wanderi
 			}
 		});
 	}
-	public void scale(PoseStack p_115984_) {
-		float f = 3F;
-		p_115984_.scale(f, f, f);
+
+	@Override
+	protected void scale(@NotNull WanderingSpiritOfSculksEntity entity, PoseStack stack, float modifier) {
+		float f = 1.35f - (entity.getMaxHealth() - entity.getHealth())/200f;
+		stack.scale(f,f,f);
 	}
 
 	@Override

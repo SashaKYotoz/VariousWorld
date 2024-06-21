@@ -34,9 +34,6 @@ import net.sashakyotoz.variousworld.init.VariousWorldModEntities;
 import java.util.EnumSet;
 
 public class DarkFuryEntity extends Monster {
-	public DarkFuryEntity(PlayMessages.SpawnEntity packet, Level world) {
-		this(VariousWorldModEntities.DARK_FURY.get(), world);
-	}
 
 	public DarkFuryEntity(EntityType<DarkFuryEntity> type, Level world) {
 		super(type, world);
@@ -149,11 +146,6 @@ public class DarkFuryEntity extends Monster {
 	@Override
 	public void setNoGravity(boolean ignored) {
 		super.setNoGravity(true);
-	}
-
-	public void aiStep() {
-		super.aiStep();
-		this.setNoGravity(true);
 	}
 
 	public static void init() {

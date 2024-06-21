@@ -45,7 +45,7 @@ renderClouds:"true"
 resourcePacks:[]
 incompatibleResourcePacks:[]
 lastServer:192.168.1.1:25565
-lang:uk_ua
+lang:be_by
 soundDevice:""
 chatVisibility:0
 chatOpacity:1.0

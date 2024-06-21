@@ -41,22 +41,22 @@ public class SculkMagmaBlock extends Block {
 		return 15;
 	}
 
-	public void stepOn(Level p_153777_, BlockPos p_153778_, BlockState p_153779_, Entity p_153780_) {
-		if (!p_153780_.isSteppingCarefully() && p_153780_ instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) p_153780_) && !((p_153780_ instanceof LivingEntity entity ? entity.getItemBySlot(EquipmentSlot.FEET) : ItemStack.EMPTY).getItem() == VariousWorldModItems.SCULK_ARMOR_BOOTS.get())) {
-			p_153780_.hurt(p_153777_.damageSources().hotFloor(), 1.0F);
+	public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity1) {
+		if (!entity1.isSteppingCarefully() && entity1 instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) entity1) && !((entity1 instanceof LivingEntity entity ? entity.getItemBySlot(EquipmentSlot.FEET) : ItemStack.EMPTY).getItem() == VariousWorldModItems.SCULK_ARMOR_BOOTS.get())) {
+			entity1.hurt(level.damageSources().hotFloor(), 1.0F);
 		}
-		super.stepOn(p_153777_, p_153778_, p_153779_, p_153780_);
+		super.stepOn(level, pos, state, entity1);
 	}
 
-	public void tick(BlockState p_221415_, ServerLevel p_221416_, BlockPos p_221417_, RandomSource p_221418_) {
-		BubbleColumnBlock.updateColumn(p_221416_, p_221417_.above(), p_221415_);
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		BubbleColumnBlock.updateColumn(level, pos.above(), state);
 	}
 
-	public void randomTick(BlockState p_221420_, ServerLevel p_221421_, BlockPos p_221422_, RandomSource p_221423_) {
-		BlockPos blockpos = p_221422_.above();
-		if (p_221421_.getFluidState(p_221422_).canExtinguish(p_221421_, p_221422_)) {
-			p_221421_.playSound(null, p_221422_, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.5F, 2.6F + (p_221421_.random.nextFloat() - p_221421_.random.nextFloat()) * 0.8F);
-			p_221421_.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, (double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.25D, (double) blockpos.getZ() + 0.5D, 8, 0.5D, 0.25D, 0.5D, 0.0D);
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+		BlockPos blockpos = pos.above();
+		if (level.getFluidState(pos).canExtinguish(level, pos)) {
+			level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.5F, 2.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.8F);
+			level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, (double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.25D, (double) blockpos.getZ() + 0.5D, 8, 0.5D, 0.25D, 0.5D, 0.0D);
 		}
 	}
 

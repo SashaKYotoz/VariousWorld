@@ -6,7 +6,7 @@ import net.sashakyotoz.variousworld.block.entity.ArtifactTableBlockEntity;
 import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
 import net.sashakyotoz.variousworld.procedures.ArtifactTableRandomTickProcedure;
 import net.sashakyotoz.variousworld.procedures.ArtifactTableUpdateTickProcedure;
-import net.sashakyotoz.variousworld.client.inventory.ArchOfGemsMenu;
+import net.sashakyotoz.variousworld.client.menus.ArchOfGemsMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
@@ -124,23 +124,20 @@ public class ArtifactTableBlock extends Block implements SimpleWaterloggedBlock,
 	}
 
 	@Override
-	public void tick(BlockState blockstate, ServerLevel world, BlockPos pos, RandomSource random) {
-		super.tick(blockstate, world, pos, random);
+	public void tick(BlockState blockstate, ServerLevel level, BlockPos pos, RandomSource random) {
+		super.tick(blockstate, level, pos, random);
 		int x = pos.getX();
 		int y = pos.getY();
 		int z = pos.getZ();
-		ArtifactTableUpdateTickProcedure.execute(world, x, y, z);
-		world.scheduleTick(pos, this, 10);
+		ArtifactTableUpdateTickProcedure.execute(level, x, y, z);
+		level.scheduleTick(pos, this, 10);
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void animateTick(BlockState blockstate, Level world, BlockPos pos, RandomSource random) {
-		super.animateTick(blockstate, world, pos, random);
-		int x = pos.getX();
-		int y = pos.getY();
-		int z = pos.getZ();
-		ArtifactTableRandomTickProcedure.execute(world, x, y, z);
+	public void animateTick(BlockState blockstate, Level level, BlockPos pos, RandomSource random) {
+		super.animateTick(blockstate, level, pos, random);
+		ArtifactTableRandomTickProcedure.execute(level, pos);
 	}
 
 	@Override
@@ -150,7 +147,7 @@ public class ArtifactTableBlock extends Block implements SimpleWaterloggedBlock,
 			NetworkHooks.openScreen(player, new MenuProvider() {
 				@Override
 				public Component getDisplayName() {
-					return Component.literal("Artifact table");
+					return Component.translatable("block.various_world.artifacttable");
 				}
 
 				@Override

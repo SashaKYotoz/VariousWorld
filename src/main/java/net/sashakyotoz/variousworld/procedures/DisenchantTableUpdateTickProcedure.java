@@ -14,86 +14,51 @@ import net.minecraft.core.BlockPos;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class DisenchantTableUpdateTickProcedure {
-	public static void execute(LevelAccessor world, double x, double y, double z) {
-		if ((new Object() {
-			public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
-				AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
-				BlockEntity blockEntity = world.getBlockEntity(pos);
-				if (blockEntity != null)
-					blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> _retval.set(capability.getStackInSlot(slotid).copy()));
-				return _retval.get();
-			}
-		}.getItemStack(world, BlockPos.containing(x, y, z), 0)).isEnchanted() && (new Object() {
-			public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
-				AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
-				BlockEntity blockEntity = world.getBlockEntity(pos);
-				if (blockEntity != null)
-					blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> _retval.set(capability.getStackInSlot(slotid).copy()));
-				return _retval.get();
-			}
-		}.getItemStack(world, BlockPos.containing(x, y, z), 1)).getItem() == Items.LAPIS_LAZULI && (new Object() {
-			public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
-				AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
-				BlockEntity _ent = world.getBlockEntity(pos);
-				if (_ent != null)
-					_ent.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> _retval.set(capability.getStackInSlot(slotid).copy()));
-				return _retval.get();
-			}
-		}.getItemStack(world, BlockPos.containing(x, y, z), 1)).getCount() >= 3 && (new Object() {
-			public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
-				AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
-				BlockEntity blockEntity = world.getBlockEntity(pos);
-				if (blockEntity != null)
-					blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> _retval.set(capability.getStackInSlot(slotid).copy()));
-				return _retval.get();
-			}
-		}.getItemStack(world, BlockPos.containing(x, y, z), 2)).getItem() == Items.BOOK) {
-			{
-				BlockEntity blockEntity = world.getBlockEntity(BlockPos.containing(x, y, z));
-				if (blockEntity != null) {
-					final int slotid = 1;
-					blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> {
-						if (capability instanceof IItemHandlerModifiable) {
-							ItemStack stack = capability.getStackInSlot(slotid).copy();
-							stack.shrink(3);
-							((IItemHandlerModifiable) capability).setStackInSlot(slotid, stack);
-						}
-					});
-				}
-			}
-			{
-				BlockEntity blockEntity = world.getBlockEntity(BlockPos.containing(x, y, z));
-				if (blockEntity != null) {
-					final int slotid = 0;
-					blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> {
-						if (capability instanceof IItemHandlerModifiable) {
-							ItemStack stack = capability.getStackInSlot(slotid).copy();
-							stack.shrink(1);
-							((IItemHandlerModifiable) capability).setStackInSlot(slotid, stack);
-						}
-					});
-				}
-			}
-			{
-				BlockEntity _ent = world.getBlockEntity(BlockPos.containing(x, y, z));
-				if (_ent != null) {
-					final int slotid = 2;
-					final ItemStack stack = (EnchantmentHelper.enchantItem(RandomSource.create(), new ItemStack(Items.BOOK), 50, true));
-					stack.setCount((new Object() {
-						public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
-							AtomicReference<ItemStack> _retval = new AtomicReference<>(ItemStack.EMPTY);
-							BlockEntity blockEntity = world.getBlockEntity(pos);
-							if (blockEntity != null)
-								blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> _retval.set(capability.getStackInSlot(slotid).copy()));
-							return _retval.get();
-						}
-					}.getItemStack(world, BlockPos.containing(x, y, z), 2)).getCount());
-					_ent.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> {
-						if (capability instanceof IItemHandlerModifiable)
-							((IItemHandlerModifiable) capability).setStackInSlot(slotid, stack);
-					});
-				}
-			}
-		}
-	}
+    public static void execute(LevelAccessor world, double x, double y, double z) {
+        BlockPos pos = BlockPos.containing(x, y, z);
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+
+        if (blockEntity != null) {
+            ItemStack slot0Stack = getItemStack(world, pos, 0);
+            ItemStack slot1Stack = getItemStack(world, pos, 1);
+            ItemStack slot2Stack = getItemStack(world, pos, 2);
+            if (slot0Stack.isEnchanted() &&
+                    slot1Stack.getItem() == Items.LAPIS_LAZULI && slot1Stack.getCount() >= 3 &&
+                    slot2Stack.getItem() == Items.BOOK) {
+                consumeItems(blockEntity, 1, 3);
+                consumeItems(blockEntity, 0, 1);
+                ItemStack enchantedBook = EnchantmentHelper.enchantItem(RandomSource.create(), new ItemStack(Items.BOOK), 40 *(int) slot0Stack.getEnchantmentValue()/10, true);
+                enchantedBook.setCount(slot2Stack.getCount());
+                setItemStack(blockEntity, 2, enchantedBook);
+            }
+        }
+    }
+
+    private static ItemStack getItemStack(LevelAccessor accessor, BlockPos pos, int slotId) {
+        BlockEntity blockEntity = accessor.getBlockEntity(pos);
+        if (blockEntity != null) {
+            AtomicReference<ItemStack> itemStackRef = new AtomicReference<>(ItemStack.EMPTY);
+            blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> itemStackRef.set(capability.getStackInSlot(slotId).copy()));
+            return itemStackRef.get();
+        }
+        return ItemStack.EMPTY;
+    }
+
+    private static void consumeItems(BlockEntity blockEntity, int slotId, int amount) {
+        blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> {
+            if (capability instanceof IItemHandlerModifiable) {
+                ItemStack stack = capability.getStackInSlot(slotId).copy();
+                stack.shrink(amount);
+                ((IItemHandlerModifiable) capability).setStackInSlot(slotId, stack);
+            }
+        });
+    }
+
+    private static void setItemStack(BlockEntity blockEntity, int slotId, ItemStack stack) {
+        blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> {
+            if (capability instanceof IItemHandlerModifiable) {
+                ((IItemHandlerModifiable) capability).setStackInSlot(slotId, stack);
+            }
+        });
+    }
 }

@@ -37,7 +37,7 @@ public class WanderingSpiritAbilityShootParticleParticle extends TextureSheetPar
 		this.spriteSet = spriteSet;
 		this.setSize(0.3f, 0.3f);
 		this.quadSize *= 2f;
-		this.lifetime = Math.max(1, 34 + (this.random.nextInt(12) - 6));
+		this.lifetime = Math.max(1, 40 + (this.random.nextInt(30) - 10));
 		this.xd = vx;
 		this.yd = vy;
 		this.zd = vz;

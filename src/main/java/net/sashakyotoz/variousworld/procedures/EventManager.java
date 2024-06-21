@@ -5,7 +5,6 @@ import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -29,15 +28,15 @@ import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.sashakyotoz.variousworld.VariousWorldMod;
+import net.sashakyotoz.variousworld.client.menus.ArchOfGemsMenu;
+import net.sashakyotoz.variousworld.client.menus.DisenchantTableGUIMenu;
 import net.sashakyotoz.variousworld.entity.SpiritofPeacefulWastelandEntity;
 import net.sashakyotoz.variousworld.init.*;
 
-import javax.annotation.Nullable;
 import java.util.Objects;
 
 @Mod.EventBusSubscriber
@@ -66,8 +65,9 @@ public class EventManager {
                     && player.getItemBySlot(EquipmentSlot.LEGS).is(VariousWorldModItems.SLIME_ARMOR_LEGGINGS.get())
                     && player.getItemBySlot(EquipmentSlot.FEET).is(VariousWorldModItems.SLIME_ARMOR_BOOTS.get())){
                 if (player.fallDistance > 1){
+                    float impulseModifier = player.fallDistance * 0.35f - (player.fallDistance > 5 ? 0.35f * (player.fallDistance/2) : 0.15f);
                     if (!player.isShiftKeyDown())
-                        player.setDeltaMovement(getXVector(player.fallDistance* player.fallDistance > 5 ? 0.25f : 0.75f,player.getYRot()),player.fallDistance*0.5f,getZVector(player.fallDistance *0.75f,player.getYRot()));
+                        player.setDeltaMovement(getXVector(impulseModifier,player.getYRot()),impulseModifier,getZVector(impulseModifier,player.getYRot()));
                     player.getItemBySlot(EquipmentSlot.FEET).hurtAndBreak(1, player, (player1) -> player1.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                     event.setAmount(0);
                     player.fallDistance = 0;
@@ -75,7 +75,6 @@ public class EventManager {
             }
         }
     }
-
     @SubscribeEvent
     public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         if (event.getHand() != event.getEntity().getUsedItemHand())
@@ -97,7 +96,9 @@ public class EventManager {
         itemUpgrading(event.getEntity());
         sculkArmorRepairing(event.getEntity());
     }
-
+    public static boolean isMovingOnLand(LivingEntity entity) {
+        return entity.onGround() && entity.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
+    }
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
@@ -105,6 +106,13 @@ public class EventManager {
             crystalTransforming(event.player.level(), event.player.getX(), event.player.getY(), event.player.getZ(), event.player);
             AdvancementsManager.tickCheckingAdvancements(event.player);
             biomeLimiter(event.player.level(), event.player.getX(), event.player.getY(), event.player.getZ(), event.player);
+            double x = event.player.getX();
+            double y = event.player.getY();
+            double z = event.player.getZ();
+            if (event.player.containerMenu instanceof DisenchantTableGUIMenu)
+                DisenchantTableUpdateTickProcedure.execute(event.player.level(), x,y,z);
+            if (event.player.containerMenu instanceof ArchOfGemsMenu)
+                ArchOfGemsManagerProcedure.execute(event.player);
         }
     }
 
@@ -120,18 +128,18 @@ public class EventManager {
         chainedAction(event.getEntity());
     }
 
-    private static void biomeLimiter(LevelAccessor world, double x, double y, double z, Player player1) {
+    private static void biomeLimiter(LevelAccessor accessor, double x, double y, double z, Player player1) {
         if (player1 == null)
             return;
         if (player1 instanceof ServerPlayer player) {
-            if (world.getBiome(BlockPos.containing(x, y, z)).is(new ResourceLocation("various_world:sculk_valley")) && (player.level() instanceof ServerLevel
+            if (accessor.getBiome(BlockPos.containing(x, y, z)).is(VariousWorldModBiomes.SCULK_VALLEY) && (player.level() instanceof ServerLevel
                     && !player.getAdvancements().getOrStartProgress(player.server.getAdvancements().getAdvancement(AdvancementsManager.CRYSTALIC_WARRIOR_ADV)).isDone())) {
                 if(!player.isCreative() || !player.isSpectator()){
                     if (!player.level().isClientSide()) {
                         player.displayClientMessage(Component.translatable("hint.various_world.biome.sculk_valley"), true);
                     }
-                    if (timer < world.dayTime()) {
-                        timer = world.dayTime() + 50;
+                    if (timer < accessor.dayTime()) {
+                        timer = accessor.dayTime() + 50;
                         player1.hurt(player1.damageSources().freeze(), 1);
                     }
                 }
@@ -139,12 +147,12 @@ public class EventManager {
         }
     }
 
-    private static void totemAnimation(LevelAccessor world, Entity entity, ItemStack itemstack) {
+    private static void totemAnimation(LevelAccessor accessor, Entity entity, ItemStack itemstack) {
         if (entity == null)
             return;
         if (entity instanceof Player) {
-            if (VariousWorldModItems.TOTEM_OF_DARK_SPIRIT.get() == itemstack.getItem()) {
-                if (world.isClientSide())
+            if (itemstack.is(VariousWorldModItems.TOTEM_OF_DARK_SPIRIT.get())) {
+                if (accessor.isClientSide())
                     Minecraft.getInstance().gameRenderer.displayItemActivation(itemstack);
             }
         }
@@ -159,11 +167,11 @@ public class EventManager {
                     if (Math.random() < 0.125) {
                         if (Math.random() < 0.125) {
                             if (world instanceof ServerLevel serverLevel) {
-                                LightningBolt entityToSpawn = EntityType.LIGHTNING_BOLT.create(serverLevel);
-                                entityToSpawn.moveTo(Vec3.atBottomCenterOf(BlockPos.containing(x + Mth.nextDouble(RandomSource.create(), -5, 5), y, z + Mth.nextDouble(RandomSource.create(), -5, 5))));
-                                serverLevel.addFreshEntity(entityToSpawn);
+                                LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(serverLevel);
+                                lightningBolt.moveTo(Vec3.atBottomCenterOf(BlockPos.containing(x + Mth.nextDouble(RandomSource.create(), -5, 5), y, z + Mth.nextDouble(RandomSource.create(), -5, 5))));
+                                serverLevel.addFreshEntity(lightningBolt);
                             }
-                            ItemStack itemStack = new ItemStack(VariousWorldModBlocks.CRYSTAL_OF_CHANGED_BLOCK.get(), 1);
+                            ItemStack itemStack = new ItemStack(VariousWorldModBlocks.CRYSTAL_OF_CHARGED_BLOCK.get(), 1);
                             ItemHandlerHelper.giveItemToPlayer(player, itemStack);
                             ItemStack stack = new ItemStack(VariousWorldModBlocks.CRYSTAL_BLOCK.get());
                             player.getInventory().clearOrCountMatchingItems(p -> stack.getItem() == p.getItem(), 1, player.inventoryMenu.getCraftSlots());
@@ -301,38 +309,43 @@ public class EventManager {
     }
 
     private static void itemInHandAbilities(LevelAccessor world, double x, double y, double z, Entity entity) {
-        if (entity == null)
+        if (!(entity instanceof LivingEntity livingEntity))
             return;
-        if ((entity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem() == VariousWorldModItems.LORD_SWORD.get()
-                && (entity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getOrCreateTag().getDouble("CustomModelData") == 1) {
-            if (world instanceof ServerLevel _level)
-                _level.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(x, y, z), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
-                        "/attribute @p forge:entity_gravity base set 0.03");
-        } else if (!((entity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem() == VariousWorldModItems.LORD_SWORD.get())) {
-            if (world instanceof ServerLevel _level)
-                _level.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(x, y, z), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
-                        "/attribute @p forge:entity_gravity base set 0.08");
-        }
-        if ((entity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem() == VariousWorldModItems.SUPER_VISION_CHARM.get()
-                || (entity instanceof LivingEntity _livEnt ? _livEnt.getOffhandItem() : ItemStack.EMPTY).getItem() == VariousWorldModItems.SUPER_VISION_CHARM.get()) {
-            if (world instanceof ServerLevel _level)
-                _level.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(x, y, z), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
-                        "/attribute @p minecraft:generic.movement_speed modifier add 3d952521-d8be-4e6d-9906-d1fb22ca3156 vps_binoculars -2 add");
-            if (!(entity instanceof LivingEntity _livEnt13 && _livEnt13.hasEffect(MobEffects.NIGHT_VISION))) {
-                if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide())
-                    _entity.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 200, 0));
+        boolean hasSuperVisionCharm = hasSuperVisionCharm(livingEntity);
+        CommandSourceStack commandSourceStack = createCommandSourceStack(world, x, y, z);
+        if (hasSuperVisionCharm) {
+            if (commandSourceStack != null) {
+                String command = "/attribute @p minecraft:generic.movement_speed modifier add 3d952521-d8be-4e6d-9906-d1fb22ca3156 vps_binoculars -2 add";
+                commandSourceStack.getServer().getCommands().performPrefixedCommand(commandSourceStack, command);
             }
-        } else if (!((entity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem() == VariousWorldModItems.SUPER_VISION_CHARM.get())
-                && !((entity instanceof LivingEntity _livEnt ? _livEnt.getOffhandItem() : ItemStack.EMPTY).getItem() == VariousWorldModItems.SUPER_VISION_CHARM.get())) {
-            if (world instanceof ServerLevel _level)
-                _level.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(x, y, z), Vec2.ZERO, _level, 4, "", Component.literal(""), _level.getServer(), null).withSuppressedOutput(),
-                        "/attribute @p minecraft:generic.movement_speed modifier remove 3d952521-d8be-4e6d-9906-d1fb22ca3156");
-            VariousWorldMod.queueServerWork(10, () -> {
-                if (world instanceof ServerLevel server)
-                    server.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(x, y, z), Vec2.ZERO, server, 4, "", Component.literal(""), server.getServer(), null).withSuppressedOutput(),
-                            "/attribute @p minecraft:generic.movement_speed base set 0.1000005");
-            });
+            if (!livingEntity.level().isClientSide() && !livingEntity.hasEffect(MobEffects.NIGHT_VISION)) {
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 200, 0));
+            }
+        } else {
+            if (commandSourceStack != null) {
+                String command = "/attribute @p minecraft:generic.movement_speed modifier remove 3d952521-d8be-4e6d-9906-d1fb22ca3156";
+                commandSourceStack.getServer().getCommands().performPrefixedCommand(commandSourceStack, command);
+            }
+            if (commandSourceStack != null) {
+                VariousWorldMod.queueServerWork(10, () -> {
+                    String command = "/attribute @p minecraft:generic.movement_speed base set 0.1000005";
+                    commandSourceStack.getServer().getCommands().performPrefixedCommand(commandSourceStack, command);
+                });
+            }
         }
+    }
+
+    private static boolean hasSuperVisionCharm(LivingEntity livingEntity) {
+        ItemStack mainHandItem = livingEntity.getMainHandItem();
+        ItemStack offHandItem = livingEntity.getOffhandItem();
+        return mainHandItem.getItem() == VariousWorldModItems.SUPER_VISION_CHARM.get() || offHandItem.getItem() == VariousWorldModItems.SUPER_VISION_CHARM.get();
+    }
+
+    private static CommandSourceStack createCommandSourceStack(LevelAccessor accessor, double x, double y, double z) {
+        if (!(accessor instanceof ServerLevel server)) {
+            return null;
+        }
+        return new CommandSourceStack(CommandSource.NULL, new Vec3(x, y, z), Vec2.ZERO, server, 4, "", Component.literal(""), server.getServer(), null).withSuppressedOutput();
     }
 
     private static void jumpWithSlimeArmor(Entity entity) {

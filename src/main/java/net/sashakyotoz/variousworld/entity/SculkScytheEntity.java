@@ -6,28 +6,20 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PlayMessages;
 import net.sashakyotoz.variousworld.init.VariousWorldModEntities;
+import net.sashakyotoz.variousworld.init.VariousWorldModParticleTypes;
 import net.sashakyotoz.variousworld.init.VariousWorldModSounds;
-import net.sashakyotoz.variousworld.procedures.SculkScytheRangedItemProjectileHitsLivingEntityProcedure;
 
-@OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
-public class SculkScytheEntity extends AbstractArrow implements ItemSupplier {
-	public SculkScytheEntity(PlayMessages.SpawnEntity packet, Level world) {
-		super(VariousWorldModEntities.SCULK_SCYTHE_RANGED_ITEM.get(), world);
-	}
+public class SculkScytheEntity extends AbstractArrow {
 
 	public SculkScytheEntity(EntityType<? extends SculkScytheEntity> type, Level world) {
 		super(type, world);
@@ -40,12 +32,6 @@ public class SculkScytheEntity extends AbstractArrow implements ItemSupplier {
 	@Override
 	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
-	}
-
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public ItemStack getItem() {
-		return new ItemStack(Blocks.AIR);
 	}
 
 	@Override
@@ -62,7 +48,19 @@ public class SculkScytheEntity extends AbstractArrow implements ItemSupplier {
 	@Override
 	public void onHitEntity(EntityHitResult entityHitResult) {
 		super.onHitEntity(entityHitResult);
-		SculkScytheRangedItemProjectileHitsLivingEntityProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), entityHitResult.getEntity());
+		for (int i = 0; i < 360; i++) {
+			if (i % 20 == 0) {
+				this.level().addParticle(VariousWorldModParticleTypes.WANDERING_SPIRIT_PROJECTILE_PARTICLE.get(),
+						this.getX(), this.getY() + 0.5, this.getZ(),
+						Math.cos(i) * 0.15d, 0.15d, Math.sin(i) * 0.15d);
+			}
+		}
+		if (entityHitResult.getEntity() instanceof LivingEntity livingEntity && !livingEntity.level().isClientSide()){
+			if(livingEntity.getRandom().nextBoolean())
+				livingEntity.addEffect(new MobEffectInstance(MobEffects.WITHER, 60, 1, false, false));
+			else
+				livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 1, false, false));
+		}
 	}
 
 	@Override
@@ -78,7 +76,7 @@ public class SculkScytheEntity extends AbstractArrow implements ItemSupplier {
 	}
 
 	public static SculkScytheEntity shoot(Level world, LivingEntity entity, RandomSource random, float power, double damage, int knockback) {
-		SculkScytheEntity sculkScythe = new SculkScytheEntity(VariousWorldModEntities.SCULK_SCYTHE_RANGED_ITEM.get(), entity, world);
+		SculkScytheEntity sculkScythe = new SculkScytheEntity(VariousWorldModEntities.SCULK_SCYTHE_PROJECTILE.get(), entity, world);
 		sculkScythe.shoot(entity.getViewVector(1).x, entity.getViewVector(1).y, entity.getViewVector(1).z, power * 2, 0);
 		sculkScythe.setSilent(true);
 		sculkScythe.setCritArrow(false);
@@ -90,7 +88,7 @@ public class SculkScytheEntity extends AbstractArrow implements ItemSupplier {
 	}
 
 	public static SculkScytheEntity shoot(LivingEntity entity, LivingEntity target) {
-		SculkScytheEntity scythe = new SculkScytheEntity(VariousWorldModEntities.SCULK_SCYTHE_RANGED_ITEM.get(), entity, entity.level());
+		SculkScytheEntity scythe = new SculkScytheEntity(VariousWorldModEntities.SCULK_SCYTHE_PROJECTILE.get(), entity, entity.level());
 		double dx = target.getX() - entity.getX();
 		double dy = target.getY() + target.getEyeHeight() - 1.1;
 		double dz = target.getZ() - entity.getZ();

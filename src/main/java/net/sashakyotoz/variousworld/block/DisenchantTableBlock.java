@@ -4,7 +4,7 @@ package net.sashakyotoz.variousworld.block;
 import io.netty.buffer.Unpooled;
 import net.sashakyotoz.variousworld.block.entity.DisenchantTableBlockEntity;
 import net.sashakyotoz.variousworld.init.VariousWorldModBlocks;
-import net.sashakyotoz.variousworld.client.inventory.DisenchantTableGUIMenu;
+import net.sashakyotoz.variousworld.client.menus.DisenchantTableGUIMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
@@ -99,7 +99,7 @@ public class DisenchantTableBlock extends Block implements EntityBlock {
 			NetworkHooks.openScreen(player, new MenuProvider() {
 				@Override
 				public Component getDisplayName() {
-					return Component.literal("Disenchant Table");
+					return Component.translatable("block.various_world.disenchant_table");
 				}
 
 				@Override

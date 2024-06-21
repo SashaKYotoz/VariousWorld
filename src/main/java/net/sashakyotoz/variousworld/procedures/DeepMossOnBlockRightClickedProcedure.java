@@ -1,6 +1,7 @@
 package net.sashakyotoz.variousworld.procedures;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,19 +25,10 @@ public class DeepMossOnBlockRightClickedProcedure {
                 sz = -3;
                 for (int index2 = 0; index2 < 6; index2++) {
                     if ((world.getBlockState(BlockPos.containing(x + sx, y + sy, z + sz))).getBlock() == Blocks.STONE || (world.getBlockState(BlockPos.containing(x + sx, y + sy, z + sz))).getBlock() == Blocks.DEEPSLATE) {
-                        if (Math.random() < 0.5) {
-                            {
-                                BlockPos _bp = BlockPos.containing(x + sx, y + sy, z + sz);
-                                BlockState _bs = VariousWorldModBlocks.DEEP_MOSS.get().defaultBlockState();
-                                world.setBlock(_bp, _bs, 3);
-                            }
-                            if (Math.random() < 0.125 && !world.getBlockState(BlockPos.containing(x + sx, y + sy + 1, z + sz)).canOcclude()) {
-                                {
-                                    BlockPos _bp = BlockPos.containing(x + sx, y + sy + 1, z + sz);
-                                    BlockState _bs = VariousWorldModBlocks.DEEP_MOSS.get().defaultBlockState();
-                                    world.setBlock(_bp, _bs, 3);
-                                }
-                            }
+                        if (RandomSource.create().nextBoolean()) {
+                            world.setBlock(BlockPos.containing(x + sx, y + sy, z + sz), VariousWorldModBlocks.DEEP_MOSS.get().defaultBlockState(), 3);
+                            if (Math.random() < 0.125 && !world.getBlockState(BlockPos.containing(x + sx, y + sy + 1, z + sz)).canOcclude())
+                                world.setBlock(BlockPos.containing(x + sx, y + sy + 1, z + sz), VariousWorldModBlocks.DEEP_MOSS.get().defaultBlockState(), 3);
                         }
                     }
                     sz = sz + 1;

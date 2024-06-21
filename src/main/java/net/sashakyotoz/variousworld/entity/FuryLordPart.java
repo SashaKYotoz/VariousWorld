@@ -51,10 +51,6 @@ public class FuryLordPart extends PartEntity<FuryLordEntity> {
         return this == entity || this.parentMob == entity;
     }
 
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        throw new UnsupportedOperationException();
-    }
-
     public EntityDimensions getDimensions(Pose p_31023_) {
         return this.size;
     }

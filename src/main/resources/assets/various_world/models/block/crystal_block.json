@@ -1,5 +1,5 @@
 {
-  "parent": "various_world:custom/block_of__crystal",
+  "parent": "various_world:custom/block_of_crystal",
   "textures": {
     "all": "various_world:block/crystal_texture",
     "particle": "various_world:block/crystal_texture",

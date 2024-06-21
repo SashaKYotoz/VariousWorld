@@ -18,23 +18,20 @@ public class FlowerDeepMossFeature extends OreFeature {
     }
 
     public boolean place(FeaturePlaceContext<OreConfiguration> context) {
-        WorldGenLevel world = context.level();
-        int x = context.origin().getX();
-        int y = context.origin().getY();
-        int z = context.origin().getZ();
-        if ((world.getBlockState(BlockPos.containing(x, y + 1, z))).isAir()) {
-            BlockPos _bp = BlockPos.containing(x, y + 1, z);
-            BlockState _bs = VariousWorldModBlocks.MYCENA_FROM_CAVERN_OF_DEEP.get().defaultBlockState();
-            world.setBlock(_bp, _bs, 3);
+        WorldGenLevel level = context.level();
+        BlockPos pos = context.origin();
+        if (level.getBlockState(pos.above()).isAir()) {
+            BlockPos above = pos.above();
+            BlockState state = VariousWorldModBlocks.MYCENA_FROM_CAVERN_OF_DEEP.get().defaultBlockState();
+            level.setBlock(above, state, 3);
         }
-        if ((world.getBlockState(BlockPos.containing(x, y - 1, z))).getBlock() == Blocks.AIR) {
-            BlockPos _bp = BlockPos.containing(x, y - 1, z);
-            BlockState _bs = VariousWorldModBlocks.FLOWER_VINE_FROM_CAVERNOF_DEEP.get().defaultBlockState();
-            world.setBlock(_bp, _bs, 3);
+        if (level.getBlockState(pos.below()).isAir()) {
+            BlockPos below = pos.below();
+            BlockState state = VariousWorldModBlocks.FLOWER_VINE_FROM_CAVERNOF_DEEP.get().defaultBlockState();
+            level.setBlock(below, state, 3);
         }
-        BlockPos _bp = BlockPos.containing(x, y, z);
-        BlockState _bs = VariousWorldModBlocks.DEEP_MOSS.get().defaultBlockState();
-        world.setBlock(_bp, _bs, 3);
+        BlockState state = VariousWorldModBlocks.DEEP_MOSS.get().defaultBlockState();
+        level.setBlock(pos, state, 3);
         return true;
     }
 }

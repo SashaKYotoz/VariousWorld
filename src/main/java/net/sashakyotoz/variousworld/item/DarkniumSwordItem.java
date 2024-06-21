@@ -1,48 +1,39 @@
 
 package net.sashakyotoz.variousworld.item;
 
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.Tier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.entity.LivingEntity;
 
-import net.sashakyotoz.variousworld.procedures.DarkniumSwordLivingEntityIsHitWithToolProcedure;
-import net.sashakyotoz.variousworld.init.VariousWorldModItems;
+import net.sashakyotoz.variousworld.init.VariousWorldModParticleTypes;
 
 public class DarkniumSwordItem extends SwordItem {
 	public DarkniumSwordItem() {
-		super(new Tier() {
-			public int getUses() {
-				return 1184;
-			}
-
-			public float getSpeed() {
-				return 10f;
-			}
-
-			public float getAttackDamageBonus() {
-					return 4f;
-			}
-
-			public int getLevel() {
-				return 3;
-			}
-
-			public int getEnchantmentValue() {
-				return 36;
-			}
-
-			public Ingredient getRepairIngredient() {
-				return Ingredient.of(new ItemStack(VariousWorldModItems.DARKNIUM_INGOT.get()));
-			}
-		}, 3, -2.4f, new Item.Properties());
+		super(ModTiers.DARKNIUM, 3, -2.4f, new Item.Properties());
 	}
 
 	@Override
-	public boolean hurtEnemy(ItemStack itemstack, LivingEntity entity, LivingEntity sourceentity) {
-		DarkniumSwordLivingEntityIsHitWithToolProcedure.execute(entity.level(), entity.getX(), entity.getY(), entity.getZ(), entity, sourceentity);
-		return super.hurtEnemy(itemstack, entity, sourceentity);
+	public boolean hurtEnemy(ItemStack itemstack, LivingEntity entity, LivingEntity attacker) {
+		if (attacker.getMainHandItem().getOrCreateTag().getDouble("CustomModelData") == 1) {
+			attacker.level().addParticle(VariousWorldModParticleTypes.WANDERING_SPIRIT_PROJECTILE_PARTICLE.get(), attacker.getX(), attacker.getY(), attacker.getZ(), 0, 1.5, 0);
+			if (Math.random() < 0.5) {
+					entity.hurt(new DamageSource(entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.GENERIC)) {
+						@Override
+						public Component getLocalizedDeathMessage(LivingEntity living) {
+							return Component.translatable("death.attack." + "Absorption by sculk");
+						}
+					}, 1);
+				if (entity.level() instanceof ServerLevel serverLevel)
+					serverLevel.addFreshEntity(new ExperienceOrb(serverLevel, attacker.getX(), attacker.getY(), attacker.getZ(), 1));
+			}
+		}
+		return super.hurtEnemy(itemstack, entity, attacker);
 	}
 }
