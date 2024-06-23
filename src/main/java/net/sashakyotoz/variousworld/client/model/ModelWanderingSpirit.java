@@ -102,12 +102,13 @@ public class ModelWanderingSpirit<T extends WanderingSpiritOfSculksEntity> exten
 
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+        float f = Math.min((float) entity.getDeltaMovement().lengthSqr() * 100.0F, 6.0F);
         this.head.yRot = netHeadYaw / (180F / (float) Math.PI);
         this.head.xRot = headPitch / (180F / (float) Math.PI);
         this.head.zRot = Mth.cos(limbSwing * 0.5F) * 0.5F * limbSwingAmount;
         this.animate(entity.spawn, WanderingSpiritOfSculkAnimations.SPAWN,ageInTicks,0.5f);
-        this.animate(entity.abilityAttack, WanderingSpiritOfSculkAnimations.SHOOT,ageInTicks,0.75f);
+        this.animate(entity.abilityAttack, WanderingSpiritOfSculkAnimations.SHOOT,ageInTicks);
         this.animate(entity.attack, WanderingSpiritOfSculkAnimations.ATTACK,ageInTicks);
-        this.animate(entity.walk, WanderingSpiritOfSculkAnimations.WALK,ageInTicks);
+        this.animate(entity.walk, WanderingSpiritOfSculkAnimations.WALK,ageInTicks,f);
     }
 }

@@ -32,11 +32,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
+import net.sashakyotoz.variousworld.entity.ai.DarkSpiritFlyGoal;
 import net.sashakyotoz.variousworld.entity.technical.DarkSpiritGlovesEntity;
 import net.sashakyotoz.variousworld.entity.technical.SculkNecromancerSkeletonEntity;
 import net.sashakyotoz.variousworld.init.VariousWorldItems;
 import net.sashakyotoz.variousworld.init.VariousWorldParticleTypes;
 import net.sashakyotoz.variousworld.procedures.AdvancementsManager;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
 import java.util.Random;
@@ -60,7 +62,6 @@ public class DarkSpiritEntity extends Monster {
         Random random = new Random();
         xpReward = 25;
         texture = (int) Math.round((Math.random()));
-        setNoAi(false);
         setPersistenceRequired();
         this.moveControl = new FlyingMoveControl(this, 12, true);
         this.setItemSlotAndDropWhenKilled(EquipmentSlot.HEAD, new ItemStack(VariousWorldItems.ANGEL_HELMET.get()));
@@ -137,11 +138,10 @@ public class DarkSpiritEntity extends Monster {
 
     @Override
     public void tick() {
-        if (chargeToShield >= 4 && Math.random() < 0.75) {
+        if (chargeToShield >= 4 && Math.random() < 0.75)
             setShieldArise(true);
-        } else if (chargeToShield < 2) {
+        else if (chargeToShield < 2)
             setShieldArise(false);
-        }
         if (this.getTarget() != null && this.getTarget().isAlive())
             this.getNavigation().moveTo(this.getTarget(), 2);
         this.noPhysics = this.getTarget() != null && this.getTarget().isAlive();
@@ -180,45 +180,14 @@ public class DarkSpiritEntity extends Monster {
     }
 
     @Override
-    protected PathNavigation createNavigation(Level world) {
+    protected @NotNull PathNavigation createNavigation(Level world) {
         return new FlyingPathNavigation(this, world);
     }
 
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new Goal() {
-            {
-                this.setFlags(EnumSet.of(Goal.Flag.MOVE));
-            }
-            public boolean canUse() {
-                return DarkSpiritEntity.this.getTarget() != null && !DarkSpiritEntity.this.getMoveControl().hasWanted();
-            }
-            @Override
-            public boolean canContinueToUse() {
-                return DarkSpiritEntity.this.getMoveControl().hasWanted() && DarkSpiritEntity.this.getTarget() != null && DarkSpiritEntity.this.getTarget().isAlive();
-            }
-
-            @Override
-            public void start() {
-                LivingEntity livingentity = DarkSpiritEntity.this.getTarget();
-                Vec3 vec3d = livingentity.getEyePosition(1);
-                DarkSpiritEntity.this.moveControl.setWantedPosition(vec3d.x, vec3d.y, vec3d.z, 3);
-            }
-            @Override
-            public void tick() {
-                LivingEntity livingentity = DarkSpiritEntity.this.getTarget();
-                if (DarkSpiritEntity.this.getBoundingBox().intersects(livingentity.getBoundingBox())) {
-                    DarkSpiritEntity.this.doHurtTarget(livingentity);
-                } else {
-                    double d0 = DarkSpiritEntity.this.distanceToSqr(livingentity);
-                    if (d0 < 32) {
-                        Vec3 vec3d = livingentity.getEyePosition(1);
-                        DarkSpiritEntity.this.moveControl.setWantedPosition(vec3d.x, vec3d.y, vec3d.z, 3);
-                    }
-                }
-            }
-        });
+        this.goalSelector.addGoal(1, new DarkSpiritFlyGoal(this));
         this.goalSelector.addGoal(2, new RandomStrollGoal(this, 2, 20));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, false, true));
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, SculkNecromancerSkeletonEntity.class, false, true));

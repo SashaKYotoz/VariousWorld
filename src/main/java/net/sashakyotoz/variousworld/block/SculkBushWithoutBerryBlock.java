@@ -28,7 +28,7 @@ import java.util.List;
 
 public class SculkBushWithoutBerryBlock extends DoublePlantBlock {
 	public SculkBushWithoutBerryBlock() {
-		super(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS).sound(SoundType.GRASS).instabreak().randomTicks().hasPostProcess((bs, br, bp) -> true).emissiveRendering((bs, br, bp) -> true).lightLevel(s -> 3).noCollission());
+		super(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS).sound(SoundType.GRASS).instabreak().randomTicks().noCollission());
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class SculkBushWithoutBerryBlock extends DoublePlantBlock {
 
 	@Override
 	public boolean mayPlaceOn(BlockState groundState, BlockGetter worldIn, BlockPos pos) {
-		return groundState.is(VariousWorldBlocks.SCULK_GRASS.get());
+		return groundState.is(VariousWorldBlocks.SCULK_GRASS.get()) || groundState.is(Blocks.SCULK);
 	}
 
 	@Override
@@ -62,20 +62,15 @@ public class SculkBushWithoutBerryBlock extends DoublePlantBlock {
 	}
 
 	@Override
-	public void randomTick(BlockState blockstate, ServerLevel world, BlockPos pos, RandomSource random) {
-		super.tick(blockstate, world, pos, random);
-		execute(world, pos.getX(), pos.getY(), pos.getZ());
-	}
-	private void execute(LevelAccessor world, double x, double y, double z) {
-		if (Math.random() < 0.0125) {
-			BlockPos blockPos = BlockPos.containing(x, y, z);
+	public void randomTick(BlockState blockstate, ServerLevel level, BlockPos pos, RandomSource random) {
+		super.tick(blockstate, level, pos, random);
+		if (Math.random() < 0.0125 && level.getBlockState(pos.above()).isAir()) {
 			BlockState state = VariousWorldBlocks.SCULK_BUSH.get().defaultBlockState();
-			world.setBlock(blockPos, state, 3);
+			level.setBlock(pos, state, 3);
 		}
 	}
 	@Override
-	public void entityInside(BlockState blockstate, Level world, BlockPos pos, Entity entity) {
-		super.entityInside(blockstate, world, pos, entity);
+	public void entityInside(BlockState blockstate, Level level, BlockPos pos, Entity entity) {
 		SculkBushEntityCollidesWithPlantProcedure.execute(entity);
 	}
 	@Override

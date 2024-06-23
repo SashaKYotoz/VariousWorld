@@ -4,9 +4,8 @@ package net.sashakyotoz.variousworld.client.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.world.entity.Pose;
-import net.sashakyotoz.variousworld.client.model.ModelFury_Lord;
-import net.sashakyotoz.variousworld.client.model.ModelFury_Lord_Advanced;
-import net.sashakyotoz.variousworld.entity.CrystalWarriorEntity;
+import net.sashakyotoz.variousworld.client.model.ModelFuryLord;
+import net.sashakyotoz.variousworld.client.model.ModelFuryLordAdvanced;
 import net.sashakyotoz.variousworld.entity.FuryLordEntity;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -25,9 +24,9 @@ public class FuryLordRenderer extends MobRenderer<FuryLordEntity, EntityModel<Fu
     private static final ResourceLocation LORD_OF_FURRIES_ADVANCED = new ResourceLocation("various_world:textures/entities/fury_lord_advanced.png");
 
     public FuryLordRenderer(EntityRendererProvider.Context context) {
-        super(context, new ModelFury_Lord<>(context.bakeLayer(ModelFury_Lord.LAYER_LOCATION)), 0.5f);
-        this.ordinary = new ModelFury_Lord<>(context.bakeLayer(ModelFury_Lord.LAYER_LOCATION));
-        this.advanced = new ModelFury_Lord_Advanced<>(context.bakeLayer(ModelFury_Lord_Advanced.LAYER_LOCATION));
+        super(context, new ModelFuryLord<>(context.bakeLayer(ModelFuryLord.LAYER_LOCATION)), 0.5f);
+        this.ordinary = new ModelFuryLord<>(context.bakeLayer(ModelFuryLord.LAYER_LOCATION));
+        this.advanced = new ModelFuryLordAdvanced<>(context.bakeLayer(ModelFuryLordAdvanced.LAYER_LOCATION));
     }
     @Override
     protected void setupRotations(@NotNull FuryLordEntity furyLordEntity, PoseStack stack, float p_115319_, float shaking, float p_115321_) {

@@ -27,7 +27,7 @@ public class DisenchantTableUpdateTickProcedure {
                     slot2Stack.getItem() == Items.BOOK) {
                 consumeItems(blockEntity, 1, 3);
                 consumeItems(blockEntity, 0, 1);
-                ItemStack enchantedBook = EnchantmentHelper.enchantItem(RandomSource.create(), new ItemStack(Items.BOOK), 40 *(int) slot0Stack.getEnchantmentValue()/10, true);
+                ItemStack enchantedBook = EnchantmentHelper.enchantItem(RandomSource.create(), new ItemStack(Items.BOOK), 40 * slot0Stack.getEnchantmentValue() /10, true);
                 enchantedBook.setCount(slot2Stack.getCount());
                 setItemStack(blockEntity, 2, enchantedBook);
             }

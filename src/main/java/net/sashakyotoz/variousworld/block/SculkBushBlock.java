@@ -27,7 +27,7 @@ import java.util.List;
 
 public class SculkBushBlock extends DoublePlantBlock {
 	public SculkBushBlock() {
-		super(BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING).sound(SoundType.GRASS).instabreak().hasPostProcess((bs, br, bp) -> true).emissiveRendering((bs, br, bp) -> true).lightLevel(s -> 3).noCollission());
+		super(BlockBehaviour.Properties.copy(Blocks.TALL_GRASS).sound(SoundType.GRASS).instabreak().hasPostProcess((bs, br, bp) -> true).emissiveRendering((bs, br, bp) -> true).lightLevel(s -> 3).noCollission());
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class SculkBushBlock extends DoublePlantBlock {
 
 	@Override
 	public boolean mayPlaceOn(BlockState groundState, BlockGetter worldIn, BlockPos pos) {
-		return groundState.is(VariousWorldBlocks.SCULK_GRASS.get());
+		return groundState.is(VariousWorldBlocks.SCULK_GRASS.get()) || groundState.is(Blocks.SCULK);
 	}
 
 	@Override

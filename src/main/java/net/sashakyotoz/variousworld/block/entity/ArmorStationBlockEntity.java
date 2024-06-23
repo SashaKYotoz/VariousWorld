@@ -31,7 +31,7 @@ import java.util.stream.IntStream;
 import io.netty.buffer.Unpooled;
 
 public class ArmorStationBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {
-	private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>withSize(4, ItemStack.EMPTY);
+	private NonNullList<ItemStack> stacks = NonNullList.withSize(4, ItemStack.EMPTY);
 	private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());
 
 	public ArmorStationBlockEntity(BlockPos position, BlockState state) {
@@ -139,10 +139,8 @@ public class ArmorStationBlockEntity extends RandomizableContainerBlockEntity im
 			return false;
 		if (index == 2)
 			return false;
-		if (index == 3)
-			return false;
-		return true;
-	}
+        return index != 3;
+    }
 
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {

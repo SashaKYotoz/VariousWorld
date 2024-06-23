@@ -14,9 +14,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.block.*;
-import net.sashakyotoz.variousworld.block.signs.ModStandingSignBlock;
-import net.sashakyotoz.variousworld.block.signs.ModWallSignBlock;
-import net.sashakyotoz.variousworld.block.signs.ModWoodType;
+import net.sashakyotoz.variousworld.block.signs.*;
 import net.sashakyotoz.variousworld.world.treegrowers.CrystalicOakTreeGrower;
 import net.sashakyotoz.variousworld.world.treegrowers.MagnoliaTreeGrower;
 import net.sashakyotoz.variousworld.world.treegrowers.SculkTreeGrower;
@@ -121,6 +119,8 @@ public class VariousWorldBlocks {
 	public static final RegistryObject<Block> SAKURA_BUTTON = BLOCKS.register("sakura_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).sound(SoundType.WOOD).strength(2.5f, 4f).dynamicShape(), BlockSetType.OAK, 30, true));
 	public static final RegistryObject<Block> SAKURA_SIGN = BLOCKS.register("sakura_sign", () -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SIGN), ModWoodType.MAGNOLIA));
 	public static final RegistryObject<Block> SAKURA_WALL_SIGN = BLOCKS.register("sakura_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SIGN).lootFrom(SAKURA_SIGN), ModWoodType.MAGNOLIA));
+	public static final RegistryObject<Block> SAKURA_HANGING_SIGN = BLOCKS.register("sakura_hanging_sign",()->new ModHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_HANGING_SIGN),ModWoodType.MAGNOLIA));
+	public static final RegistryObject<Block> SAKURA_HANGING_WALL_SIGN = BLOCKS.register("sakura_hanging_wall_sign",()->new ModHangingWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_HANGING_SIGN).lootFrom(SAKURA_HANGING_SIGN),ModWoodType.MAGNOLIA));
 	public static final RegistryObject<Block> SCULK_FENCE_GATE = BLOCKS.register("sculk_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(SCULK_PLANKS.get()).sound(SoundType.WOOD).strength(3f, 3.5f).lightLevel(s -> 2).hasPostProcess((bs, br, bp) -> true).emissiveRendering((bs, br, bp) -> true).dynamicShape(), WoodType.OAK));
 	public static final RegistryObject<Block> SCULK_PRESSURE_PLATE = BLOCKS.register("sculk_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,
 			BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).sound(SoundType.WOOD).strength(3f, 4.5f).lightLevel(s -> 2).hasPostProcess((bs, br, bp) -> true).emissiveRendering((bs, br, bp) -> true).dynamicShape(), BlockSetType.OAK));
@@ -128,11 +128,15 @@ public class VariousWorldBlocks {
 			BlockSetType.OAK, 30, true));
 	public static final RegistryObject<Block> SCULK_SIGN = BLOCKS.register("sculk_sign", () -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SIGN), ModWoodType.SCULK));
 	public static final RegistryObject<Block> SCULK_WALL_SIGN = BLOCKS.register("sculk_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SIGN).lootFrom(SCULK_SIGN), ModWoodType.SCULK));
+	public static final RegistryObject<Block> SCULK_HANGING_SIGN = BLOCKS.register("sculk_hanging_sign",()->new ModHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_HANGING_SIGN),ModWoodType.SCULK));
+	public static final RegistryObject<Block> SCULK_HANGING_WALL_SIGN = BLOCKS.register("sculk_hanging_wall_sign",()->new ModHangingWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_HANGING_SIGN).lootFrom(SCULK_HANGING_SIGN),ModWoodType.SCULK));
 	public static final RegistryObject<Block> CRYSTALIC_OAK_FENCE_GATE = BLOCKS.register("crystalic_oak_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).sound(SoundType.WOOD).strength(4f, 5f).dynamicShape(), WoodType.OAK));
 	public static final RegistryObject<Block> CRYSTALIC_OAK_PRESSURE_PLATE = BLOCKS.register("crystalic_oak_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).sound(SoundType.WOOD).strength(4f, 5f).dynamicShape(), BlockSetType.OAK));
 	public static final RegistryObject<Block> CRYSTALIC_OAK_BUTTON = BLOCKS.register("crystalic_oak_button", () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).sound(SoundType.WOOD).strength(4f, 5f).requiresCorrectToolForDrops().dynamicShape(), BlockSetType.OAK, 30, true));
 	public static final RegistryObject<Block> CRYSTALIC_OAK_SIGN = BLOCKS.register("crystalic_oak_sign", () -> new ModStandingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SIGN), ModWoodType.CRYSTALIC_OAK));
 	public static final RegistryObject<Block> CRYSTALIC_OAK_WALL_SIGN = BLOCKS.register("crystalic_oak_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SIGN).lootFrom(CRYSTALIC_OAK_SIGN), ModWoodType.CRYSTALIC_OAK));
+	public static final RegistryObject<Block> CRYSTALIC_OAK_HANGING_SIGN = BLOCKS.register("crystalic_oak_hanging_sign",()->new ModHangingSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_HANGING_SIGN),ModWoodType.CRYSTALIC_OAK));
+	public static final RegistryObject<Block> CRYSTALIC_OAK_HANGING_WALL_SIGN = BLOCKS.register("crystalic_oak_hanging_wall_sign",()->new ModHangingWallSignBlock(BlockBehaviour.Properties.copy(Blocks.OAK_HANGING_SIGN).lootFrom(CRYSTALIC_OAK_HANGING_SIGN),ModWoodType.CRYSTALIC_OAK));
 	public static final RegistryObject<Block> QUARTZ_STAND = BLOCKS.register("quartz_stand", () -> new StandBlock(BlockBehaviour.Properties.copy(Blocks.QUARTZ_BLOCK).sound(SoundType.AMETHYST).strength(-1, 3600000).lightLevel(s -> 1).noOcclusion().hasPostProcess((bs, br, bp) -> true)
 			.emissiveRendering((bs, br, bp) -> true).noLootTable()));
 	public static final RegistryObject<Block> AIR_STAND = BLOCKS.register("air_stand", () -> new StandBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_COLUMN).sound(SoundType.BONE_BLOCK).strength(-1, 3600000).lightLevel(s -> 10).noOcclusion().noLootTable()));
@@ -146,19 +150,4 @@ public class VariousWorldBlocks {
 	public static final RegistryObject<Block> FLOWER_DEEP_MOSS = BLOCKS.register("flower_deep_moss", FlowerDeepMossBlock::new);
 	public static final RegistryObject<Block> MUSHROOM_SPAWNER = BLOCKS.register("mushroom_spawner", MushroomSpawnerBlock::new);
 	public static final RegistryObject<Block> CRYSHROOM_PLANT = BLOCKS.register("cryshroom_plant", CryshroomPlantBlock::new);
-
-	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-	public static class ClientSideHandler {
-		@SubscribeEvent
-		public static void blockColorLoad(RegisterColorHandlersEvent.Block event) {
-			CrystalLikeBlock.blockColorLoad(event);
-			SmallSculkBushBlock.blockColorLoad(event);
-			AnthuriumSproutedOfMagmaBlock.blockColorLoad(event);
-		}
-
-		@SubscribeEvent
-		public static void itemColorLoad(RegisterColorHandlersEvent.Item event) {
-			AnthuriumSproutedOfMagmaBlock.itemColorLoad(event);
-		}
-	}
 }

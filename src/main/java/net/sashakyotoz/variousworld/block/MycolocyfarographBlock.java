@@ -105,7 +105,7 @@ public class MycolocyfarographBlock extends BaseEntityBlock {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, VariousWorldBlockEntities.MYCOLOCYFAROGRAPH.get(), (level1, pos, state1, entity) -> ((MycolocyfarographBlockEntity) entity).tick(level1, pos, state1,(MycolocyfarographBlockEntity) entity));
+		return createTickerHelper(type, VariousWorldBlockEntities.MYCOLOCYFAROGRAPH.get(), (level1, pos, state1, entity) -> entity.tick(level1, pos, state1, entity));
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {

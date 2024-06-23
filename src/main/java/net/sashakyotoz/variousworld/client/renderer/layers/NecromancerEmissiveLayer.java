@@ -2,7 +2,7 @@ package net.sashakyotoz.variousworld.client.renderer.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.sashakyotoz.variousworld.client.model.ModelSculk_Necromancer_Skeleton;
+import net.sashakyotoz.variousworld.client.model.ModelSculkNecromancerSkeleton;
 import net.sashakyotoz.variousworld.entity.technical.SculkNecromancerSkeletonEntity;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -17,7 +17,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
 
-public class NecromancerEmissiveLayer<T extends SculkNecromancerSkeletonEntity, M extends ModelSculk_Necromancer_Skeleton<T>> extends RenderLayer<T, M> {
+public class NecromancerEmissiveLayer<T extends SculkNecromancerSkeletonEntity, M extends ModelSculkNecromancerSkeleton<T>> extends RenderLayer<T, M> {
     private final ResourceLocation texture;
     private final NecromancerEmissiveLayer.AlphaFunction<T> alphaFunction;
     private final NecromancerEmissiveLayer.DrawSelector<T, M> drawSelector;

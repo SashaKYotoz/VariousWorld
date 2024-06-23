@@ -328,7 +328,7 @@ public class LordOfFuryAnimations {
 									AnimationChannel.Interpolations.LINEAR),
 							new Keyframe(1f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
 									AnimationChannel.Interpolations.LINEAR))).build();
-	public static final AnimationDefinition WINDCURRENTATTACK = AnimationDefinition.Builder.withLength(1f)
+	public static final AnimationDefinition WIND_CURRENT_ATTACK = AnimationDefinition.Builder.withLength(1f)
 			.addAnimation("generic",
 					new AnimationChannel(AnimationChannel.Targets.ROTATION,
 							new Keyframe(0f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
@@ -493,7 +493,7 @@ public class LordOfFuryAnimations {
 									AnimationChannel.Interpolations.LINEAR),
 							new Keyframe(1f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
 									AnimationChannel.Interpolations.LINEAR))).build();
-	public static final AnimationDefinition SUMMONOFFURIES = AnimationDefinition.Builder.withLength(1.25f)
+	public static final AnimationDefinition SUMMON_OF_FURIES = AnimationDefinition.Builder.withLength(1.25f)
 			.addAnimation("generic",
 					new AnimationChannel(AnimationChannel.Targets.POSITION,
 							new Keyframe(0.25f, KeyframeAnimations.posVec(0f, 0f, 0f),

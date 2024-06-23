@@ -22,7 +22,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import com.google.common.collect.ImmutableList;
 
-public class ModelSculk_Necromancer_Skeleton<T extends SculkNecromancerSkeletonEntity> extends HierarchicalModel<T> {
+public class ModelSculkNecromancerSkeleton<T extends SculkNecromancerSkeletonEntity> extends HierarchicalModel<T> {
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("various_world", "model_sculk_necromancer_skeleton"), "main");
 	public final ModelPart head1;
 	public final ModelPart root;
@@ -34,7 +34,7 @@ public class ModelSculk_Necromancer_Skeleton<T extends SculkNecromancerSkeletonE
 	public final ModelPart leg1;
 	private final List<ModelPart> pulsatingSpotsLayerModelParts;
 
-	public ModelSculk_Necromancer_Skeleton(ModelPart root) {
+	public ModelSculkNecromancerSkeleton(ModelPart root) {
 		this.root = root;
 		this.head1 = root.getChild("head1");
 		this.body = root.getChild("body");

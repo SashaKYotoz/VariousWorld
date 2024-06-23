@@ -12,6 +12,8 @@
     "various_world:sculk_planks_trapdoor",
     "various_world:sculk_door",
     "various_world:sculk_button",
+    "various_world:sculk_sign",
+    "various_world:sculk_hanging_sigh",
     "various_world:sakura_wood",
     "various_world:sakura_log",
     "various_world:sakura_planks",
@@ -23,6 +25,8 @@
     "various_world:sakura_fence_gate",
     "various_world:sakura_button",
     "various_world:sakura_pressure_plate",
+    "various_world:sakura_sign",
+    "various_world:sakura_hanging_sigh",
     "various_world:crystalic_oak_fence_gate",
     "various_world:crystalic_oak_pressure_plate",
     "various_world:crystalic_oak_button",
@@ -33,6 +37,8 @@
     "various_world:crystalic_oak_stairs",
     "various_world:crystalic_oak_planks",
     "various_world:crystalic_oak_wood",
-    "various_world:crystalic_oak_log"
+    "various_world:crystalic_oak_log",
+    "various_world:crystalic_oak_sign",
+    "various_world:crystalic_oak_hanging_sigh"
   ]
 }

@@ -35,82 +35,75 @@ import java.util.Collections;
 import java.util.List;
 
 public class SmallSculkBushBlock extends FlowerBlock {
-	public SmallSculkBushBlock() {
-		super(() -> MobEffects.GLOWING, 100,
-				BlockBehaviour.Properties.copy(Blocks.GRASS).sound(SoundType.GRASS).instabreak().randomTicks().hasPostProcess((bs, br, bp) -> true).emissiveRendering((bs, br, bp) -> true).lightLevel(s -> 3).noCollission());
-	}
+    public SmallSculkBushBlock() {
+        super(() -> MobEffects.GLOWING, 100,
+                BlockBehaviour.Properties.copy(Blocks.GRASS).sound(SoundType.GRASS).instabreak().randomTicks().hasPostProcess((bs, br, bp) -> true).emissiveRendering((bs, br, bp) -> true).lightLevel(s -> 3).noCollission());
+    }
 
-	@Override
-	public int getEffectDuration() {
-		return 100;
-	}
+    @Override
+    public int getEffectDuration() {
+        return 100;
+    }
 
-	@Override
-	public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-		return 100;
-	}
+    @Override
+    public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
+        return 100;
+    }
 
-	@Override
-	public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
-		return 60;
-	}
+    @Override
+    public int getFireSpreadSpeed(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
+        return 60;
+    }
 
 
-	@Override
-	public boolean mayPlaceOn(BlockState groundState, BlockGetter worldIn, BlockPos pos) {
-		return groundState.is(VariousWorldBlocks.SCULK_GRASS.get());
-	}
+    @Override
+    public boolean mayPlaceOn(BlockState groundState, BlockGetter worldIn, BlockPos pos) {
+        return groundState.is(VariousWorldBlocks.SCULK_GRASS.get()) || groundState.is(Blocks.SCULK);
+    }
 
-	@Override
-	public boolean canSurvive(BlockState blockstate, LevelReader worldIn, BlockPos pos) {
-		BlockPos blockpos = pos.below();
-		BlockState groundState = worldIn.getBlockState(blockpos);
-		return this.mayPlaceOn(groundState, worldIn, blockpos);
-	}
+    @Override
+    public boolean canSurvive(BlockState blockstate, LevelReader reader, BlockPos pos) {
+        BlockPos blockpos = pos.below();
+        BlockState groundState = reader.getBlockState(blockpos);
+        return this.mayPlaceOn(groundState, reader, blockpos);
+    }
 
-	@Override
-	public void randomTick(BlockState blockstate, ServerLevel world, BlockPos pos, RandomSource random) {
-		super.tick(blockstate, world, pos, random);
-		execute(world, pos.getX(), pos.getY(), pos.getZ());
-	}
-	private void execute(LevelAccessor world, double x, double y, double z) {
-		if ((world.getBlockState(BlockPos.containing(x, y + 1, z))).isAir()) {
-			if (Math.random() < 0.025) {
-				BlockPos blockPos = BlockPos.containing(x, y, z);
-				BlockState state = VariousWorldBlocks.SCULK_BUSH_WITHOUT_BERRY.get().defaultBlockState();
-				world.setBlock(blockPos, state, 3);
-			}
-		}
-	}
+    @Override
+    public void randomTick(BlockState blockstate, ServerLevel level, BlockPos pos, RandomSource random) {
+        super.tick(blockstate, level, pos, random);
+        if (Math.random() < 0.025 && level.getBlockState(pos.above()).isAir()) {
+            BlockState state = VariousWorldBlocks.SCULK_BUSH_WITHOUT_BERRY.get().defaultBlockState();
+            level.setBlock(pos, state, 3);
+        }
+    }
 
-	@Override
-	public void entityInside(BlockState blockstate, Level world, BlockPos pos, Entity entity) {
-		super.entityInside(blockstate, world, pos, entity);
-		SculkBushEntityCollidesWithPlantProcedure.execute(entity);
-	}
+    @Override
+    public void entityInside(BlockState blockstate, Level world, BlockPos pos, Entity entity) {
+        SculkBushEntityCollidesWithPlantProcedure.execute(entity);
+    }
 
-	@Override
-	public InteractionResult use(BlockState blockstate, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		super.use(blockstate, world, pos, player, hand, hit);
-		if (player.getMainHandItem().is(Items.BONE_MEAL)) {
-			if (Math.random() < 0.25) {
-				BlockState _bs = VariousWorldBlocks.SCULK_BUSH_WITHOUT_BERRY.get().defaultBlockState();
-				world.setBlock(pos, _bs, 3);
-				ItemStack stack = player.getMainHandItem();
-				player.getInventory().clearOrCountMatchingItems(p -> stack.getItem() == p.getItem(), 1, player.inventoryMenu.getCraftSlots());
-				player.getInventory().setChanged();
-			}
-		}
-		return InteractionResult.SUCCESS;
-	}
+    @Override
+    public InteractionResult use(BlockState blockstate, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        super.use(blockstate, world, pos, player, hand, hit);
+        if (player.getMainHandItem().is(Items.BONE_MEAL)) {
+            if (Math.random() < 0.25) {
+                world.setBlock(pos, VariousWorldBlocks.SCULK_BUSH_WITHOUT_BERRY.get().defaultBlockState(), 3);
+                ItemStack stack = player.getMainHandItem();
+                player.getInventory().clearOrCountMatchingItems(p -> stack.getItem() == p.getItem(), 1, player.inventoryMenu.getCraftSlots());
+                player.getInventory().setChanged();
+            }
+        }
+        return InteractionResult.SUCCESS;
+    }
 
-	@OnlyIn(Dist.CLIENT)
-	public static void blockColorLoad(RegisterColorHandlersEvent.Block event) {
-		event.getBlockColors().register((bs, world, pos, index) -> world != null && pos != null ? Minecraft.getInstance().level.getBiome(pos).value().getSkyColor() : 8562943, VariousWorldBlocks.SMALL_SCULK_BUSH.get());
-	}
-	@Override
-	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldItems.SCULKBERRY.get());
-		return Collections.singletonList(itemStack);
-	}
+    @OnlyIn(Dist.CLIENT)
+    public static void blockColorLoad(RegisterColorHandlersEvent.Block event) {
+        event.register((bs, world, pos, index) -> world != null && pos != null ? Minecraft.getInstance().level.getBiome(pos).value().getSkyColor() : 8562943, VariousWorldBlocks.SMALL_SCULK_BUSH.get());
+    }
+
+    @Override
+    public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
+        ItemStack itemStack = new ItemStack(VariousWorldItems.SCULKBERRY.get());
+        return Collections.singletonList(itemStack);
+    }
 }

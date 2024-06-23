@@ -16,6 +16,7 @@ import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.FollowMobGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
@@ -30,13 +31,14 @@ import net.minecraftforge.network.NetworkHooks;
 import net.sashakyotoz.variousworld.init.VariousWorldEntities;
 
 import java.util.EnumSet;
+import java.util.function.Predicate;
 
 public class DarkFuryEntity extends Monster {
 
 	public DarkFuryEntity(EntityType<DarkFuryEntity> type, Level world) {
 		super(type, world);
 		xpReward = 6;
-		setNoAi(false);
+		setNoGravity(true);
 		this.moveControl = new FlyingMoveControl(this, 15, false);
 	}
 
@@ -49,11 +51,11 @@ public class DarkFuryEntity extends Monster {
 	protected PathNavigation createNavigation(Level world) {
 		return new FlyingPathNavigation(this, world);
 	}
-
+	private static final Predicate<LivingEntity> LIVING_ENTITY_SELECTOR = (entity) -> entity.attackable() && entity.getMobType() != MobType.WATER && !(entity instanceof DarkFuryEntity) && !(entity instanceof FuryLordEntity);
 	@Override
 	protected void registerGoals() {
 		super.registerGoals();
-		this.goalSelector.addGoal(1, new RandomStrollGoal(this, 2, 20));
+		this.goalSelector.addGoal(1, new WaterAvoidingRandomFlyingGoal(this, 2));
 		this.goalSelector.addGoal(2, new Goal() {
 			{
 				this.setFlags(EnumSet.of(Goal.Flag.MOVE));
@@ -72,7 +74,7 @@ public class DarkFuryEntity extends Monster {
 			public void start() {
 				LivingEntity livingentity = DarkFuryEntity.this.getTarget();
 				Vec3 vec3d = livingentity.getEyePosition(1);
-				DarkFuryEntity.this.moveControl.setWantedPosition(vec3d.x, vec3d.y, vec3d.z, 2);
+				DarkFuryEntity.this.moveControl.setWantedPosition(vec3d.x, vec3d.y, vec3d.z, 2.5);
 			}
 
 			@Override
@@ -84,29 +86,24 @@ public class DarkFuryEntity extends Monster {
 					double d0 = DarkFuryEntity.this.distanceToSqr(livingentity);
 					if (d0 < 32) {
 						Vec3 vec3d = livingentity.getEyePosition(1);
-						DarkFuryEntity.this.moveControl.setWantedPosition(vec3d.x, vec3d.y, vec3d.z, 2);
+						DarkFuryEntity.this.moveControl.setWantedPosition(vec3d.x, vec3d.y, vec3d.z, 2.5);
 					}
 				}
 			}
 		});
-		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Player.class, false, true));
+		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, LivingEntity.class,5, false, true,LIVING_ENTITY_SELECTOR));
 		this.targetSelector.addGoal(4, new HurtByTargetGoal(this).setAlertOthers());
-		this.goalSelector.addGoal(5, new FollowMobGoal(this, (float) 1, 12, 6));
-	}
-
-	@Override
-	public MobType getMobType() {
-		return MobType.UNDEFINED;
-	}
-
-	@Override
-	public double getPassengersRidingOffset() {
-		return super.getPassengersRidingOffset() + 0.5;
+		this.goalSelector.addGoal(5, new FollowMobGoal(this, 1, 12, 6));
 	}
 
 	@Override
 	public SoundEvent getAmbientSound() {
 		return SoundEvents.PHANTOM_AMBIENT;
+	}
+
+	@Override
+	public boolean isAlliedTo(Entity entity) {
+		return entity instanceof DarkFuryEntity || entity instanceof FuryLordEntity;
 	}
 
 	@Override
@@ -141,11 +138,6 @@ public class DarkFuryEntity extends Monster {
 	protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
 	}
 
-	@Override
-	public void setNoGravity(boolean ignored) {
-		super.setNoGravity(true);
-	}
-
 	public static void init() {
 		SpawnPlacements.register(VariousWorldEntities.DARK_FURY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				(entityType, world, reason, pos, random) -> (world.getDifficulty() != Difficulty.PEACEFUL && Monster.isDarkEnoughToSpawn(world, pos, random) && Mob.checkMobSpawnRules(entityType, world, reason, pos, random)));
@@ -153,13 +145,13 @@ public class DarkFuryEntity extends Monster {
 
 	public static AttributeSupplier.Builder createAttributes() {
 		AttributeSupplier.Builder builder = Mob.createMobAttributes();
-		builder = builder.add(Attributes.MOVEMENT_SPEED, 0.4);
+		builder = builder.add(Attributes.MOVEMENT_SPEED, 0.5);
 		builder = builder.add(Attributes.MAX_HEALTH, 30);
 		builder = builder.add(Attributes.ARMOR, 5);
 		builder = builder.add(Attributes.ATTACK_DAMAGE, 5);
 		builder = builder.add(Attributes.FOLLOW_RANGE, 16);
 		builder = builder.add(Attributes.KNOCKBACK_RESISTANCE, 0.1);
-		builder = builder.add(Attributes.FLYING_SPEED, 0.4);
+		builder = builder.add(Attributes.FLYING_SPEED, 0.5);
 		return builder;
 	}
 }

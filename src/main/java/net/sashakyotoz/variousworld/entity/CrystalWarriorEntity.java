@@ -17,6 +17,8 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.item.ItemStack;
@@ -25,6 +27,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.sashakyotoz.variousworld.VariousWorld;
+import net.sashakyotoz.variousworld.entity.ai.CrystalWarriorLeapGoal;
 import net.sashakyotoz.variousworld.init.VariousWorldItems;
 import net.sashakyotoz.variousworld.init.VariousWorldMobEffects;
 import net.sashakyotoz.variousworld.procedures.AdvancementsManager;
@@ -133,15 +136,9 @@ public class CrystalWarriorEntity extends IronGolem {
         this.goalSelector.addGoal(2, new RandomStrollGoal(this, 1));
         this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(5, new LeapAtTargetGoal(this, (float) 0.5));
+        this.goalSelector.addGoal(5, new CrystalWarriorLeapGoal(this));
         this.goalSelector.addGoal(6, new FloatGoal(this));
         this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, Player.class, false, false));
-
-    }
-
-    @Override
-    public MobType getMobType() {
-        return MobType.UNDEFINED;
     }
 
     @Override
@@ -156,7 +153,7 @@ public class CrystalWarriorEntity extends IronGolem {
 
     @Override
     public SoundEvent getAmbientSound() {
-        return SoundEvents.ELDER_GUARDIAN_AMBIENT;
+        return this.getTarget() != null ? SoundEvents.GUARDIAN_AMBIENT : SoundEvents.ELDER_GUARDIAN_AMBIENT;
     }
 
     @Override
@@ -166,7 +163,7 @@ public class CrystalWarriorEntity extends IronGolem {
 
     @Override
     public SoundEvent getHurtSound(DamageSource ds) {
-        return SoundEvents.WARDEN_HURT;
+        return this.getTarget() != null ? SoundEvents.AMETHYST_BLOCK_BREAK : SoundEvents.WARDEN_HURT;
     }
 
     @Override

@@ -65,9 +65,9 @@ public class EventManager {
                     && player.getItemBySlot(EquipmentSlot.LEGS).is(VariousWorldItems.SLIME_ARMOR_LEGGINGS.get())
                     && player.getItemBySlot(EquipmentSlot.FEET).is(VariousWorldItems.SLIME_ARMOR_BOOTS.get())){
                 if (player.fallDistance > 1){
-                    float impulseModifier = player.fallDistance * 0.35f - (player.fallDistance > 5 ? 0.35f * (player.fallDistance/2) : 0.15f);
+                    float impulseModifier = player.fallDistance * 0.325f - (player.fallDistance > 5 ? 0.325f * (player.fallDistance/2) : 0.125f);
                     if (!player.isShiftKeyDown())
-                        player.setDeltaMovement(getXVector(impulseModifier,player.getYRot()),impulseModifier,getZVector(impulseModifier,player.getYRot()));
+                        player.setDeltaMovement(getXVector(impulseModifier*1.5f,player.getYRot()),impulseModifier,getZVector(impulseModifier*1.5f,player.getYRot()));
                     player.getItemBySlot(EquipmentSlot.FEET).hurtAndBreak(1, player, (player1) -> player1.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                     event.setAmount(0);
                     player.fallDistance = 0;
@@ -236,8 +236,7 @@ public class EventManager {
     private static void spiritPWonClick(Entity entity, Entity sourceentity) {
         if (entity == null || sourceentity == null)
             return;
-        if (entity instanceof SpiritofPeacefulWastelandEntity) {
-            TamableAnimal animal = (TamableAnimal) entity;
+        if (entity instanceof SpiritofPeacefulWastelandEntity animal) {
             if (sourceentity instanceof LivingEntity ownedBy && animal.isOwnedBy(ownedBy)) {
                 if (sourceentity instanceof ServerPlayer serverPlayer) {
                     AdvancementsManager.addAdvancement(serverPlayer, AdvancementsManager.COMBAT_ALLAY_ADV);

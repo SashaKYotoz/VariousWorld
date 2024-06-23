@@ -23,4 +23,12 @@ public class VariousWorldBlockEntities {
 			VariousWorldBlocks.SAKURA_SIGN.get(), VariousWorldBlocks.SAKURA_WALL_SIGN.get(),
 			VariousWorldBlocks.SCULK_SIGN.get(), VariousWorldBlocks.SCULK_WALL_SIGN.get(),
 			VariousWorldBlocks.CRYSTALIC_OAK_SIGN.get(), VariousWorldBlocks.CRYSTALIC_OAK_WALL_SIGN.get()).build(null));
+	public static final RegistryObject<BlockEntityType<ModHangingSignBlockEntity>> MOD_HANGING_SIGN = BLOCK_ENTITIES.register("mod_hanging_sign",()->BlockEntityType.Builder.of(ModHangingSignBlockEntity::new,
+			VariousWorldBlocks.SCULK_HANGING_SIGN.get(),
+			VariousWorldBlocks.SCULK_HANGING_WALL_SIGN.get(),
+			VariousWorldBlocks.CRYSTALIC_OAK_HANGING_SIGN.get(),
+			VariousWorldBlocks.CRYSTALIC_OAK_HANGING_WALL_SIGN.get(),
+			VariousWorldBlocks.SAKURA_HANGING_SIGN.get(),
+			VariousWorldBlocks.SAKURA_HANGING_WALL_SIGN.get()
+			).build(null));
 }

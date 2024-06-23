@@ -15,7 +15,7 @@ import net.sashakyotoz.variousworld.client.renderer.layers.ZanyVilerWitchItemLay
 @OnlyIn(Dist.CLIENT)
 public class ZanyVilerWitchRenderer extends MobRenderer<ZanyVilerWitchEntity, ModelZany_Viler_Witch<ZanyVilerWitchEntity>> {
 	public ZanyVilerWitchRenderer(EntityRendererProvider.Context context) {
-		super(context, new ModelZany_Viler_Witch(context.bakeLayer(ModelZany_Viler_Witch.LAYER_LOCATION)), 0.5f);
+		super(context, new ModelZany_Viler_Witch<>(context.bakeLayer(ModelZany_Viler_Witch.LAYER_LOCATION)), 0.5f);
 		this.addLayer(new ZanyVilerWitchItemLayer<>(this, context.getItemInHandRenderer()));
 	}
 

@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.world.entity.Pose;
 import net.sashakyotoz.variousworld.client.renderer.layers.NecromancerEmissiveLayer;
-import net.sashakyotoz.variousworld.client.model.ModelSculk_Necromancer_Skeleton;
+import net.sashakyotoz.variousworld.client.model.ModelSculkNecromancerSkeleton;
 import net.sashakyotoz.variousworld.entity.technical.SculkNecromancerSkeletonEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -13,11 +13,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 
-public class SculkNecromancerSkeletonRenderer extends MobRenderer<SculkNecromancerSkeletonEntity, ModelSculk_Necromancer_Skeleton<SculkNecromancerSkeletonEntity>> {
+public class SculkNecromancerSkeletonRenderer extends MobRenderer<SculkNecromancerSkeletonEntity, ModelSculkNecromancerSkeleton<SculkNecromancerSkeletonEntity>> {
 	private static final ResourceLocation PULSATING_SPOTS_TEXTURE = new ResourceLocation("various_world:textures/entities/sculk_necromancer_skeleton_pulsating.png");
 	public SculkNecromancerSkeletonRenderer(EntityRendererProvider.Context context) {
-		super(context, new ModelSculk_Necromancer_Skeleton(context.bakeLayer(ModelSculk_Necromancer_Skeleton.LAYER_LOCATION)), 0.5f);
-		this.addLayer(new NecromancerEmissiveLayer<>(this, PULSATING_SPOTS_TEXTURE, (p_234805_, p_234806_, p_234807_) -> Math.max(0.0F, Mth.cos(p_234807_ * 0.045F) * 0.25F), ModelSculk_Necromancer_Skeleton::getPulsatingSpotsLayerModelParts));
+		super(context, new ModelSculkNecromancerSkeleton(context.bakeLayer(ModelSculkNecromancerSkeleton.LAYER_LOCATION)), 0.5f);
+		this.addLayer(new NecromancerEmissiveLayer<>(this, PULSATING_SPOTS_TEXTURE, (p_234805_, p_234806_, p_234807_) -> Math.max(0.0F, Mth.cos(p_234807_ * 0.045F) * 0.25F), ModelSculkNecromancerSkeleton::getPulsatingSpotsLayerModelParts));
 	}
 	@Override
 	protected void setupRotations(@NotNull SculkNecromancerSkeletonEntity skeletonEntity, PoseStack stack, float p_115319_, float p_115320_, float p_115321_) {

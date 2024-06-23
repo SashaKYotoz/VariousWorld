@@ -5,6 +5,7 @@ import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -13,10 +14,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.sashakyotoz.variousworld.VariousWorld;
+import net.sashakyotoz.variousworld.block.AnthuriumSproutedOfMagmaBlock;
+import net.sashakyotoz.variousworld.block.CrystalLikeBlock;
+import net.sashakyotoz.variousworld.block.SmallSculkBushBlock;
 import net.sashakyotoz.variousworld.block.entity.renderer.ArmorStationBlockEntityRenderer;
 import net.sashakyotoz.variousworld.block.entity.renderer.DisenchantTableBlockEntityRenderer;
 import net.sashakyotoz.variousworld.client.model.*;
@@ -61,13 +66,23 @@ public class VariousWorldClient {
         //boats' renderer
         event.registerEntityRenderer(VariousWorldEntities.MOD_BOAT.get(), context->new ModBoatRenderer(context,false));
         event.registerEntityRenderer(VariousWorldEntities.MOD_CHEST_BOAT.get(), context->new ModBoatRenderer(context,true));
-
         //block entities' renderer
         event.registerBlockEntityRenderer(VariousWorldBlockEntities.DISENCHANT_TABLE.get(), DisenchantTableBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(VariousWorldBlockEntities.ARMOR_STATION_BLOCK.get(), ArmorStationBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(VariousWorldBlockEntities.MOD_SIGN.get(), SignRenderer::new);
+        event.registerBlockEntityRenderer(VariousWorldBlockEntities.MOD_HANGING_SIGN.get(), HangingSignRenderer::new);
+    }
+    @SubscribeEvent
+    public static void blockColorLoad(RegisterColorHandlersEvent.Block event) {
+        CrystalLikeBlock.blockColorLoad(event);
+        SmallSculkBushBlock.blockColorLoad(event);
+        AnthuriumSproutedOfMagmaBlock.blockColorLoad(event);
     }
 
+    @SubscribeEvent
+    public static void itemColorLoad(RegisterColorHandlersEvent.Item event) {
+        AnthuriumSproutedOfMagmaBlock.itemColorLoad(event);
+    }
     @SubscribeEvent
     public static void registerParticles(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(VariousWorldParticleTypes.PEACEFUL_PARTICLE.get(), PeacefulParticleParticle::provider);
@@ -78,7 +93,7 @@ public class VariousWorldClient {
 
     @SubscribeEvent
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(ModelFury_Lord.LAYER_LOCATION, ModelFury_Lord::createBodyLayer);
+        event.registerLayerDefinition(ModelFuryLord.LAYER_LOCATION, ModelFuryLord::createBodyLayer);
         event.registerLayerDefinition(ModelZany_Viler_Witch.LAYER_LOCATION, ModelZany_Viler_Witch::createBodyLayer);
         event.registerLayerDefinition(ModelDark_Spirit_Boom.LAYER_LOCATION, ModelDark_Spirit_Boom::createBodyLayer);
         event.registerLayerDefinition(ModelCrystalic_Slime.LAYER_LOCATION, ModelCrystalic_Slime::createInnerBodyLayer);
@@ -89,7 +104,7 @@ public class VariousWorldClient {
         event.registerLayerDefinition(ModelVariousArmoredSkeleton.OUTER_LAYER_LOCATION, ModelVariousArmoredSkeleton::createBodyLayer);
         event.registerLayerDefinition(ModelCrystalicWarrior.LAYER_LOCATION, ModelCrystalicWarrior::createBodyLayer);
         event.registerLayerDefinition(ModelSculk_Skeleton.LAYER_LOCATION, ModelSculk_Skeleton::createBodyLayer);
-        event.registerLayerDefinition(ModelSculk_Necromancer_Skeleton.LAYER_LOCATION, ModelSculk_Necromancer_Skeleton::createBodyLayer);
+        event.registerLayerDefinition(ModelSculkNecromancerSkeleton.LAYER_LOCATION, ModelSculkNecromancerSkeleton::createBodyLayer);
         event.registerLayerDefinition(ModelSpiritOfTheDark.LAYER_LOCATION, ModelSpiritOfTheDark::createBodyLayer);
         event.registerLayerDefinition(ModelChained.LAYER_LOCATION, ModelChained::createBodyLayer);
         event.registerLayerDefinition(ModelAmethystSpikes.LAYER_LOCATION, ModelAmethystSpikes::createBodyLayer);
@@ -100,7 +115,7 @@ public class VariousWorldClient {
         event.registerLayerDefinition(ModelAngelArmorBottom.LAYER_LOCATION, ModelAngelArmorBottom::createBodyLayer);
         event.registerLayerDefinition(ModelDark_Fury.LAYER_LOCATION, ModelDark_Fury::createBodyLayer);
         event.registerLayerDefinition(ModelProjectileCycle.LAYER_LOCATION, ModelProjectileCycle::createBodyLayer);
-        event.registerLayerDefinition(ModelFury_Lord_Advanced.LAYER_LOCATION, ModelFury_Lord_Advanced::createBodyLayer);
+        event.registerLayerDefinition(ModelFuryLordAdvanced.LAYER_LOCATION, ModelFuryLordAdvanced::createBodyLayer);
         event.registerLayerDefinition(ModelSculkArmorTop.LAYER_LOCATION, ModelSculkArmorTop::createBodyLayer);
         event.registerLayerDefinition(ModelSculkArmorBottom.LAYER_LOCATION, ModelSculkArmorBottom::createBodyLayer);
         event.registerLayerDefinition(ModelWanderingSpirit.LAYER_LOCATION, ModelWanderingSpirit::createBodyLayer);

@@ -213,8 +213,11 @@ public class VariousWorldTabs {
         }
         if (tabData.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS){
             tabData.accept(VariousWorldItems.CRYSTALIC_OAK_SIGN.get());
+            tabData.accept(VariousWorldItems.CRYSTALIC_OAK_HANGING_SIGN.get());
             tabData.accept(VariousWorldItems.SAKURA_SIGN.get());
+            tabData.accept(VariousWorldItems.SAKURA_HANGING_SIGN.get());
             tabData.accept(VariousWorldItems.SCULK_SIGN.get());
+            tabData.accept(VariousWorldItems.SCULK_HANGING_SIGN.get());
         }
         if (tabData.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES){
             tabData.accept(VariousWorldItems.CRYSTALIC_OAK_BOAT);

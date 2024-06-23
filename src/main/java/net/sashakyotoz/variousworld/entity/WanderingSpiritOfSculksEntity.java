@@ -214,7 +214,7 @@ public class WanderingSpiritOfSculksEntity extends Monster implements RangedAtta
     @Override
     public void performRangedAttack(@NotNull LivingEntity livingEntity, float v) {
         rangedAttackAnimationRemainingTicks = RandomSource.create().nextInt(20, 40);
-        this.abilityAttack.start(this.tickCount);
+        this.abilityAttack.startIfStopped(this.tickCount);
         WanderingSpiritProjectileEntity.shoot(this, livingEntity);
     }
 }
