@@ -74,6 +74,9 @@ public class VariousWorldBlockLootTableProvider extends BlockLootSubProvider {
                 .filter(blockRegistryObject -> blockRegistryObject.get().getDescriptionId().contains("sapling"))
                 .forEach(blockRegistryObject -> dropSelf(blockRegistryObject.get()));
         VariousWorldBlocks.BLOCKS.getEntries().stream()
+                .filter(blockRegistryObject -> blockRegistryObject.get().getDescriptionId().contains("gneiss"))
+                .forEach(blockRegistryObject -> dropSelf(blockRegistryObject.get()));
+        VariousWorldBlocks.BLOCKS.getEntries().stream()
                 .filter(blockRegistryObject -> blockRegistryObject.get().getDescriptionId().contains("sign"))
                 .filter(blockRegistryObject -> !blockRegistryObject.get().getDescriptionId().contains("wall"))
                 .forEach(blockRegistryObject -> dropSelf(blockRegistryObject.get()));
@@ -100,6 +103,7 @@ public class VariousWorldBlockLootTableProvider extends BlockLootSubProvider {
                 || blockRegistryObject.get().getDescriptionId().contains("pressure_plate")
                 || blockRegistryObject.get().getDescriptionId().contains("fence_gate")
                 || blockRegistryObject.get().getDescriptionId().contains("rose")
+                || blockRegistryObject.get().getDescriptionId().contains("gneiss")
                 || blockRegistryObject.get().getDescriptionId().contains("sculk_brick")
                 || blockRegistryObject.get().getDescriptionId().contains("ender_bricks")
                 || blockRegistryObject.get().getDescriptionId().contains("lord_fury_scales_block")

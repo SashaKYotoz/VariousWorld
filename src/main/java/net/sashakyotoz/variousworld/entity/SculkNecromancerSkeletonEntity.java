@@ -1,5 +1,5 @@
 
-package net.sashakyotoz.variousworld.entity.technical;
+package net.sashakyotoz.variousworld.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -31,10 +31,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.sashakyotoz.variousworld.VariousWorld;
-import net.sashakyotoz.variousworld.entity.ArmoredSkeletonEntity;
-import net.sashakyotoz.variousworld.entity.CrystalWarriorEntity;
-import net.sashakyotoz.variousworld.entity.NecromancerStaffEntity;
-import net.sashakyotoz.variousworld.entity.SculkSkeletonEntity;
+import net.sashakyotoz.variousworld.entity.technical.SculkScytheEntity;
 import net.sashakyotoz.variousworld.init.VariousWorldEntities;
 import net.sashakyotoz.variousworld.init.VariousWorldItems;
 import net.sashakyotoz.variousworld.init.VariousWorldParticleTypes;

@@ -20,8 +20,8 @@ Currently plans for versions:
 - Update version for 1.19.2
 - Port mod to NeoForge and support 1.20.4+,1.21+ versions of game
 
-The mod is translated into 4 languages:  
+The mod is translated into 5 languages:  
 
-- English, Belarusian and Ukrainian - by SashaKYotoz
+- English(original), Belarusian and Ukrainian - by SashaKYotoz
 - Japanese - by SAGA
 - Spanish - by Basics

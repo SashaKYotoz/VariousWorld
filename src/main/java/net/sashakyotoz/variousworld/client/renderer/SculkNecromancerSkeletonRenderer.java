@@ -6,7 +6,7 @@ import com.mojang.math.Axis;
 import net.minecraft.world.entity.Pose;
 import net.sashakyotoz.variousworld.client.renderer.layers.NecromancerEmissiveLayer;
 import net.sashakyotoz.variousworld.client.model.ModelSculkNecromancerSkeleton;
-import net.sashakyotoz.variousworld.entity.technical.SculkNecromancerSkeletonEntity;
+import net.sashakyotoz.variousworld.entity.SculkNecromancerSkeletonEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;

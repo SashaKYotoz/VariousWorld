@@ -142,12 +142,6 @@ public class DromophantEntity extends TamableAnimal implements Saddleable {
         return stack.is(new ItemStack(ForgeRegistries.ITEMS.tags().getTag(ItemTags.create(new ResourceLocation("various_world:is_dromophant_food"))).getRandomElement(RandomSource.create()).get()).getItem());
     }
 
-    protected void updateWalkAnimation(float updateTick) {
-        float f;
-        f = this.getPose() == Pose.STANDING ? Math.min(updateTick * 6.0F, 1.0F) : 0;
-        this.walkAnimation.update(f, 0.2F);
-    }
-
     public EntityDimensions getDimensions(Pose pose) {
         return pose == Pose.SITTING ? SITTING_DIMENSIONS.scale(this.getScale()) : super.getDimensions(pose);
     }

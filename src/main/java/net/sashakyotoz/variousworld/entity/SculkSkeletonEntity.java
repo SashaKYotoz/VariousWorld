@@ -27,7 +27,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.sashakyotoz.variousworld.entity.technical.SculkNecromancerSkeletonEntity;
 import net.sashakyotoz.variousworld.entity.technical.SculkScytheEntity;
 import net.sashakyotoz.variousworld.init.VariousWorldEntities;
 import net.sashakyotoz.variousworld.init.VariousWorldItems;

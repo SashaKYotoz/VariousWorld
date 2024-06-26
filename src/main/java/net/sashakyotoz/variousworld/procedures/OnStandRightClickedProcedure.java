@@ -18,7 +18,7 @@ import net.minecraft.core.BlockPos;
 import net.sashakyotoz.variousworld.init.VariousWorldItems;
 import net.sashakyotoz.variousworld.init.VariousWorldEntities;
 import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
-import net.sashakyotoz.variousworld.entity.technical.SculkNecromancerSkeletonEntity;
+import net.sashakyotoz.variousworld.entity.SculkNecromancerSkeletonEntity;
 import net.sashakyotoz.variousworld.entity.FuryLordEntity;
 import net.sashakyotoz.variousworld.entity.DarkSpiritEntity;
 import net.sashakyotoz.variousworld.entity.CrystalWarriorEntity;

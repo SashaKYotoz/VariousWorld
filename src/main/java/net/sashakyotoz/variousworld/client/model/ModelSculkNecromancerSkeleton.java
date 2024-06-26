@@ -12,7 +12,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.HierarchicalModel;
 
-import net.sashakyotoz.variousworld.entity.technical.SculkNecromancerSkeletonEntity;
+import net.sashakyotoz.variousworld.entity.SculkNecromancerSkeletonEntity;
 import net.sashakyotoz.variousworld.entity.animations.SculkNecromancerAnimations;
 
 import java.util.List;

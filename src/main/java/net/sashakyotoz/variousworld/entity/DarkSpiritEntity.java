@@ -34,13 +34,11 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import net.sashakyotoz.variousworld.entity.ai.DarkSpiritFlyGoal;
 import net.sashakyotoz.variousworld.entity.technical.DarkSpiritGlovesEntity;
-import net.sashakyotoz.variousworld.entity.technical.SculkNecromancerSkeletonEntity;
 import net.sashakyotoz.variousworld.init.VariousWorldItems;
 import net.sashakyotoz.variousworld.init.VariousWorldParticleTypes;
 import net.sashakyotoz.variousworld.procedures.AdvancementsManager;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.EnumSet;
 import java.util.Random;
 
 public class DarkSpiritEntity extends Monster {

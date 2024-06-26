@@ -33,7 +33,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.PartEntity;
-import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.entity.ai.LordOfFuriesFlyGoal;
 import net.sashakyotoz.variousworld.init.VariousWorldEntities;
 import net.sashakyotoz.variousworld.init.VariousWorldItems;

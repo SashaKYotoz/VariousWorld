@@ -3,7 +3,7 @@ package net.sashakyotoz.variousworld.client.renderer.layers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.sashakyotoz.variousworld.client.model.ModelSculkNecromancerSkeleton;
-import net.sashakyotoz.variousworld.entity.technical.SculkNecromancerSkeletonEntity;
+import net.sashakyotoz.variousworld.entity.SculkNecromancerSkeletonEntity;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -22,11 +22,11 @@ public class NecromancerEmissiveLayer<T extends SculkNecromancerSkeletonEntity, 
     private final NecromancerEmissiveLayer.AlphaFunction<T> alphaFunction;
     private final NecromancerEmissiveLayer.DrawSelector<T, M> drawSelector;
 
-    public NecromancerEmissiveLayer(RenderLayerParent<T, M> p_234885_, ResourceLocation p_234886_, NecromancerEmissiveLayer.AlphaFunction<T> p_234887_, NecromancerEmissiveLayer.DrawSelector<T, M> p_234888_) {
-        super(p_234885_);
-        this.texture = p_234886_;
-        this.alphaFunction = p_234887_;
-        this.drawSelector = p_234888_;
+    public NecromancerEmissiveLayer(RenderLayerParent<T, M> parent, ResourceLocation location, NecromancerEmissiveLayer.AlphaFunction<T> alphaFunction, NecromancerEmissiveLayer.DrawSelector<T, M> selector) {
+        super(parent);
+        this.texture = location;
+        this.alphaFunction = alphaFunction;
+        this.drawSelector = selector;
     }
 
     public void render(PoseStack stack, MultiBufferSource source, int p_234904_, T entity, float p_234906_, float p_234907_, float p_234908_, float p_234909_, float p_234910_, float p_234911_) {
@@ -40,8 +40,8 @@ public class NecromancerEmissiveLayer<T extends SculkNecromancerSkeletonEntity, 
 
     private void onlyDrawSelectedParts() {
         List<ModelPart> list = this.drawSelector.getPartsToDraw(this.getParentModel());
-        this.getParentModel().root().getAllParts().forEach((p_234918_) -> {
-            p_234918_.skipDraw = true;
+        this.getParentModel().root().getAllParts().forEach((modelPart) -> {
+            modelPart.skipDraw = true;
         });
         list.forEach((p_234916_) -> {
             p_234916_.skipDraw = false;
@@ -56,7 +56,7 @@ public class NecromancerEmissiveLayer<T extends SculkNecromancerSkeletonEntity, 
 
     @OnlyIn(Dist.CLIENT)
     public interface AlphaFunction<T extends SculkNecromancerSkeletonEntity> {
-        float apply(T p_234920_, float p_234921_, float p_234922_);
+        float apply(T entity, float p_234921_, float p_234922_);
     }
 
     @OnlyIn(Dist.CLIENT)
