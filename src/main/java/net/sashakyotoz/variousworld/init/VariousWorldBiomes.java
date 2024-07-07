@@ -101,7 +101,7 @@ public class VariousWorldBiomes {
 						surfaceRules.add(1, preliminarySurfaceRule(PEACEFUL_WASTELAND, Blocks.GRASS_BLOCK.defaultBlockState(), Blocks.COARSE_DIRT.defaultBlockState(),
 								Blocks.SAND.defaultBlockState()));
 						surfaceRules.add(1, preliminarySurfaceRule(SCULK_VALLEY, VariousWorldBlocks.SCULK_GRASS.get().defaultBlockState(),
-								Blocks.STONE.defaultBlockState(), Blocks.STONE.defaultBlockState()));
+								Blocks.SCULK.defaultBlockState(), Blocks.STONE.defaultBlockState()));
 						surfaceRules.add(1, preliminarySurfaceRule(SHINY_VALLEY, VariousWorldBlocks.SHINY_GRASS.get().defaultBlockState(),
 								VariousWorldBlocks.GNEISS.get().defaultBlockState(), VariousWorldBlocks.GNEISS.get().defaultBlockState()));
 						NoiseGeneratorSettings moddedNoiseGeneratorSettings = new NoiseGeneratorSettings(noiseGeneratorSettings.noiseSettings(), noiseGeneratorSettings.defaultBlock(), noiseGeneratorSettings.defaultFluid(),

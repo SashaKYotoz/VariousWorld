@@ -17,7 +17,7 @@ Wiki for mod is coming in soon future on sashakyotoz_dev website
 
 Currently plans for versions:
 
-- Update version for 1.19.2
+- ~~Update version for 1.19.2~~
 - Port mod to NeoForge and support 1.20.4+,1.21+ versions of game
 
 The mod is translated into 5 languages:  

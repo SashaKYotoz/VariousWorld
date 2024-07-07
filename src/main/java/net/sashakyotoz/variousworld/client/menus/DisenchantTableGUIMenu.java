@@ -50,7 +50,7 @@ public class DisenchantTableGUIMenu extends AbstractContainerMenu implements Sup
 			this.z = pos.getZ();
 		}
 		if (pos != null) {
-			if (extraData.readableBytes() == 1) { // bound to item
+			if (extraData.readableBytes() == 1) {
 				byte hand = extraData.readByte();
 				ItemStack itemstack;
 				if (hand == 0)
@@ -62,15 +62,15 @@ public class DisenchantTableGUIMenu extends AbstractContainerMenu implements Sup
 					this.bound = true;
 				});
 			} else if (extraData.readableBytes() > 1) {
-				extraData.readByte(); // drop padding
+				extraData.readByte();
 				Entity entity = level.getEntity(extraData.readVarInt());
 				if (entity != null)
 					entity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> {
 						this.internal = capability;
 						this.bound = true;
 					});
-			} else { // might be bound to block
-				BlockEntity ent = inv.player != null ? inv.player.level().getBlockEntity(pos) : null;
+			} else {
+				BlockEntity ent = player != null ? level.getBlockEntity(pos) : null;
 				if (ent != null) {
 					ent.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> {
 						this.internal = capability;

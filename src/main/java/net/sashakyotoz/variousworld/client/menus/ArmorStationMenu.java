@@ -26,8 +26,8 @@ import java.util.HashMap;
 
 public class ArmorStationMenu extends AbstractContainerMenu implements Supplier<Map<Integer, Slot>> {
 	public final static HashMap<String, Object> guistate = new HashMap<>();
-	public final Level world;
-	public final Player entity;
+	public final Level level;
+	public final Player player;
 	public int x, y, z;
 	private IItemHandler internal;
 	private final Map<Integer, Slot> customSlots = new HashMap<>();
@@ -35,8 +35,8 @@ public class ArmorStationMenu extends AbstractContainerMenu implements Supplier<
 
 	public ArmorStationMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
 		super(VariousWorldMenus.ARMOR_STATION.get(), id);
-		this.entity = inv.player;
-		this.world = inv.player.level();
+		this.player = inv.player;
+		this.level = inv.player.level();
 		this.internal = new ItemStackHandler(4);
 		BlockPos pos = null;
 		if (extraData != null) {
@@ -46,27 +46,27 @@ public class ArmorStationMenu extends AbstractContainerMenu implements Supplier<
 			this.z = pos.getZ();
 		}
 		if (pos != null) {
-			if (extraData.readableBytes() == 1) { // bound to item
+			if (extraData.readableBytes() == 1) {
 				byte hand = extraData.readByte();
 				ItemStack itemstack;
 				if (hand == 0)
-					itemstack = this.entity.getMainHandItem();
+					itemstack = this.player.getMainHandItem();
 				else
-					itemstack = this.entity.getOffhandItem();
+					itemstack = this.player.getOffhandItem();
 				itemstack.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> {
 					this.internal = capability;
 					this.bound = true;
 				});
 			} else if (extraData.readableBytes() > 1) {
-				extraData.readByte(); // drop padding
-				Entity entity = world.getEntity(extraData.readVarInt());
+				extraData.readByte();
+				Entity entity = level.getEntity(extraData.readVarInt());
 				if (entity != null)
 					entity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> {
 						this.internal = capability;
 						this.bound = true;
 					});
-			} else { // might be bound to block
-				BlockEntity ent = inv.player != null ? inv.player.level().getBlockEntity(pos) : null;
+			} else {
+				BlockEntity ent = player != null ? level.getBlockEntity(pos) : null;
 				if (ent != null) {
 					ent.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> {
 						this.internal = capability;
@@ -75,12 +75,9 @@ public class ArmorStationMenu extends AbstractContainerMenu implements Supplier<
 				}
 			}
 		}
-		this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 55, 66) {
-		}));
-		this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 55, 39) {
-		}));
-		this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 55, 12) {
-		}));
+		this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 55, 66)));
+		this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 55, 39)));
+		this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 55, 12)));
 		this.customSlots.put(3, this.addSlot(new SlotItemHandler(internal, 3, 118, 39) {
 			@Override
 			public boolean mayPlace(ItemStack stack) {
@@ -100,7 +97,7 @@ public class ArmorStationMenu extends AbstractContainerMenu implements Supplier<
 	}
 
 	@Override
-	public ItemStack quickMoveStack(Player playerIn, int index) {
+	public ItemStack quickMoveStack(Player player, int index) {
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = this.slots.get(index);
 		if (slot != null && slot.hasItem()) {
@@ -126,7 +123,7 @@ public class ArmorStationMenu extends AbstractContainerMenu implements Supplier<
 				slot.setChanged();
 			if (itemstack1.getCount() == itemstack.getCount())
 				return ItemStack.EMPTY;
-			slot.onTake(playerIn, itemstack1);
+			slot.onTake(player, itemstack1);
 		}
 		return itemstack;
 	}
