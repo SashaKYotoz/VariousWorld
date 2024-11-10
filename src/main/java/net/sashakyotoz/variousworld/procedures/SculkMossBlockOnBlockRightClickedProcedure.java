@@ -12,16 +12,15 @@ public class SculkMossBlockOnBlockRightClickedProcedure {
         double sy;
         double sz;
         sx = -3;
-        for (int index0 = 0; index0 < 6; index0++) {
+        for (int i = 0; i < 6; i++) {
             sy = -3;
-            for (int index1 = 0; index1 < 6; index1++) {
+            for (int j = 0; j < 6; j++) {
                 sz = -3;
-                for (int index2 = 0; index2 < 6; index2++) {
+                for (int k = 0; k < 6; k++) {
                     if ((world.getBlockState(BlockPos.containing(x + sx, y + sy, z + sz))).getBlock() == Blocks.STONE) {
                         if (Math.random() < 0.5) {
-                            BlockPos _bp = BlockPos.containing(x + sx, y + sy, z + sz);
-                            BlockState _bs = VariousWorldBlocks.SCULK_MOSS_BLOCK.get().defaultBlockState();
-                            world.setBlock(_bp, _bs, 3);
+                            BlockPos pos = BlockPos.containing(x + sx, y + sy, z + sz);
+                            world.setBlock(pos, VariousWorldBlocks.SCULK_MOSS_BLOCK.get().defaultBlockState(), 3);
                         }
                     }
                     sz = sz + 1;

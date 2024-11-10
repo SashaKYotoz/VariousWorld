@@ -18,7 +18,7 @@ import java.util.List;
 
 public class CrystalicOakStairsBlock extends StairBlock {
 	public CrystalicOakStairsBlock() {
-		super(() -> Blocks.AIR.defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).sound(SoundType.WOOD).strength(9f, 6f).dynamicShape());
+		super(Blocks.AIR::defaultBlockState, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).sound(SoundType.WOOD).strength(9f, 6f).dynamicShape());
 	}
 
 	@Override

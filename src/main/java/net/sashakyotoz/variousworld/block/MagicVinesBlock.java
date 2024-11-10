@@ -69,11 +69,11 @@ public class MagicVinesBlock extends Block implements IForgeShearable {
 		return voxelshape.isEmpty() ? Shapes.block() : voxelshape;
 	}
 
-	public VoxelShape getShape(BlockState state, BlockGetter p_57898_, BlockPos p_57899_, CollisionContext p_57900_) {
+	public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
 		return this.shapesCache.get(state);
 	}
 
-	public boolean propagatesSkylightDown(BlockState state, BlockGetter p_181240_, BlockPos p_181241_) {
+	public boolean propagatesSkylightDown(BlockState state, BlockGetter getter, BlockPos pos) {
 		return true;
 	}
 
@@ -82,18 +82,18 @@ public class MagicVinesBlock extends Block implements IForgeShearable {
 		return true;
 	}
 
-	public boolean canSurvive(BlockState state, LevelReader p_57862_, BlockPos p_57863_) {
-		return this.hasFaces(this.getUpdatedState(state, p_57862_, p_57863_));
+	public boolean canSurvive(BlockState state, LevelReader reader, BlockPos pos) {
+		return this.hasFaces(this.getUpdatedState(state, reader, pos));
 	}
 
 	private boolean hasFaces(BlockState state) {
 		return this.countFaces(state) > 0;
 	}
 
-	private int countFaces(BlockState p_57910_) {
+	private int countFaces(BlockState state) {
 		int i = 0;
 		for (BooleanProperty booleanproperty : PROPERTY_BY_DIRECTION.values()) {
-			if (p_57910_.getValue(booleanproperty)) {
+			if (state.getValue(booleanproperty)) {
 				++i;
 			}
 		}
@@ -117,30 +117,30 @@ public class MagicVinesBlock extends Block implements IForgeShearable {
 		}
 	}
 
-	public static boolean isAcceptableNeighbour(BlockGetter p_57854_, BlockPos p_57855_, Direction p_57856_) {
-		return MultifaceBlock.canAttachTo(p_57854_, p_57856_, p_57855_, p_57854_.getBlockState(p_57855_));
+	public static boolean isAcceptableNeighbour(BlockGetter getter, BlockPos pos, Direction direction) {
+		return MultifaceBlock.canAttachTo(getter, direction, pos, getter.getBlockState(pos));
 	}
 
-	private BlockState getUpdatedState(BlockState p_57902_, BlockGetter p_57903_, BlockPos p_57904_) {
-		BlockPos blockpos = p_57904_.above();
-		if (p_57902_.getValue(UP)) {
-			p_57902_ = p_57902_.setValue(UP, isAcceptableNeighbour(p_57903_, blockpos, Direction.DOWN));
+	private BlockState getUpdatedState(BlockState state, BlockGetter getter, BlockPos pos) {
+		BlockPos blockpos = pos.above();
+		if (state.getValue(UP)) {
+			state = state.setValue(UP, isAcceptableNeighbour(getter, blockpos, Direction.DOWN));
 		}
 		BlockState blockstate = null;
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
 			BooleanProperty booleanproperty = getPropertyForFace(direction);
-			if (p_57902_.getValue(booleanproperty)) {
-				boolean flag = this.canSupportAtFace(p_57903_, p_57904_, direction);
+			if (state.getValue(booleanproperty)) {
+				boolean flag = this.canSupportAtFace(getter, pos, direction);
 				if (!flag) {
 					if (blockstate == null) {
-						blockstate = p_57903_.getBlockState(blockpos);
+						blockstate = getter.getBlockState(blockpos);
 					}
 					flag = blockstate.is(this) && blockstate.getValue(booleanproperty);
 				}
-				p_57902_ = p_57902_.setValue(booleanproperty, flag);
+				state = state.setValue(booleanproperty, flag);
 			}
 		}
-		return p_57902_;
+		return state;
 	}
 
 	public BlockState updateShape(BlockState state, Direction direction, BlockState state1, LevelAccessor accessor, BlockPos p_57879_, BlockPos p_57880_) {
@@ -152,14 +152,14 @@ public class MagicVinesBlock extends Block implements IForgeShearable {
 		}
 	}
 
-	public void randomTick(BlockState state, ServerLevel p_222656_, BlockPos p_222657_, RandomSource p_222658_) {
-		if (p_222656_.random.nextInt(4) == 0 && p_222656_.isAreaLoaded(p_222657_, 4)) { // Forge: check area to prevent loading unloaded chunks
+	public void randomTick(BlockState state, ServerLevel level, BlockPos p_222657_, RandomSource p_222658_) {
+		if (level.random.nextInt(4) == 0 && level.isAreaLoaded(p_222657_, 4)) { // Forge: check area to prevent loading unloaded chunks
 			Direction direction = Direction.getRandom(p_222658_);
 			BlockPos blockpos = p_222657_.above();
 			if (direction.getAxis().isHorizontal() && !state.getValue(getPropertyForFace(direction))) {
-				if (this.canSpread(p_222656_, p_222657_)) {
+				if (this.canSpread(level, p_222657_)) {
 					BlockPos blockpos4 = p_222657_.relative(direction);
-					BlockState blockstate4 = p_222656_.getBlockState(blockpos4);
+					BlockState blockstate4 = level.getBlockState(blockpos4);
 					if (blockstate4.isAir()) {
 						Direction direction3 = direction.getClockWise();
 						Direction direction4 = direction.getCounterClockWise();
@@ -167,54 +167,54 @@ public class MagicVinesBlock extends Block implements IForgeShearable {
 						boolean flag1 = state.getValue(getPropertyForFace(direction4));
 						BlockPos blockpos2 = blockpos4.relative(direction3);
 						BlockPos blockpos3 = blockpos4.relative(direction4);
-						if (flag && isAcceptableNeighbour(p_222656_, blockpos2, direction3)) {
-							p_222656_.setBlock(blockpos4, this.defaultBlockState().setValue(getPropertyForFace(direction3), Boolean.valueOf(true)), 2);
-						} else if (flag1 && isAcceptableNeighbour(p_222656_, blockpos3, direction4)) {
-							p_222656_.setBlock(blockpos4, this.defaultBlockState().setValue(getPropertyForFace(direction4), Boolean.valueOf(true)), 2);
+						if (flag && isAcceptableNeighbour(level, blockpos2, direction3)) {
+							level.setBlock(blockpos4, this.defaultBlockState().setValue(getPropertyForFace(direction3), Boolean.valueOf(true)), 2);
+						} else if (flag1 && isAcceptableNeighbour(level, blockpos3, direction4)) {
+							level.setBlock(blockpos4, this.defaultBlockState().setValue(getPropertyForFace(direction4), Boolean.valueOf(true)), 2);
 						} else {
 							Direction direction1 = direction.getOpposite();
-							if (flag && p_222656_.isEmptyBlock(blockpos2) && isAcceptableNeighbour(p_222656_, p_222657_.relative(direction3), direction1)) {
-								p_222656_.setBlock(blockpos2, this.defaultBlockState().setValue(getPropertyForFace(direction1), Boolean.valueOf(true)), 2);
-							} else if (flag1 && p_222656_.isEmptyBlock(blockpos3) && isAcceptableNeighbour(p_222656_, p_222657_.relative(direction4), direction1)) {
-								p_222656_.setBlock(blockpos3, this.defaultBlockState().setValue(getPropertyForFace(direction1), Boolean.valueOf(true)), 2);
-							} else if ((double) p_222658_.nextFloat() < 0.05D && isAcceptableNeighbour(p_222656_, blockpos4.above(), Direction.UP)) {
-								p_222656_.setBlock(blockpos4, this.defaultBlockState().setValue(UP, Boolean.valueOf(true)), 2);
+							if (flag && level.isEmptyBlock(blockpos2) && isAcceptableNeighbour(level, p_222657_.relative(direction3), direction1)) {
+								level.setBlock(blockpos2, this.defaultBlockState().setValue(getPropertyForFace(direction1), Boolean.valueOf(true)), 2);
+							} else if (flag1 && level.isEmptyBlock(blockpos3) && isAcceptableNeighbour(level, p_222657_.relative(direction4), direction1)) {
+								level.setBlock(blockpos3, this.defaultBlockState().setValue(getPropertyForFace(direction1), Boolean.valueOf(true)), 2);
+							} else if ((double) p_222658_.nextFloat() < 0.05D && isAcceptableNeighbour(level, blockpos4.above(), Direction.UP)) {
+								level.setBlock(blockpos4, this.defaultBlockState().setValue(UP, Boolean.valueOf(true)), 2);
 							}
 						}
-					} else if (isAcceptableNeighbour(p_222656_, blockpos4, direction)) {
-						p_222656_.setBlock(p_222657_, state.setValue(getPropertyForFace(direction), Boolean.valueOf(true)), 2);
+					} else if (isAcceptableNeighbour(level, blockpos4, direction)) {
+						level.setBlock(p_222657_, state.setValue(getPropertyForFace(direction), Boolean.valueOf(true)), 2);
 					}
 				}
 			} else {
-				if (direction == Direction.UP && p_222657_.getY() < p_222656_.getMaxBuildHeight() - 1) {
-					if (this.canSupportAtFace(p_222656_, p_222657_, direction)) {
-						p_222656_.setBlock(p_222657_, state.setValue(UP, Boolean.valueOf(true)), 2);
+				if (direction == Direction.UP && p_222657_.getY() < level.getMaxBuildHeight() - 1) {
+					if (this.canSupportAtFace(level, p_222657_, direction)) {
+						level.setBlock(p_222657_, state.setValue(UP, Boolean.valueOf(true)), 2);
 						return;
 					}
-					if (p_222656_.isEmptyBlock(blockpos)) {
-						if (!this.canSpread(p_222656_, p_222657_)) {
+					if (level.isEmptyBlock(blockpos)) {
+						if (!this.canSpread(level, p_222657_)) {
 							return;
 						}
 						BlockState blockstate3 = state;
 						for (Direction direction2 : Direction.Plane.HORIZONTAL) {
-							if (p_222658_.nextBoolean() || !isAcceptableNeighbour(p_222656_, blockpos.relative(direction2), direction2)) {
+							if (p_222658_.nextBoolean() || !isAcceptableNeighbour(level, blockpos.relative(direction2), direction2)) {
 								blockstate3 = blockstate3.setValue(getPropertyForFace(direction2), Boolean.valueOf(false));
 							}
 						}
 						if (this.hasHorizontalConnection(blockstate3)) {
-							p_222656_.setBlock(blockpos, blockstate3, 2);
+							level.setBlock(blockpos, blockstate3, 2);
 						}
 						return;
 					}
 				}
-				if (p_222657_.getY() > p_222656_.getMinBuildHeight()) {
+				if (p_222657_.getY() > level.getMinBuildHeight()) {
 					BlockPos blockpos1 = p_222657_.below();
-					BlockState blockstate = p_222656_.getBlockState(blockpos1);
+					BlockState blockstate = level.getBlockState(blockpos1);
 					if (blockstate.isAir() || blockstate.is(this)) {
 						BlockState blockstate1 = blockstate.isAir() ? this.defaultBlockState() : blockstate;
 						BlockState blockstate2 = this.copyRandomFaces(state, blockstate1, p_222658_);
 						if (blockstate1 != blockstate2 && this.hasHorizontalConnection(blockstate2)) {
-							p_222656_.setBlock(blockpos1, blockstate2, 2);
+							level.setBlock(blockpos1, blockstate2, 2);
 						}
 					}
 				}
@@ -234,16 +234,15 @@ public class MagicVinesBlock extends Block implements IForgeShearable {
 		return p_222652_;
 	}
 
-	private boolean hasHorizontalConnection(BlockState p_57912_) {
-		return p_57912_.getValue(NORTH) || p_57912_.getValue(EAST) || p_57912_.getValue(SOUTH) || p_57912_.getValue(WEST);
+	private boolean hasHorizontalConnection(BlockState state) {
+		return state.getValue(NORTH) || state.getValue(EAST) || state.getValue(SOUTH) || state.getValue(WEST);
 	}
 
-	private boolean canSpread(BlockGetter p_57851_, BlockPos p_57852_) {
-		int i = 4;
-		Iterable<BlockPos> iterable = BlockPos.betweenClosed(p_57852_.getX() - 4, p_57852_.getY() - 1, p_57852_.getZ() - 4, p_57852_.getX() + 4, p_57852_.getY() + 1, p_57852_.getZ() + 4);
+	private boolean canSpread(BlockGetter getter, BlockPos pos) {
+		Iterable<BlockPos> iterable = BlockPos.betweenClosed(pos.getX() - 4, pos.getY() - 1, pos.getZ() - 4, pos.getX() + 4, pos.getY() + 1, pos.getZ() + 4);
 		int j = 5;
 		for (BlockPos blockpos : iterable) {
-			if (p_57851_.getBlockState(blockpos).is(this)) {
+			if (getter.getBlockState(blockpos).is(this)) {
 				--j;
 				if (j <= 0) {
 					return false;
@@ -253,26 +252,26 @@ public class MagicVinesBlock extends Block implements IForgeShearable {
 		return true;
 	}
 
-	public boolean canBeReplaced(BlockState p_57858_, BlockPlaceContext p_57859_) {
+	public boolean canBeReplaced(BlockState state, BlockPlaceContext p_57859_) {
 		BlockState blockstate = p_57859_.getLevel().getBlockState(p_57859_.getClickedPos());
 		if (blockstate.is(this)) {
 			return this.countFaces(blockstate) < PROPERTY_BY_DIRECTION.size();
 		} else {
-			return super.canBeReplaced(p_57858_, p_57859_);
+			return super.canBeReplaced(state, p_57859_);
 		}
 	}
 
 	@Nullable
-	public BlockState getStateForPlacement(BlockPlaceContext p_57849_) {
-		BlockState blockstate = p_57849_.getLevel().getBlockState(p_57849_.getClickedPos());
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		BlockState blockstate = context.getLevel().getBlockState(context.getClickedPos());
 		boolean flag = blockstate.is(this);
 		BlockState blockstate1 = flag ? blockstate : this.defaultBlockState();
-		for (Direction direction : p_57849_.getNearestLookingDirections()) {
+		for (Direction direction : context.getNearestLookingDirections()) {
 			if (direction != Direction.DOWN) {
 				BooleanProperty booleanproperty = getPropertyForFace(direction);
 				boolean flag1 = flag && blockstate.getValue(booleanproperty);
-				if (!flag1 && this.canSupportAtFace(p_57849_.getLevel(), p_57849_.getClickedPos(), direction)) {
-					return blockstate1.setValue(booleanproperty, Boolean.valueOf(true));
+				if (!flag1 && this.canSupportAtFace(context.getLevel(), context.getClickedPos(), direction)) {
+					return blockstate1.setValue(booleanproperty, Boolean.TRUE);
 				}
 			}
 		}
@@ -283,31 +282,27 @@ public class MagicVinesBlock extends Block implements IForgeShearable {
 		p_57882_.add(UP, NORTH, EAST, SOUTH, WEST);
 	}
 
-	public BlockState rotate(BlockState p_57868_, Rotation p_57869_) {
-		switch (p_57869_) {
-			case CLOCKWISE_180 :
-				return p_57868_.setValue(NORTH, p_57868_.getValue(SOUTH)).setValue(EAST, p_57868_.getValue(WEST)).setValue(SOUTH, p_57868_.getValue(NORTH)).setValue(WEST, p_57868_.getValue(EAST));
-			case COUNTERCLOCKWISE_90 :
-				return p_57868_.setValue(NORTH, p_57868_.getValue(EAST)).setValue(EAST, p_57868_.getValue(SOUTH)).setValue(SOUTH, p_57868_.getValue(WEST)).setValue(WEST, p_57868_.getValue(NORTH));
-			case CLOCKWISE_90 :
-				return p_57868_.setValue(NORTH, p_57868_.getValue(WEST)).setValue(EAST, p_57868_.getValue(NORTH)).setValue(SOUTH, p_57868_.getValue(EAST)).setValue(WEST, p_57868_.getValue(SOUTH));
-			default :
-				return p_57868_;
-		}
+	public BlockState rotate(BlockState state, Rotation rotation) {
+        return switch (rotation) {
+            case CLOCKWISE_180 ->
+                    state.setValue(NORTH, state.getValue(SOUTH)).setValue(EAST, state.getValue(WEST)).setValue(SOUTH, state.getValue(NORTH)).setValue(WEST, state.getValue(EAST));
+            case COUNTERCLOCKWISE_90 ->
+                    state.setValue(NORTH, state.getValue(EAST)).setValue(EAST, state.getValue(SOUTH)).setValue(SOUTH, state.getValue(WEST)).setValue(WEST, state.getValue(NORTH));
+            case CLOCKWISE_90 ->
+                    state.setValue(NORTH, state.getValue(WEST)).setValue(EAST, state.getValue(NORTH)).setValue(SOUTH, state.getValue(EAST)).setValue(WEST, state.getValue(SOUTH));
+            default -> state;
+        };
 	}
 
-	public BlockState mirror(BlockState p_57865_, Mirror p_57866_) {
-		switch (p_57866_) {
-			case LEFT_RIGHT :
-				return p_57865_.setValue(NORTH, p_57865_.getValue(SOUTH)).setValue(SOUTH, p_57865_.getValue(NORTH));
-			case FRONT_BACK :
-				return p_57865_.setValue(EAST, p_57865_.getValue(WEST)).setValue(WEST, p_57865_.getValue(EAST));
-			default :
-				return super.mirror(p_57865_, p_57866_);
-		}
+	public BlockState mirror(BlockState state, Mirror mirror) {
+        return switch (mirror) {
+            case LEFT_RIGHT -> state.setValue(NORTH, state.getValue(SOUTH)).setValue(SOUTH, state.getValue(NORTH));
+            case FRONT_BACK -> state.setValue(EAST, state.getValue(WEST)).setValue(WEST, state.getValue(EAST));
+            default -> super.mirror(state, mirror);
+        };
 	}
 
-	public static BooleanProperty getPropertyForFace(Direction p_57884_) {
-		return PROPERTY_BY_DIRECTION.get(p_57884_);
+	public static BooleanProperty getPropertyForFace(Direction property) {
+		return PROPERTY_BY_DIRECTION.get(property);
 	}
 }

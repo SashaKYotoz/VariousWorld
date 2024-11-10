@@ -12,19 +12,13 @@ import net.minecraft.world.level.Level;
 
 import java.util.HashMap;
 
-public class ArchofgemsScreen extends AbstractContainerScreen<ArchOfGemsMenu> {
+public class ArchOfGemsScreen extends AbstractContainerScreen<ArchOfGemsMenu> {
 	private final static HashMap<String, Object> guistate = ArchOfGemsMenu.guistate;
-	private final Level world;
-	private final int x, y, z;
-	private final Player entity;
+	private final Player player;
 
-	public ArchofgemsScreen(ArchOfGemsMenu container, Inventory inventory, Component text) {
+	public ArchOfGemsScreen(ArchOfGemsMenu container, Inventory inventory, Component text) {
 		super(container, inventory, text);
-		this.world = container.level;
-		this.x = container.x;
-		this.y = container.y;
-		this.z = container.z;
-		this.entity = container.player;
+		this.player = container.player;
 		this.imageWidth = 185;
 		this.imageHeight = 185;
 	}

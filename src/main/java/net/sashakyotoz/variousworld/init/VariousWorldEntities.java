@@ -88,12 +88,7 @@ public class VariousWorldEntities {
 			ArmoredSkeletonEntity.init();
 			WanderingSpiritOfSculksEntity.init();
 			ZombieOfStonyMagmaEntity.init();
-			ZanyVilerWitchEntity.init();
-			CrystalWarriorEntity.init();
-			DarkSpiritEntity.init();
-			SculkNecromancerSkeletonEntity.init();
 			DromophantEntity.init();
-			FuryLordEntity.init();
 		});
 	}
 

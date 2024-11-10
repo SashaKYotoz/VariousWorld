@@ -141,7 +141,7 @@ public class VariousWorldBlocks {
 	public static final RegistryObject<Block> SCULK_BUSH = BLOCKS.register("sculk_bush", SculkBushBlock::new);
 	public static final RegistryObject<Block> SCULK_BUSH_WITHOUT_BERRY = BLOCKS.register("sculk_bush_without_berry", SculkBushWithoutBerryBlock::new);
 	public static final RegistryObject<Block> UNDERGROUND_SCULK_FRUIT_BUSH = BLOCKS.register("underground_sculk_fruit_bush", UndergroundSculkFruitBushBlock::new);
-	public static final RegistryObject<Block> VINE_FROM_CAVERNOF_DEEP = BLOCKS.register("vine_from_cavernof_deep", VineFromCavernofDeepBlock::new);
+	public static final RegistryObject<Block> VINE_FROM_CAVERNOF_DEEP = BLOCKS.register("vine_from_cavernof_deep", VineFromCavernOfDeepBlock::new);
 	public static final RegistryObject<Block> MYCENA_FROM_CAVERN_OF_DEEP = BLOCKS.register("mycena_from_cavern_of_deep", MycenaFromCavernOfDeep::new);
 	public static final RegistryObject<Block> FLOWER_DEEP_MOSS = BLOCKS.register("flower_deep_moss", FlowerDeepMossBlock::new);
 	public static final RegistryObject<Block> MUSHROOM_SPAWNER = BLOCKS.register("mushroom_spawner", MushroomSpawnerBlock::new);

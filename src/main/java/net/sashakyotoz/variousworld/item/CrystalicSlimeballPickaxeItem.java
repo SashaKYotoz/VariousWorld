@@ -21,8 +21,10 @@ public class CrystalicSlimeballPickaxeItem extends PickaxeItem {
     public InteractionResult useOn(UseOnContext context) {
         super.useOn(context);
         Player player = context.getPlayer();
-        if (player != null && player.getXRot() <= 90 && player.getXRot() >= 70)
-            player.setDeltaMovement(new Vec3(0, 1+player.getItemBySlot(EquipmentSlot.FEET).getEnchantmentLevel(VariousWorldEnchantments.JUMPER.get())/2f, 0));
+        if (player != null && player.getXRot() <= 90 && player.getXRot() >= 70) {
+            player.setDeltaMovement(new Vec3(0, 1 + player.getItemBySlot(EquipmentSlot.FEET).getEnchantmentLevel(VariousWorldEnchantments.JUMPER.get()) / 2f, 0));
+            context.getItemInHand().hurtAndBreak(1, player, player1 -> player1.broadcastBreakEvent(context.getHand()));
+        }
         spawnFoundParticles(context, context.getClickedPos());
         return InteractionResult.SUCCESS;
     }

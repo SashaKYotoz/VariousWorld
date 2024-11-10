@@ -22,6 +22,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.ComputeFovModifierEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -42,6 +45,7 @@ import java.util.Objects;
 @Mod.EventBusSubscriber
 public class EventManager {
     private static double timer;
+
     @SubscribeEvent
     public static void onEntityAttacked(LivingAttackEvent event) {
         if (event != null && event.getEntity() != null) {
@@ -50,6 +54,7 @@ public class EventManager {
             amethystSpikesHit(event.getEntity(), event.getSource().getEntity());
         }
     }
+
     private static double getXVector(double speed, double yaw) {
         return speed * Math.cos((yaw + 90) * (Math.PI / 180));
     }
@@ -57,17 +62,18 @@ public class EventManager {
     private static double getZVector(double speed, double yaw) {
         return speed * Math.sin((yaw + 90) * (Math.PI / 180));
     }
+
     @SubscribeEvent
-    public static void onPlayerGetFallDamage(LivingDamageEvent event){
-        if (event.getSource().is(DamageTypes.FALL)){
+    public static void onPlayerGetFallDamage(LivingDamageEvent event) {
+        if (event.getSource().is(DamageTypes.FALL)) {
             if (event.getEntity() instanceof Player player && player.getItemBySlot(EquipmentSlot.HEAD).is(VariousWorldItems.SLIME_ARMOR_HELMET.get())
                     && player.getItemBySlot(EquipmentSlot.CHEST).is(VariousWorldItems.SLIME_ARMOR_CHESTPLATE.get())
                     && player.getItemBySlot(EquipmentSlot.LEGS).is(VariousWorldItems.SLIME_ARMOR_LEGGINGS.get())
-                    && player.getItemBySlot(EquipmentSlot.FEET).is(VariousWorldItems.SLIME_ARMOR_BOOTS.get())){
-                if (player.fallDistance > 1){
-                    float impulseModifier = player.fallDistance * 0.325f - (player.fallDistance > 5 ? 0.325f * (player.fallDistance/2) : 0.125f);
+                    && player.getItemBySlot(EquipmentSlot.FEET).is(VariousWorldItems.SLIME_ARMOR_BOOTS.get())) {
+                if (player.fallDistance > 1) {
+                    float impulseModifier = player.fallDistance * 0.325f - (player.fallDistance > 5 ? 0.325f * (player.fallDistance / 2) : 0.125f);
                     if (!player.isShiftKeyDown())
-                        player.setDeltaMovement(getXVector(impulseModifier*1.5f,player.getYRot()),impulseModifier,getZVector(impulseModifier*1.5f,player.getYRot()));
+                        player.setDeltaMovement(getXVector(impulseModifier * 1.5f, player.getYRot()), impulseModifier, getZVector(impulseModifier * 1.5f, player.getYRot()));
                     player.getItemBySlot(EquipmentSlot.FEET).hurtAndBreak(1, player, (player1) -> player1.broadcastBreakEvent(EquipmentSlot.MAINHAND));
                     event.setAmount(0);
                     player.fallDistance = 0;
@@ -75,11 +81,29 @@ public class EventManager {
             }
         }
     }
+
     @SubscribeEvent
     public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         if (event.getHand() != event.getEntity().getUsedItemHand())
             return;
         onFunctionalBlock(event.getLevel(), event.getPos().getX(), event.getPos().getY(), event.getPos().getZ(), event.getEntity());
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public static void onChangeFOV(ComputeFovModifierEvent event) {
+        if (event.getPlayer().isUsingItem() && event.getPlayer().getUseItem().is(VariousWorldItems.CRYSTALIC_BOW.get())) {
+            float fovModifier = 1f;
+            int ticksUsingItem = event.getPlayer().getTicksUsingItem();
+            float deltaTicks = (float) ticksUsingItem / 20f;
+            if (deltaTicks > 1f) {
+                deltaTicks = 1f;
+            } else {
+                deltaTicks *= deltaTicks;
+            }
+            fovModifier *= 1f - deltaTicks * 0.15f;
+            event.setNewFovModifier(fovModifier);
+        }
     }
 
     @SubscribeEvent
@@ -96,9 +120,11 @@ public class EventManager {
         itemUpgrading(event.getEntity());
         sculkArmorRepairing(event.getEntity());
     }
+
     public static boolean isMovingOnLand(LivingEntity entity) {
         return entity.onGround() && entity.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
     }
+
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
@@ -110,7 +136,7 @@ public class EventManager {
             double y = event.player.getY();
             double z = event.player.getZ();
             if (event.player.containerMenu instanceof DisenchantTableGUIMenu)
-                DisenchantTableUpdateTickProcedure.execute(event.player.level(), x,y,z);
+                DisenchantTableUpdateTickProcedure.execute(event.player.level(), x, y, z);
             if (event.player.containerMenu instanceof ArchOfGemsMenu)
                 ArchOfGemsManagerProcedure.execute(event.player);
         }
@@ -134,7 +160,7 @@ public class EventManager {
         if (player1 instanceof ServerPlayer player) {
             if (accessor.getBiome(BlockPos.containing(x, y, z)).is(VariousWorldBiomes.SCULK_VALLEY) && (player.level() instanceof ServerLevel
                     && !player.getAdvancements().getOrStartProgress(player.server.getAdvancements().getAdvancement(AdvancementsManager.CRYSTALIC_WARRIOR_ADV)).isDone())) {
-                if(!player.isCreative() || !player.isSpectator()){
+                if (!player.isCreative() || !player.isSpectator()) {
                     if (!player.level().isClientSide()) {
                         player.displayClientMessage(Component.translatable("hint.various_world.biome.sculk_valley"), true);
                     }
@@ -158,24 +184,20 @@ public class EventManager {
         }
     }
 
-    private static void crystalTransforming(LevelAccessor world, double x, double y, double z, Entity entity) {
-        if (entity == null)
-            return;
-        if (entity instanceof Player player) {
-            if (player.getInventory().contains(new ItemStack(VariousWorldBlocks.CRYSTAL_BLOCK.get()))) {
-                if (world.getLevelData().isThundering()) {
+    private static void crystalTransforming(LevelAccessor level, double x, double y, double z, Player player) {
+        if (player.getInventory().contains(new ItemStack(VariousWorldBlocks.CRYSTAL_BLOCK.get()))) {
+            if (level.getLevelData().isThundering()) {
+                if (Math.random() < 0.125) {
                     if (Math.random() < 0.125) {
-                        if (Math.random() < 0.125) {
-                            if (world instanceof ServerLevel serverLevel) {
-                                LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(serverLevel);
-                                lightningBolt.moveTo(Vec3.atBottomCenterOf(BlockPos.containing(x + Mth.nextDouble(RandomSource.create(), -5, 5), y, z + Mth.nextDouble(RandomSource.create(), -5, 5))));
-                                serverLevel.addFreshEntity(lightningBolt);
-                            }
-                            ItemStack itemStack = new ItemStack(VariousWorldBlocks.CRYSTAL_OF_CHARGED_BLOCK.get(), 1);
-                            ItemHandlerHelper.giveItemToPlayer(player, itemStack);
-                            ItemStack stack = new ItemStack(VariousWorldBlocks.CRYSTAL_BLOCK.get());
-                            player.getInventory().clearOrCountMatchingItems(p -> stack.getItem() == p.getItem(), 1, player.inventoryMenu.getCraftSlots());
+                        if (level instanceof ServerLevel serverLevel) {
+                            LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(serverLevel);
+                            lightningBolt.moveTo(Vec3.atBottomCenterOf(BlockPos.containing(x + Mth.nextDouble(RandomSource.create(), -5, 5), y, z + Mth.nextDouble(RandomSource.create(), -5, 5))));
+                            serverLevel.addFreshEntity(lightningBolt);
                         }
+                        ItemStack itemStack = new ItemStack(VariousWorldBlocks.CRYSTAL_OF_CHARGED_BLOCK.get(), 1);
+                        ItemHandlerHelper.giveItemToPlayer(player, itemStack);
+                        ItemStack stack = new ItemStack(VariousWorldBlocks.CRYSTAL_BLOCK.get());
+                        player.getInventory().clearOrCountMatchingItems(p -> stack.getItem() == p.getItem(), 1, player.inventoryMenu.getCraftSlots());
                     }
                 }
             }
@@ -185,7 +207,7 @@ public class EventManager {
     private static void witheredEnchantmentAction(Entity entity, Entity sourceentity) {
         if (entity == null || sourceentity == null)
             return;
-        double witheredStrength = (sourceentity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getEnchantmentLevel(VariousWorldEnchantments.WITHERED.get());
+        double witheredStrength = (sourceentity instanceof LivingEntity entity1 ? entity1.getMainHandItem() : ItemStack.EMPTY).getEnchantmentLevel(VariousWorldEnchantments.WITHERED.get());
         if (witheredStrength > 0) {
             if (entity instanceof LivingEntity livingEntity && !livingEntity.level().isClientSide())
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.WITHER, (int) (60 * witheredStrength), (int) witheredStrength));
@@ -262,11 +284,13 @@ public class EventManager {
             player.getItemBySlot(EquipmentSlot.FEET).setDamageValue(0);
         }
     }
+
     private static void amethystSpikesHit(Entity entity, Entity sourceentity) {
         if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(VariousWorldMobEffects.AMETHYST_SPIKES.get()) && sourceentity != null) {
-            sourceentity.hurt(sourceentity.damageSources().generic(),(Objects.requireNonNull(livingEntity.getEffect(VariousWorldMobEffects.AMETHYST_SPIKES.get())).getAmplifier() + 1));
+            sourceentity.hurt(sourceentity.damageSources().generic(), (Objects.requireNonNull(livingEntity.getEffect(VariousWorldMobEffects.AMETHYST_SPIKES.get())).getAmplifier() + 1));
         }
     }
+
     private static void itemUpgrading(Player entity) {
         if (entity == null)
             return;

@@ -25,9 +25,6 @@ import net.sashakyotoz.variousworld.procedures.MultipleEnderPearlProjectileHitsB
 
 @OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
 public class MultipleEnderPearlEntity extends AbstractArrow implements ItemSupplier {
-	public MultipleEnderPearlEntity(PlayMessages.SpawnEntity packet, Level world) {
-		super(VariousWorldEntities.MULTIPLE_ENDER_PEARL.get(), world);
-	}
 
 	public MultipleEnderPearlEntity(EntityType<? extends MultipleEnderPearlEntity> type, Level world) {
 		super(type, world);

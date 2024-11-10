@@ -21,5 +21,4 @@ public class TrapdoorLikeBlock extends TrapDoorBlock {
     public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
         return 10;
     }
-
 }

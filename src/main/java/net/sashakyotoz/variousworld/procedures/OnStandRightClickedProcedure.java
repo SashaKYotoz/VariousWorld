@@ -24,20 +24,20 @@ import net.sashakyotoz.variousworld.entity.DarkSpiritEntity;
 import net.sashakyotoz.variousworld.entity.CrystalWarriorEntity;
 
 public class OnStandRightClickedProcedure {
-    public static void execute(LevelAccessor world, double x, double y, double z, Player player) {
-        if (player == null || world == null) return;
+    public static void execute(LevelAccessor level, double x, double y, double z, Player player) {
+        if (player == null || level == null) return;
 
         BlockPos blockPos = BlockPos.containing(x, y, z);
-        Block blockAtPos = world.getBlockState(blockPos).getBlock();
+        Block blockAtPos = level.getBlockState(blockPos).getBlock();
 
         if (blockAtPos == VariousWorldBlocks.QUARTZ_STAND.get()) {
-            handleQuartzStand(world, blockPos, player, x, y, z);
+            handleQuartzStand(level, blockPos, player, x, y, z);
         } else if (blockAtPos == VariousWorldBlocks.AIR_STAND.get()) {
-            handleAirStand(world, blockPos, player, x, y, z);
+            handleAirStand(level, blockPos, player, x, y, z);
         } else if (blockAtPos == VariousWorldBlocks.LORD_FURY_STAND.get()) {
-            handleLordFuryStand(world, blockPos, player, x, y, z);
+            handleLordFuryStand(level, blockPos, player, x, y, z);
         } else if (blockAtPos == VariousWorldBlocks.SCULK_NECROMANCER_BLOCK_SPAWNER.get()) {
-            handleSculkNecromancerBlockSpawner(world, blockPos, x, y, z);
+            handleSculkNecromancerBlockSpawner(level, blockPos, x, y, z);
         }
     }
 

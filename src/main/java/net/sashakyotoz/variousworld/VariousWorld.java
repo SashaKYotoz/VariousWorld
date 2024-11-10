@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,11 +19,12 @@ import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.sashakyotoz.variousworld.block.signs.ModWoodType;
-import net.sashakyotoz.variousworld.client.gui.ArchofgemsScreen;
+import net.sashakyotoz.variousworld.client.gui.ArchOfGemsScreen;
 import net.sashakyotoz.variousworld.client.gui.ArmorStationScreen;
 import net.sashakyotoz.variousworld.client.gui.DisenchantTableGUIScreen;
 import net.sashakyotoz.variousworld.client.gui.MycolocyfarographGUIScreen;
 import net.sashakyotoz.variousworld.init.*;
+import net.sashakyotoz.variousworld.recipes.brewing.PotionOfDragonEyeCraftBrewingRecipe;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -95,7 +97,7 @@ public class VariousWorld {
             Sheets.addWoodType(ModWoodType.CRYSTALIC_OAK);
             Sheets.addWoodType(ModWoodType.SCULK);
             Sheets.addWoodType(ModWoodType.MAGNOLIA);
-            MenuScreens.register(VariousWorldMenus.ARCH_OF_GEMS.get(), ArchofgemsScreen::new);
+            MenuScreens.register(VariousWorldMenus.ARCH_OF_GEMS.get(), ArchOfGemsScreen::new);
             MenuScreens.register(VariousWorldMenus.ARMOR_STATION.get(), ArmorStationScreen::new);
             MenuScreens.register(VariousWorldMenus.DISENCHANT_TABLE_GUI.get(), DisenchantTableGUIScreen::new);
             MenuScreens.register(VariousWorldMenus.MYCOLOCYFAROGRAPH_GUI.get(), MycolocyfarographGUIScreen::new);
@@ -104,5 +106,6 @@ public class VariousWorld {
     private void commonSetup(final FMLCommonSetupEvent event) {
         VariousWorldVillagerType villagerType = new VariousWorldVillagerType();
         villagerType.initVillagerTypes();
+        BrewingRecipeRegistry.addRecipe(new PotionOfDragonEyeCraftBrewingRecipe());
     }
 }

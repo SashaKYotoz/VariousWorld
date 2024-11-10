@@ -24,11 +24,6 @@ public class PurpleSaffronBlock extends FlowerBlock {
 	}
 
 	@Override
-	public int getEffectDuration() {
-		return 100;
-	}
-
-	@Override
 	public int getFlammability(BlockState state, BlockGetter world, BlockPos pos, Direction face) {
 		return 50;
 	}

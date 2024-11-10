@@ -13,12 +13,12 @@ New difficulties, tools and materials, materials and workbenches, to fit its slo
 
 <hr>
 
-Wiki for mod is coming in soon future on sashakyotoz_dev website
+Wiki for mod is on [sashakyotoz_dev](https://sashakyotoz.github.io/sashakyotoz_dev/) website
 
 Currently plans for versions:
 
 - ~~Update version for 1.19.2~~
-- Port mod to NeoForge and support 1.20.4+,1.21+ versions of game
+- Port mod to NeoForge and support 1.21.1 version of game
 
 The mod is translated into 5 languages:  
 

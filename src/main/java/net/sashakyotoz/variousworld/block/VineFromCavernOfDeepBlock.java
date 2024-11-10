@@ -20,8 +20,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
 import net.sashakyotoz.variousworld.init.VariousWorldItems;
 
-public class VineFromCavernofDeepBlock extends GrowingPlantBodyBlock implements BonemealableBlock, DeepCavernsVines {
-	public VineFromCavernofDeepBlock() {
+public class VineFromCavernOfDeepBlock extends GrowingPlantBodyBlock implements BonemealableBlock, DeepCavernsVines {
+	public VineFromCavernOfDeepBlock() {
 		super(BlockBehaviour.Properties.of().sound(SoundType.AZALEA).instabreak().lightLevel(s -> 3).requiresCorrectToolForDrops().noCollission().randomTicks(), Direction.DOWN,SHAPE,false);
 		this.registerDefaultState(this.stateDefinition.any().setValue(BERRIES, Boolean.FALSE));
 	}

@@ -47,7 +47,6 @@ public class CrystalLeavesBlock extends Block implements SimpleWaterloggedBlock,
             dropResources(state, level, pos);
             level.removeBlock(pos, false);
         }
-
     }
 
     protected boolean decaying(BlockState state) {
@@ -62,55 +61,55 @@ public class CrystalLeavesBlock extends Block implements SimpleWaterloggedBlock,
         level.setBlock(pos, updateDistance(state, level, pos), 3);
     }
 
-    public int getLightBlock(BlockState state, BlockGetter p_54461_, BlockPos p_54462_) {
+    public int getLightBlock(BlockState state, BlockGetter getter, BlockPos pos) {
         return 1;
     }
 
-    public BlockState updateShape(BlockState p_54440_, Direction p_54441_, BlockState p_54442_, LevelAccessor p_54443_, BlockPos p_54444_, BlockPos p_54445_) {
-        if (p_54440_.getValue(WATERLOGGED)) {
-            p_54443_.scheduleTick(p_54444_, Fluids.WATER, Fluids.WATER.getTickDelay(p_54443_));
+    public BlockState updateShape(BlockState state, Direction direction, BlockState state1, LevelAccessor accessor, BlockPos p_54444_, BlockPos p_54445_) {
+        if (state.getValue(WATERLOGGED)) {
+            accessor.scheduleTick(p_54444_, Fluids.WATER, Fluids.WATER.getTickDelay(accessor));
         }
 
-        int i = getDistanceAt(p_54442_) + 1;
-        if (i != 1 || p_54440_.getValue(DISTANCE) != i) {
-            p_54443_.scheduleTick(p_54444_, this, 1);
+        int i = getDistanceAt(state1) + 1;
+        if (i != 1 || state.getValue(DISTANCE) != i) {
+            accessor.scheduleTick(p_54444_, this, 1);
         }
 
-        return p_54440_;
+        return state;
     }
 
-    private static BlockState updateDistance(BlockState p_54436_, LevelAccessor p_54437_, BlockPos p_54438_) {
+    private static BlockState updateDistance(BlockState state, LevelAccessor accessor, BlockPos pos) {
         int i = 9;
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
         for (Direction direction : Direction.values()) {
-            blockpos$mutableblockpos.setWithOffset(p_54438_, direction);
-            i = Math.min(i, getDistanceAt(p_54437_.getBlockState(blockpos$mutableblockpos)) + 1);
+            blockpos$mutableblockpos.setWithOffset(pos, direction);
+            i = Math.min(i, getDistanceAt(accessor.getBlockState(blockpos$mutableblockpos)) + 1);
             if (i == 1) {
                 break;
             }
         }
 
-        return p_54436_.setValue(DISTANCE, Integer.valueOf(i));
+        return state.setValue(DISTANCE, Integer.valueOf(i));
     }
 
     private static int getDistanceAt(BlockState p_54464_) {
         return getOptionalDistanceAt(p_54464_).orElse(9);
     }
 
-    public static OptionalInt getOptionalDistanceAt(BlockState p_277868_) {
-        if (p_277868_.is(BlockTags.LOGS) || p_277868_.is(VariousWorldBlocks.CRYSTAL_CLUSTER.get()) || p_277868_.is(Blocks.AMETHYST_BLOCK)) {
+    public static OptionalInt getOptionalDistanceAt(BlockState state) {
+        if (state.is(BlockTags.LOGS) || state.is(VariousWorldBlocks.CRYSTAL_CLUSTER.get()) || state.is(Blocks.AMETHYST_BLOCK)) {
             return OptionalInt.of(0);
         } else {
-            return p_277868_.hasProperty(DISTANCE) ? OptionalInt.of(p_277868_.getValue(DISTANCE)) : OptionalInt.empty();
+            return state.hasProperty(DISTANCE) ? OptionalInt.of(state.getValue(DISTANCE)) : OptionalInt.empty();
         }
     }
 
     public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_54447_) {
-        p_54447_.add(DISTANCE, PERSISTENT, WATERLOGGED);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(DISTANCE, PERSISTENT, WATERLOGGED);
     }
     @Override
     public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {

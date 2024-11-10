@@ -14,16 +14,10 @@ import java.util.HashMap;
 
 public class DisenchantTableGUIScreen extends AbstractContainerScreen<DisenchantTableGUIMenu> {
 	private final static HashMap<String, Object> guistate = DisenchantTableGUIMenu.guistate;
-	private final Level level;
-	private final int x, y, z;
 	private final Player player;
 
 	public DisenchantTableGUIScreen(DisenchantTableGUIMenu container, Inventory inventory, Component text) {
 		super(container, inventory, text);
-		this.level = container.level;
-		this.x = container.x;
-		this.y = container.y;
-		this.z = container.z;
 		this.player = container.player;
 		this.imageWidth = 186;
 		this.imageHeight = 166;

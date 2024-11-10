@@ -51,7 +51,7 @@ public class FuryLordPart extends PartEntity<FuryLordEntity> {
         return this == entity || this.parentMob == entity;
     }
 
-    public EntityDimensions getDimensions(Pose p_31023_) {
+    public EntityDimensions getDimensions(Pose pose) {
         return this.size;
     }
 

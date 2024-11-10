@@ -16,32 +16,30 @@ import java.util.List;
 
 public class LordSwordRightClickedInAirProcedure {
     public static void execute(LevelAccessor accessor, Entity entity, ItemStack itemstack) {
-        if (entity == null)
-            return;
+        if (entity == null) return;
         double scaling = 0;
+        Vec3 eyePosition = entity.getEyePosition(1f);
+        Vec3 viewVector = entity.getViewVector(1f);
         for (int i = 0; i < 16; i++) {
-            if (!accessor.getBlockState(new BlockPos(
-                            entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getX(),
-                            entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getY(),
-                            entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getZ()))
-                    .canOcclude()) {
-                scaling = scaling + 1;
-            } else {
+            Vec3 targetPosition = eyePosition.add(viewVector.scale(scaling));
+            BlockPos blockPos = entity.level().clip(new ClipContext(eyePosition, targetPosition, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos();
+            if (!accessor.getBlockState(blockPos).canOcclude())
+                scaling += 1;
+            else
                 break;
-            }
             accessor.addParticle(VariousWorldParticleTypes.LORD_SHOOT_PARTICLE.get(),
-                    (entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getX()),
-                    (entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getY()),
-                    (entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getZ()), 0, 0.25, 0);
-            final Vec3 center = new Vec3(
-                    (entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getX()),
-                    (entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getY()),
-                    (entity.level().clip(new ClipContext(entity.getEyePosition(1f), entity.getEyePosition(1f).add(entity.getViewVector(1f).scale(scaling)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity)).getBlockPos().getZ()));
-            List<Entity> entityList = accessor.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(1.5d), e -> true).stream().sorted(Comparator.comparingDouble(entity1 -> entity1.distanceToSqr(center))).toList();
-            for (Entity entityiterator : entityList) {
-                if (!(entityiterator == entity)) {
-                    if (entityiterator instanceof LivingEntity livingEntity)
-                        livingEntity.hurt(livingEntity.damageSources().dragonBreath(), 3 + livingEntity.getRandom().nextIntBetweenInclusive(2,6));
+                    blockPos.getX(), blockPos.getY(), blockPos.getZ(),
+                    0, 0.25, 0);
+            Vec3 center = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+            List<Entity> entityList = accessor.getEntitiesOfClass(Entity.class,
+                            new AABB(center, center).inflate(1.5d), e -> true)
+                    .stream()
+                    .sorted(Comparator.comparingDouble(entity1 -> entity1.distanceToSqr(center)))
+                    .toList();
+            for (Entity nearbyEntity : entityList) {
+                if (nearbyEntity != entity && nearbyEntity instanceof LivingEntity livingEntity) {
+                    livingEntity.hurt(livingEntity.damageSources().dragonBreath(),
+                            3 + livingEntity.getRandom().nextIntBetweenInclusive(2, 6));
                     if (itemstack.hurt(1, RandomSource.create(), null)) {
                         itemstack.shrink(1);
                         itemstack.setDamageValue(0);
@@ -50,4 +48,5 @@ public class LordSwordRightClickedInAirProcedure {
             }
         }
     }
+
 }

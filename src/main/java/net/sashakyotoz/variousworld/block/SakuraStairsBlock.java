@@ -18,7 +18,7 @@ import java.util.List;
 
 public class SakuraStairsBlock extends StairBlock {
 	public SakuraStairsBlock() {
-		super(() -> Blocks.AIR.defaultBlockState(), BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).sound(SoundType.WOOD).strength(2.5f, 4f).dynamicShape());
+		super(Blocks.AIR::defaultBlockState, BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).sound(SoundType.WOOD).strength(2.5f, 4f).dynamicShape());
 	}
 
 	@Override

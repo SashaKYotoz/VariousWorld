@@ -42,11 +42,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Random;
 
 public class DarkSpiritEntity extends Monster {
-    public AnimationState attackAnimationState = new AnimationState();
-    public AnimationState spawnAnimationState = new AnimationState();
-    public AnimationState shieldAriseAnimationState = new AnimationState();
+    public final AnimationState attackAnimationState = new AnimationState();
+    public final AnimationState spawnAnimationState = new AnimationState();
+    public final AnimationState shieldAriseAnimationState = new AnimationState();
     public final AnimationState spellAriseAnimationState = new AnimationState();
-    public AnimationState attack1AnimationState = new AnimationState();
+    public final AnimationState attack1AnimationState = new AnimationState();
     public final AnimationState flightAnimationState = new AnimationState();
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState idleWithShieldAnimationState = new AnimationState();
@@ -226,7 +226,8 @@ public class DarkSpiritEntity extends Monster {
                 }
                 this.spirit.getNavigation().stop();
             } else {
-                this.spirit.getNavigation().moveTo(target, 0.5);
+                if (target != null)
+                    this.spirit.getNavigation().moveTo(target, 0.5);
             }
         }
 
@@ -279,7 +280,7 @@ public class DarkSpiritEntity extends Monster {
             chargeToShield--;
         }
         if (source.getEntity() instanceof Projectile projectile && this.shieldRose() && amount > 2 && Math.random() < 0.75) {
-            this.hurt(this.damageSources().arrow((AbstractArrow) projectile,projectile.getOwner()), amount / 2f);
+            this.hurt(this.damageSources().arrow((AbstractArrow) projectile, projectile.getOwner()), amount / 2f);
             chargeToShield -= 3;
         }
         if (source.is(DamageTypes.IN_FIRE))
@@ -317,13 +318,13 @@ public class DarkSpiritEntity extends Monster {
     @Override
     public void die(DamageSource source) {
         super.die(source);
-        if(source.getEntity() instanceof ServerPlayer player) {
+        if (source.getEntity() instanceof ServerPlayer player) {
             AdvancementsManager.addAdvancement(player, AdvancementsManager.DARK_SPIRIT_ADV);
             if (this.getDisplayName().getString().equals("Basics"))
-                AdvancementsManager.addAdvancement(player,AdvancementsManager.EASTER_DARK_SPIRIT_ADV);
+                AdvancementsManager.addAdvancement(player, AdvancementsManager.EASTER_DARK_SPIRIT_ADV);
         }
         this.spawnAtLocation(new ItemStack(VariousWorldItems.TOTEM_OF_DARK_SPIRIT.get()));
-        this.convertTo(EntityType.VEX,true);
+        this.convertTo(EntityType.VEX, true);
     }
 
     @Override
@@ -356,9 +357,6 @@ public class DarkSpiritEntity extends Monster {
     @Override
     public void setNoGravity(boolean ignored) {
         super.setNoGravity(true);
-    }
-
-    public static void init() {
     }
 
     public static AttributeSupplier.Builder createAttributes() {

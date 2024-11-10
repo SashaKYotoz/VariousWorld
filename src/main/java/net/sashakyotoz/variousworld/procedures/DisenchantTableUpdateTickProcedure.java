@@ -14,14 +14,14 @@ import net.minecraft.core.BlockPos;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class DisenchantTableUpdateTickProcedure {
-    public static void execute(LevelAccessor world, double x, double y, double z) {
+    public static void execute(LevelAccessor levelAccessor, double x, double y, double z) {
         BlockPos pos = BlockPos.containing(x, y, z);
-        BlockEntity blockEntity = world.getBlockEntity(pos);
+        BlockEntity blockEntity = levelAccessor.getBlockEntity(pos);
 
         if (blockEntity != null) {
-            ItemStack slot0Stack = getItemStack(world, pos, 0);
-            ItemStack slot1Stack = getItemStack(world, pos, 1);
-            ItemStack slot2Stack = getItemStack(world, pos, 2);
+            ItemStack slot0Stack = getItemStack(levelAccessor, pos, 0);
+            ItemStack slot1Stack = getItemStack(levelAccessor, pos, 1);
+            ItemStack slot2Stack = getItemStack(levelAccessor, pos, 2);
             if (slot0Stack.isEnchanted() &&
                     slot1Stack.getItem() == Items.LAPIS_LAZULI && slot1Stack.getCount() >= 3 &&
                     slot2Stack.getItem() == Items.BOOK) {

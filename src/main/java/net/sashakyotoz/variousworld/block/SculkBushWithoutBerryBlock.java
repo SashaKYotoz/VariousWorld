@@ -1,7 +1,6 @@
 
 package net.sashakyotoz.variousworld.block;
 
-import net.minecraft.world.level.LevelAccessor;
 import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
 import net.sashakyotoz.variousworld.init.VariousWorldItems;
 import net.sashakyotoz.variousworld.procedures.SculkBushEntityCollidesWithPlantProcedure;

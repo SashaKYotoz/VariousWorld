@@ -50,17 +50,17 @@ public class LordOfFuriesCrossbowItem extends ProjectileWeaponItem implements Va
         return ARROW_ONLY;
     }
 
-    public InteractionResultHolder<ItemStack> use(Level p_40920_, Player p_40921_, InteractionHand p_40922_) {
-        ItemStack itemstack = p_40921_.getItemInHand(p_40922_);
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
         if (isCharged(itemstack)) {
-            performShooting(p_40920_, p_40921_, p_40922_, itemstack, getShootingPower(itemstack), 1.0F);
+            performShooting(level, player, hand, itemstack, getShootingPower(itemstack), 1.0F);
             setCharged(itemstack, false);
             return InteractionResultHolder.consume(itemstack);
-        } else if (!p_40921_.getProjectile(itemstack).isEmpty()) {
+        } else if (!player.getProjectile(itemstack).isEmpty()) {
             if (!isCharged(itemstack)) {
                 this.startSoundPlayed = false;
                 this.midLoadSoundPlayed = false;
-                p_40921_.startUsingItem(p_40922_);
+                player.startUsingItem(hand);
             }
             return InteractionResultHolder.consume(itemstack);
         } else {
@@ -72,13 +72,13 @@ public class LordOfFuriesCrossbowItem extends ProjectileWeaponItem implements Va
         return containsChargedProjectile(p_40946_, Items.FIREWORK_ROCKET) ? 1.6F : 3.15F;
     }
 
-    public void releaseUsing(ItemStack p_40875_, Level p_40876_, LivingEntity p_40877_, int p_40878_) {
-        int i = this.getUseDuration(p_40875_) - p_40878_;
-        float f = getPowerForTime(i, p_40875_);
-        if (f >= 1.0F && !isCharged(p_40875_) && tryLoadProjectiles(p_40877_, p_40875_)) {
-            setCharged(p_40875_, true);
-            SoundSource soundsource = p_40877_ instanceof Player ? SoundSource.PLAYERS : SoundSource.HOSTILE;
-            p_40876_.playSound(null, p_40877_.getX(), p_40877_.getY(), p_40877_.getZ(), SoundEvents.CROSSBOW_LOADING_END, soundsource, 1.0F, 1.0F / (p_40876_.getRandom().nextFloat() * 0.5F + 1.0F) + 0.2F);
+    public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int p_40878_) {
+        int i = this.getUseDuration(stack) - p_40878_;
+        float f = getPowerForTime(i, stack);
+        if (f >= 1.0F && !isCharged(stack) && tryLoadProjectiles(entity, stack)) {
+            setCharged(stack, true);
+            SoundSource soundsource = entity instanceof Player ? SoundSource.PLAYERS : SoundSource.HOSTILE;
+            level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.CROSSBOW_LOADING_END, soundsource, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.5F + 1.0F) + 0.2F);
         }
     }
 
@@ -103,7 +103,7 @@ public class LordOfFuriesCrossbowItem extends ProjectileWeaponItem implements Va
         return true;
     }
 
-    private static boolean loadProjectile(LivingEntity p_40863_, ItemStack p_40864_, ItemStack p_40865_, boolean p_40866_, boolean p_40867_) {
+    private static boolean loadProjectile(LivingEntity entity, ItemStack stack, ItemStack p_40865_, boolean p_40866_, boolean p_40867_) {
         if (p_40865_.isEmpty()) {
             return false;
         } else {
@@ -111,13 +111,13 @@ public class LordOfFuriesCrossbowItem extends ProjectileWeaponItem implements Va
             ItemStack itemstack;
             if (!flag && !p_40867_ && !p_40866_) {
                 itemstack = p_40865_.split(1);
-                if (p_40865_.isEmpty() && p_40863_ instanceof Player) {
-                    ((Player) p_40863_).getInventory().removeItem(p_40865_);
+                if (p_40865_.isEmpty() && entity instanceof Player) {
+                    ((Player) entity).getInventory().removeItem(p_40865_);
                 }
             } else {
                 itemstack = p_40865_.copy();
             }
-            addChargedProjectile(p_40864_, itemstack);
+            addChargedProjectile(stack, itemstack);
             return true;
         }
     }
@@ -298,9 +298,7 @@ public class LordOfFuriesCrossbowItem extends ProjectileWeaponItem implements Va
                 List<Component> list1 = Lists.newArrayList();
                 Items.FIREWORK_ROCKET.appendHoverText(itemstack, level, list1, flag);
                 if (!list1.isEmpty()) {
-                    for (int i = 0; i < list1.size(); ++i) {
-                        list1.set(i, Component.literal("  ").append(list1.get(i)).withStyle(ChatFormatting.GRAY));
-                    }
+                    list1.replaceAll(p130942 -> Component.literal("  ").append(p130942).withStyle(ChatFormatting.GRAY));
                     components.addAll(list1);
                 }
             }

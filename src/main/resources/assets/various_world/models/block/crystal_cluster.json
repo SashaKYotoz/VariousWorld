@@ -4,5 +4,5 @@
     "cross": "various_world:item/crystal_cluster",
     "particle": "various_world:item/crystal_cluster"
   },
-  "render_type": "translucent"
+  "render_type": "cutout"
 }

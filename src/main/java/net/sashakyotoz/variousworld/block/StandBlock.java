@@ -93,12 +93,12 @@ public class StandBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState blockstate, Level level, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult hit) {
-        super.use(blockstate, level, pos, entity, hand, hit);
+    public InteractionResult use(BlockState blockstate, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        super.use(blockstate, level, pos, player, hand, hit);
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
-        OnStandRightClickedProcedure.execute(level, x, y, z, entity);
+        OnStandRightClickedProcedure.execute(level, x, y, z, player);
         return InteractionResult.SUCCESS;
     }
 }

@@ -1,9 +1,5 @@
 package net.sashakyotoz.variousworld.recipes.brewing;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.common.brewing.IBrewingRecipe;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.Items;
@@ -11,12 +7,7 @@ import net.minecraft.world.item.ItemStack;
 
 import net.sashakyotoz.variousworld.init.VariousWorldItems;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class PotionOfDragonEyeCraftBrewingRecipe implements IBrewingRecipe {
-	@SubscribeEvent
-	public static void init(FMLCommonSetupEvent event) {
-		event.enqueueWork(() -> BrewingRecipeRegistry.addRecipe(new PotionOfDragonEyeCraftBrewingRecipe()));
-	}
 
 	@Override
 	public boolean isInput(ItemStack input) {
