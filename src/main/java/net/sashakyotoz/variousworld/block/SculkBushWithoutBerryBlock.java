@@ -1,8 +1,8 @@
 
 package net.sashakyotoz.variousworld.block;
 
-import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWBlocks;
+import net.sashakyotoz.variousworld.init.VWItems;
 import net.sashakyotoz.variousworld.procedures.SculkBushEntityCollidesWithPlantProcedure;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -42,7 +42,7 @@ public class SculkBushWithoutBerryBlock extends DoublePlantBlock {
 
 	@Override
 	public boolean mayPlaceOn(BlockState groundState, BlockGetter worldIn, BlockPos pos) {
-		return groundState.is(VariousWorldBlocks.SCULK_GRASS.get()) || groundState.is(Blocks.SCULK);
+		return groundState.is(VWBlocks.SCULK_GRASS.get()) || groundState.is(Blocks.SCULK);
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class SculkBushWithoutBerryBlock extends DoublePlantBlock {
 	public void randomTick(BlockState blockstate, ServerLevel level, BlockPos pos, RandomSource random) {
 		super.tick(blockstate, level, pos, random);
 		if (Math.random() < 0.0125 && level.getBlockState(pos.above()).isAir()) {
-			BlockState state = VariousWorldBlocks.SCULK_BUSH.get().defaultBlockState();
+			BlockState state = VWBlocks.SCULK_BUSH.get().defaultBlockState();
 			level.setBlock(pos, state, 3);
 		}
 	}
@@ -74,7 +74,7 @@ public class SculkBushWithoutBerryBlock extends DoublePlantBlock {
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldItems.SCULK_FRUIT.get());
+		ItemStack itemStack = new ItemStack(VWItems.SCULK_FRUIT.get());
 		return Collections.singletonList(itemStack);
 	}
 }

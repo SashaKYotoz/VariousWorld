@@ -8,8 +8,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.ChestBoat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
-import net.sashakyotoz.variousworld.init.VariousWorldEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWEntities;
+import net.sashakyotoz.variousworld.init.VWItems;
 
 public class ModChestBoatEntity extends ChestBoat {
     private static final EntityDataAccessor<Integer> DATA_ID_TYPE = SynchedEntityData.defineId(ModChestBoatEntity.class, EntityDataSerializers.INT);
@@ -19,7 +19,7 @@ public class ModChestBoatEntity extends ChestBoat {
     }
 
     public ModChestBoatEntity(Level pLevel, double pX, double pY, double pZ) {
-        this(VariousWorldEntities.MOD_CHEST_BOAT.get(), pLevel);
+        this(VWEntities.MOD_CHEST_BOAT.get(), pLevel);
         this.setPos(pX, pY, pZ);
         this.xo = pX;
         this.yo = pY;
@@ -30,13 +30,13 @@ public class ModChestBoatEntity extends ChestBoat {
     public Item getDropItem() {
         switch (getModVariant()) {
             case CRYSTALIC_OAK -> {
-                return VariousWorldItems.CRYSTALIC_OAK_CHEST_BOAT.get();
+                return VWItems.CRYSTALIC_OAK_CHEST_BOAT.get();
             }
             case MAGNOLIA -> {
-                return VariousWorldItems.MAGNOLIA_CHEST_BOAT.get();
+                return VWItems.MAGNOLIA_CHEST_BOAT.get();
             }
             case SCULK -> {
-                return VariousWorldItems.SCULK_CHEST_BOAT.get();
+                return VWItems.SCULK_CHEST_BOAT.get();
             }
         }
         return super.getDropItem();

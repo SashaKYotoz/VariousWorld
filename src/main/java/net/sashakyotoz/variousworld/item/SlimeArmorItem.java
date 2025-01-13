@@ -10,7 +10,7 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWItems;
 
 public abstract class SlimeArmorItem extends ArmorItem {
 	public SlimeArmorItem(ArmorItem.Type type, Item.Properties properties) {
@@ -37,7 +37,7 @@ public abstract class SlimeArmorItem extends ArmorItem {
 
 			@Override
 			public Ingredient getRepairIngredient() {
-				return Ingredient.of(new ItemStack(VariousWorldItems.SLIME_CRYSTALIC.get()));
+				return Ingredient.of(new ItemStack(VWItems.SLIME_CRYSTALIC.get()));
 			}
 
 			@Override

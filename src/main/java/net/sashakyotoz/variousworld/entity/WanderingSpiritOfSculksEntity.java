@@ -24,7 +24,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.sashakyotoz.variousworld.entity.technical.WanderingSpiritProjectileEntity;
-import net.sashakyotoz.variousworld.init.VariousWorldEntities;
+import net.sashakyotoz.variousworld.init.VWEntities;
 import net.sashakyotoz.variousworld.procedures.EventManager;
 import org.jetbrains.annotations.NotNull;
 
@@ -121,7 +121,7 @@ public class WanderingSpiritOfSculksEntity extends Monster implements RangedAtta
     }
 
     public static void init() {
-        SpawnPlacements.register(VariousWorldEntities.WANDERING_SPIRIT_SUMMONED_OF_SCULKS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WanderingSpiritOfSculksEntity::checkSpiritConditions);
+        SpawnPlacements.register(VWEntities.WANDERING_SPIRIT_SUMMONED_OF_SCULKS.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WanderingSpiritOfSculksEntity::checkSpiritConditions);
     }
 
     public static boolean checkSpiritConditions(EntityType<? extends WanderingSpiritOfSculksEntity> type, ServerLevelAccessor accessor, MobSpawnType spawnType, BlockPos pos, RandomSource random) {

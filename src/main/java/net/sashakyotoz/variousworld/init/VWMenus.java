@@ -13,7 +13,7 @@ import net.sashakyotoz.variousworld.client.menus.DisenchantTableGUIMenu;
 import net.sashakyotoz.variousworld.client.menus.ArmorStationMenu;
 import net.sashakyotoz.variousworld.VariousWorld;
 
-public class VariousWorldMenus {
+public class VWMenus {
 	public static final DeferredRegister<MenuType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.MENU_TYPES, VariousWorld.MODID);
 	public static final RegistryObject<MenuType<ArchOfGemsMenu>> ARCH_OF_GEMS = REGISTRY.register("archofgems", () -> IForgeMenuType.create(ArchOfGemsMenu::new));
 	public static final RegistryObject<MenuType<ArmorStationMenu>> ARMOR_STATION = REGISTRY.register("armor_station", () -> IForgeMenuType.create(ArmorStationMenu::new));

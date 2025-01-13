@@ -18,7 +18,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
-import net.sashakyotoz.variousworld.init.VariousWorldEntities;
+import net.sashakyotoz.variousworld.init.VWEntities;
 
 public class CrystalicArrowEntity extends AbstractArrow {
 
@@ -61,7 +61,7 @@ public class CrystalicArrowEntity extends AbstractArrow {
     }
 
     public static CrystalicArrowEntity shoot(Level level,ItemStack stack, LivingEntity entity, RandomSource random, float power, double damage, int knockback) {
-        CrystalicArrowEntity bowEntity = new CrystalicArrowEntity(VariousWorldEntities.CRYSTALIC_BOW.get(), entity, level);
+        CrystalicArrowEntity bowEntity = new CrystalicArrowEntity(VWEntities.CRYSTALIC_BOW.get(), entity, level);
         bowEntity.shoot(entity.getViewVector(1).x, entity.getViewVector(1).y, entity.getViewVector(1).z, power * 1.5f, 0);
         bowEntity.setSilent(true);
         bowEntity.setCritArrow(false);
@@ -81,7 +81,7 @@ public class CrystalicArrowEntity extends AbstractArrow {
     }
 
     public static CrystalicArrowEntity shoot(LivingEntity entity, LivingEntity target) {
-        CrystalicArrowEntity bowEntity = new CrystalicArrowEntity(VariousWorldEntities.CRYSTALIC_BOW.get(), entity, entity.level());
+        CrystalicArrowEntity bowEntity = new CrystalicArrowEntity(VWEntities.CRYSTALIC_BOW.get(), entity, entity.level());
         double dx = target.getX() - entity.getX();
         double dy = target.getY() + target.getEyeHeight() - 1.1;
         double dz = target.getZ() - entity.getZ();

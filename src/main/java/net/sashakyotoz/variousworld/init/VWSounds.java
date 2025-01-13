@@ -8,7 +8,7 @@ import net.minecraftforge.common.util.ForgeSoundType;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.sashakyotoz.variousworld.VariousWorld;
 
-public class VariousWorldSounds {
+public class VWSounds {
 	public static final SoundEvent BLOCK_STONY_MAGMA_BREAK = create("block.stony_magma.break");
 	public static final SoundEvent BLOCK_STONY_MAGMA_STEP = create("block.stony_magma.step");
 	public static final SoundEvent BLOCK_STONY_MAGMA_PLACE = create("block.stony_magma.place");

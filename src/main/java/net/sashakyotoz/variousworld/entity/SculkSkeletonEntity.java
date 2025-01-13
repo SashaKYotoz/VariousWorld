@@ -28,8 +28,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.sashakyotoz.variousworld.entity.technical.SculkScytheEntity;
-import net.sashakyotoz.variousworld.init.VariousWorldEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWEntities;
+import net.sashakyotoz.variousworld.init.VWItems;
 
 import javax.annotation.Nullable;
 
@@ -44,16 +44,16 @@ public class SculkSkeletonEntity extends AbstractSkeleton {
     public SculkSkeletonEntity(EntityType<SculkSkeletonEntity> type, Level world) {
         super(type, world);
         xpReward = 8;
-        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(VariousWorldItems.SCULK_ARMOR_HELMET.get()));
-        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(VariousWorldItems.SCULK_ARMOR_CHESTPLATE.get()));
-        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(VariousWorldItems.SCULK_ARMOR_LEGGINGS.get()));
-        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(VariousWorldItems.SCULK_ARMOR_BOOTS.get()));
+        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(VWItems.SCULK_ARMOR_HELMET.get()));
+        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(VWItems.SCULK_ARMOR_CHESTPLATE.get()));
+        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(VWItems.SCULK_ARMOR_LEGGINGS.get()));
+        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(VWItems.SCULK_ARMOR_BOOTS.get()));
     }
 
     @Override
     public void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance instance) {
         super.populateDefaultEquipmentSlots(random, instance);
-        ItemStack itemStack = new ItemStack(VariousWorldItems.DARKNIUM_SWORD.get());
+        ItemStack itemStack = new ItemStack(VWItems.DARKNIUM_SWORD.get());
         if (0.5 <= Math.round((Math.random())))
             itemStack.getOrCreateTag().putDouble("CustomModelData", 1);
         this.setItemSlot(EquipmentSlot.MAINHAND, random.nextFloat() > 0.875 ? new ItemStack(Items.BOW) : itemStack);
@@ -140,7 +140,7 @@ public class SculkSkeletonEntity extends AbstractSkeleton {
     }
 
     public static void init() {
-        SpawnPlacements.register(VariousWorldEntities.SCULK_SKELETON.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+        SpawnPlacements.register(VWEntities.SCULK_SKELETON.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 (entityType, world, reason, pos, random) -> (world.getDifficulty() != Difficulty.PEACEFUL && Monster.isDarkEnoughToSpawn(world, pos, random) && Mob.checkMobSpawnRules(entityType, world, reason, pos, random)));
     }
 

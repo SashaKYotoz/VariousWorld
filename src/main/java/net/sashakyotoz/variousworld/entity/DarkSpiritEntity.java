@@ -34,8 +34,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import net.sashakyotoz.variousworld.entity.ai.DarkSpiritFlyGoal;
 import net.sashakyotoz.variousworld.entity.technical.DarkSpiritGlovesEntity;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
-import net.sashakyotoz.variousworld.init.VariousWorldParticleTypes;
+import net.sashakyotoz.variousworld.init.VWItems;
+import net.sashakyotoz.variousworld.init.VWMiscRegistries;
 import net.sashakyotoz.variousworld.procedures.AdvancementsManager;
 import org.jetbrains.annotations.NotNull;
 
@@ -62,11 +62,11 @@ public class DarkSpiritEntity extends Monster {
         texture = (int) Math.round((Math.random()));
         setPersistenceRequired();
         this.moveControl = new FlyingMoveControl(this, 12, true);
-        this.setItemSlotAndDropWhenKilled(EquipmentSlot.HEAD, new ItemStack(VariousWorldItems.ANGEL_HELMET.get()));
-        this.setItemSlotAndDropWhenKilled(EquipmentSlot.CHEST, new ItemStack(VariousWorldItems.ANGEL_CHESTPLATE.get()));
-        this.setItemSlotAndDropWhenKilled(EquipmentSlot.LEGS, new ItemStack(VariousWorldItems.ANGEL_LEGGINGS.get()));
-        this.setItemSlotAndDropWhenKilled(EquipmentSlot.FEET, new ItemStack(VariousWorldItems.ANGEL_BOOTS.get()));
-        this.setItemSlotAndDropWhenKilled(EquipmentSlot.FEET, new ItemStack(VariousWorldItems.ANGEL_BOOTS.get()));
+        this.setItemSlotAndDropWhenKilled(EquipmentSlot.HEAD, new ItemStack(VWItems.ANGEL_HELMET.get()));
+        this.setItemSlotAndDropWhenKilled(EquipmentSlot.CHEST, new ItemStack(VWItems.ANGEL_CHESTPLATE.get()));
+        this.setItemSlotAndDropWhenKilled(EquipmentSlot.LEGS, new ItemStack(VWItems.ANGEL_LEGGINGS.get()));
+        this.setItemSlotAndDropWhenKilled(EquipmentSlot.FEET, new ItemStack(VWItems.ANGEL_BOOTS.get()));
+        this.setItemSlotAndDropWhenKilled(EquipmentSlot.FEET, new ItemStack(VWItems.ANGEL_BOOTS.get()));
         this.getItemBySlot(EquipmentSlot.HEAD).setDamageValue(random.nextInt(33));
         this.getItemBySlot(EquipmentSlot.CHEST).setDamageValue(random.nextInt(71));
         this.getItemBySlot(EquipmentSlot.LEGS).setDamageValue(random.nextInt(52));
@@ -116,7 +116,7 @@ public class DarkSpiritEntity extends Monster {
     private void spawnFoundParticles() {
         for (int i = 0; i < 360; i++) {
             if (i % 20 == 0) {
-                this.level().addParticle(VariousWorldParticleTypes.LORD_SHOOT_PARTICLE.get(),
+                this.level().addParticle(VWMiscRegistries.LORD_SHOOT_PARTICLE.get(),
                         this.getX() + 0.5d, this.getY() + 1, this.getZ() + 0.5d,
                         Math.cos(i) * 0.15d, 0.15d, Math.sin(i) * 0.15d);
             }
@@ -323,7 +323,7 @@ public class DarkSpiritEntity extends Monster {
             if (this.getDisplayName().getString().equals("Basics"))
                 AdvancementsManager.addAdvancement(player, AdvancementsManager.EASTER_DARK_SPIRIT_ADV);
         }
-        this.spawnAtLocation(new ItemStack(VariousWorldItems.TOTEM_OF_DARK_SPIRIT.get()));
+        this.spawnAtLocation(new ItemStack(VWItems.TOTEM_OF_DARK_SPIRIT.get()));
         this.convertTo(EntityType.VEX, true);
     }
 

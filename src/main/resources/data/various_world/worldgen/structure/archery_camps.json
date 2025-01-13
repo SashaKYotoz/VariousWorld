@@ -3,9 +3,11 @@
   "biomes": [
     "various_world:peaceful_wasteland",
     "minecraft:birch_forest",
-    "minecraft:plains"
+    "minecraft:plains",
+    "minecraft:forest"
   ],
   "step": "surface_structures",
+  "terrain_adaptation": "beard_thin",
   "spawn_overrides": {},
   "start_pool": "various_world:archery_center",
   "size": 6,

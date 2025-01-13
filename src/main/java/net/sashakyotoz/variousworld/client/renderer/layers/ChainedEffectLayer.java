@@ -15,7 +15,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.sashakyotoz.variousworld.client.model.ModelChained;
-import net.sashakyotoz.variousworld.init.VariousWorldMobEffects;
+import net.sashakyotoz.variousworld.init.VWMiscRegistries;
 
 public class ChainedEffectLayer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
     private static final ResourceLocation CHAIN_LOCATION = new ResourceLocation("various_world:textures/entities/chained.png");
@@ -42,7 +42,7 @@ public class ChainedEffectLayer<T extends LivingEntity, M extends EntityModel<T>
     }
 
     public boolean shouldRender(T entity) {
-        return entity.hasEffect(VariousWorldMobEffects.CHAINED_OF_CHAIN.get());
+        return entity.hasEffect(VWMiscRegistries.CHAINED_OF_CHAIN.get());
     }
 
     public ResourceLocation getRodsLocation(ItemStack stack, T entity) {

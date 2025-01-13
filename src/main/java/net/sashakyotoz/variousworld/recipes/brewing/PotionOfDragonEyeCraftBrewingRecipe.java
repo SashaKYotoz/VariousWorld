@@ -5,7 +5,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ItemStack;
 
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWItems;
 
 public class PotionOfDragonEyeCraftBrewingRecipe implements IBrewingRecipe {
 
@@ -16,13 +16,13 @@ public class PotionOfDragonEyeCraftBrewingRecipe implements IBrewingRecipe {
 
 	@Override
 	public boolean isIngredient(ItemStack ingredient) {
-		return Ingredient.of(new ItemStack(VariousWorldItems.BRANCH_WITH_DRAGON_EYE_FRUIT.get())).test(ingredient);
+		return Ingredient.of(new ItemStack(VWItems.BRANCH_WITH_DRAGON_EYE_FRUIT.get())).test(ingredient);
 	}
 
 	@Override
 	public ItemStack getOutput(ItemStack input, ItemStack ingredient) {
 		if (isInput(input) && isIngredient(ingredient)) {
-			return new ItemStack(VariousWorldItems.POTION_OF_DRAGON_EYE_EFFECT.get());
+			return new ItemStack(VWItems.POTION_OF_DRAGON_EYE_EFFECT.get());
 		}
 		return ItemStack.EMPTY;
 	}

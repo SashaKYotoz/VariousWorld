@@ -23,12 +23,12 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public class VariousWorldVillagerProfessions {
+public class VWVillagerProfessions {
 	private static final Map<String, ProfessionPoiType> POI_TYPES = new HashMap<>();
 	public static final DeferredRegister<VillagerProfession> PROFESSIONS = DeferredRegister.create(ForgeRegistries.VILLAGER_PROFESSIONS, VariousWorld.MODID);
-	public static final RegistryObject<VillagerProfession> CRYSTALLOGRAPHER = registerProfession("crystallographer", VariousWorldBlocks.ARTIFACTTABLE,
+	public static final RegistryObject<VillagerProfession> CRYSTALLOGRAPHER = registerProfession("crystallographer", VWBlocks.ARTIFACTTABLE,
 			() ->SoundEvents.AMETHYST_BLOCK_PLACE);
-	public static final RegistryObject<VillagerProfession> MYCOLOGIST = registerProfession("mycologist", VariousWorldBlocks.MYCOLOCYFAROGRAPH,
+	public static final RegistryObject<VillagerProfession> MYCOLOGIST = registerProfession("mycologist", VWBlocks.MYCOLOCYFAROGRAPH,
 			() -> SoundEvents.MOOSHROOM_CONVERT);
 
 	private static RegistryObject<VillagerProfession> registerProfession(String name, Supplier<Block> block, Supplier<SoundEvent> soundEvent) {
@@ -47,7 +47,7 @@ public class VariousWorldVillagerProfessions {
 				String name = entry.getKey();
 				Optional<Holder<PoiType>> existingCheck = PoiTypes.forState(block.defaultBlockState());
 				if (existingCheck.isPresent()) {
-					VariousWorld.LOGGER.error("Skipping villager profession " + name + " that uses POI block " + block + " that is already in use by " + existingCheck);
+                    VariousWorld.LOGGER.error("Skipping villager profession {} that uses POI block {} that is already in use by {}", name, block, existingCheck);
 					continue;
 				}
 				PoiType poiType = new PoiType(ImmutableSet.copyOf(block.getStateDefinition().getPossibleStates()), 1, 1);

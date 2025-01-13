@@ -34,8 +34,8 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
-import net.sashakyotoz.variousworld.init.VariousWorldEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWEntities;
+import net.sashakyotoz.variousworld.init.VWItems;
 
 import java.util.Comparator;
 import java.util.EnumSet;
@@ -146,7 +146,7 @@ public class SpiritofPeacefulWastelandEntity extends TamableAnimal {
 
     protected void dropCustomDeathLoot(DamageSource source, int looting, boolean recentlyHitIn) {
         super.dropCustomDeathLoot(source, looting, recentlyHitIn);
-        this.spawnAtLocation(new ItemStack(VariousWorldItems.GLOW_PURPLE_DYE.get()));
+        this.spawnAtLocation(new ItemStack(VWItems.GLOW_PURPLE_DYE.get()));
     }
 
     @Override
@@ -224,7 +224,7 @@ public class SpiritofPeacefulWastelandEntity extends TamableAnimal {
 
     @Override
     public AgeableMob getBreedOffspring(ServerLevel serverWorld, AgeableMob ageable) {
-        SpiritofPeacefulWastelandEntity entity = VariousWorldEntities.SPIRITOF_PEACEFUL_WASTELAND.get().create(serverWorld);
+        SpiritofPeacefulWastelandEntity entity = VWEntities.SPIRITOF_PEACEFUL_WASTELAND.get().create(serverWorld);
         entity.finalizeSpawn(serverWorld, serverWorld.getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.BREEDING, null, null);
         return entity;
     }
@@ -239,7 +239,7 @@ public class SpiritofPeacefulWastelandEntity extends TamableAnimal {
     }
 
     public static void init() {
-        SpawnPlacements.register(VariousWorldEntities.SPIRITOF_PEACEFUL_WASTELAND.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
+        SpawnPlacements.register(VWEntities.SPIRITOF_PEACEFUL_WASTELAND.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
     }
 
     public static AttributeSupplier.Builder createAttributes() {

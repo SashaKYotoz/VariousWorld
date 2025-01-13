@@ -16,8 +16,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.storage.loot.LootParams;
-import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWBlocks;
+import net.sashakyotoz.variousworld.init.VWItems;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,15 +33,15 @@ public class CryshroomPlantBlock extends FlowerBlock implements BonemealableBloc
 	}
 	@Override
 	public ItemStack getCloneItemStack(BlockGetter p_152966_, BlockPos p_152967_, BlockState p_152968_) {
-		return new ItemStack(VariousWorldItems.CRYSHROOM.get());
+		return new ItemStack(VWItems.CRYSHROOM.get());
 	}
 
 	@Override
 	public boolean mayPlaceOn(BlockState groundState, BlockGetter worldIn, BlockPos pos) {
-		return groundState.is(VariousWorldBlocks.BIG_CRYSHROOM_BLOCK.get()) || groundState.is(VariousWorldBlocks.MYCENA_FROM_CAVERN_OF_DEEP_BLOCK.get()) || groundState.is(Blocks.BROWN_MUSHROOM_BLOCK) || groundState.is(Blocks.RED_MUSHROOM_BLOCK)
-				|| groundState.is(Blocks.MUSHROOM_STEM) || groundState.is(VariousWorldBlocks.SCULK_MOSS_BLOCK.get()) || groundState.is(VariousWorldBlocks.DEEP_MOSS.get()) || groundState.is(VariousWorldBlocks.FLOWER_DEEP_MOSS.get())
-				|| groundState.is(Blocks.MOSS_BLOCK) || groundState.is(VariousWorldBlocks.SCULK_GRASS.get()) || groundState.is(VariousWorldBlocks.CRYSTALIC_GRASS.get()) || groundState.is(VariousWorldBlocks.SHINY_GRASS.get())
-				|| groundState.is(Blocks.STONE) || groundState.is(VariousWorldBlocks.MUSHROOM_SPAWNER.get()) || groundState.is(VariousWorldBlocks.CRYSTALIC_OAK_LOG.get()) || groundState.is(Blocks.DIORITE);
+		return groundState.is(VWBlocks.BIG_CRYSHROOM_BLOCK.get()) || groundState.is(VWBlocks.MYCENA_FROM_CAVERN_OF_DEEP_BLOCK.get()) || groundState.is(Blocks.BROWN_MUSHROOM_BLOCK) || groundState.is(Blocks.RED_MUSHROOM_BLOCK)
+				|| groundState.is(Blocks.MUSHROOM_STEM) || groundState.is(VWBlocks.SCULK_MOSS_BLOCK.get()) || groundState.is(VWBlocks.DEEP_MOSS.get()) || groundState.is(VWBlocks.FLOWER_DEEP_MOSS.get())
+				|| groundState.is(Blocks.MOSS_BLOCK) || groundState.is(VWBlocks.SCULK_GRASS.get()) || groundState.is(VWBlocks.CRYSTALIC_GRASS.get()) || groundState.is(VWBlocks.SHINY_GRASS.get())
+				|| groundState.is(Blocks.STONE) || groundState.is(VWBlocks.MUSHROOM_SPAWNER.get()) || groundState.is(VWBlocks.CRYSTALIC_OAK_LOG.get()) || groundState.is(Blocks.DIORITE);
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class CryshroomPlantBlock extends FlowerBlock implements BonemealableBloc
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldItems.CRYSHROOM.get());
+		ItemStack itemStack = new ItemStack(VWItems.CRYSHROOM.get());
 		return Collections.singletonList(itemStack);
 	}
 

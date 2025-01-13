@@ -32,9 +32,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.entity.technical.SculkScytheEntity;
-import net.sashakyotoz.variousworld.init.VariousWorldEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
-import net.sashakyotoz.variousworld.init.VariousWorldParticleTypes;
+import net.sashakyotoz.variousworld.init.VWEntities;
+import net.sashakyotoz.variousworld.init.VWItems;
+import net.sashakyotoz.variousworld.init.VWMiscRegistries;
 import net.sashakyotoz.variousworld.procedures.AdvancementsManager;
 
 public class SculkNecromancerSkeletonEntity extends Monster implements RangedAttackMob {
@@ -51,9 +51,9 @@ public class SculkNecromancerSkeletonEntity extends Monster implements RangedAtt
         setNoAi(false);
         setPersistenceRequired();
         if (this.getRandom().nextBoolean())
-            this.setItemSlotAndDropWhenKilled(EquipmentSlot.MAINHAND, new ItemStack(VariousWorldItems.NECROMANCER_WAND.get()));
+            this.setItemSlotAndDropWhenKilled(EquipmentSlot.MAINHAND, new ItemStack(VWItems.NECROMANCER_WAND.get()));
         else
-            this.setItemSlotAndDropWhenKilled(EquipmentSlot.MAINHAND, new ItemStack(VariousWorldItems.SCULK_SCYTHE.get()));
+            this.setItemSlotAndDropWhenKilled(EquipmentSlot.MAINHAND, new ItemStack(VWItems.SCULK_SCYTHE.get()));
     }
 
     public void defineSynchedData() {
@@ -185,7 +185,7 @@ public class SculkNecromancerSkeletonEntity extends Monster implements RangedAtt
             if (i == 0)
                 i += 1 + this.skeleton.random.nextIntBetweenInclusive(0,2);
             for (int j = 0; j < i; j++) {
-                SculkSkeletonEntity sculkSkeleton = new SculkSkeletonEntity(VariousWorldEntities.SCULK_SKELETON.get(), this.skeleton.level());
+                SculkSkeletonEntity sculkSkeleton = new SculkSkeletonEntity(VWEntities.SCULK_SKELETON.get(), this.skeleton.level());
                 sculkSkeleton.moveTo(new BlockPos((int) this.skeleton.getX(), (int) this.skeleton.getY(), (int) this.skeleton.getZ()), 0, 0);
                 sculkSkeleton.finalizeSpawn(serverlevel, this.skeleton.level().getCurrentDifficultyAt(new BlockPos((int) this.skeleton.getX(), (int) this.skeleton.getY(), (int) this.skeleton.getZ())), MobSpawnType.MOB_SUMMONED, null, null);
                 sculkSkeleton.setOwner(this.skeleton);
@@ -263,7 +263,7 @@ public class SculkNecromancerSkeletonEntity extends Monster implements RangedAtt
     private void spawnFoundParticles() {
         for (int i = 0; i < 360; i++) {
             if (i % 20 == 0) {
-                this.level().addParticle(VariousWorldParticleTypes.WANDERING_SPIRIT_PROJECTILE_PARTICLE.get(),
+                this.level().addParticle(VWMiscRegistries.WANDERING_SPIRIT_PROJECTILE_PARTICLE.get(),
                         this.getX() + 0.5d, this.getY() + 1, this.getZ() + 0.5d,
                         Math.cos(i) * 0.15d, 0.15d, Math.sin(i) * 0.15d);
             }

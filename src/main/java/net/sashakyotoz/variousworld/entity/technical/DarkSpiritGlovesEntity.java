@@ -3,7 +3,7 @@ package net.sashakyotoz.variousworld.entity.technical;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Lists;
-import net.sashakyotoz.variousworld.init.VariousWorldEntities;
+import net.sashakyotoz.variousworld.init.VWEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -52,7 +52,7 @@ public class DarkSpiritGlovesEntity extends Projectile {
 	}
 
 	public DarkSpiritGlovesEntity(Level level, LivingEntity living, Entity entity, Direction.Axis axis) {
-		this(VariousWorldEntities.DARK_SPIRIT_GLOVES.get(), level);
+		this(VWEntities.DARK_SPIRIT_GLOVES.get(), level);
 		this.setOwner(living);
 		BlockPos blockpos = living.blockPosition();
 		double d0 = (double)blockpos.getX() + 0.5D;

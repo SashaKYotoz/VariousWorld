@@ -1,7 +1,7 @@
 
 package net.sashakyotoz.variousworld.block;
 
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
@@ -118,7 +118,7 @@ public class SmallCrystalClusterBlock extends AmethystBlock implements SimpleWat
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
 		int random = builder.getLevel().random.nextInt(8);
 		if (random == 0){
-			ItemStack itemStack = new ItemStack(VariousWorldItems.CRYSTALSHARD.get());
+			ItemStack itemStack = new ItemStack(VWItems.CRYSTALSHARD.get());
 			return Collections.singletonList(itemStack);
 		}
 		return super.getDrops(blockState, builder);

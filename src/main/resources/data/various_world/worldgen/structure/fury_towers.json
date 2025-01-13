@@ -5,6 +5,7 @@
     "minecraft:end_highlands"
   ],
   "step": "surface_structures",
+  "terrain_adaptation": "beard_box",
   "spawn_overrides": {},
   "start_pool": "various_world:ender_tower_center",
   "size": 5,

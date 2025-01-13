@@ -6,10 +6,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.sashakyotoz.variousworld.item.LordOfFuriesCrossbowItem;
 
-public class VariousWorldItemProperties {
+public class VWItemProperties {
 	public static void addCustomItemProperties() {
-		makeBow(VariousWorldItems.CRYSTALIC_BOW.get());
-		makeCrossBow(VariousWorldItems.LORD_OF_FURIES_CROSSBOW.get());
+		makeBow(VWItems.CRYSTALIC_BOW.get());
+		makeCrossBow(VWItems.LORD_OF_FURIES_CROSSBOW.get());
 	}
 
 	public static void makeBow(Item item) {

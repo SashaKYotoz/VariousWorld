@@ -15,9 +15,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraftforge.network.NetworkHooks;
-import net.sashakyotoz.variousworld.init.VariousWorldEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldParticleTypes;
-import net.sashakyotoz.variousworld.init.VariousWorldSounds;
+import net.sashakyotoz.variousworld.init.VWEntities;
+import net.sashakyotoz.variousworld.init.VWMiscRegistries;
+import net.sashakyotoz.variousworld.init.VWSounds;
 
 public class SculkScytheEntity extends AbstractArrow {
 
@@ -50,7 +50,7 @@ public class SculkScytheEntity extends AbstractArrow {
 		super.onHitEntity(entityHitResult);
 		for (int i = 0; i < 360; i++) {
 			if (i % 20 == 0) {
-				this.level().addParticle(VariousWorldParticleTypes.WANDERING_SPIRIT_PROJECTILE_PARTICLE.get(),
+				this.level().addParticle(VWMiscRegistries.WANDERING_SPIRIT_PROJECTILE_PARTICLE.get(),
 						this.getX(), this.getY() + 0.5, this.getZ(),
 						Math.cos(i) * 0.15d, 0.15d, Math.sin(i) * 0.15d);
 			}
@@ -76,19 +76,19 @@ public class SculkScytheEntity extends AbstractArrow {
 	}
 
 	public static SculkScytheEntity shoot(Level world, LivingEntity entity, RandomSource random, float power, double damage, int knockback) {
-		SculkScytheEntity sculkScythe = new SculkScytheEntity(VariousWorldEntities.SCULK_SCYTHE_PROJECTILE.get(), entity, world);
+		SculkScytheEntity sculkScythe = new SculkScytheEntity(VWEntities.SCULK_SCYTHE_PROJECTILE.get(), entity, world);
 		sculkScythe.shoot(entity.getViewVector(1).x, entity.getViewVector(1).y, entity.getViewVector(1).z, power * 2, 0);
 		sculkScythe.setSilent(true);
 		sculkScythe.setCritArrow(false);
 		sculkScythe.setBaseDamage(damage);
 		sculkScythe.setKnockback(knockback);
 		world.addFreshEntity(sculkScythe);
-		world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), VariousWorldSounds.ITEM_WAND_SHOOT, SoundSource.PLAYERS, 1, 1f / (random.nextFloat() * 0.5f + 1) + (power / 2));
+		world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), VWSounds.ITEM_WAND_SHOOT, SoundSource.PLAYERS, 1, 1f / (random.nextFloat() * 0.5f + 1) + (power / 2));
 		return sculkScythe;
 	}
 
 	public static SculkScytheEntity shoot(LivingEntity entity, LivingEntity target) {
-		SculkScytheEntity scythe = new SculkScytheEntity(VariousWorldEntities.SCULK_SCYTHE_PROJECTILE.get(), entity, entity.level());
+		SculkScytheEntity scythe = new SculkScytheEntity(VWEntities.SCULK_SCYTHE_PROJECTILE.get(), entity, entity.level());
 		double dx = target.getX() - entity.getX();
 		double dy = target.getY() + target.getEyeHeight() - 1.1;
 		double dz = target.getZ() - entity.getZ();
@@ -98,7 +98,7 @@ public class SculkScytheEntity extends AbstractArrow {
 		scythe.setKnockback(3);
 		scythe.setCritArrow(false);
 		entity.level().addFreshEntity(scythe);
-		entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), VariousWorldSounds.ITEM_WAND_SHOOT, SoundSource.PLAYERS, 1, 1f / (RandomSource.create().nextFloat() * 0.5f + 1));
+		entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), VWSounds.ITEM_WAND_SHOOT, SoundSource.PLAYERS, 1, 1f / (RandomSource.create().nextFloat() * 0.5f + 1));
 		return scythe;
 	}
 }

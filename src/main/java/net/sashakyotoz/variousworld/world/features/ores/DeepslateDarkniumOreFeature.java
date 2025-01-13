@@ -11,7 +11,7 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.resources.ResourceKey;
 
-import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
+import net.sashakyotoz.variousworld.init.VWBlocks;
 
 import java.util.Set;
 
@@ -36,7 +36,7 @@ public class DeepslateDarkniumOreFeature extends OreFeature {
 			for (int j = 0; j < 8; j++) {
 				sz = -5;
 				for (int k = 0; k < 8; k++) {
-					if ((world.getBlockState(BlockPos.containing(x + sx, y + sy, z + sz))).getBlock() == VariousWorldBlocks.DEEPSLATE_SCULK_GEM_ORE.get()) {
+					if ((world.getBlockState(BlockPos.containing(x + sx, y + sy, z + sz))).getBlock() == VWBlocks.DEEPSLATE_SCULK_GEM_ORE.get()) {
 						BlockPos blockPos = BlockPos.containing(x + sx, y + sy, z + sz);
 						if (Math.random() < 0.5) {
 							BlockState state = Blocks.BLACKSTONE.defaultBlockState();
@@ -45,7 +45,7 @@ public class DeepslateDarkniumOreFeature extends OreFeature {
 							BlockState state = Blocks.AIR.defaultBlockState();
 							world.setBlock(blockPos, state, 3);
 						} else if (Math.random() < 0.25) {
-							BlockState state = VariousWorldBlocks.SCULK_MAGMA.get().defaultBlockState();
+							BlockState state = VWBlocks.SCULK_MAGMA.get().defaultBlockState();
 							world.setBlock(blockPos, state, 3);
 						}
 					}

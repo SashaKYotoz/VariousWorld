@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 import net.sashakyotoz.variousworld.entity.MultipleEnderPearlEntity;
-import net.sashakyotoz.variousworld.init.VariousWorldEntities;
+import net.sashakyotoz.variousworld.init.VWEntities;
 
 public class MultipleEnderPearlItem extends Item {
 	public MultipleEnderPearlItem() {
@@ -43,7 +43,7 @@ public class MultipleEnderPearlItem extends Item {
 		if (!projectileLevel.isClientSide()) {
 			Projectile projectile = new Object() {
 				public Projectile getArrow(Level level, Entity shooter, float damage, int knockback) {
-					AbstractArrow entityToSpawn = new MultipleEnderPearlEntity(VariousWorldEntities.MULTIPLE_ENDER_PEARL.get(), level);
+					AbstractArrow entityToSpawn = new MultipleEnderPearlEntity(VWEntities.MULTIPLE_ENDER_PEARL.get(), level);
 					entityToSpawn.setOwner(shooter);
 					entityToSpawn.setBaseDamage(damage);
 					entityToSpawn.setKnockback(knockback);

@@ -4,11 +4,8 @@ package net.sashakyotoz.variousworld.block;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec2;
-import net.minecraft.world.phys.Vec3;
-import net.sashakyotoz.variousworld.VariousWorld;
-import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
+import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -45,18 +42,18 @@ public class MushroomSpawnerBlock extends Block {
     }
 
     private void execute(ServerLevel level, BlockPos pos) {
-        if ((level.getBlockState(pos.above())).is(VariousWorldBlocks.MYCENA_FROM_CAVERN_OF_DEEP.get())) {
+        if ((level.getBlockState(pos.above())).is(VWBlocks.MYCENA_FROM_CAVERN_OF_DEEP.get())) {
             level.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL, pos.getCenter(), Vec2.ZERO, level, 4, "", Component.literal(""), level.getServer(), null).withSuppressedOutput(),
                     "/effect give @e[type= various_world:crystal_warrior,distance=..15] minecraft:regeneration 5 2");
-        } else if ((level.getBlockState(pos.above())).getBlock() == VariousWorldBlocks.CRYSHROOM_PLANT.get()) {
+        } else if ((level.getBlockState(pos.above())).getBlock() == VWBlocks.CRYSHROOM_PLANT.get()) {
             level.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL, pos.getCenter(), Vec2.ZERO, level, 4, "", Component.literal(""), level.getServer(), null).withSuppressedOutput(),
                     "/effect give @e[type= various_world:crystal_warrior,distance=..15] minecraft:invisibility 10 0");
         }
         if (level.getBlockState(pos.above()).isAir() && level.getGameTime() % 60 == 0) {
             if (RandomSource.create().nextBoolean())
-                level.setBlock(pos.above(), VariousWorldBlocks.MYCENA_FROM_CAVERN_OF_DEEP.get().defaultBlockState(), 3);
+                level.setBlock(pos.above(), VWBlocks.MYCENA_FROM_CAVERN_OF_DEEP.get().defaultBlockState(), 3);
             else
-                level.setBlock(pos.above(), VariousWorldBlocks.CRYSHROOM_PLANT.get().defaultBlockState(), 3);
+                level.setBlock(pos.above(), VWBlocks.CRYSHROOM_PLANT.get().defaultBlockState(), 3);
         }
     }
 }

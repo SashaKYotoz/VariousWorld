@@ -21,9 +21,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.sashakyotoz.variousworld.init.VariousWorldEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
-import net.sashakyotoz.variousworld.init.VariousWorldSounds;
+import net.sashakyotoz.variousworld.init.VWEntities;
+import net.sashakyotoz.variousworld.init.VWItems;
+import net.sashakyotoz.variousworld.init.VWSounds;
 import org.jetbrains.annotations.NotNull;
 
 public class ZombieOfVariousBiomesEntity extends Monster {
@@ -35,9 +35,9 @@ public class ZombieOfVariousBiomesEntity extends Monster {
 		xpReward = 4;
 		float randomItem = (float) Math.random();
 		if(randomItem <= 0.125)
-			this.itemStack = new ItemStack(VariousWorldItems.SLIME_CRYSTALIC.get());
+			this.itemStack = new ItemStack(VWItems.SLIME_CRYSTALIC.get());
 		else if(randomItem >= 0.875)
-			this.itemStack = new ItemStack(VariousWorldItems.CRYSTALIC_STRENGTH.get());
+			this.itemStack = new ItemStack(VWItems.CRYSTALIC_STRENGTH.get());
 		if(itemStack != null)
 			this.setItemSlotAndDropWhenKilled(EquipmentSlot.MAINHAND,itemStack);
 	}
@@ -96,7 +96,7 @@ public class ZombieOfVariousBiomesEntity extends Monster {
 
 	@Override
 	public SoundEvent getAmbientSound() {
-		return VariousWorldSounds.ENTITY_VARIOUS_ZOMBIE_AMBIENT;
+		return VWSounds.ENTITY_VARIOUS_ZOMBIE_AMBIENT;
 	}
 
 	@Override
@@ -128,7 +128,7 @@ public class ZombieOfVariousBiomesEntity extends Monster {
 	}
 
 	public static void init() {
-		SpawnPlacements.register(VariousWorldEntities.ZOMBIE_OF_VARIOUS_BIOMES.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+		SpawnPlacements.register(VWEntities.ZOMBIE_OF_VARIOUS_BIOMES.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				(entityType, world, reason, pos, random) -> (world.getDifficulty() != Difficulty.PEACEFUL && Monster.isDarkEnoughToSpawn(world, pos, random) && Mob.checkMobSpawnRules(entityType, world, reason, pos, random)));
 	}
 

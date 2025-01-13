@@ -45,19 +45,16 @@ public class VariousWorld {
     public VariousWorld() {
         MinecraftForge.EVENT_BUS.register(this);
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        VariousWorldSounds.init();
-        VariousWorldBlocks.BLOCKS.register(bus);
-        VariousWorldItems.ITEMS.register(bus);
-        VariousWorldEntities.ENTITIES.register(bus);
-        VariousWorldBlockEntities.BLOCK_ENTITIES.register(bus);
-        VariousWorldEnchantments.ENCHANTMENTS.register(bus);
-        VariousWorldPaintings.PAINTINGS.register(bus);
-        VariousWorldParticleTypes.REGISTRY.register(bus);
-        VariousWorldMobEffects.REGISTRY.register(bus);
-        VariousWorldTabs.CREATIVE_MODE_TABS.register(bus);
-        VariousWorldMenus.REGISTRY.register(bus);
-        VariousWorldFeatures.REGISTRY.register(bus);
-        VariousWorldVillagerProfessions.PROFESSIONS.register(bus);
+        VWSounds.init();
+        VWBlocks.BLOCKS.register(bus);
+        VWItems.ITEMS.register(bus);
+        VWEntities.ENTITIES.register(bus);
+        VWBlockEntities.BLOCK_ENTITIES.register(bus);
+        VWMiscRegistries.register(bus);
+        VWTabs.CREATIVE_MODE_TABS.register(bus);
+        VWMenus.REGISTRY.register(bus);
+        VWFeatures.REGISTRY.register(bus);
+        VWVillagerProfessions.PROFESSIONS.register(bus);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON,VariousWorldConfig.SPEC);
         bus.addListener(this::commonSetup);
         bus.addListener(this::clientSetup);
@@ -92,19 +89,19 @@ public class VariousWorld {
         }
     }
     private void clientSetup(final FMLClientSetupEvent event){
-        VariousWorldItemProperties.addCustomItemProperties();
+        VWItemProperties.addCustomItemProperties();
         event.enqueueWork(() -> {
             Sheets.addWoodType(ModWoodType.CRYSTALIC_OAK);
             Sheets.addWoodType(ModWoodType.SCULK);
             Sheets.addWoodType(ModWoodType.MAGNOLIA);
-            MenuScreens.register(VariousWorldMenus.ARCH_OF_GEMS.get(), ArchOfGemsScreen::new);
-            MenuScreens.register(VariousWorldMenus.ARMOR_STATION.get(), ArmorStationScreen::new);
-            MenuScreens.register(VariousWorldMenus.DISENCHANT_TABLE_GUI.get(), DisenchantTableGUIScreen::new);
-            MenuScreens.register(VariousWorldMenus.MYCOLOCYFAROGRAPH_GUI.get(), MycolocyfarographGUIScreen::new);
+            MenuScreens.register(VWMenus.ARCH_OF_GEMS.get(), ArchOfGemsScreen::new);
+            MenuScreens.register(VWMenus.ARMOR_STATION.get(), ArmorStationScreen::new);
+            MenuScreens.register(VWMenus.DISENCHANT_TABLE_GUI.get(), DisenchantTableGUIScreen::new);
+            MenuScreens.register(VWMenus.MYCOLOCYFAROGRAPH_GUI.get(), MycolocyfarographGUIScreen::new);
         });
     }
     private void commonSetup(final FMLCommonSetupEvent event) {
-        VariousWorldVillagerType villagerType = new VariousWorldVillagerType();
+        VWVillagerType villagerType = new VWVillagerType();
         villagerType.initVillagerTypes();
         BrewingRecipeRegistry.addRecipe(new PotionOfDragonEyeCraftBrewingRecipe());
     }

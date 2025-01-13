@@ -3,7 +3,7 @@
   "biomes": "various_world:crystalicforest",
   "step": "surface_structures",
   "spawn_overrides": {},
-  "terrain_adaptation": "beard_thin",
+  "terrain_adaptation": "beard_box",
   "start_pool": "various_world:crystalic_temples",
   "size": 6,
   "start_height": {

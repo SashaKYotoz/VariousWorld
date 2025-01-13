@@ -13,7 +13,7 @@ import net.sashakyotoz.variousworld.world.features.nbt_features.*;
 import net.sashakyotoz.variousworld.world.features.ores.*;
 import net.sashakyotoz.variousworld.world.features.plants.*;
 
-public class VariousWorldFeatures {
+public class VWFeatures {
     public static final DeferredRegister<Feature<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.FEATURES, VariousWorld.MODID);
     public static final ResourceKey<ConfiguredFeature<?,?>> CRYSTALIC_TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE,new ResourceLocation("various_world","crystalicforest_tree"));
     public static final ResourceKey<ConfiguredFeature<?,?>> SCULK_TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE,new ResourceLocation("various_world","sculk_valley_tree"));

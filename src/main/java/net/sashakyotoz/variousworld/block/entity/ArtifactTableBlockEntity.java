@@ -22,7 +22,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 
 import net.sashakyotoz.variousworld.client.menus.ArchOfGemsMenu;
-import net.sashakyotoz.variousworld.init.VariousWorldBlockEntities;
+import net.sashakyotoz.variousworld.init.VWBlockEntities;
 
 import javax.annotation.Nullable;
 
@@ -35,7 +35,7 @@ public class ArtifactTableBlockEntity extends RandomizableContainerBlockEntity i
 	private final LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper.create(this, Direction.values());
 
 	public ArtifactTableBlockEntity(BlockPos position, BlockState state) {
-		super(VariousWorldBlockEntities.ARTIFACT_TABLE.get(), position, state);
+		super(VWBlockEntities.ARTIFACT_TABLE.get(), position, state);
 	}
 
 	@Override

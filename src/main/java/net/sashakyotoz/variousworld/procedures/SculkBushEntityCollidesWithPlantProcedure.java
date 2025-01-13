@@ -6,7 +6,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.sashakyotoz.variousworld.entity.WanderingSpiritOfSculksEntity;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWItems;
 
 public class SculkBushEntityCollidesWithPlantProcedure {
 	public static void execute(Entity entity) {
@@ -14,7 +14,7 @@ public class SculkBushEntityCollidesWithPlantProcedure {
 			return;
 		if(entity instanceof LivingEntity livingEntity){
 			if (!(entity instanceof Animal || entity instanceof WanderingSpiritOfSculksEntity
-					|| entity instanceof Player player && player.getItemBySlot(EquipmentSlot.LEGS).is(VariousWorldItems.SCULK_ARMOR_LEGGINGS.get()))) {
+					|| entity instanceof Player player && player.getItemBySlot(EquipmentSlot.LEGS).is(VWItems.SCULK_ARMOR_LEGGINGS.get()))) {
 				livingEntity.hurt(livingEntity.damageSources().sweetBerryBush(), 1);
 			}
 		}

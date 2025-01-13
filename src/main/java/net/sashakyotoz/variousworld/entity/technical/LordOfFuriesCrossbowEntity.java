@@ -14,7 +14,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.util.RandomSource;
 import net.minecraft.sounds.SoundSource;
 
-import net.sashakyotoz.variousworld.init.VariousWorldEntities;
+import net.sashakyotoz.variousworld.init.VWEntities;
 
 public class LordOfFuriesCrossbowEntity extends AbstractArrow {
 
@@ -50,7 +50,7 @@ public class LordOfFuriesCrossbowEntity extends AbstractArrow {
 	}
 
 	public static LordOfFuriesCrossbowEntity shoot(Level level, LivingEntity entity, RandomSource random, float power, double damage, int knockback) {
-		LordOfFuriesCrossbowEntity arrow = new LordOfFuriesCrossbowEntity(VariousWorldEntities.LORD_OF_FURIES_CROSSBOW.get(), entity, level);
+		LordOfFuriesCrossbowEntity arrow = new LordOfFuriesCrossbowEntity(VWEntities.LORD_OF_FURIES_CROSSBOW.get(), entity, level);
 		arrow.shoot(entity.getViewVector(1).x, entity.getViewVector(1).y, entity.getViewVector(1).z, power * 2, 0);
 		arrow.setSilent(true);
 		arrow.setCritArrow(false);

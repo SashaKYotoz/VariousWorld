@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.BlockPos;
 
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWItems;
 import net.sashakyotoz.variousworld.VariousWorld;
 
 import java.util.Map;
@@ -71,58 +71,58 @@ public class ArmorStationButtonMessage {
         if (player == null)
             return;
         if (player instanceof ServerPlayer serverPlayer && serverPlayer.containerMenu instanceof Supplier<?> supplier && supplier.get() instanceof Map slots && !player.level().isClientSide()) {
-            if (((Slot) slots.get(0)).getItem().is(Items.FEATHER) && ((Slot) slots.get(1)).getItem().is(VariousWorldItems.SCULK_ARMOR_HELMET.get())
+            if (((Slot) slots.get(0)).getItem().is(Items.FEATHER) && ((Slot) slots.get(1)).getItem().is(VWItems.SCULK_ARMOR_HELMET.get())
                     && ((Slot) slots.get(2)).getItem().is(Items.NETHER_STAR)) {
-                ItemStack stack = new ItemStack(VariousWorldItems.ANGEL_HELMET.get());
+                ItemStack stack = new ItemStack(VWItems.ANGEL_HELMET.get());
                 stack.setCount(1);
                 ((Slot) slots.get(3)).set(stack);
                 cleanSlots(serverPlayer, slots);
             }
-            if (((Slot) slots.get(0)).getItem().is(Items.FEATHER) && ((Slot) slots.get(1)).getItem().is(VariousWorldItems.SCULK_ARMOR_CHESTPLATE.get())
+            if (((Slot) slots.get(0)).getItem().is(Items.FEATHER) && ((Slot) slots.get(1)).getItem().is(VWItems.SCULK_ARMOR_CHESTPLATE.get())
                     && ((Slot) slots.get(2)).getItem().is(Items.NETHER_STAR)) {
-                ItemStack stack = new ItemStack(VariousWorldItems.ANGEL_CHESTPLATE.get());
+                ItemStack stack = new ItemStack(VWItems.ANGEL_CHESTPLATE.get());
                 stack.setCount(1);
                 ((Slot) slots.get(3)).set(stack);
                 cleanSlots(serverPlayer, slots);
             }
-            if (((Slot) slots.get(0)).getItem().is(Items.FEATHER) && ((Slot) slots.get(1)).getItem().is(VariousWorldItems.SCULK_ARMOR_LEGGINGS.get())
+            if (((Slot) slots.get(0)).getItem().is(Items.FEATHER) && ((Slot) slots.get(1)).getItem().is(VWItems.SCULK_ARMOR_LEGGINGS.get())
                     && ((Slot) slots.get(2)).getItem().is(Items.NETHER_STAR)) {
-                ItemStack stack = new ItemStack(VariousWorldItems.ANGEL_LEGGINGS.get());
+                ItemStack stack = new ItemStack(VWItems.ANGEL_LEGGINGS.get());
                 stack.setCount(1);
                 ((Slot) slots.get(3)).set(stack);
                 cleanSlots(serverPlayer, slots);
             }
-            if (((Slot) slots.get(0)).getItem().is(Items.FEATHER) && ((Slot) slots.get(1)).getItem().is(VariousWorldItems.SCULK_ARMOR_BOOTS.get())
+            if (((Slot) slots.get(0)).getItem().is(Items.FEATHER) && ((Slot) slots.get(1)).getItem().is(VWItems.SCULK_ARMOR_BOOTS.get())
                     && ((Slot) slots.get(2)).getItem().is(Items.NETHER_STAR)) {
-                ItemStack stack = new ItemStack(VariousWorldItems.ANGEL_BOOTS.get());
+                ItemStack stack = new ItemStack(VWItems.ANGEL_BOOTS.get());
                 stack.setCount(1);
                 ((Slot) slots.get(3)).set(stack);
                 cleanSlots(serverPlayer, slots);
             }
-            if (((Slot) slots.get(0)).getItem().is(Items.PHANTOM_MEMBRANE) && ((Slot) slots.get(1)).getItem().is(VariousWorldItems.DARKNIUM_ARMOR_HELMET.get())
-                    && ((Slot) slots.get(2)).getItem().is(VariousWorldItems.FURY_INGOT.get())) {
-                ItemStack stack = new ItemStack(VariousWorldItems.FURY_HELMET.get());
+            if (((Slot) slots.get(0)).getItem().is(Items.PHANTOM_MEMBRANE) && ((Slot) slots.get(1)).getItem().is(VWItems.DARKNIUM_ARMOR_HELMET.get())
+                    && ((Slot) slots.get(2)).getItem().is(VWItems.FURY_INGOT.get())) {
+                ItemStack stack = new ItemStack(VWItems.FURY_HELMET.get());
                 stack.setCount(1);
                 ((Slot) slots.get(3)).set(stack);
                 cleanSlots(serverPlayer, slots);
             }
-            if (((Slot) slots.get(0)).getItem().is(Items.PHANTOM_MEMBRANE) && ((Slot) slots.get(1)).getItem().is(VariousWorldItems.DARKNIUM_ARMOR_CHESTPLATE.get())
-                    && ((Slot) slots.get(2)).getItem().is(VariousWorldItems.FURY_INGOT.get())) {
-                ItemStack stack = new ItemStack(VariousWorldItems.FURY_CHESTPLATE.get());
+            if (((Slot) slots.get(0)).getItem().is(Items.PHANTOM_MEMBRANE) && ((Slot) slots.get(1)).getItem().is(VWItems.DARKNIUM_ARMOR_CHESTPLATE.get())
+                    && ((Slot) slots.get(2)).getItem().is(VWItems.FURY_INGOT.get())) {
+                ItemStack stack = new ItemStack(VWItems.FURY_CHESTPLATE.get());
                 stack.setCount(1);
                 ((Slot) slots.get(3)).set(stack);
                 cleanSlots(serverPlayer, slots);
             }
-            if (((Slot) slots.get(0)).getItem().is(Items.PHANTOM_MEMBRANE) && ((Slot) slots.get(1)).getItem().is(VariousWorldItems.DARKNIUM_ARMOR_LEGGINGS.get())
-                    && ((Slot) slots.get(2)).getItem().is(VariousWorldItems.FURY_INGOT.get())) {
-                ItemStack stack = new ItemStack(VariousWorldItems.FURY_LEGGINGS.get());
+            if (((Slot) slots.get(0)).getItem().is(Items.PHANTOM_MEMBRANE) && ((Slot) slots.get(1)).getItem().is(VWItems.DARKNIUM_ARMOR_LEGGINGS.get())
+                    && ((Slot) slots.get(2)).getItem().is(VWItems.FURY_INGOT.get())) {
+                ItemStack stack = new ItemStack(VWItems.FURY_LEGGINGS.get());
                 stack.setCount(1);
                 ((Slot) slots.get(3)).set(stack);
                 cleanSlots(serverPlayer, slots);
             }
-            if (((Slot) slots.get(0)).getItem().is(Items.PHANTOM_MEMBRANE) && ((Slot) slots.get(1)).getItem().is(VariousWorldItems.DARKNIUM_ARMOR_BOOTS.get())
-                    && ((Slot) slots.get(2)).getItem().is(VariousWorldItems.FURY_INGOT.get())) {
-                ItemStack stack = new ItemStack(VariousWorldItems.FURY_BOOTS.get());
+            if (((Slot) slots.get(0)).getItem().is(Items.PHANTOM_MEMBRANE) && ((Slot) slots.get(1)).getItem().is(VWItems.DARKNIUM_ARMOR_BOOTS.get())
+                    && ((Slot) slots.get(2)).getItem().is(VWItems.FURY_INGOT.get())) {
+                ItemStack stack = new ItemStack(VWItems.FURY_BOOTS.get());
                 stack.setCount(1);
                 ((Slot) slots.get(3)).set(stack);
                 cleanSlots(serverPlayer, slots);

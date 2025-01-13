@@ -3,7 +3,7 @@ package net.sashakyotoz.variousworld.block;
 
 import io.netty.buffer.Unpooled;
 import net.sashakyotoz.variousworld.block.entity.DisenchantTableBlockEntity;
-import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
+import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.client.menus.DisenchantTableGUIMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -156,7 +156,7 @@ public class DisenchantTableBlock extends Block implements EntityBlock {
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldBlocks.DISENCHANT_TABLE.get());
+		ItemStack itemStack = new ItemStack(VWBlocks.DISENCHANT_TABLE.get());
 		return Collections.singletonList(itemStack);
 	}
 }

@@ -18,7 +18,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.sashakyotoz.variousworld.client.model.ModelFuryArmor;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWItems;
 import net.sashakyotoz.variousworld.procedures.ArmorTickAbilities;
 
 import java.util.Collections;
@@ -50,7 +50,7 @@ public abstract class FuryArmorItem extends ArmorItem {
 
 			@Override
 			public Ingredient getRepairIngredient() {
-				return Ingredient.of(new ItemStack(VariousWorldItems.FURY_SCALES.get()));
+				return Ingredient.of(new ItemStack(VWItems.FURY_SCALES.get()));
 			}
 
 			@Override

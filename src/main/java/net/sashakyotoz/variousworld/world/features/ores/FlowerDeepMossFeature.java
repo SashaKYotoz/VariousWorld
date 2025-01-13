@@ -8,7 +8,7 @@ import net.minecraft.world.level.levelgen.feature.OreFeature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.WorldGenLevel;
 
-import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
+import net.sashakyotoz.variousworld.init.VWBlocks;
 
 public class FlowerDeepMossFeature extends OreFeature {
 
@@ -21,15 +21,15 @@ public class FlowerDeepMossFeature extends OreFeature {
         BlockPos pos = context.origin();
         if (level.getBlockState(pos.above()).isAir()) {
             BlockPos above = pos.above();
-            BlockState state = VariousWorldBlocks.MYCENA_FROM_CAVERN_OF_DEEP.get().defaultBlockState();
+            BlockState state = VWBlocks.MYCENA_FROM_CAVERN_OF_DEEP.get().defaultBlockState();
             level.setBlock(above, state, 3);
         }
         if (level.getBlockState(pos.below()).isAir()) {
             BlockPos below = pos.below();
-            BlockState state = VariousWorldBlocks.FLOWER_VINE_FROM_CAVERNOF_DEEP.get().defaultBlockState();
+            BlockState state = VWBlocks.FLOWER_VINE_FROM_CAVERNOF_DEEP.get().defaultBlockState();
             level.setBlock(below, state, 3);
         }
-        BlockState state = VariousWorldBlocks.DEEP_MOSS.get().defaultBlockState();
+        BlockState state = VWBlocks.DEEP_MOSS.get().defaultBlockState();
         level.setBlock(pos, state, 3);
         return true;
     }

@@ -20,7 +20,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.sashakyotoz.variousworld.client.model.ModelLordFuryBottom;
 import net.sashakyotoz.variousworld.client.model.ModelLordFuryTop;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWItems;
 import net.sashakyotoz.variousworld.procedures.ArmorTickAbilities;
 
 import java.util.Collections;
@@ -52,7 +52,7 @@ public abstract class LordFuryItem extends ArmorItem {
 
 			@Override
 			public Ingredient getRepairIngredient() {
-				return Ingredient.of(new ItemStack(VariousWorldItems.LORD_FURY_SCALE.get()));
+				return Ingredient.of(new ItemStack(VWItems.LORD_FURY_SCALE.get()));
 			}
 
 			@Override

@@ -14,7 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.CommandSource;
 
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWItems;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -22,10 +22,10 @@ public class ArtifactTableUpdateTickProcedure {
 	public static void execute(LevelAccessor world, double x, double y, double z) {
 		if (world == null) return;
 		BlockPos blockPos = BlockPos.containing(x, y, z );
-		checkAndApplyEffect(world, blockPos, 0, VariousWorldItems.STRENGH_AMULET.get(), "strength", 28);
-		checkAndApplyEffect(world, blockPos, 1, VariousWorldItems.REGENERATION_GEM.get(), "regeneration", 28);
-		checkAndApplyEffect(world, blockPos, 3, VariousWorldItems.EXPLORER_NECKLACE.get(), "jump_boost", 32);
-		checkAndApplyEffect(world, blockPos, 2, VariousWorldItems.AMETHYST_RING.get(), "resistance", 32);
+		checkAndApplyEffect(world, blockPos, 0, VWItems.STRENGH_AMULET.get(), "strength", 28);
+		checkAndApplyEffect(world, blockPos, 1, VWItems.REGENERATION_GEM.get(), "regeneration", 28);
+		checkAndApplyEffect(world, blockPos, 3, VWItems.EXPLORER_NECKLACE.get(), "jump_boost", 32);
+		checkAndApplyEffect(world, blockPos, 2, VWItems.AMETHYST_RING.get(), "resistance", 32);
 	}
 	private static void checkAndApplyEffect(LevelAccessor accessor, BlockPos pos, int slotId, Item expectedItem, String effect, int range) {
 		ItemStack itemStack = getItemStack(accessor, pos, slotId);

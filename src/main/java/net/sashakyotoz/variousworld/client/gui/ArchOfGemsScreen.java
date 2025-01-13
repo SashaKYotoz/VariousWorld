@@ -68,5 +68,4 @@ public class ArchOfGemsScreen extends AbstractContainerScreen<ArchOfGemsMenu> {
 	public void init() {
 		super.init();
 	}
-
 }

@@ -1,7 +1,7 @@
 
 package net.sashakyotoz.variousworld.block;
 
-import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
+import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
@@ -37,7 +37,7 @@ public class CrystalicOakStairsBlock extends StairBlock {
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldBlocks.CRYSTALIC_OAK_STAIRS.get());
+		ItemStack itemStack = new ItemStack(VWBlocks.CRYSTALIC_OAK_STAIRS.get());
 		return Collections.singletonList(itemStack);
 	}
 }

@@ -15,9 +15,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.BlockPos;
 
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
-import net.sashakyotoz.variousworld.init.VariousWorldEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
+import net.sashakyotoz.variousworld.init.VWEntities;
+import net.sashakyotoz.variousworld.init.VWItems;
+import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.entity.SculkNecromancerSkeletonEntity;
 import net.sashakyotoz.variousworld.entity.FuryLordEntity;
 import net.sashakyotoz.variousworld.entity.DarkSpiritEntity;
@@ -30,19 +30,19 @@ public class OnStandRightClickedProcedure {
         BlockPos blockPos = BlockPos.containing(x, y, z);
         Block blockAtPos = level.getBlockState(blockPos).getBlock();
 
-        if (blockAtPos == VariousWorldBlocks.QUARTZ_STAND.get()) {
+        if (blockAtPos == VWBlocks.QUARTZ_STAND.get()) {
             handleQuartzStand(level, blockPos, player, x, y, z);
-        } else if (blockAtPos == VariousWorldBlocks.AIR_STAND.get()) {
+        } else if (blockAtPos == VWBlocks.AIR_STAND.get()) {
             handleAirStand(level, blockPos, player, x, y, z);
-        } else if (blockAtPos == VariousWorldBlocks.LORD_FURY_STAND.get()) {
+        } else if (blockAtPos == VWBlocks.LORD_FURY_STAND.get()) {
             handleLordFuryStand(level, blockPos, player, x, y, z);
-        } else if (blockAtPos == VariousWorldBlocks.SCULK_NECROMANCER_BLOCK_SPAWNER.get()) {
+        } else if (blockAtPos == VWBlocks.SCULK_NECROMANCER_BLOCK_SPAWNER.get()) {
             handleSculkNecromancerBlockSpawner(level, blockPos, x, y, z);
         }
     }
 
     private static void handleQuartzStand(LevelAccessor world, BlockPos blockPos, Player player, double x, double y, double z) {
-        ItemStack crystalicStrengthStack = new ItemStack(VariousWorldItems.CRYSTALIC_STRENGTH.get());
+        ItemStack crystalicStrengthStack = new ItemStack(VWItems.CRYSTALIC_STRENGTH.get());
         if (player.getInventory().contains(crystalicStrengthStack)) {
             player.getInventory().clearOrCountMatchingItems(
                     p -> crystalicStrengthStack.getItem() == p.getItem(),
@@ -50,7 +50,7 @@ public class OnStandRightClickedProcedure {
                     player.inventoryMenu.getCraftSlots()
             );
             if (world instanceof ServerLevel level) {
-                spawnEntity(level, new CrystalWarriorEntity(VariousWorldEntities.CRYSTAL_WARRIOR.get(), level), x, y, z);
+                spawnEntity(level, new CrystalWarriorEntity(VWEntities.CRYSTAL_WARRIOR.get(), level), x, y, z);
             }
             world.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 3);
             clearSurroundingBlocks(world, blockPos, x, y, z, -3, 6, -1, 6, -3, 6);
@@ -58,8 +58,8 @@ public class OnStandRightClickedProcedure {
     }
 
     private static void handleAirStand(LevelAccessor world, BlockPos blockPos, Player player, double x, double y, double z) {
-        ItemStack crystalGemStack = new ItemStack(VariousWorldItems.CRYSTAL_GEM.get());
-        if (player.getMainHandItem().getItem() == VariousWorldItems.CRYSTAL_GEM.get()) {
+        ItemStack crystalGemStack = new ItemStack(VWItems.CRYSTAL_GEM.get());
+        if (player.getMainHandItem().getItem() == VWItems.CRYSTAL_GEM.get()) {
             player.getInventory().clearOrCountMatchingItems(
                     p -> crystalGemStack.getItem() == p.getItem(),
                     1,
@@ -67,14 +67,14 @@ public class OnStandRightClickedProcedure {
             );
             world.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 3);
             if (world instanceof ServerLevel level) {
-                spawnEntity(level, new DarkSpiritEntity(VariousWorldEntities.DARK_SPIRIT.get(), level), x, y, z);
+                spawnEntity(level, new DarkSpiritEntity(VWEntities.DARK_SPIRIT.get(), level), x, y, z);
             }
         }
     }
 
     private static void handleLordFuryStand(LevelAccessor world, BlockPos blockPos, Player player, double x, double y, double z) {
-        ItemStack lordFuryShardStack = new ItemStack(VariousWorldItems.LORD_FURY_SHARD.get());
-        if (player.getMainHandItem().is(VariousWorldItems.LORD_FURY_SHARD.get()) && player.getMainHandItem().getCount() >= 3) {
+        ItemStack lordFuryShardStack = new ItemStack(VWItems.LORD_FURY_SHARD.get());
+        if (player.getMainHandItem().is(VWItems.LORD_FURY_SHARD.get()) && player.getMainHandItem().getCount() >= 3) {
             world.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 3);
             world.addParticle(ParticleTypes.CRIT, x, y, z, 0, 1, 0);
             player.getInventory().clearOrCountMatchingItems(
@@ -83,7 +83,7 @@ public class OnStandRightClickedProcedure {
                     player.inventoryMenu.getCraftSlots()
             );
             if (world instanceof ServerLevel level) {
-                spawnEntity(level, new FuryLordEntity(VariousWorldEntities.FURY_LORD.get(), level), x, y + 3, z);
+                spawnEntity(level, new FuryLordEntity(VWEntities.FURY_LORD.get(), level), x, y + 3, z);
             }
         }
     }
@@ -91,7 +91,7 @@ public class OnStandRightClickedProcedure {
     private static void handleSculkNecromancerBlockSpawner(LevelAccessor world, BlockPos blockPos, double x, double y, double z) {
         world.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 3);
         if (world instanceof ServerLevel level) {
-            spawnEntity(level, new SculkNecromancerSkeletonEntity(VariousWorldEntities.SCULK_NECROMANCER_SKELETON.get(), level), x, y, z);
+            spawnEntity(level, new SculkNecromancerSkeletonEntity(VWEntities.SCULK_NECROMANCER_SKELETON.get(), level), x, y, z);
         }
     }
 
@@ -107,7 +107,7 @@ public class OnStandRightClickedProcedure {
                 for (int sz = startZ; sz < startZ + lengthZ; sz++) {
                     BlockPos targetPos = BlockPos.containing(x + sx, y + sy, z + sz);
                     Block block = world.getBlockState(targetPos).getBlock();
-                    if (getHarvestLevel(world.getBlockState(targetPos)) <= 3 && block != VariousWorldBlocks.ROSE_QUARTZ_STAIRS.get() && block != VariousWorldBlocks.ROSE_QUARTZ.get()) {
+                    if (getHarvestLevel(world.getBlockState(targetPos)) <= 3 && block != VWBlocks.ROSE_QUARTZ_STAIRS.get() && block != VWBlocks.ROSE_QUARTZ.get()) {
                         world.setBlock(targetPos, Blocks.AIR.defaultBlockState(), 3);
                     }
                 }

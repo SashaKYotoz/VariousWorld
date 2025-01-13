@@ -19,8 +19,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PlayMessages;
-import net.sashakyotoz.variousworld.init.VariousWorldEntities;
+import net.sashakyotoz.variousworld.init.VWEntities;
 import net.sashakyotoz.variousworld.procedures.MultipleEnderPearlProjectileHitsBlockProcedure;
 
 @OnlyIn(value = Dist.CLIENT, _interface = ItemSupplier.class)
@@ -82,7 +81,7 @@ public class MultipleEnderPearlEntity extends AbstractArrow implements ItemSuppl
 	}
 
 	public static MultipleEnderPearlEntity shoot(Level world, LivingEntity entity, RandomSource random, float power, double damage, int knockback) {
-		MultipleEnderPearlEntity entityarrow = new MultipleEnderPearlEntity(VariousWorldEntities.MULTIPLE_ENDER_PEARL.get(), entity, world);
+		MultipleEnderPearlEntity entityarrow = new MultipleEnderPearlEntity(VWEntities.MULTIPLE_ENDER_PEARL.get(), entity, world);
 		entityarrow.shoot(entity.getViewVector(1).x, entity.getViewVector(1).y, entity.getViewVector(1).z, power * 2, 0);
 		entityarrow.setSilent(true);
 		entityarrow.setCritArrow(false);

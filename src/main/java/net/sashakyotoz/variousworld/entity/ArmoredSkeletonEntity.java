@@ -24,8 +24,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.DungeonHooks;
-import net.sashakyotoz.variousworld.init.VariousWorldEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWEntities;
+import net.sashakyotoz.variousworld.init.VWItems;
 
 import java.util.Arrays;
 import java.util.List;
@@ -71,7 +71,7 @@ public class ArmoredSkeletonEntity extends Monster {
 
     protected void dropCustomDeathLoot(DamageSource source, int looting, boolean recentlyHitIn) {
         super.dropCustomDeathLoot(source, looting, recentlyHitIn);
-        this.spawnAtLocation(new ItemStack(VariousWorldItems.RAW_DARKNIUM_INGOT.get()));
+        this.spawnAtLocation(new ItemStack(VWItems.RAW_DARKNIUM_INGOT.get()));
     }
 
     @Override
@@ -138,9 +138,9 @@ public class ArmoredSkeletonEntity extends Monster {
     }
 
     public static void init() {
-        SpawnPlacements.register(VariousWorldEntities.ARMORED_SKELETON.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+        SpawnPlacements.register(VWEntities.ARMORED_SKELETON.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 (entityType, world, reason, pos, random) -> (world.getDifficulty() != Difficulty.PEACEFUL && Monster.isDarkEnoughToSpawn(world, pos, random) && Mob.checkMobSpawnRules(entityType, world, reason, pos, random)));
-        DungeonHooks.addDungeonMob(VariousWorldEntities.ARMORED_SKELETON.get(), 150);
+        DungeonHooks.addDungeonMob(VWEntities.ARMORED_SKELETON.get(), 150);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -156,8 +156,8 @@ public class ArmoredSkeletonEntity extends Monster {
 
     enum ArmorType {
         NETHERITE(Items.NETHERITE_HELMET.getDefaultInstance(), Items.NETHERITE_CHESTPLATE.getDefaultInstance(), Items.NETHERITE_LEGGINGS.getDefaultInstance(), Items.NETHERITE_BOOTS.getDefaultInstance()),
-        DARKNIUM(VariousWorldItems.DARKNIUM_ARMOR_HELMET.get().getDefaultInstance(), VariousWorldItems.DARKNIUM_ARMOR_CHESTPLATE.get().getDefaultInstance(), VariousWorldItems.DARKNIUM_ARMOR_LEGGINGS.get().getDefaultInstance(), VariousWorldItems.DARKNIUM_ARMOR_BOOTS.get().getDefaultInstance()),
-        FURY(VariousWorldItems.FURY_HELMET.get().getDefaultInstance(), VariousWorldItems.FURY_CHESTPLATE.get().getDefaultInstance(), VariousWorldItems.FURY_LEGGINGS.get().getDefaultInstance(), VariousWorldItems.FURY_HELMET.get().getDefaultInstance()),
+        DARKNIUM(VWItems.DARKNIUM_ARMOR_HELMET.get().getDefaultInstance(), VWItems.DARKNIUM_ARMOR_CHESTPLATE.get().getDefaultInstance(), VWItems.DARKNIUM_ARMOR_LEGGINGS.get().getDefaultInstance(), VWItems.DARKNIUM_ARMOR_BOOTS.get().getDefaultInstance()),
+        FURY(VWItems.FURY_HELMET.get().getDefaultInstance(), VWItems.FURY_CHESTPLATE.get().getDefaultInstance(), VWItems.FURY_LEGGINGS.get().getDefaultInstance(), VWItems.FURY_HELMET.get().getDefaultInstance()),
         CHAIN(Items.CHAINMAIL_HELMET.getDefaultInstance(), Items.CHAINMAIL_CHESTPLATE.getDefaultInstance(), Items.CHAINMAIL_LEGGINGS.getDefaultInstance(), Items.CHAINMAIL_BOOTS.getDefaultInstance());
 
         ArmorType(ItemStack headStack, ItemStack chestStack, ItemStack legsStack, ItemStack feetStack) {

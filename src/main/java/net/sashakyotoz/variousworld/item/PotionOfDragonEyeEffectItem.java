@@ -11,7 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.entity.LivingEntity;
 
-import net.sashakyotoz.variousworld.init.VariousWorldMobEffects;
+import net.sashakyotoz.variousworld.init.VWMiscRegistries;
 
 public class PotionOfDragonEyeEffectItem extends Item {
 	public PotionOfDragonEyeEffectItem() {
@@ -37,7 +37,7 @@ public class PotionOfDragonEyeEffectItem extends Item {
 	public ItemStack finishUsingItem(ItemStack itemstack, Level world, LivingEntity entity) {
 		ItemStack stack = super.finishUsingItem(itemstack, world, entity);
 		if (!entity.level().isClientSide())
-			entity.addEffect(new MobEffectInstance(VariousWorldMobEffects.DRAGON_EYE.get(), 100, 0));
+			entity.addEffect(new MobEffectInstance(VWMiscRegistries.DRAGON_EYE.get(), 100, 0));
 		return stack;
 	}
 }

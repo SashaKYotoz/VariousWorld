@@ -10,7 +10,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.BlockPos;
 
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWItems;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -47,10 +47,10 @@ public class ArtifactTableRandomTickProcedure {
 		boolean isSlot2Air = isItemStackMatching(world, blockPos, 2, airItem);
 		boolean isSlot3Air = isItemStackMatching(world, blockPos, 3, airItem);
 
-		boolean isSlot0Amulet = isItemStackMatching(world, blockPos, 0, VariousWorldItems.STRENGH_AMULET.get());
-		boolean isSlot1Gem = isItemStackMatching(world, blockPos, 1, VariousWorldItems.REGENERATION_GEM.get());
-		boolean isSlot2Ring = isItemStackMatching(world, blockPos, 2, VariousWorldItems.AMETHYST_RING.get());
-		boolean isSlot3Necklace = isItemStackMatching(world, blockPos, 3, VariousWorldItems.EXPLORER_NECKLACE.get());
+		boolean isSlot0Amulet = isItemStackMatching(world, blockPos, 0, VWItems.STRENGH_AMULET.get());
+		boolean isSlot1Gem = isItemStackMatching(world, blockPos, 1, VWItems.REGENERATION_GEM.get());
+		boolean isSlot2Ring = isItemStackMatching(world, blockPos, 2, VWItems.AMETHYST_RING.get());
+		boolean isSlot3Necklace = isItemStackMatching(world, blockPos, 3, VWItems.EXPLORER_NECKLACE.get());
 
 		if (isSlot0Air && isSlot1Air && isSlot2Air && isSlot3Air) {
 			updateBlockState(world, blockPos, 0);

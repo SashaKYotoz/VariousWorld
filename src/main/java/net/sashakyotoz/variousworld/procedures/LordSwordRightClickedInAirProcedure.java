@@ -9,7 +9,7 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.sashakyotoz.variousworld.init.VariousWorldParticleTypes;
+import net.sashakyotoz.variousworld.init.VWMiscRegistries;
 
 import java.util.Comparator;
 import java.util.List;
@@ -27,7 +27,7 @@ public class LordSwordRightClickedInAirProcedure {
                 scaling += 1;
             else
                 break;
-            accessor.addParticle(VariousWorldParticleTypes.LORD_SHOOT_PARTICLE.get(),
+            accessor.addParticle(VWMiscRegistries.LORD_SHOOT_PARTICLE.get(),
                     blockPos.getX(), blockPos.getY(), blockPos.getZ(),
                     0, 0.25, 0);
             Vec3 center = new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ());

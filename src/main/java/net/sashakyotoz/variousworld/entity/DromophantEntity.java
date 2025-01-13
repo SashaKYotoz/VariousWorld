@@ -35,7 +35,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.sashakyotoz.variousworld.VariousWorld;
-import net.sashakyotoz.variousworld.init.VariousWorldEntities;
+import net.sashakyotoz.variousworld.init.VWEntities;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Comparator;
@@ -286,7 +286,7 @@ public class DromophantEntity extends TamableAnimal implements Saddleable {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob mob) {
-        DromophantEntity entity = VariousWorldEntities.DROMOPHANT.get().create(level);
+        DromophantEntity entity = VWEntities.DROMOPHANT.get().create(level);
         entity.finalizeSpawn(level, level.getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.BREEDING, null, null);
         return entity;
     }
@@ -346,7 +346,7 @@ public class DromophantEntity extends TamableAnimal implements Saddleable {
     }
 
     public static void init() {
-        SpawnPlacements.register(VariousWorldEntities.DROMOPHANT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DromophantEntity::checkSpiritConditions);
+        SpawnPlacements.register(VWEntities.DROMOPHANT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DromophantEntity::checkSpiritConditions);
     }
 
     private static boolean checkSpiritConditions(EntityType<? extends DromophantEntity> type, ServerLevelAccessor accessor, MobSpawnType spawnType, BlockPos pos, RandomSource source) {

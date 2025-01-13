@@ -20,7 +20,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.sashakyotoz.variousworld.client.model.ModelSculkArmorBottom;
 import net.sashakyotoz.variousworld.client.model.ModelSculkArmorTop;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWItems;
 
 import java.util.Collections;
 import java.util.Map;
@@ -51,7 +51,7 @@ public abstract class SculkArmorItem extends ArmorItem {
 
 			@Override
 			public Ingredient getRepairIngredient() {
-				return Ingredient.of(new ItemStack(VariousWorldItems.SCULK_SHARD.get()), new ItemStack(Blocks.SCULK_SENSOR));
+				return Ingredient.of(new ItemStack(VWItems.SCULK_SHARD.get()), new ItemStack(Blocks.SCULK_SENSOR));
 			}
 
 			@Override

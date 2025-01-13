@@ -1,7 +1,7 @@
 
 package net.sashakyotoz.variousworld.block;
 
-import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
+import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
@@ -32,7 +32,7 @@ public class SculkFenceBlock extends FenceBlock {
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldBlocks.SCULK_FENCE.get());
+		ItemStack itemStack = new ItemStack(VWBlocks.SCULK_FENCE.get());
 		return Collections.singletonList(itemStack);
 	}
 }

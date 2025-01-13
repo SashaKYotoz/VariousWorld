@@ -19,7 +19,7 @@ import net.sashakyotoz.variousworld.entity.boats.ModChestBoatEntity;
 import net.sashakyotoz.variousworld.entity.technical.*;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public class VariousWorldEntities {
+public class VWEntities {
 	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, VariousWorld.MODID);
 	public static final RegistryObject<EntityType<CrystalicArrowEntity>> CRYSTALIC_BOW = register("projectile_crystalic_bow",
 			EntityType.Builder.<CrystalicArrowEntity>of(CrystalicArrowEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(1).sized(0.5f, 0.5f));

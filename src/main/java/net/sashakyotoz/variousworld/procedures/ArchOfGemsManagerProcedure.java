@@ -6,7 +6,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.server.level.ServerPlayer;
 
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWItems;
 
 import java.util.function.Supplier;
 import java.util.Map;
@@ -16,13 +16,13 @@ public class ArchOfGemsManagerProcedure {
         if (entity == null)
             return;
         if (entity instanceof ServerPlayer player && !player.level().isClientSide() && player.containerMenu instanceof Supplier<?> supplier && supplier.get() instanceof Map slot) {
-            if (((Slot) slot.get(0)).getItem().is(VariousWorldItems.STRENGH_AMULET.get()))
+            if (((Slot) slot.get(0)).getItem().is(VWItems.STRENGH_AMULET.get()))
                 player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 300, 2));
-            if (((Slot) slot.get(1)).getItem().is(VariousWorldItems.REGENERATION_GEM.get()))
+            if (((Slot) slot.get(1)).getItem().is(VWItems.REGENERATION_GEM.get()))
                 player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 300, 4));
-            if (((Slot) slot.get(3)).getItem().is(VariousWorldItems.EXPLORER_NECKLACE.get()))
+            if (((Slot) slot.get(3)).getItem().is(VWItems.EXPLORER_NECKLACE.get()))
                 player.addEffect(new MobEffectInstance(MobEffects.JUMP, 300, 2));
-            if (((Slot) slot.get(2)).getItem().is(VariousWorldItems.AMETHYST_RING.get()))
+            if (((Slot) slot.get(2)).getItem().is(VWItems.AMETHYST_RING.get()))
                     player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 2));
         }
     }

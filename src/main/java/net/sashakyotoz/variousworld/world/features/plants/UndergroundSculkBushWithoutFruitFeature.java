@@ -12,7 +12,7 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.resources.ResourceKey;
 
-import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
+import net.sashakyotoz.variousworld.init.VWBlocks;
 
 import java.util.Set;
 
@@ -28,7 +28,7 @@ public class UndergroundSculkBushWithoutFruitFeature extends RandomPatchFeature 
         if (!generate_dimensions.contains(world.getLevel().dimension()))
             return false;
         BlockPos pos = context.origin();
-        if ((world.getBlockState(pos.below())).is(VariousWorldBlocks.SCULK_GRASS.get())) {
+        if ((world.getBlockState(pos.below())).is(VWBlocks.SCULK_GRASS.get())) {
             int sx;
             int sy;
             int sz;
@@ -43,11 +43,11 @@ public class UndergroundSculkBushWithoutFruitFeature extends RandomPatchFeature 
                             BlockPos pos2 = pos1.offset(sx, sy, sz);
                             BlockState state = Blocks.AIR.defaultBlockState();
                             if (Math.random() < 0.5)
-                                state = VariousWorldBlocks.SCULK_MOSS_BLOCK.get().defaultBlockState();
+                                state = VWBlocks.SCULK_MOSS_BLOCK.get().defaultBlockState();
                             else if (Math.random() < 0.25)
-                                state = VariousWorldBlocks.SCULK_GROWTHS.get().defaultBlockState();
+                                state = VWBlocks.SCULK_GROWTHS.get().defaultBlockState();
                             else if (Math.random() < 0.125)
-                                state = VariousWorldBlocks.UNDERGROUND_SCULK_FRUIT_BUSH.get().defaultBlockState();
+                                state = VWBlocks.UNDERGROUND_SCULK_FRUIT_BUSH.get().defaultBlockState();
                             world.setBlock(pos2, state, 3);
                         }
                         sz = sz + 1;

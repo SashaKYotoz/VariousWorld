@@ -16,7 +16,7 @@ import net.sashakyotoz.variousworld.world.treegrowers.MagnoliaTreeGrower;
 import net.sashakyotoz.variousworld.world.treegrowers.SculkTreeGrower;
 import net.sashakyotoz.variousworld.world.treegrowers.ShinyTreeGrower;
 
-public class VariousWorldBlocks {
+public class VWBlocks {
 	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, VariousWorld.MODID);
 	public static final RegistryObject<Block> CRYSTAL_CLUSTER = BLOCKS.register("crystal_cluster", () -> new CrystalClusterBlock());
 	public static final RegistryObject<Block> SMALL_CRYSTAL_CLUSTER = BLOCKS.register("small_crystal_cluster", () -> new SmallCrystalClusterBlock());
@@ -56,7 +56,7 @@ public class VariousWorldBlocks {
 	public static final RegistryObject<Block> GNEISS_BRICKS_STAIRS = BLOCKS.register("gneiss_bricks_stairs", () -> new StairBlock(()-> GNEISS.get().defaultBlockState(),GNEISS_PROPERTIES));
 	public static final RegistryObject<Block> GNEISS_BRICKS_SLAB = BLOCKS.register("gneiss_bricks_slab", () -> new SlabBlock(GNEISS_PROPERTIES));
 	public static final RegistryObject<Block> GNEISS_BRICKS_WALL = BLOCKS.register("gneiss_bricks_wall", () -> new WallBlock(GNEISS_PROPERTIES));
-	private static final BlockBehaviour.Properties BLACKLY_MAGMA_PROPERTIES =BlockBehaviour.Properties.of().sound(VariousWorldSounds.STONY_MAGMA).strength(5f).requiresCorrectToolForDrops();
+	private static final BlockBehaviour.Properties BLACKLY_MAGMA_PROPERTIES =BlockBehaviour.Properties.of().sound(VWSounds.STONY_MAGMA).strength(5f).requiresCorrectToolForDrops();
 	public static final RegistryObject<Block> BLACKLY_STONY_MAGMA = BLOCKS.register("blackly_stony_magma", () -> new ModFacingableBlock(BLACKLY_MAGMA_PROPERTIES));
 	public static final RegistryObject<Block> BLACKLY_STONY_MAGMA_BRICKS = BLOCKS.register("blackly_stony_magma_bricks", () -> new ModFacingableBlock(BLACKLY_MAGMA_PROPERTIES));
 	public static final RegistryObject<Block> BLACKLY_STONY_MAGMA_BRICKS_STAIRS = BLOCKS.register("blackly_stony_magma_bricks_stairs", () -> new StairBlock(()-> BLACKLY_STONY_MAGMA_BRICKS.get().defaultBlockState(),BLACKLY_MAGMA_PROPERTIES));

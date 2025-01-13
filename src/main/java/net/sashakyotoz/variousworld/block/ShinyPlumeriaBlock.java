@@ -6,7 +6,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
-import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
+import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -56,7 +56,7 @@ public class ShinyPlumeriaBlock extends FlowerBlock {
 
     @Override
     public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-        ItemStack itemStack = new ItemStack(VariousWorldBlocks.SHINY_PLUMERIA.get());
+        ItemStack itemStack = new ItemStack(VWBlocks.SHINY_PLUMERIA.get());
         return Collections.singletonList(itemStack);
     }
 }

@@ -25,7 +25,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.common.IForgeShearable;
-import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
+import net.sashakyotoz.variousworld.init.VWBlocks;
 
 import java.util.OptionalInt;
 
@@ -98,7 +98,7 @@ public class CrystalLeavesBlock extends Block implements SimpleWaterloggedBlock,
     }
 
     public static OptionalInt getOptionalDistanceAt(BlockState state) {
-        if (state.is(BlockTags.LOGS) || state.is(VariousWorldBlocks.CRYSTAL_CLUSTER.get()) || state.is(Blocks.AMETHYST_BLOCK)) {
+        if (state.is(BlockTags.LOGS) || state.is(VWBlocks.CRYSTAL_CLUSTER.get()) || state.is(Blocks.AMETHYST_BLOCK)) {
             return OptionalInt.of(0);
         } else {
             return state.hasProperty(DISTANCE) ? OptionalInt.of(state.getValue(DISTANCE)) : OptionalInt.empty();

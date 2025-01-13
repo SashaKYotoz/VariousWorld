@@ -34,8 +34,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.PartEntity;
 import net.sashakyotoz.variousworld.entity.ai.LordOfFuriesFlyGoal;
-import net.sashakyotoz.variousworld.init.VariousWorldEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWEntities;
+import net.sashakyotoz.variousworld.init.VWItems;
 import net.sashakyotoz.variousworld.procedures.AdvancementsManager;
 import org.jetbrains.annotations.NotNull;
 
@@ -227,7 +227,7 @@ public class FuryLordEntity extends Monster {
                         int randomCount = this.getRandom().nextIntBetweenInclusive(1, 6);
                         for (int i = 0; i < randomCount; i++) {
                             if (this.level() instanceof ServerLevel level) {
-                                DarkFuryEntity entityToSpawn = new DarkFuryEntity(VariousWorldEntities.DARK_FURY.get(), level);
+                                DarkFuryEntity entityToSpawn = new DarkFuryEntity(VWEntities.DARK_FURY.get(), level);
                                 entityToSpawn.moveTo(this.getX(), this.getY(), this.getZ(), level.getRandom().nextFloat() * 360F, 0);
                                 entityToSpawn.finalizeSpawn(level, level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                                 level.addFreshEntity(entityToSpawn);
@@ -460,12 +460,12 @@ public class FuryLordEntity extends Monster {
         super.die(source);
         if (source.getEntity() instanceof ServerPlayer player)
             AdvancementsManager.addAdvancement(player, AdvancementsManager.LORD_OF_FURIES_ADV);
-        this.spawnAtLocation(new ItemStack(VariousWorldItems.LORD_FURY_HEAD.get()));
-        this.spawnAtLocation(new ItemStack(VariousWorldItems.LORD_FURY_SCALE.get(), this.random.nextIntBetweenInclusive(4, 9)));
+        this.spawnAtLocation(new ItemStack(VWItems.LORD_FURY_HEAD.get()));
+        this.spawnAtLocation(new ItemStack(VWItems.LORD_FURY_SCALE.get(), this.random.nextIntBetweenInclusive(4, 9)));
         int countOfMinions = Mth.nextInt(RandomSource.create(), 2, 5);
         for (int i = 0; i < countOfMinions; i++) {
             if (this.level() instanceof ServerLevel level) {
-                DarkFuryEntity entityToSpawn = new DarkFuryEntity(VariousWorldEntities.DARK_FURY.get(), level);
+                DarkFuryEntity entityToSpawn = new DarkFuryEntity(VWEntities.DARK_FURY.get(), level);
                 entityToSpawn.moveTo(this.getX(), this.getY(), this.getZ(), this.level().getRandom().nextFloat() * 360F, 0);
                 entityToSpawn.finalizeSpawn(level, level.getCurrentDifficultyAt(entityToSpawn.blockPosition()), MobSpawnType.MOB_SUMMONED, null, null);
                 level.addFreshEntity(entityToSpawn);

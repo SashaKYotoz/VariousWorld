@@ -11,9 +11,9 @@ import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
-import net.sashakyotoz.variousworld.init.VariousWorldEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWBlocks;
+import net.sashakyotoz.variousworld.init.VWEntities;
+import net.sashakyotoz.variousworld.init.VWItems;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.IntFunction;
@@ -26,7 +26,7 @@ public class ModBoatEntity extends Boat {
     }
 
     public ModBoatEntity(Level level, double pX, double pY, double pZ) {
-        this(VariousWorldEntities.MOD_BOAT.get(), level);
+        this(VWEntities.MOD_BOAT.get(), level);
         this.setPos(pX, pY, pZ);
         this.xo = pX;
         this.yo = pY;
@@ -36,9 +36,9 @@ public class ModBoatEntity extends Boat {
     @Override
     public Item getDropItem() {
         return switch (getModVariant()) {
-            case CRYSTALIC_OAK -> VariousWorldItems.CRYSTALIC_OAK_BOAT.get();
-            case MAGNOLIA -> VariousWorldItems.MAGNOLIA_BOAT.get();
-            case SCULK -> VariousWorldItems.SCULK_BOAT.get();
+            case CRYSTALIC_OAK -> VWItems.CRYSTALIC_OAK_BOAT.get();
+            case MAGNOLIA -> VWItems.MAGNOLIA_BOAT.get();
+            case SCULK -> VWItems.SCULK_BOAT.get();
         };
     }
 
@@ -66,9 +66,9 @@ public class ModBoatEntity extends Boat {
     }
 
     public enum Type implements StringRepresentable {
-        CRYSTALIC_OAK(VariousWorldBlocks.CRYSTALIC_OAK_PLANKS.get(), "crystalic_oak"),
-        MAGNOLIA(VariousWorldBlocks.SAKURA_PLANKS.get(), "magnolia"),
-        SCULK(VariousWorldBlocks.SCULK_PLANKS.get(), "sculk");
+        CRYSTALIC_OAK(VWBlocks.CRYSTALIC_OAK_PLANKS.get(), "crystalic_oak"),
+        MAGNOLIA(VWBlocks.SAKURA_PLANKS.get(), "magnolia"),
+        SCULK(VWBlocks.SCULK_PLANKS.get(), "sculk");
 
         private final String name;
         private final Block planks;

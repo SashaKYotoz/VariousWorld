@@ -19,8 +19,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.BlockPos;
 
 import net.sashakyotoz.variousworld.procedures.ArchOfGemsManagerProcedure;
-import net.sashakyotoz.variousworld.init.VariousWorldMenus;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWMenus;
+import net.sashakyotoz.variousworld.init.VWItems;
 
 import java.util.function.Supplier;
 import java.util.Map;
@@ -36,7 +36,7 @@ public class ArchOfGemsMenu extends AbstractContainerMenu implements Supplier<Ma
 	private boolean bound = false;
 
 	public ArchOfGemsMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
-		super(VariousWorldMenus.ARCH_OF_GEMS.get(), id);
+		super(VWMenus.ARCH_OF_GEMS.get(), id);
 		this.player = inv.player;
 		this.level = inv.player.level();
 		this.internal = new ItemStackHandler(4);
@@ -80,25 +80,25 @@ public class ArchOfGemsMenu extends AbstractContainerMenu implements Supplier<Ma
 		this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 82, 24) {
 			@Override
 			public boolean mayPlace(ItemStack stack) {
-				return VariousWorldItems.STRENGH_AMULET.get() == stack.getItem();
+				return VWItems.STRENGH_AMULET.get() == stack.getItem();
 			}
 		}));
 		this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 64, 42) {
 			@Override
 			public boolean mayPlace(ItemStack stack) {
-				return VariousWorldItems.REGENERATION_GEM.get() == stack.getItem();
+				return VWItems.REGENERATION_GEM.get() == stack.getItem();
 			}
 		}));
 		this.customSlots.put(2, this.addSlot(new SlotItemHandler(internal, 2, 100, 42) {
 			@Override
 			public boolean mayPlace(ItemStack stack) {
-				return VariousWorldItems.AMETHYST_RING.get() == stack.getItem();
+				return VWItems.AMETHYST_RING.get() == stack.getItem();
 			}
 		}));
 		this.customSlots.put(3, this.addSlot(new SlotItemHandler(internal, 3, 82, 61) {
 			@Override
 			public boolean mayPlace(ItemStack stack) {
-				return VariousWorldItems.EXPLORER_NECKLACE.get() == stack.getItem();
+				return VWItems.EXPLORER_NECKLACE.get() == stack.getItem();
 			}
 		}));
 		for (int si = 0; si < 3; ++si)

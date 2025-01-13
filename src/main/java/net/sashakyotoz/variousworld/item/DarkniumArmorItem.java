@@ -11,7 +11,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundEvent;
 
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWItems;
 
 public abstract class DarkniumArmorItem extends ArmorItem {
 	public DarkniumArmorItem(ArmorItem.Type type, Item.Properties properties) {
@@ -38,7 +38,7 @@ public abstract class DarkniumArmorItem extends ArmorItem {
 
 			@Override
 			public Ingredient getRepairIngredient() {
-				return Ingredient.of(new ItemStack(VariousWorldItems.DARKNIUM_INGOT.get()));
+				return Ingredient.of(new ItemStack(VWItems.DARKNIUM_INGOT.get()));
 			}
 
 			@Override

@@ -66,10 +66,10 @@ public class EventManager {
     @SubscribeEvent
     public static void onPlayerGetFallDamage(LivingDamageEvent event) {
         if (event.getSource().is(DamageTypes.FALL)) {
-            if (event.getEntity() instanceof Player player && player.getItemBySlot(EquipmentSlot.HEAD).is(VariousWorldItems.SLIME_ARMOR_HELMET.get())
-                    && player.getItemBySlot(EquipmentSlot.CHEST).is(VariousWorldItems.SLIME_ARMOR_CHESTPLATE.get())
-                    && player.getItemBySlot(EquipmentSlot.LEGS).is(VariousWorldItems.SLIME_ARMOR_LEGGINGS.get())
-                    && player.getItemBySlot(EquipmentSlot.FEET).is(VariousWorldItems.SLIME_ARMOR_BOOTS.get())) {
+            if (event.getEntity() instanceof Player player && player.getItemBySlot(EquipmentSlot.HEAD).is(VWItems.SLIME_ARMOR_HELMET.get())
+                    && player.getItemBySlot(EquipmentSlot.CHEST).is(VWItems.SLIME_ARMOR_CHESTPLATE.get())
+                    && player.getItemBySlot(EquipmentSlot.LEGS).is(VWItems.SLIME_ARMOR_LEGGINGS.get())
+                    && player.getItemBySlot(EquipmentSlot.FEET).is(VWItems.SLIME_ARMOR_BOOTS.get())) {
                 if (player.fallDistance > 1) {
                     float impulseModifier = player.fallDistance * 0.325f - (player.fallDistance > 5 ? 0.325f * (player.fallDistance / 2) : 0.125f);
                     if (!player.isShiftKeyDown())
@@ -92,7 +92,7 @@ public class EventManager {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void onChangeFOV(ComputeFovModifierEvent event) {
-        if (event.getPlayer().isUsingItem() && event.getPlayer().getUseItem().is(VariousWorldItems.CRYSTALIC_BOW.get())) {
+        if (event.getPlayer().isUsingItem() && event.getPlayer().getUseItem().is(VWItems.CRYSTALIC_BOW.get())) {
             float fovModifier = 1f;
             int ticksUsingItem = event.getPlayer().getTicksUsingItem();
             float deltaTicks = (float) ticksUsingItem / 20f;
@@ -158,7 +158,7 @@ public class EventManager {
         if (player1 == null)
             return;
         if (player1 instanceof ServerPlayer player) {
-            if (accessor.getBiome(BlockPos.containing(x, y, z)).is(VariousWorldBiomes.SCULK_VALLEY) && (player.level() instanceof ServerLevel
+            if (accessor.getBiome(BlockPos.containing(x, y, z)).is(VWBiomes.SCULK_VALLEY) && (player.level() instanceof ServerLevel
                     && !player.getAdvancements().getOrStartProgress(player.server.getAdvancements().getAdvancement(AdvancementsManager.CRYSTALIC_WARRIOR_ADV)).isDone())) {
                 if (!player.isCreative() || !player.isSpectator()) {
                     if (!player.level().isClientSide()) {
@@ -177,7 +177,7 @@ public class EventManager {
         if (entity == null)
             return;
         if (entity instanceof Player) {
-            if (itemstack.is(VariousWorldItems.TOTEM_OF_DARK_SPIRIT.get())) {
+            if (itemstack.is(VWItems.TOTEM_OF_DARK_SPIRIT.get())) {
                 if (accessor.isClientSide())
                     Minecraft.getInstance().gameRenderer.displayItemActivation(itemstack);
             }
@@ -185,7 +185,7 @@ public class EventManager {
     }
 
     private static void crystalTransforming(LevelAccessor level, double x, double y, double z, Player player) {
-        if (player.getInventory().contains(new ItemStack(VariousWorldBlocks.CRYSTAL_BLOCK.get()))) {
+        if (player.getInventory().contains(new ItemStack(VWBlocks.CRYSTAL_BLOCK.get()))) {
             if (level.getLevelData().isThundering()) {
                 if (Math.random() < 0.125) {
                     if (Math.random() < 0.125) {
@@ -194,9 +194,9 @@ public class EventManager {
                             lightningBolt.moveTo(Vec3.atBottomCenterOf(BlockPos.containing(x + Mth.nextDouble(RandomSource.create(), -5, 5), y, z + Mth.nextDouble(RandomSource.create(), -5, 5))));
                             serverLevel.addFreshEntity(lightningBolt);
                         }
-                        ItemStack itemStack = new ItemStack(VariousWorldBlocks.CRYSTAL_OF_CHARGED_BLOCK.get(), 1);
+                        ItemStack itemStack = new ItemStack(VWBlocks.CRYSTAL_OF_CHARGED_BLOCK.get(), 1);
                         ItemHandlerHelper.giveItemToPlayer(player, itemStack);
-                        ItemStack stack = new ItemStack(VariousWorldBlocks.CRYSTAL_BLOCK.get());
+                        ItemStack stack = new ItemStack(VWBlocks.CRYSTAL_BLOCK.get());
                         player.getInventory().clearOrCountMatchingItems(p -> stack.getItem() == p.getItem(), 1, player.inventoryMenu.getCraftSlots());
                     }
                 }
@@ -207,7 +207,7 @@ public class EventManager {
     private static void witheredEnchantmentAction(Entity entity, Entity sourceentity) {
         if (entity == null || sourceentity == null)
             return;
-        double witheredStrength = (sourceentity instanceof LivingEntity entity1 ? entity1.getMainHandItem() : ItemStack.EMPTY).getEnchantmentLevel(VariousWorldEnchantments.WITHERED.get());
+        double witheredStrength = (sourceentity instanceof LivingEntity entity1 ? entity1.getMainHandItem() : ItemStack.EMPTY).getEnchantmentLevel(VWMiscRegistries.WITHERED.get());
         if (witheredStrength > 0) {
             if (entity instanceof LivingEntity livingEntity && !livingEntity.level().isClientSide())
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.WITHER, (int) (60 * witheredStrength), (int) witheredStrength));
@@ -217,7 +217,7 @@ public class EventManager {
     private static void chainedAction(Entity entity) {
         if (entity == null)
             return;
-        if (entity instanceof LivingEntity _livEnt0 && _livEnt0.hasEffect(VariousWorldMobEffects.CHAINED_OF_CHAIN.get())) {
+        if (entity instanceof LivingEntity _livEnt0 && _livEnt0.hasEffect(VWMiscRegistries.CHAINED_OF_CHAIN.get())) {
             entity.setDeltaMovement(new Vec3(0, (-0.5), 0));
         }
     }
@@ -227,7 +227,7 @@ public class EventManager {
             return;
         double speed;
         double Yaw;
-        if (sourceentity instanceof Player player && player.getMainHandItem().getItem() == VariousWorldItems.CRYSTALIC_SLIMEBALL_SWORD.get()) {
+        if (sourceentity instanceof Player player && player.getMainHandItem().getItem() == VWItems.CRYSTALIC_SLIMEBALL_SWORD.get()) {
             speed = 1.5;
             Yaw = sourceentity.getYRot();
             entity.setDeltaMovement(new Vec3((speed * Math.cos((Yaw + 90) * (Math.PI / 180))), 0.1, (speed * Math.sin((Yaw + 90) * (Math.PI / 180)))));
@@ -238,16 +238,16 @@ public class EventManager {
         if (entity == null)
             return;
         if (entity instanceof ServerPlayer player) {
-            if ((level.getBlockState(BlockPos.containing(x, y, z))).getBlock() == VariousWorldBlocks.ARTIFACTTABLE.get()) {
+            if ((level.getBlockState(BlockPos.containing(x, y, z))).getBlock() == VWBlocks.ARTIFACTTABLE.get()) {
                 AdvancementsManager.addAdvancement(player, AdvancementsManager.ARTIFACTS_TABLE_ADV);
             }
-        } else if ((level.getBlockState(BlockPos.containing(x, y, z))).getBlock() == VariousWorldBlocks.ARMOR_STATION_BLOCK.get()) {
+        } else if ((level.getBlockState(BlockPos.containing(x, y, z))).getBlock() == VWBlocks.ARMOR_STATION_BLOCK.get()) {
             AdvancementsManager.addAdvancement(entity, AdvancementsManager.ARMOR_STATION_ADV);
             if (!level.isClientSide())
-                level.playSound(null, BlockPos.containing(x, y, z), VariousWorldSounds.ITEM_WAND_SHOOT, SoundSource.PLAYERS, 1, 1);
-        } else if ((level.getBlockState(BlockPos.containing(x, y, z))).getBlock() == VariousWorldBlocks.MYCOLOCYFAROGRAPH.get()) {
+                level.playSound(null, BlockPos.containing(x, y, z), VWSounds.ITEM_WAND_SHOOT, SoundSource.PLAYERS, 1, 1);
+        } else if ((level.getBlockState(BlockPos.containing(x, y, z))).getBlock() == VWBlocks.MYCOLOCYFAROGRAPH.get()) {
             AdvancementsManager.addAdvancement(entity, AdvancementsManager.MUSHROOM_TABLE_ADV);
-        } else if ((level.getBlockState(BlockPos.containing(x, y, z))).getBlock() == VariousWorldBlocks.DISENCHANT_TABLE.get()) {
+        } else if ((level.getBlockState(BlockPos.containing(x, y, z))).getBlock() == VWBlocks.DISENCHANT_TABLE.get()) {
             AdvancementsManager.addAdvancement(entity, AdvancementsManager.DISENCHANT_TABLE_ADV);
             if (!level.isClientSide()) {
                 level.playSound(null, BlockPos.containing(x, y, z), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1, 1);
@@ -270,13 +270,13 @@ public class EventManager {
     private static void sculkArmorRepairing(Player player) {
         if (player == null)
             return;
-        if (player.getMainHandItem().getItem() == VariousWorldItems.SCULK_SHARD.get()
-                && player.getItemBySlot(EquipmentSlot.HEAD).getItem() == VariousWorldItems.SCULK_ARMOR_HELMET.get()
-                && player.getItemBySlot(EquipmentSlot.CHEST).getItem() == VariousWorldItems.SCULK_ARMOR_CHESTPLATE.get()
-                && player.getItemBySlot(EquipmentSlot.LEGS).getItem() == VariousWorldItems.SCULK_ARMOR_LEGGINGS.get()
-                && player.getItemBySlot(EquipmentSlot.FEET).getItem() == VariousWorldItems.SCULK_ARMOR_BOOTS.get()) {
+        if (player.getMainHandItem().getItem() == VWItems.SCULK_SHARD.get()
+                && player.getItemBySlot(EquipmentSlot.HEAD).getItem() == VWItems.SCULK_ARMOR_HELMET.get()
+                && player.getItemBySlot(EquipmentSlot.CHEST).getItem() == VWItems.SCULK_ARMOR_CHESTPLATE.get()
+                && player.getItemBySlot(EquipmentSlot.LEGS).getItem() == VWItems.SCULK_ARMOR_LEGGINGS.get()
+                && player.getItemBySlot(EquipmentSlot.FEET).getItem() == VWItems.SCULK_ARMOR_BOOTS.get()) {
             player.giveExperiencePoints(-(1));
-            ItemStack stack = new ItemStack(VariousWorldItems.SCULK_SHARD.get());
+            ItemStack stack = new ItemStack(VWItems.SCULK_SHARD.get());
             player.getInventory().clearOrCountMatchingItems(p -> stack.getItem() == p.getItem(), 1, player.inventoryMenu.getCraftSlots());
             player.getItemBySlot(EquipmentSlot.HEAD).setDamageValue(0);
             player.getItemBySlot(EquipmentSlot.CHEST).setDamageValue(0);
@@ -286,44 +286,44 @@ public class EventManager {
     }
 
     private static void amethystSpikesHit(Entity entity, Entity sourceentity) {
-        if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(VariousWorldMobEffects.AMETHYST_SPIKES.get()) && sourceentity != null) {
-            sourceentity.hurt(sourceentity.damageSources().generic(), (Objects.requireNonNull(livingEntity.getEffect(VariousWorldMobEffects.AMETHYST_SPIKES.get())).getAmplifier() + 1));
+        if (entity instanceof LivingEntity livingEntity && livingEntity.hasEffect(VWMiscRegistries.AMETHYST_SPIKES.get()) && sourceentity != null) {
+            sourceentity.hurt(sourceentity.damageSources().generic(), (Objects.requireNonNull(livingEntity.getEffect(VWMiscRegistries.AMETHYST_SPIKES.get())).getAmplifier() + 1));
         }
     }
 
     private static void itemUpgrading(Player entity) {
         if (entity == null)
             return;
-        if (entity.getMainHandItem().getItem() == VariousWorldItems.CRYSTALSHARD.get()
-                && (entity.getOffhandItem().getItem() == VariousWorldItems.SCULK_SCYTHE.get())) {
+        if (entity.getMainHandItem().getItem() == VWItems.CRYSTALSHARD.get()
+                && (entity.getOffhandItem().getItem() == VWItems.SCULK_SCYTHE.get())) {
             entity.getOffhandItem().getOrCreateTag().putDouble("CustomModelData", 1);
-            ItemStack stack = new ItemStack(VariousWorldItems.CRYSTALSHARD.get());
+            ItemStack stack = new ItemStack(VWItems.CRYSTALSHARD.get());
             entity.getInventory().clearOrCountMatchingItems(p -> stack.getItem() == p.getItem(), 1, entity.inventoryMenu.getCraftSlots());
             AdvancementsManager.addAdvancement(entity, AdvancementsManager.MORE_COLORS_ADV);
         }
-        if (entity.getMainHandItem().getItem() == VariousWorldItems.DARKNIUM_INGOT.get()
-                && (entity.getOffhandItem().getItem() == VariousWorldItems.CRYSTAL_SWORD.get())) {
+        if (entity.getMainHandItem().getItem() == VWItems.DARKNIUM_INGOT.get()
+                && (entity.getOffhandItem().getItem() == VWItems.CRYSTAL_SWORD.get())) {
             entity.getOffhandItem().getOrCreateTag().putDouble("CustomModelData", 1);
-            ItemStack stack = new ItemStack(VariousWorldItems.DARKNIUM_INGOT.get());
+            ItemStack stack = new ItemStack(VWItems.DARKNIUM_INGOT.get());
             entity.getInventory().clearOrCountMatchingItems(p -> stack.getItem() == p.getItem(), 1, entity.inventoryMenu.getCraftSlots());
             AdvancementsManager.addAdvancement(entity, AdvancementsManager.MORE_COLORS_ADV);
         }
-        if (entity.getMainHandItem().getItem() == VariousWorldItems.SLIME_CRYSTALIC.get()
-                && (entity.getOffhandItem().getItem() == VariousWorldItems.LORD_SWORD.get())) {
+        if (entity.getMainHandItem().getItem() == VWItems.SLIME_CRYSTALIC.get()
+                && (entity.getOffhandItem().getItem() == VWItems.LORD_SWORD.get())) {
             entity.getOffhandItem().getOrCreateTag().putDouble("CustomModelData", 1);
-            ItemStack stack = new ItemStack(VariousWorldItems.SLIME_CRYSTALIC.get());
+            ItemStack stack = new ItemStack(VWItems.SLIME_CRYSTALIC.get());
             entity.getInventory().clearOrCountMatchingItems(p -> stack.getItem() == p.getItem(), 1, entity.inventoryMenu.getCraftSlots());
             AdvancementsManager.addAdvancement(entity, AdvancementsManager.MORE_COLORS_ADV);
         }
-        if (entity.getMainHandItem().getItem() == VariousWorldItems.SCULK_SHARD.get()
-                && (entity.getOffhandItem().getItem() == VariousWorldItems.DARKNIUM_SWORD.get())) {
+        if (entity.getMainHandItem().getItem() == VWItems.SCULK_SHARD.get()
+                && (entity.getOffhandItem().getItem() == VWItems.DARKNIUM_SWORD.get())) {
             entity.getOffhandItem().getOrCreateTag().putDouble("CustomModelData", 1);
-            ItemStack stack = new ItemStack(VariousWorldItems.SCULK_SHARD.get());
+            ItemStack stack = new ItemStack(VWItems.SCULK_SHARD.get());
             entity.getInventory().clearOrCountMatchingItems(p -> stack.getItem() == p.getItem(), 1, entity.inventoryMenu.getCraftSlots());
             AdvancementsManager.addAdvancement(entity, AdvancementsManager.MORE_COLORS_ADV);
         }
         if (entity.getMainHandItem().getItem() == Items.MAGMA_BLOCK
-                && (entity.getOffhandItem().getItem() == VariousWorldItems.NECROMANCER_WAND.get())) {
+                && (entity.getOffhandItem().getItem() == VWItems.NECROMANCER_WAND.get())) {
             entity.getOffhandItem().getOrCreateTag().putDouble("CustomModelData", 1);
             ItemStack stack = new ItemStack(Items.MAGMA_BLOCK);
             entity.getInventory().clearOrCountMatchingItems(p -> stack.getItem() == p.getItem(), 1, entity.inventoryMenu.getCraftSlots());
@@ -361,7 +361,7 @@ public class EventManager {
     private static boolean hasSuperVisionCharm(LivingEntity livingEntity) {
         ItemStack mainHandItem = livingEntity.getMainHandItem();
         ItemStack offHandItem = livingEntity.getOffhandItem();
-        return mainHandItem.getItem() == VariousWorldItems.SUPER_VISION_CHARM.get() || offHandItem.getItem() == VariousWorldItems.SUPER_VISION_CHARM.get();
+        return mainHandItem.getItem() == VWItems.SUPER_VISION_CHARM.get() || offHandItem.getItem() == VWItems.SUPER_VISION_CHARM.get();
     }
 
     private static CommandSourceStack createCommandSourceStack(LevelAccessor accessor, double x, double y, double z) {
@@ -375,10 +375,10 @@ public class EventManager {
         if (entity == null)
             return;
         if (entity instanceof LivingEntity livingEntity) {
-            if (livingEntity.getItemBySlot(EquipmentSlot.HEAD).getItem() == VariousWorldItems.SLIME_ARMOR_HELMET.get()
-                    && livingEntity.getItemBySlot(EquipmentSlot.CHEST).getItem() == VariousWorldItems.SLIME_ARMOR_CHESTPLATE.get()
-                    && livingEntity.getItemBySlot(EquipmentSlot.LEGS).getItem() == VariousWorldItems.SLIME_ARMOR_LEGGINGS.get()
-                    && livingEntity.getItemBySlot(EquipmentSlot.FEET).getItem() == VariousWorldItems.SLIME_ARMOR_BOOTS.get()) {
+            if (livingEntity.getItemBySlot(EquipmentSlot.HEAD).getItem() == VWItems.SLIME_ARMOR_HELMET.get()
+                    && livingEntity.getItemBySlot(EquipmentSlot.CHEST).getItem() == VWItems.SLIME_ARMOR_CHESTPLATE.get()
+                    && livingEntity.getItemBySlot(EquipmentSlot.LEGS).getItem() == VWItems.SLIME_ARMOR_LEGGINGS.get()
+                    && livingEntity.getItemBySlot(EquipmentSlot.FEET).getItem() == VWItems.SLIME_ARMOR_BOOTS.get()) {
                 entity.setDeltaMovement(new Vec3(0, 0.65, 0));
             }
         }
@@ -387,7 +387,7 @@ public class EventManager {
     private static void jumperEnchantment(Entity entity) {
         if (entity == null)
             return;
-        int enchantPower = (entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.FEET) : ItemStack.EMPTY).getEnchantmentLevel(VariousWorldEnchantments.JUMPER.get());
+        int enchantPower = (entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.FEET) : ItemStack.EMPTY).getEnchantmentLevel(VWMiscRegistries.JUMPER.get());
         double speed;
         double Yaw;
         if (enchantPower == 1) {

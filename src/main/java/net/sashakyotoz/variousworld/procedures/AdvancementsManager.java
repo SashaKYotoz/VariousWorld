@@ -8,7 +8,7 @@ import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.Advancement;
 
 import net.sashakyotoz.variousworld.VariousWorld;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWItems;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -85,17 +85,17 @@ public class AdvancementsManager {
 	public static void tickCheckingAdvancements(Player player) {
 		if (player == null)
 			return;
-		if (player.getInventory().contains(new ItemStack(VariousWorldItems.DARKNIUM_INGOT.get()))) {
+		if (player.getInventory().contains(new ItemStack(VWItems.DARKNIUM_INGOT.get()))) {
 			addAdvancement(player,DARKNIUM_INGOT_ADV);
 		}
-		if ((player.getInventory().contains(new ItemStack(VariousWorldItems.CRYSTALSHARD.get())))
-				|| (player.getInventory().contains(new ItemStack(VariousWorldItems.DARKSHARD.get())))) {
+		if ((player.getInventory().contains(new ItemStack(VWItems.CRYSTALSHARD.get())))
+				|| (player.getInventory().contains(new ItemStack(VWItems.DARKSHARD.get())))) {
 			addAdvancement(player,CRYSTAL_SHARD_ADV);
 		}
-		if (player.getInventory().contains(new ItemStack(VariousWorldItems.FURY_INGOT.get()))) {
+		if (player.getInventory().contains(new ItemStack(VWItems.FURY_INGOT.get()))) {
 			addAdvancement(player,FURY_INGOT_ADV);
 		}
-		if (player.getInventory().contains(new ItemStack(VariousWorldItems.LORD_FURY_SCALE.get()))) {
+		if (player.getInventory().contains(new ItemStack(VWItems.LORD_FURY_SCALE.get()))) {
 			addAdvancement(player,LORD_FURY_SCALES_ADV);
 		}
 	}

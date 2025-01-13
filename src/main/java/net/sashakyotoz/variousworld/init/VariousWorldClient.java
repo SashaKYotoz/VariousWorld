@@ -41,36 +41,36 @@ public class VariousWorldClient {
     private static final ModelLayerLocation SCULK_CHEST_BOAT_LOCATION = new ModelLayerLocation(new ResourceLocation(VariousWorld.MODID,"chest_boat/sculk"),"main");
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(VariousWorldEntities.CRYSTALIC_BOW.get(), CrystalicArrowRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.LORD_OF_FURIES_CROSSBOW.get(), CrystalicArrowRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.ZOMBIE_OF_VARIOUS_BIOMES.get(), ZombieOfVariousBiomesRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.SCULK_SKELETON.get(), SculkSkeletonRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.DARK_FURY.get(), DarkFuryRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.CRYSTALIC_SLIME.get(), CrystalicSlimeRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.SPIRITOF_PEACEFUL_WASTELAND.get(), SpiritofPeacefulWastelandRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.SPIRITOF_DEEP_CAVERN.get(), SpiritofDeepCavernRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.ARMORED_SKELETON.get(), ArmoredSkeletonRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.DROMOPHANT.get(), DromophantRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.WANDERING_SPIRIT_SUMMONED_OF_SCULKS.get(), WanderingSpiritSummonedOfSculksRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.ZOMBIE_OF_STONY_MAGMA.get(), ZombieOfStonyMagmaRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.ZANY_VILER_WITCH.get(), ZanyVilerWitchRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.CRYSTAL_WARRIOR.get(), CrystalWarriorRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.DARK_SPIRIT.get(), DarkSpiritRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.SCULK_NECROMANCER_SKELETON.get(), SculkNecromancerSkeletonRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.FURY_LORD.get(), FuryLordRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.SCULK_SCYTHE_PROJECTILE.get(), SculkScytheProjectileRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.WANDERING_SPIRIT_PROJECTILE.get(), WanderingSpiritProjectileRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.NECROMANCER_STAFF.get(), NecromancerStaffRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.MULTIPLE_ENDER_PEARL.get(), ThrownItemRenderer::new);
-        event.registerEntityRenderer(VariousWorldEntities.DARK_SPIRIT_GLOVES.get(), DarkSpiritGlovesRenderer::new);
+        event.registerEntityRenderer(VWEntities.CRYSTALIC_BOW.get(), CrystalicArrowRenderer::new);
+        event.registerEntityRenderer(VWEntities.LORD_OF_FURIES_CROSSBOW.get(), CrystalicArrowRenderer::new);
+        event.registerEntityRenderer(VWEntities.ZOMBIE_OF_VARIOUS_BIOMES.get(), ZombieOfVariousBiomesRenderer::new);
+        event.registerEntityRenderer(VWEntities.SCULK_SKELETON.get(), SculkSkeletonRenderer::new);
+        event.registerEntityRenderer(VWEntities.DARK_FURY.get(), DarkFuryRenderer::new);
+        event.registerEntityRenderer(VWEntities.CRYSTALIC_SLIME.get(), CrystalicSlimeRenderer::new);
+        event.registerEntityRenderer(VWEntities.SPIRITOF_PEACEFUL_WASTELAND.get(), SpiritofPeacefulWastelandRenderer::new);
+        event.registerEntityRenderer(VWEntities.SPIRITOF_DEEP_CAVERN.get(), SpiritofDeepCavernRenderer::new);
+        event.registerEntityRenderer(VWEntities.ARMORED_SKELETON.get(), ArmoredSkeletonRenderer::new);
+        event.registerEntityRenderer(VWEntities.DROMOPHANT.get(), DromophantRenderer::new);
+        event.registerEntityRenderer(VWEntities.WANDERING_SPIRIT_SUMMONED_OF_SCULKS.get(), WanderingSpiritSummonedOfSculksRenderer::new);
+        event.registerEntityRenderer(VWEntities.ZOMBIE_OF_STONY_MAGMA.get(), ZombieOfStonyMagmaRenderer::new);
+        event.registerEntityRenderer(VWEntities.ZANY_VILER_WITCH.get(), ZanyVilerWitchRenderer::new);
+        event.registerEntityRenderer(VWEntities.CRYSTAL_WARRIOR.get(), CrystalWarriorRenderer::new);
+        event.registerEntityRenderer(VWEntities.DARK_SPIRIT.get(), DarkSpiritRenderer::new);
+        event.registerEntityRenderer(VWEntities.SCULK_NECROMANCER_SKELETON.get(), SculkNecromancerSkeletonRenderer::new);
+        event.registerEntityRenderer(VWEntities.FURY_LORD.get(), FuryLordRenderer::new);
+        event.registerEntityRenderer(VWEntities.SCULK_SCYTHE_PROJECTILE.get(), SculkScytheProjectileRenderer::new);
+        event.registerEntityRenderer(VWEntities.WANDERING_SPIRIT_PROJECTILE.get(), WanderingSpiritProjectileRenderer::new);
+        event.registerEntityRenderer(VWEntities.NECROMANCER_STAFF.get(), NecromancerStaffRenderer::new);
+        event.registerEntityRenderer(VWEntities.MULTIPLE_ENDER_PEARL.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(VWEntities.DARK_SPIRIT_GLOVES.get(), DarkSpiritGlovesRenderer::new);
         //boats' renderer
-        event.registerEntityRenderer(VariousWorldEntities.MOD_BOAT.get(), context->new ModBoatRenderer(context,false));
-        event.registerEntityRenderer(VariousWorldEntities.MOD_CHEST_BOAT.get(), context->new ModBoatRenderer(context,true));
+        event.registerEntityRenderer(VWEntities.MOD_BOAT.get(), context->new ModBoatRenderer(context,false));
+        event.registerEntityRenderer(VWEntities.MOD_CHEST_BOAT.get(), context->new ModBoatRenderer(context,true));
         //block entities' renderer
-        event.registerBlockEntityRenderer(VariousWorldBlockEntities.DISENCHANT_TABLE.get(), DisenchantTableBlockEntityRenderer::new);
-        event.registerBlockEntityRenderer(VariousWorldBlockEntities.ARMOR_STATION_BLOCK.get(), ArmorStationBlockEntityRenderer::new);
-        event.registerBlockEntityRenderer(VariousWorldBlockEntities.MOD_SIGN.get(), SignRenderer::new);
-        event.registerBlockEntityRenderer(VariousWorldBlockEntities.MOD_HANGING_SIGN.get(), HangingSignRenderer::new);
+        event.registerBlockEntityRenderer(VWBlockEntities.DISENCHANT_TABLE.get(), DisenchantTableBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(VWBlockEntities.ARMOR_STATION_BLOCK.get(), ArmorStationBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(VWBlockEntities.MOD_SIGN.get(), SignRenderer::new);
+        event.registerBlockEntityRenderer(VWBlockEntities.MOD_HANGING_SIGN.get(), HangingSignRenderer::new);
     }
     @SubscribeEvent
     public static void blockColorLoad(RegisterColorHandlersEvent.Block event) {
@@ -85,10 +85,10 @@ public class VariousWorldClient {
     }
     @SubscribeEvent
     public static void registerParticles(RegisterParticleProvidersEvent event) {
-        event.registerSpriteSet(VariousWorldParticleTypes.PEACEFUL_PARTICLE.get(), PeacefulParticleParticle::provider);
-        event.registerSpriteSet(VariousWorldParticleTypes.WANDERING_SPIRIT_PROJECTILE_PARTICLE.get(), WanderingSpiritAbilityShootParticleParticle::provider);
-        event.registerSpriteSet(VariousWorldParticleTypes.LORD_SHOOT_PARTICLE.get(), LordShootParticleParticle::provider);
-        event.registerSpriteSet(VariousWorldParticleTypes.MAGMA_FIREFLIES.get(), MagmaFirefliesParticle::provider);
+        event.registerSpriteSet(VWMiscRegistries.PEACEFUL_PARTICLE.get(), PeacefulParticleParticle::provider);
+        event.registerSpriteSet(VWMiscRegistries.WANDERING_SPIRIT_PROJECTILE_PARTICLE.get(), WanderingSpiritAbilityShootParticleParticle::provider);
+        event.registerSpriteSet(VWMiscRegistries.LORD_SHOOT_PARTICLE.get(), LordShootParticleParticle::provider);
+        event.registerSpriteSet(VWMiscRegistries.MAGMA_FIREFLIES.get(), MagmaFirefliesParticle::provider);
     }       
 
     @SubscribeEvent

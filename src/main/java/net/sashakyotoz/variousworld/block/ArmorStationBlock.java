@@ -1,7 +1,7 @@
 package net.sashakyotoz.variousworld.block;
 import io.netty.buffer.Unpooled;
 import net.sashakyotoz.variousworld.block.entity.ArmorStationBlockEntity;
-import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
+import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.client.menus.ArmorStationMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -175,7 +175,7 @@ public class ArmorStationBlock extends Block implements SimpleWaterloggedBlock, 
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldBlocks.ARMOR_STATION_BLOCK.get());
+		ItemStack itemStack = new ItemStack(VWBlocks.ARMOR_STATION_BLOCK.get());
 		return Collections.singletonList(itemStack);
 	}
 }

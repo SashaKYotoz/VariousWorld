@@ -26,8 +26,8 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.storage.loot.LootParams;
-import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWBlocks;
+import net.sashakyotoz.variousworld.init.VWItems;
 
 import java.util.Collections;
 import java.util.List;
@@ -71,7 +71,7 @@ public class SculkGrowthsBlock extends MultifaceBlock implements BonemealableBlo
 
     @Override
     public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-        ItemStack itemStack = new ItemStack(VariousWorldBlocks.SCULK_GROWTHS.get());
+        ItemStack itemStack = new ItemStack(VWBlocks.SCULK_GROWTHS.get());
         return Collections.singletonList(itemStack);
     }
 
@@ -84,7 +84,7 @@ public class SculkGrowthsBlock extends MultifaceBlock implements BonemealableBlo
     }
 
     public boolean canBeReplaced(BlockState p_153299_, BlockPlaceContext p_153300_) {
-        return !p_153300_.getItemInHand().is(VariousWorldItems.SCULK_GROWTHS.get()) || super.canBeReplaced(p_153299_, p_153300_);
+        return !p_153300_.getItemInHand().is(VWItems.SCULK_GROWTHS.get()) || super.canBeReplaced(p_153299_, p_153300_);
     }
 
     public boolean isValidBonemealTarget(LevelReader reader, BlockPos pos, BlockState state, boolean p_153292_) {

@@ -4,8 +4,7 @@ package net.sashakyotoz.variousworld.block;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
-import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
-import net.sashakyotoz.variousworld.procedures.SculkMossBlockOnBlockRightClickedProcedure;
+import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
@@ -54,7 +53,7 @@ public class SculkMossBlock extends Block implements BonemealableBlock {
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldBlocks.SCULK_MOSS_BLOCK.get());
+		ItemStack itemStack = new ItemStack(VWBlocks.SCULK_MOSS_BLOCK.get());
 		return Collections.singletonList(itemStack);
 	}
 
@@ -70,6 +69,22 @@ public class SculkMossBlock extends Block implements BonemealableBlock {
 
 	@Override
 	public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos pos, BlockState blockState) {
-		SculkMossBlockOnBlockRightClickedProcedure.execute(serverLevel, pos.getX(), pos.getY(), pos.getZ());
+		int sx, sy, sz;
+		sx = -3;
+		for (int i = 0; i < 6; i++) {
+			sy = -3;
+			for (int j = 0; j < 6; j++) {
+				sz = -3;
+				for (int k = 0; k < 6; k++) {
+					if ((serverLevel.getBlockState(pos.offset(sx,sy,sz))).getBlock() == Blocks.STONE) {
+						if (Math.random() < 0.5)
+							serverLevel.setBlock(pos.offset(sx,sy,sz), VWBlocks.SCULK_MOSS_BLOCK.get().defaultBlockState(), 3);
+					}
+					sz = sz + 1;
+				}
+				sy = sy + 1;
+			}
+			sx = sx + 1;
+		}
 	}
 }

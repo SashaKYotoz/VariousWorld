@@ -13,14 +13,14 @@ import net.sashakyotoz.variousworld.VariousWorld;
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Set;
-public class VariousWorldVillagerType {
+public class VWVillagerType {
     public static final Set<VillagerType> CUSTOM_TYPES;
     public static VillagerType CRYSTAL;
 
     public void initVillagerTypes() {
-        VariousWorld.LOGGER.debug("Registering villager types: " + VillagerTrades.TRADES.size());
+        VariousWorld.LOGGER.debug("Registering villager types: {}", VillagerTrades.TRADES.size());
         CRYSTAL = registerType("crystalic_forest");
-        putTypeToBiome(VariousWorldBiomes.CRYSTALIC_FOREST, CRYSTAL);
+        putTypeToBiome(VWBiomes.CRYSTALIC_FOREST, CRYSTAL);
     }
 
     public static void putTypeToBiome(ResourceKey<Biome> biomeIn, VillagerType type) {

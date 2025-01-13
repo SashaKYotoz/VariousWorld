@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWItems;
 import net.sashakyotoz.variousworld.procedures.ThunderboltHammerBlockDestroyedWithToolProcedure;
 
 public class ThunderboltHammerItem extends PickaxeItem {
@@ -45,7 +45,7 @@ public class ThunderboltHammerItem extends PickaxeItem {
 			}
 
 			public Ingredient getRepairIngredient() {
-				return Ingredient.of(new ItemStack(VariousWorldItems.DARKSHARD.get()), new ItemStack(Items.AMETHYST_SHARD), new ItemStack(VariousWorldItems.CRYSTALSHARD.get()));
+				return Ingredient.of(new ItemStack(VWItems.DARKSHARD.get()), new ItemStack(Items.AMETHYST_SHARD), new ItemStack(VWItems.CRYSTALSHARD.get()));
 			}
 		}, 1, -2.8f, new Item.Properties().fireResistant());
 	}

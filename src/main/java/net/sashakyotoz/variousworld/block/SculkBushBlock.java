@@ -19,8 +19,8 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.PlantType;
-import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWBlocks;
+import net.sashakyotoz.variousworld.init.VWItems;
 
 import java.util.Collections;
 import java.util.List;
@@ -42,7 +42,7 @@ public class SculkBushBlock extends DoublePlantBlock {
 
 	@Override
 	public boolean mayPlaceOn(BlockState groundState, BlockGetter worldIn, BlockPos pos) {
-		return groundState.is(VariousWorldBlocks.SCULK_GRASS.get()) || groundState.is(Blocks.SCULK);
+		return groundState.is(VWBlocks.SCULK_GRASS.get()) || groundState.is(Blocks.SCULK);
 	}
 
 	@Override
@@ -63,14 +63,14 @@ public class SculkBushBlock extends DoublePlantBlock {
 	@Override
 	public InteractionResult use(BlockState blockstate, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		super.use(blockstate, world, pos, player, hand, hit);
-		BlockState state = VariousWorldBlocks.SCULK_BUSH_WITHOUT_BERRY.get().defaultBlockState();
+		BlockState state = VWBlocks.SCULK_BUSH_WITHOUT_BERRY.get().defaultBlockState();
 		world.setBlock(pos, state, 3);
-		player.spawnAtLocation(new ItemStack(VariousWorldItems.SCULKBERRY.get()));
+		player.spawnAtLocation(new ItemStack(VWItems.SCULKBERRY.get()));
 		return InteractionResult.SUCCESS;
 	}
 	@Override
 	public List<ItemStack> getDrops(BlockState blockState, LootParams.Builder builder) {
-		ItemStack itemStack = new ItemStack(VariousWorldItems.SCULK_FRUIT.get());
+		ItemStack itemStack = new ItemStack(VWItems.SCULK_FRUIT.get());
 		return Collections.singletonList(itemStack);
 	}
 }

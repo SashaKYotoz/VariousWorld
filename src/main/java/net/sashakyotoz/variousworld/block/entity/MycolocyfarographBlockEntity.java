@@ -1,7 +1,7 @@
 package net.sashakyotoz.variousworld.block.entity;
 
-import net.sashakyotoz.variousworld.init.VariousWorldBlockEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWBlockEntities;
+import net.sashakyotoz.variousworld.init.VWItems;
 import net.sashakyotoz.variousworld.client.menus.MycolocyfarographGUIMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -45,7 +45,7 @@ public class MycolocyfarographBlockEntity extends BlockEntity implements MenuPro
 	private int maxProgress = 78;
 
 	public MycolocyfarographBlockEntity(BlockPos pos, BlockState state) {
-		super(VariousWorldBlockEntities.MYCOLOCYFAROGRAPH.get(), pos, state);
+		super(VWBlockEntities.MYCOLOCYFAROGRAPH.get(), pos, state);
 		this.data = new ContainerData() {
 			@Override
 			public int get(int index) {
@@ -158,7 +158,7 @@ public class MycolocyfarographBlockEntity extends BlockEntity implements MenuPro
 		for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
 			inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
 		}
-		boolean hasItemInFirstSlot = entity.itemHandler.getStackInSlot(1).getItem() == VariousWorldItems.MYCENA_FROM_CAVERN_OF_DEEP_FOOD.get() ||entity.itemHandler.getStackInSlot(1).getItem() == VariousWorldItems.CRYSHROOM.get() || entity.itemHandler.getStackInSlot(1).getItem() == Items.BROWN_MUSHROOM || entity.itemHandler.getStackInSlot(1).getItem() == Items.RED_MUSHROOM;
+		boolean hasItemInFirstSlot = entity.itemHandler.getStackInSlot(1).getItem() == VWItems.MYCENA_FROM_CAVERN_OF_DEEP_FOOD.get() ||entity.itemHandler.getStackInSlot(1).getItem() == VWItems.CRYSHROOM.get() || entity.itemHandler.getStackInSlot(1).getItem() == Items.BROWN_MUSHROOM || entity.itemHandler.getStackInSlot(1).getItem() == Items.RED_MUSHROOM;
 		return hasItemInFirstSlot && canInsertAmountIntoOutputSlot(inventory) && canInsertItemIntoOutputSlot(inventory, new ItemStack(ForgeRegistries.ITEMS.tags().getTag(ItemTags.create(new ResourceLocation("various_world:mushroom_drop"))).getRandomElement(RandomSource.create()).get()));
 	}
 

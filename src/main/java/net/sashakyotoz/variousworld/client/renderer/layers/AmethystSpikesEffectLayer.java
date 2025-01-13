@@ -15,7 +15,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.sashakyotoz.variousworld.client.model.ModelAmethystSpikes;
-import net.sashakyotoz.variousworld.init.VariousWorldMobEffects;
+import net.sashakyotoz.variousworld.init.VWMiscRegistries;
 
 public class AmethystSpikesEffectLayer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
     private static final ResourceLocation AMETHYSTS_LOCATION = new ResourceLocation("various_world:textures/entities/amethyst_spikes.png");
@@ -42,7 +42,7 @@ public class AmethystSpikesEffectLayer<T extends LivingEntity, M extends EntityM
     }
 
     public boolean shouldRender(ItemStack stack, T entity) {
-        return entity.hasEffect(VariousWorldMobEffects.AMETHYST_SPIKES.get());
+        return entity.hasEffect(VWMiscRegistries.AMETHYST_SPIKES.get());
     }
 
     public ResourceLocation getRodsLocation(ItemStack stack, T entity) {

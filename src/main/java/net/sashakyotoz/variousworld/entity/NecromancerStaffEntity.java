@@ -11,8 +11,8 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
-import net.sashakyotoz.variousworld.init.VariousWorldEntities;
-import net.sashakyotoz.variousworld.init.VariousWorldSounds;
+import net.sashakyotoz.variousworld.init.VWEntities;
+import net.sashakyotoz.variousworld.init.VWSounds;
 import net.sashakyotoz.variousworld.procedures.NecromancerStaffProjectileHitsLivingEntityProcedure;
 
 public class NecromancerStaffEntity extends AbstractArrow {
@@ -65,7 +65,7 @@ public class NecromancerStaffEntity extends AbstractArrow {
 	}
 
 	public static NecromancerStaffEntity shoot(Level level, LivingEntity entity,ItemStack stack, RandomSource random, float power, double damage, int knockback) {
-		NecromancerStaffEntity arrow = new NecromancerStaffEntity(VariousWorldEntities.NECROMANCER_STAFF.get(), entity, level);
+		NecromancerStaffEntity arrow = new NecromancerStaffEntity(VWEntities.NECROMANCER_STAFF.get(), entity, level);
 		arrow.shoot(entity.getViewVector(1).x, entity.getViewVector(1).y, entity.getViewVector(1).z, power * 2, 0);
 		isMagmaColor = stack.getOrCreateTag().getDouble("CustomModelData") == 1;
 		arrow.setSilent(true);
@@ -73,12 +73,12 @@ public class NecromancerStaffEntity extends AbstractArrow {
 		arrow.setBaseDamage(damage);
 		arrow.setKnockback(knockback);
 		level.addFreshEntity(arrow);
-		level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), VariousWorldSounds.ITEM_WAND_SHOOT, SoundSource.PLAYERS, 1, 1f / (random.nextFloat() * 0.5f + 1) + (power / 2));
+		level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), VWSounds.ITEM_WAND_SHOOT, SoundSource.PLAYERS, 1, 1f / (random.nextFloat() * 0.5f + 1) + (power / 2));
 		return arrow;
 	}
 
 	public static NecromancerStaffEntity shoot(LivingEntity entity, LivingEntity target) {
-		NecromancerStaffEntity staffEntity = new NecromancerStaffEntity(VariousWorldEntities.NECROMANCER_STAFF.get(), entity, entity.level());
+		NecromancerStaffEntity staffEntity = new NecromancerStaffEntity(VWEntities.NECROMANCER_STAFF.get(), entity, entity.level());
 		double dx = target.getX() - entity.getX();
 		double dy = target.getY() + target.getEyeHeight() - 1.1;
 		double dz = target.getZ() - entity.getZ();
@@ -88,7 +88,7 @@ public class NecromancerStaffEntity extends AbstractArrow {
 		staffEntity.setKnockback(2);
 		staffEntity.setCritArrow(false);
 		entity.level().addFreshEntity(staffEntity);
-		entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), VariousWorldSounds.ITEM_WAND_SHOOT, SoundSource.PLAYERS, 1, 1f / (RandomSource.create().nextFloat() * 0.5f + 1));
+		entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), VWSounds.ITEM_WAND_SHOOT, SoundSource.PLAYERS, 1, 1f / (RandomSource.create().nextFloat() * 0.5f + 1));
 		return staffEntity;
 	}
 }

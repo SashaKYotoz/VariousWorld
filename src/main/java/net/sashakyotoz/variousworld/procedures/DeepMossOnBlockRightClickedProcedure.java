@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
+import net.sashakyotoz.variousworld.init.VWBlocks;
 
 public class DeepMossOnBlockRightClickedProcedure {
     public static void execute(LevelAccessor world, double x, double y, double z) {
@@ -19,9 +19,9 @@ public class DeepMossOnBlockRightClickedProcedure {
                 for (int index2 = 0; index2 < 6; index2++) {
                     if ((world.getBlockState(BlockPos.containing(x + sx, y + sy, z + sz))).getBlock() == Blocks.STONE || (world.getBlockState(BlockPos.containing(x + sx, y + sy, z + sz))).getBlock() == Blocks.DEEPSLATE) {
                         if (RandomSource.create().nextBoolean()) {
-                            world.setBlock(BlockPos.containing(x + sx, y + sy, z + sz), VariousWorldBlocks.DEEP_MOSS.get().defaultBlockState(), 3);
+                            world.setBlock(BlockPos.containing(x + sx, y + sy, z + sz), VWBlocks.DEEP_MOSS.get().defaultBlockState(), 3);
                             if (Math.random() < 0.125 && !world.getBlockState(BlockPos.containing(x + sx, y + sy + 1, z + sz)).canOcclude())
-                                world.setBlock(BlockPos.containing(x + sx, y + sy + 1, z + sz), VariousWorldBlocks.DEEP_MOSS.get().defaultBlockState(), 3);
+                                world.setBlock(BlockPos.containing(x + sx, y + sy + 1, z + sz), VWBlocks.DEEP_MOSS.get().defaultBlockState(), 3);
                         }
                     }
                     sz = sz + 1;

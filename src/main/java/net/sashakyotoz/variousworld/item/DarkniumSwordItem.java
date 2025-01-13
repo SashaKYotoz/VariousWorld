@@ -11,8 +11,7 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.entity.LivingEntity;
-
-import net.sashakyotoz.variousworld.init.VariousWorldParticleTypes;
+import net.sashakyotoz.variousworld.init.VWMiscRegistries;
 
 public class DarkniumSwordItem extends SwordItem {
 	public DarkniumSwordItem() {
@@ -22,7 +21,7 @@ public class DarkniumSwordItem extends SwordItem {
 	@Override
 	public boolean hurtEnemy(ItemStack itemstack, LivingEntity entity, LivingEntity attacker) {
 		if (attacker.getMainHandItem().getOrCreateTag().getDouble("CustomModelData") == 1) {
-			attacker.level().addParticle(VariousWorldParticleTypes.WANDERING_SPIRIT_PROJECTILE_PARTICLE.get(), attacker.getX(), attacker.getY(), attacker.getZ(), 0, 1.5, 0);
+			attacker.level().addParticle(VWMiscRegistries.WANDERING_SPIRIT_PROJECTILE_PARTICLE.get(), attacker.getX(), attacker.getY(), attacker.getZ(), 0, 1.5, 0);
 			if (Math.random() < 0.5) {
 					entity.hurt(new DamageSource(entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.GENERIC)) {
 						@Override

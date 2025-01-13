@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mod.EventBusSubscriber
-public class VariousWorldBiomes {
+public class VWBiomes {
 	public static final ResourceKey<Biome> CRYSTALIC_FOREST = ResourceKey.create(Registries.BIOME,new ResourceLocation(VariousWorld.MODID,"crystalicforest"));
 	public static final ResourceKey<Biome> PEACEFUL_WASTELAND = ResourceKey.create(Registries.BIOME,new ResourceLocation(VariousWorld.MODID,"peaceful_wasteland"));
 	public static final ResourceKey<Biome> SCULK_VALLEY = ResourceKey.create(Registries.BIOME,new ResourceLocation(VariousWorld.MODID,"sculk_valley"));
@@ -92,18 +92,18 @@ public class VariousWorldBiomes {
 					SurfaceRules.RuleSource currentRuleSource = noiseGeneratorSettings.surfaceRule();
 					if (currentRuleSource instanceof SurfaceRules.SequenceRuleSource sequenceRuleSource) {
 						List<SurfaceRules.RuleSource> surfaceRules = new ArrayList<>(sequenceRuleSource.sequence());
-						surfaceRules.add(1, anySurfaceRule(CAVERN_OF_DEEP, VariousWorldBlocks.DEEP_MOSS.get().defaultBlockState(), Blocks.BLACKSTONE.defaultBlockState(),
+						surfaceRules.add(1, anySurfaceRule(CAVERN_OF_DEEP, VWBlocks.DEEP_MOSS.get().defaultBlockState(), Blocks.BLACKSTONE.defaultBlockState(),
 								Blocks.BLACKSTONE.defaultBlockState()));
-						surfaceRules.add(1, anySurfaceRule(CAVERNS_OF_MAGMA_GROWTH, VariousWorldBlocks.BLACKLY_STONY_MAGMA.get().defaultBlockState(),
-								VariousWorldBlocks.BLACKLY_STONY_MAGMA.get().defaultBlockState(), Blocks.BLACKSTONE.defaultBlockState()));
-						surfaceRules.add(1, preliminarySurfaceRule(CRYSTALIC_FOREST, VariousWorldBlocks.CRYSTALIC_GRASS.get().defaultBlockState(),
+						surfaceRules.add(1, anySurfaceRule(CAVERNS_OF_MAGMA_GROWTH, VWBlocks.BLACKLY_STONY_MAGMA.get().defaultBlockState(),
+								VWBlocks.BLACKLY_STONY_MAGMA.get().defaultBlockState(), Blocks.BLACKSTONE.defaultBlockState()));
+						surfaceRules.add(1, preliminarySurfaceRule(CRYSTALIC_FOREST, VWBlocks.CRYSTALIC_GRASS.get().defaultBlockState(),
 								Blocks.STONE.defaultBlockState(), Blocks.STONE.defaultBlockState()));
 						surfaceRules.add(1, preliminarySurfaceRule(PEACEFUL_WASTELAND, Blocks.GRASS_BLOCK.defaultBlockState(), Blocks.COARSE_DIRT.defaultBlockState(),
 								Blocks.SAND.defaultBlockState()));
-						surfaceRules.add(1, preliminarySurfaceRule(SCULK_VALLEY, VariousWorldBlocks.SCULK_GRASS.get().defaultBlockState(),
+						surfaceRules.add(1, preliminarySurfaceRule(SCULK_VALLEY, VWBlocks.SCULK_GRASS.get().defaultBlockState(),
 								Blocks.SCULK.defaultBlockState(), Blocks.STONE.defaultBlockState()));
-						surfaceRules.add(1, preliminarySurfaceRule(SHINY_VALLEY, VariousWorldBlocks.SHINY_GRASS.get().defaultBlockState(),
-								VariousWorldBlocks.GNEISS.get().defaultBlockState(), VariousWorldBlocks.GNEISS.get().defaultBlockState()));
+						surfaceRules.add(1, preliminarySurfaceRule(SHINY_VALLEY, VWBlocks.SHINY_GRASS.get().defaultBlockState(),
+								VWBlocks.GNEISS.get().defaultBlockState(), VWBlocks.GNEISS.get().defaultBlockState()));
 						NoiseGeneratorSettings moddedNoiseGeneratorSettings = new NoiseGeneratorSettings(noiseGeneratorSettings.noiseSettings(), noiseGeneratorSettings.defaultBlock(), noiseGeneratorSettings.defaultFluid(),
 								noiseGeneratorSettings.noiseRouter(), SurfaceRules.sequence(surfaceRules.toArray(SurfaceRules.RuleSource[]::new)), noiseGeneratorSettings.spawnTarget(), noiseGeneratorSettings.seaLevel(),
 								noiseGeneratorSettings.disableMobGeneration(), noiseGeneratorSettings.aquifersEnabled(), noiseGeneratorSettings.oreVeinsEnabled(),noiseGeneratorSettings.useLegacyRandomSource());

@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.HangingSignBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.sashakyotoz.variousworld.init.VariousWorldBlockEntities;
+import net.sashakyotoz.variousworld.init.VWBlockEntities;
 
 public class ModHangingSignBlockEntity extends HangingSignBlockEntity {
     public ModHangingSignBlockEntity(BlockPos pos, BlockState state) {
@@ -12,6 +12,6 @@ public class ModHangingSignBlockEntity extends HangingSignBlockEntity {
     }
     @Override
     public BlockEntityType<?> getType() {
-        return VariousWorldBlockEntities.MOD_HANGING_SIGN.get();
+        return VWBlockEntities.MOD_HANGING_SIGN.get();
     }
 }

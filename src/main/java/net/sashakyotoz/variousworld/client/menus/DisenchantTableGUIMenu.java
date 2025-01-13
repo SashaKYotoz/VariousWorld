@@ -21,7 +21,7 @@ import net.minecraft.core.BlockPos;
 
 import net.sashakyotoz.variousworld.procedures.DisenchantTableUpdateTickProcedure;
 import net.sashakyotoz.variousworld.network.DisenchantTableGUISlotMessage;
-import net.sashakyotoz.variousworld.init.VariousWorldMenus;
+import net.sashakyotoz.variousworld.init.VWMenus;
 import net.sashakyotoz.variousworld.VariousWorld;
 
 import java.util.function.Supplier;
@@ -38,7 +38,7 @@ public class DisenchantTableGUIMenu extends AbstractContainerMenu implements Sup
 	private boolean bound = false;
 
 	public DisenchantTableGUIMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
-		super(VariousWorldMenus.DISENCHANT_TABLE_GUI.get(), id);
+		super(VWMenus.DISENCHANT_TABLE_GUI.get(), id);
 		this.player = inv.player;
 		this.level = inv.player.level();
 		this.internal = new ItemStackHandler(3);

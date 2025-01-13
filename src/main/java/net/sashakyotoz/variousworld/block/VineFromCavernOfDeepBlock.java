@@ -17,8 +17,8 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
-import net.sashakyotoz.variousworld.init.VariousWorldBlocks;
-import net.sashakyotoz.variousworld.init.VariousWorldItems;
+import net.sashakyotoz.variousworld.init.VWBlocks;
+import net.sashakyotoz.variousworld.init.VWItems;
 
 public class VineFromCavernOfDeepBlock extends GrowingPlantBodyBlock implements BonemealableBlock, DeepCavernsVines {
 	public VineFromCavernOfDeepBlock() {
@@ -27,7 +27,7 @@ public class VineFromCavernOfDeepBlock extends GrowingPlantBodyBlock implements 
 	}
 
 	protected GrowingPlantHeadBlock getHeadBlock() {
-		return (GrowingPlantHeadBlock) VariousWorldBlocks.FLOWER_VINE_FROM_CAVERNOF_DEEP.get();
+		return (GrowingPlantHeadBlock) VWBlocks.FLOWER_VINE_FROM_CAVERNOF_DEEP.get();
 	}
 
 	protected BlockState updateHeadAfterConvertedFromBody(BlockState p_153028_, BlockState p_153029_) {
@@ -35,7 +35,7 @@ public class VineFromCavernOfDeepBlock extends GrowingPlantBodyBlock implements 
 	}
 	@Override
 	public ItemStack getCloneItemStack(BlockGetter p_153007_, BlockPos p_153008_, BlockState p_153009_) {
-		return new ItemStack(VariousWorldItems.BRANCH_WITH_DRAGON_EYE_FRUIT.get());
+		return new ItemStack(VWItems.BRANCH_WITH_DRAGON_EYE_FRUIT.get());
 	}
 
 	public InteractionResult use(BlockState p_153021_, Level p_153022_, BlockPos p_153023_, Player p_153024_, InteractionHand p_153025_, BlockHitResult p_153026_) {
