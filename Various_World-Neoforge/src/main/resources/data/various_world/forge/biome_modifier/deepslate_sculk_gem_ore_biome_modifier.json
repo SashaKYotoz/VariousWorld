@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "various_world:sculk_valley",
+  "features": "various_world:deepslate_sculk_gem_ore",
+  "step": "underground_ores"
+}

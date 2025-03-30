@@ -1,0 +1,26 @@
+{
+  "display": {
+    "background": "various_world:textures/screens/adv_back.png",
+    "icon": {
+      "item": "various_world:sculk_scythe"
+    },
+    "title": {
+      "translate": "advancements.welcometothe_various_world.title"
+    },
+    "description": {
+      "translate": "advancements.welcometothe_various_world.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "welcometothe_various_world": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "rewards": {
+    "experience": 2
+  }
+}

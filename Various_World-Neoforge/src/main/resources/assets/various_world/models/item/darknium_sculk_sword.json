@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "various_world:item/darknium_sculk_sword"
+}
+}

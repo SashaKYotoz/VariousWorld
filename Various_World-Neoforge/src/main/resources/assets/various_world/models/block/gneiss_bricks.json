@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "various_world:block/gneiss_bricks_side",
+    "up": "various_world:block/gneiss_bricks_side",
+    "north": "various_world:block/gneiss_bricks_side",
+    "east": "various_world:block/gneiss_bricks_side",
+    "south": "various_world:block/gneiss_bricks_side",
+    "west": "various_world:block/gneiss_bricks_side",
+    "particle": "various_world:block/gneiss_bricks_side"
+  },
+  "render_type": "solid"
+}

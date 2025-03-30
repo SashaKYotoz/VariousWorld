@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "0  ",
+    "34 ",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "various_world:blackly_stony_magma_bricks"
+    },
+    "3": {
+      "item": "various_world:blackly_stony_magma_bricks"
+    },
+    "4": {
+      "item": "various_world:blackly_stony_magma_bricks"
+    },
+    "6": {
+      "item": "various_world:blackly_stony_magma_bricks"
+    },
+    "7": {
+      "item": "various_world:blackly_stony_magma_bricks"
+    },
+    "8": {
+      "item": "various_world:blackly_stony_magma_bricks"
+    }
+  },
+  "result": {
+    "item": "various_world:blackly_stony_magma_bricks_stairs",
+    "count": 5
+  }
+}

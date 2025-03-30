@@ -1,0 +1,9 @@
+{
+  "type": "forge:add_features",
+  "biomes": [
+    "forest",
+    "taiga"
+  ],
+  "features": "various_world:small_water_well",
+  "step": "surface_structures"
+}

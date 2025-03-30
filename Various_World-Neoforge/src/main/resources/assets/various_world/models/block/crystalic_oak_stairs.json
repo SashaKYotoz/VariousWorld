@@ -1,0 +1,9 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+    "bottom": "various_world:block/crystalic_oak_planks",
+    "top": "various_world:block/crystalic_oak_planks",
+    "side": "various_world:block/crystalic_oak_planks"
+  },
+  "render_type": "solid"
+}

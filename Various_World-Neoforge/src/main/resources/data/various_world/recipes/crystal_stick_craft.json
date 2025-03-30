@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "various_world:crystalshard"
+    },
+    {
+      "item": "minecraft:stick"
+    },
+    {
+      "item": "various_world:darkshard"
+    },
+    {
+      "item": "minecraft:amethyst_shard"
+    }
+  ],
+  "result": {
+    "item": "various_world:crystalic_stick",
+    "count": 1
+  }
+}

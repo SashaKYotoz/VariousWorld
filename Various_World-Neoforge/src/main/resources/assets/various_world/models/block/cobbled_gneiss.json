@@ -1,0 +1,8 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "various_world:block/cobbled_gneiss",
+    "particle": "various_world:block/cobbled_gneiss"
+  },
+  "render_type": "solid"
+}

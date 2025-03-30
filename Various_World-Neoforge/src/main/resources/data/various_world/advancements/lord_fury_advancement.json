@@ -1,0 +1,34 @@
+{
+  "display": {
+    "icon": {
+      "item": "various_world:lord_sword"
+    },
+    "title": {
+      "translate": "advancements.lord_fury_advancement.title"
+    },
+    "description": {
+      "translate": "advancements.lord_fury_advancement.descr"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "lord_fury_advancement": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 0,
+    "recipes": [
+      "various_world:lord_fury_scales_ore_block_recipe",
+      "various_world:lord_fury_scales_block_ore_recipe",
+      "various_world:lord_fury_helmet",
+      "various_world:lord_fury_chestplate",
+      "various_world:lord_fury_leggins",
+      "various_world:lord_fury_boots"
+    ]
+  },
+  "parent": "various_world:kill_first_titan"
+}

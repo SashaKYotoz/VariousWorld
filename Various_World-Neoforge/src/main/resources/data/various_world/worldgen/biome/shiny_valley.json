@@ -1,0 +1,89 @@
+{
+  "has_precipitation": true,
+  "temperature": 0.8,
+  "downfall": 0.5,
+  "effects": {
+    "music": {
+      "sound": "various_world:biome.shiny_valley",
+      "min_delay": 6000,
+      "max_delay": 18000,
+      "replace_current_music": false
+    },
+    "particle": {
+      "options": {
+        "type": "glow"
+      },
+      "probability": 0.001
+    },
+    "foliage_color": -1,
+    "grass_color": -1,
+    "sky_color": -1,
+    "fog_color": -1,
+    "water_color": -8388620,
+    "water_fog_color": -1
+  },
+  "spawners": {
+    "monster": [
+      {
+        "type": "various_world:zombie_of_various_biomes",
+        "weight": 5,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "creature": [
+      {
+        "type": "various_world:spiritof_peaceful_wasteland",
+        "weight": 5,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "ambient": [],
+    "axolotls": [],
+    "underground_water_creature": [],
+    "water_creature": [],
+    "water_ambient": [],
+    "misc": []
+  },
+  "spawn_costs": {},
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:cave_extra_underground",
+      "minecraft:canyon"
+    ]
+  },
+  "features": [
+    [],
+    [
+      "minecraft:lake_lava_underground"
+    ],
+    [],
+    [
+      "minecraft:monster_room",
+      "minecraft:monster_room_deep"
+    ],
+    [],
+    [
+      "minecraft:ore_iron_upper",
+      "minecraft:ore_iron_middle",
+      "minecraft:ore_iron_small",
+      "minecraft:ore_gold_lower",
+      "minecraft:ore_diamond",
+      "minecraft:ore_diamond_large",
+      "minecraft:ore_diamond_buried",
+      "minecraft:ore_lapis",
+      "minecraft:ore_lapis_buried",
+      "minecraft:underwater_magma",
+      "minecraft:ore_emerald"
+    ],
+    [],
+    [
+      "various_world:shiny_valley_tree",
+      "various_world:shiny_valley_tree1",
+      "minecraft:flower_meadow",
+      "minecraft:flower_swamp"
+    ]
+  ]
+}

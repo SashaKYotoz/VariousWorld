@@ -1,0 +1,12 @@
+{
+  "feature": "various_world:cavernof_deep_decorations",
+  "placement": [
+    {
+      "type": "minecraft:count_on_every_layer",
+      "count": 36
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

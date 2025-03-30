@@ -1,0 +1,39 @@
+{
+  "display": {
+    "icon": {
+      "item": "various_world:darknium_ore"
+    },
+    "title": {
+      "translate": "advancements.dark_daltas.title"
+    },
+    "description": {
+      "translate": "advancements.dark_daltas.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "dark_daltas": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biome": "various_world:cavernof_deep"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 3
+  },
+  "parent": "various_world:forwardin_cristalicforest"
+}

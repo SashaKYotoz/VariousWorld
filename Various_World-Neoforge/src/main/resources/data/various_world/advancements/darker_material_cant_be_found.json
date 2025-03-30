@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "various_world:darknium_ingot"
+    },
+    "title": {
+      "translate": "advancements.darker_material_cant_be_found.title"
+    },
+    "description": {
+      "translate": "advancements.darker_material_cant_be_found.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "darker_material_cant_be_found": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 5
+  },
+  "parent": "various_world:the_brightest_radiance"
+}

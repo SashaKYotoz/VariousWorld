@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "various_world:blackly_stony_magma_bricks_wall",
+    "various_world:sculk_bricks_fence",
+    "various_world:gneiss_bricks_wall",
+    "various_world:ender_bricks_wall"
+  ]
+}

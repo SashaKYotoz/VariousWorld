@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "various_world:cavernof_deep",
+  "features": "various_world:mycena_from_cavern_of_deep",
+  "step": "vegetal_decoration"
+}

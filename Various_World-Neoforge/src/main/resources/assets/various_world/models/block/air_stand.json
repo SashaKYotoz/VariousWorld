@@ -1,0 +1,11 @@
+{
+  "parent": "various_world:custom/air_stand",
+  "textures": {
+    "all": "various_world:block/air_stand",
+    "particle": "various_world:block/air_stand",
+    "1": "various_world:block/air_stand",
+    "2": "various_world:block/air_stand_fire",
+    "missing": "various_world:block/air_stand"
+  },
+  "render_type": "translucent"
+}

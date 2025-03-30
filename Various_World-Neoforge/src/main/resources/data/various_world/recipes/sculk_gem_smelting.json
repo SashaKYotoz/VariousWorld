@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "experience": 5,
+  "cookingtime": 320,
+  "ingredient": {
+    "item": "various_world:raw_sculk_gem"
+  },
+  "result": "various_world:sculk_gem"
+}

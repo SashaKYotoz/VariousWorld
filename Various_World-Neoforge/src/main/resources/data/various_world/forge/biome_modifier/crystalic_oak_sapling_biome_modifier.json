@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "various_world:crystalicforest",
+  "features": "various_world:crystalic_oak_sapling",
+  "step": "vegetal_decoration"
+}

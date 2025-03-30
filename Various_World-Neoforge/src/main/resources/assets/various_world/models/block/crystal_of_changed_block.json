@@ -1,0 +1,9 @@
+{
+  "parent": "various_world:custom/block_of_changed_crystal",
+  "textures": {
+    "all": "various_world:block/changed_block",
+    "particle": "various_world:block/changed_block",
+    "3": "various_world:block/changed_block"
+  },
+  "render_type": "translucent"
+}

@@ -1,0 +1,11 @@
+{
+  "type": "forge:add_features",
+  "biomes": [
+    "forest",
+    "taiga",
+    "birch_forest",
+    "snowy_taiga"
+  ],
+  "features": "various_world:tree_house",
+  "step": "surface_structures"
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "block/button",
+  "textures": {
+    "texture": "various_world:block/sakura_planks"
+  },
+  "render_type": "solid"
+}

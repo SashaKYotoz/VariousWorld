@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "various_world:block/crystalic_oak_slab"
+    },
+    "type=top": {
+      "model": "various_world:block/crystalic_oak_slab_top"
+    },
+    "type=double": {
+      "model": "various_world:block/crystalic_oak_slab_full"
+    }
+  }
+}

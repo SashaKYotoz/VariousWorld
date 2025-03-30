@@ -1,0 +1,19 @@
+{
+  "structures": [
+    {
+      "structure": "various_world:crystalic_temple",
+      "weight": 1
+    },
+    {
+      "structure": "various_world:dark_spirit_islands",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 428611739,
+    "spread_type": "triangular",
+    "spacing": 32,
+    "separation": 18
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "various_world:custom/block_of_crystal",
+  "textures": {
+    "all": "various_world:block/crystal_texture",
+    "particle": "various_world:block/crystal_texture",
+    "0": "various_world:block/crystal_texture"
+  },
+  "render_type": "translucent"
+}

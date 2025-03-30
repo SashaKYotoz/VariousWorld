@@ -1,0 +1,8 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "various_world:block/crystalic_oak_sapling",
+    "particle": "various_world:block/crystalic_oak_sapling"
+  },
+  "render_type": "cutout"
+}

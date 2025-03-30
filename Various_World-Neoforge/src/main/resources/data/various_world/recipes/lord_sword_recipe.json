@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "  2",
+    "34 ",
+    "67 "
+  ],
+  "key": {
+    "2": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "3": {
+      "item": "various_world:lord_fury_scales_dust"
+    },
+    "4": {
+      "item": "various_world:lord_fury_scales_dust"
+    },
+    "6": {
+      "item": "minecraft:stick"
+    },
+    "7": {
+      "item": "various_world:lord_fury_scales_dust"
+    }
+  },
+  "result": {
+    "item": "various_world:lord_sword",
+    "count": 1
+  }
+}

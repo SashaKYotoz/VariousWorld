@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "various_world:crystalic_village",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 2131862698,
+    "spacing": 32,
+    "separation": 8
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "various_world:block/crystalic_oak_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "various_world:block/crystalic_oak_log"
+    },
+    "axis=z": {
+      "model": "various_world:block/crystalic_oak_log",
+      "x": 90
+    }
+  }
+}

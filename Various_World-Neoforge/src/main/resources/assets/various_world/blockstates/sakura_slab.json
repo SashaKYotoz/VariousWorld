@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "various_world:block/sakura_slab"
+    },
+    "type=top": {
+      "model": "various_world:block/sakura_slab_top"
+    },
+    "type=double": {
+      "model": "various_world:block/sakura_slab_full"
+    }
+  }
+}

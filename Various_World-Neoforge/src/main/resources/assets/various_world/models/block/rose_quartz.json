@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "various_world:block/rosetextureup",
+    "up": "various_world:block/rosetextureup",
+    "north": "various_world:block/rosequartz",
+    "east": "various_world:block/rosequartz",
+    "south": "various_world:block/rosequartz",
+    "west": "various_world:block/rosequartz",
+    "particle": "various_world:block/rosetextureup"
+  },
+  "render_type": "solid"
+}

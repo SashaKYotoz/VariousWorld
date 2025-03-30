@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "various_world:block/crystal_cluster",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "various_world:block/crystal_cluster",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "various_world:block/crystal_cluster",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "various_world:block/crystal_cluster",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "various_world:block/crystal_cluster"
+    },
+    "facing=west": {
+      "model": "various_world:block/crystal_cluster",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

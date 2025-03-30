@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "experience": 2,
+  "cookingtime": 180,
+  "ingredient": {
+    "item": "various_world:raw_darknium_ingot"
+  },
+  "result": "various_world:darknium_ingot"
+}

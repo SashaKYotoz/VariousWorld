@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "various_world:shiny_valley",
+  "features": "various_world:shiny_valley_decor_generator",
+  "step": "underground_ores"
+}

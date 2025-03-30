@@ -1,0 +1,9 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "various_world:item/sculk_scythe"
+  },
+  "overrides": [
+    {"predicate": {"custom_model_data":1}, "model": "various_world:item/crystalic_scythe"}
+  ]
+}

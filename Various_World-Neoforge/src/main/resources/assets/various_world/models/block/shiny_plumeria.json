@@ -1,0 +1,8 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "various_world:block/shiny_plumeria",
+    "particle": "various_world:block/shiny_plumeria"
+  },
+  "render_type": "cutout"
+}

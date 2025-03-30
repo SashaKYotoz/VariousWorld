@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "01",
+    "23"
+  ],
+  "key": {
+    "0": {
+      "item": "various_world:gneiss"
+    },
+    "1": {
+      "item": "various_world:gneiss"
+    },
+    "2": {
+      "item": "various_world:gneiss"
+    },
+    "3": {
+      "item": "various_world:gneiss"
+    }
+  },
+  "result": {
+    "item": "various_world:gneiss_bricks",
+    "count": 4
+  }
+}

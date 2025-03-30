@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "various_world:crystalic_slimeball_sword"
+    },
+    "title": {
+      "translate": "advancements.kill_first_titan.title"
+    },
+    "description": {
+      "translate": "advancements.kill_first_titan.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "kill_first_titan": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 5,
+    "loot": [
+      "various_world:crystal_gem"
+    ]
+  },
+  "parent": "various_world:welcome_to_the_various_world"
+}

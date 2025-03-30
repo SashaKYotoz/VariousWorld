@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:delta_feature",
+  "config": {
+    "contents": {
+      "Name": "minecraft:water",
+      "Properties": {
+        "level": "0"
+      }
+    },
+    "rim": {
+      "Name": "various_world:gneiss"
+    },
+    "size": {
+      "type": "uniform",
+      "value": {
+        "min_inclusive": 2,
+        "max_inclusive": 6
+      }
+    },
+    "rim_size": {
+      "type": "uniform",
+      "value": {
+        "min_inclusive": 0,
+        "max_inclusive": 3
+      }
+    }
+  }
+}

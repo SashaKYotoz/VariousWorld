@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "various_world:totem_of_dark_spirit"
+    },
+    "title": {
+      "translate": "advancements.defeatthedarkspirit.title"
+    },
+    "description": {
+      "translate": "advancements.defeatthedarkspirit.descr"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "defeatthedarkspirit": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 5
+  },
+  "parent": "various_world:kill_first_titan"
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "block/tinted_cross",
+  "textures": {
+    "cross": "various_world:blocks/anthurium_sprouted_of_magma_grew",
+    "particle": "various_world:blocks/anthurium_sprouted_of_magma_grew"
+  }
+}

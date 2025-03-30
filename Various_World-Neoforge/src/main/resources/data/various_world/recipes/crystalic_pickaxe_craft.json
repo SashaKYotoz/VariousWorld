@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "various_world:slime_crystalic"
+    },
+    {
+      "item": "various_world:slime_crystalic"
+    },
+    {
+      "item": "various_world:slime_crystalic"
+    },
+    {
+      "item": "minecraft:diamond_pickaxe"
+    },
+    {
+      "item": "various_world:slime_crystalic"
+    },
+    {
+      "item": "various_world:slime_crystalic"
+    }
+  ],
+  "result": {
+    "item": "various_world:crystalic_slimeball_pickaxe",
+    "count": 1
+  }
+}

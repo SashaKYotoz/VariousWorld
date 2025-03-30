@@ -1,0 +1,8 @@
+{
+  "parent": "block/template_wall_side",
+  "textures": {
+    "wall": "various_world:block/gneiss_bricks_side",
+    "particle": "various_world:block/gneiss_bricks_side"
+  },
+  "render_type": "solid"
+}

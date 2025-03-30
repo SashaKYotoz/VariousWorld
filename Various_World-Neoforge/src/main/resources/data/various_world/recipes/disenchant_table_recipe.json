@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " 1 ",
+    "345",
+    "678"
+  ],
+  "key": {
+    "1": {
+      "item": "minecraft:book"
+    },
+    "3": {
+      "item": "various_world:crystalshard"
+    },
+    "4": {
+      "item": "various_world:darknium_block"
+    },
+    "5": {
+      "item": "various_world:crystalshard"
+    },
+    "6": {
+      "item": "various_world:darknium_block"
+    },
+    "7": {
+      "item": "various_world:darknium_block"
+    },
+    "8": {
+      "item": "various_world:darknium_block"
+    }
+  },
+  "result": {
+    "item": "various_world:disenchant_table",
+    "count": 1
+  }
+}

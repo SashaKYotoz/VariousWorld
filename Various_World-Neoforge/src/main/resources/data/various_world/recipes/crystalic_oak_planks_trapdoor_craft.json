@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "012",
+    "345"
+  ],
+  "key": {
+    "0": {
+      "item": "various_world:crystalic_oak_planks"
+    },
+    "1": {
+      "item": "various_world:crystalic_oak_planks"
+    },
+    "2": {
+      "item": "various_world:crystalic_oak_planks"
+    },
+    "3": {
+      "item": "various_world:crystalic_oak_planks"
+    },
+    "4": {
+      "item": "various_world:crystalic_oak_planks"
+    },
+    "5": {
+      "item": "various_world:crystalic_oak_planks"
+    }
+  },
+  "result": {
+    "item": "various_world:crystalic_oak_planks_trapdoor",
+    "count": 2
+  }
+}
