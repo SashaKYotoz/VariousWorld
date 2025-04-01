@@ -1,9 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": [
-    "various_world:cavernof_deep",
-    "various_world:shiny_valley"
-  ],
-  "features": "various_world:darknium_ore",
-  "step": "underground_ores"
-}

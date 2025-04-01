@@ -1,9 +1,0 @@
-{
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "various_world:item/necromancer_wand"
-  },
-  "overrides": [
-    {"predicate": {"custom_model_data":1}, "model": "various_world:item/necromancer_wand_magma"}
-  ]
-}

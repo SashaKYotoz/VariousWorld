@@ -1,8 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "various_world:block/purple_saffron",
-    "particle": "various_world:block/purple_saffron"
-  },
-  "render_type": "cutout"
-}

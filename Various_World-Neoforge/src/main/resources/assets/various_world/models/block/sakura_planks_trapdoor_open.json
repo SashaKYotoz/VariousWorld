@@ -1,8 +1,0 @@
-{
-  "parent": "block/template_orientable_trapdoor_open",
-  "textures": {
-    "texture": "various_world:block/sakura_planks_trapdoor",
-    "particle": "various_world:block/sakura_planks_trapdoor"
-  },
-  "render_type": "translucent"
-}

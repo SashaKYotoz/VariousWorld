@@ -1,6 +1,0 @@
-{
-  "parent": "various_world:item/crystalic_bow",
-  "textures": {
-    "layer0": "various_world:item/crystalbow_pulling_1"
-  }
-}

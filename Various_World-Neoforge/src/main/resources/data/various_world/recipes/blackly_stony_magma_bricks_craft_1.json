@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "various_world:blackly_stony_magma"
-  },
-  "result": "various_world:blackly_stony_magma_bricks"
-}

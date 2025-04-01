@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "various_world:block/crystalic_oak_log_side",
-    "particle": "various_world:block/crystalic_oak_log_side"
-  },
-  "render_type": "solid"
-}

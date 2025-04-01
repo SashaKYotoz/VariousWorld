@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 2,
-  "ingredient": {
-    "item": "various_world:ender_bricks"
-  },
-  "result": "various_world:ender_bricks_slab"
-}

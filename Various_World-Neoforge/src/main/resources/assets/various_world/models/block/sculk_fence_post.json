@@ -1,8 +1,0 @@
-{
-  "parent": "block/fence_post",
-  "textures": {
-    "texture": "various_world:block/sculk_planks",
-    "particle": "various_world:block/sculk_planks"
-  },
-  "render_type": "solid"
-}

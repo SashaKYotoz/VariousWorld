@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "various_world:crystalicforest",
-  "features": "various_world:crystalic_mushrooms",
-  "step": "top_layer_modification"
-}

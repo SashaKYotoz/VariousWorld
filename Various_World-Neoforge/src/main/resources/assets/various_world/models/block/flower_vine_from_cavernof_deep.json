@@ -1,8 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "various_world:block/flower_vine_from_deep_cave",
-    "particle": "various_world:block/flower_vine_from_deep_cave"
-  },
-  "render_type": "translucent"
-}

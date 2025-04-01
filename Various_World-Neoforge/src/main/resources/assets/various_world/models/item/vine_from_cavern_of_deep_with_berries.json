@@ -1,7 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "various_world:item/flower_vine_from_deep_cave"
-  },
-  "render_type": "translucent"
-}

@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 2,
-  "ingredient": {
-    "item": "various_world:gneiss_bricks"
-  },
-  "result": "various_world:gneiss_bricks_slab"
-}

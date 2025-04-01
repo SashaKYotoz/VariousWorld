@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "various_world:block/darknium_ore",
-    "particle": "various_world:block/darknium_ore"
-  },
-  "render_type": "solid"
-}

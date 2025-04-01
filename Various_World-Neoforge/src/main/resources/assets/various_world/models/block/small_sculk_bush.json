@@ -1,8 +1,0 @@
-{
-  "parent": "block/tinted_cross",
-  "textures": {
-    "cross": "various_world:block/sculk_bush_top",
-    "particle": "various_world:block/sculk_bush_top"
-  },
-  "render_type": "cutout"
-}

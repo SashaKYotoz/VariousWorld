@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "various_world:block/sculk_moss_animated",
-    "particle": "various_world:block/sculk_moss_animated"
-  },
-  "render_type": "solid"
-}

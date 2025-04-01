@@ -1,8 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "various_world:block/sculk_sapling",
-    "particle": "various_world:block/sculk_sapling"
-  },
-  "render_type": "cutout"
-}

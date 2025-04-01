@@ -1,8 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "various_world:block/mycena_from_cavern_of_deep",
-    "particle": "various_world:block/mycena_from_cavern_of_deep"
-  },
-  "render_type": "cutout"
-}

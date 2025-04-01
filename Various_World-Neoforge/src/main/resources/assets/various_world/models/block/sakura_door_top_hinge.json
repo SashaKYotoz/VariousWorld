@@ -1,7 +1,0 @@
-{
-  "parent": "block/door_top_rh",
-  "textures": {
-    "bottom": "various_world:blocks/sakura_bottom",
-    "top": "various_world:blocks/sakura_door_top"
-  }
-}

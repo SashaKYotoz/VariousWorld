@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "various_world:peaceful_wasteland",
-  "features": "various_world:magnolia_sapling",
-  "step": "vegetal_decoration"
-}

@@ -1,9 +1,0 @@
-{
-  "parent": "block/outer_stairs",
-  "textures": {
-    "bottom": "various_world:block/rosetextureup",
-    "top": "various_world:block/rosetextureup",
-    "side": "various_world:block/rosequartz"
-  },
-  "render_type": "solid"
-}

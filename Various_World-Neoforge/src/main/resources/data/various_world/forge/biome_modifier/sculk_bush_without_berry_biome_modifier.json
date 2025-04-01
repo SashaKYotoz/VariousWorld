@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "various_world:sculk_valley",
-  "features": "various_world:sculk_bush_without_berry",
-  "step": "vegetal_decoration"
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "various_world:block/sculk_gem_ore_block",
-    "particle": "various_world:block/sculk_gem_ore_block"
-  },
-  "render_type": "solid"
-}

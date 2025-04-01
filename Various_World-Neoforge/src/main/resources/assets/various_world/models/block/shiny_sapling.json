@@ -1,8 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "various_world:block/shiny_tree_sapling",
-    "particle": "various_world:block/shiny_tree_sapling"
-  },
-  "render_type": "cutout"
-}

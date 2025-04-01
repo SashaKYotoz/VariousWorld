@@ -1,8 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "various_world:block/crystalic_moshroom",
-    "particle": "various_world:block/crystalic_moshroom"
-  },
-  "render_type": "cutout"
-}

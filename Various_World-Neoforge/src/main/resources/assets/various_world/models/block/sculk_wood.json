@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "various_world:block/sculk_log",
-    "particle": "various_world:block/sculk_log"
-  },
-  "render_type": "solid"
-}

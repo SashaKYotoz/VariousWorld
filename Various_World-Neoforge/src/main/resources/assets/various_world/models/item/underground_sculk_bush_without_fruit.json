@@ -1,8 +1,0 @@
-{
-  "parent": "various_world:block/underground_sculk_bush_without_fruit",
-  "textures": {
-    "all": "various_world:block/sculk_fruit_bush_item",
-    "particle": "various_world:block/sculk_fruit_bush_item",
-    "0": "various_world:block/sculk_fruit_bush"
-  }
-}

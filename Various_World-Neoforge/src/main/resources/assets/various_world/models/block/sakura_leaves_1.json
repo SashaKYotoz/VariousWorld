@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "various_world:blocks/sakuraleaves2",
-    "particle": "various_world:blocks/sakuraleaves2"
-  },
-  "render_type": "translucent"
-}

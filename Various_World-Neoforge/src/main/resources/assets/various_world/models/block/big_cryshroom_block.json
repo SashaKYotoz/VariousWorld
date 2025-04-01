@@ -1,7 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "various_world:block/big_cryshroom_block_",
-    "particle": "various_world:block/big_cryshroom_block_"
-  }
-}

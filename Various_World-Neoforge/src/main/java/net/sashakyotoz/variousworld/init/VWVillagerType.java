@@ -35,7 +35,7 @@ public class VWVillagerType {
     }
 
     public static ResourceLocation locate(String key) {
-        return new ResourceLocation("various_world", key);
+        return ResourceLocation.fromNamespaceAndPath("various_world", key);
     }
 
     public static VillagerType registerType(String key) {

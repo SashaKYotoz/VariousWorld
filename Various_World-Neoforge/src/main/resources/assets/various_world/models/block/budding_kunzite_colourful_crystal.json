@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "various_world:block/kunzite_colourful_crystal_budding_block",
-    "particle": "various_world:block/kunzite_colourful_crystal_budding_block"
-  },
-  "render_type": "solid"
-}

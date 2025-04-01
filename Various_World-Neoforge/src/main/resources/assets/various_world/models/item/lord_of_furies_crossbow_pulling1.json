@@ -1,7 +1,0 @@
-{
-  "parent": "various_world:custom/lord_of_furries_crossbow_pulling1",
-  "textures": {
-    "0": "various_world:item/lord_of_furries_crossbow_pulling1",
-    "particle": "various_world:item/lord_of_furries_crossbow_pulling1"
-  }
-}

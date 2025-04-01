@@ -1,7 +1,0 @@
-{
-  "parent": "block/door_top_rh",
-  "textures": {
-    "bottom": "various_world:blocks/sculk_door_bottom",
-    "top": "various_world:blocks/sculk_door_top"
-  }
-}

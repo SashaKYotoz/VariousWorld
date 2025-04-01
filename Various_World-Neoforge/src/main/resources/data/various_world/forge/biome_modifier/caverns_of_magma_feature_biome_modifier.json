@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "various_world:caverns_of_magma_growth",
-  "features": "various_world:caverns_of_magma_feature",
-  "step": "underground_decoration"
-}

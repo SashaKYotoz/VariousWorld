@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "various_world:block/shiny_grass_top_1",
-    "particle": "various_world:block/shiny_grass_top_1"
-  },
-  "render_type": "solid"
-}

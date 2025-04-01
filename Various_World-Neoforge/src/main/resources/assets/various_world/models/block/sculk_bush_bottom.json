@@ -1,8 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "various_world:block/sculk_bush_bottom",
-    "particle": "various_world:block/sculk_bush_bottom"
-  },
-  "render_type": "cutout"
-}

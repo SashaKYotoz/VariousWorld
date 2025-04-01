@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "various_world:block/blackly_stony_magma",
-    "particle": "various_world:block/blackly_stony_magma"
-  },
-  "render_type": "solid"
-}

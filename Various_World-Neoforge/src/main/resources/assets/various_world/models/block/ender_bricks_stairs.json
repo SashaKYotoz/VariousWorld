@@ -1,9 +1,0 @@
-{
-  "parent": "block/stairs",
-  "textures": {
-    "bottom": "various_world:block/ender_bricks",
-    "top": "various_world:block/ender_bricks",
-    "side": "various_world:block/ender_bricks"
-  },
-  "render_type": "solid"
-}

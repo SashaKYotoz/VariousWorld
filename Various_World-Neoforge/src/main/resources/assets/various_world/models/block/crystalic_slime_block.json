@@ -1,9 +1,0 @@
-{
-  "parent": "various_world:custom/crystalic_slime_block",
-  "textures": {
-    "all": "various_world:block/crystalic_slime_block",
-    "particle": "various_world:block/crystalic_slime_block",
-    "texture": "various_world:block/crystalic_slime_block"
-  },
-  "render_type": "translucent"
-}

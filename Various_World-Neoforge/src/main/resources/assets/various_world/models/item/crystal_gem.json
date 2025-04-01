@@ -1,6 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "various_world:item/crystalic_gem_with_spirit"
-  }
-}

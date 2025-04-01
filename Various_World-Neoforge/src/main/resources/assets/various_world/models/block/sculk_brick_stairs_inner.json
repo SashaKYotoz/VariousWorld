@@ -1,9 +1,0 @@
-{
-  "parent": "block/inner_stairs",
-  "textures": {
-    "bottom": "various_world:block/sculk_bricks",
-    "top": "various_world:block/sculk_bricks",
-    "side": "various_world:block/sculk_bricks"
-  },
-  "render_type": "solid"
-}

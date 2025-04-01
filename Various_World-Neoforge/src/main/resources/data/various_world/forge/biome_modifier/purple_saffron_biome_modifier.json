@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "various_world:peaceful_wasteland",
-  "features": "various_world:purple_saffron",
-  "step": "vegetal_decoration"
-}

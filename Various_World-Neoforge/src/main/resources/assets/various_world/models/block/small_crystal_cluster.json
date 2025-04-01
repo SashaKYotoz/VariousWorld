@@ -1,8 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "various_world:block/small_crystal_cluster",
-    "particle": "various_world:block/small_crystal_cluster"
-  },
-  "render_type": "cutout"
-}
