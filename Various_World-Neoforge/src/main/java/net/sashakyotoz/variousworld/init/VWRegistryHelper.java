@@ -1,6 +1,7 @@
 package net.sashakyotoz.variousworld.init;
 
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.tags.BlockTags;
@@ -10,6 +11,7 @@ import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -25,10 +27,12 @@ import java.util.function.Supplier;
 public class VWRegistryHelper {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(VariousWorld.MOD_ID);
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(VariousWorld.MOD_ID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, VariousWorld.MOD_ID);
 
     public static void register(IEventBus bus) {
         ITEMS.register(bus);
         BLOCKS.register(bus);
+        BLOCK_ENTITIES.register(bus);
     }
 
     public static class BlockBuilder {
@@ -107,13 +111,18 @@ public class VWRegistryHelper {
             return this;
         }
 
-        public BlockBuilder model(ModelTemplate model) {
-            ITEM_MODELS.put(this.block.asItem(), model);
-            return this;
-        }
+//        public BlockBuilder itemModel(ModelTemplate model) {
+//            ITEM_MODELS.put(this.block, model);
+//            return this;
+//        }
 
         public BlockBuilder cutout() {
             BLOCK_CUTOUT.add(this.block);
+            return this;
+        }
+
+        public BlockBuilder translucent() {
+            BLOCK_TRANSLUCENT.add(this.block);
             return this;
         }
 
@@ -134,12 +143,12 @@ public class VWRegistryHelper {
     }
 
     public static class ItemBuilder {
-        protected ItemBuilder(String name, Item item) {
+        protected ItemBuilder(String name, Supplier<? extends Item> item) {
             this.name = name;
-            this.item = ITEMS.registerItem(name, properties -> item);
+            this.item = ITEMS.registerItem(name, properties -> item.get());
         }
 
-        public DeferredItem<?> build() {
+        public DeferredItem build() {
             return this.item;
         }
 
@@ -165,7 +174,7 @@ public class VWRegistryHelper {
         }
 
         public ItemBuilder model(ModelTemplate model) {
-            ITEM_MODELS.put(this.item.get(), model);
+            ITEM_MODELS.put(this.item, model);
             return this;
         }
 
@@ -187,7 +196,7 @@ public class VWRegistryHelper {
         return new BlockBuilder(id, block, false, item);
     }
 
-    public static ItemBuilder ofItem(String id, Item item) {
+    public static ItemBuilder ofItem(String id, Supplier<? extends Item> item) {
         return new ItemBuilder(id, item);
     }
 
@@ -253,11 +262,12 @@ public class VWRegistryHelper {
 
     public static Map<Models, List<DeferredBlock<?>>> BLOCK_MODELS = new HashMap<>();
     public static List<DeferredBlock<?>> BLOCK_CUTOUT = new ArrayList<>();
+    public static List<DeferredBlock<?>> BLOCK_TRANSLUCENT = new ArrayList<>();
 
     public static Map<DeferredBlock<?>, Pair<Integer, Integer>> BLOCK_FLAMMABLE = new HashMap<>();
 
     public static Map<TagKey<Item>, List<Item>> ITEM_TAGS = new HashMap<>();
-    public static Map<Item, ModelTemplate> ITEM_MODELS = new HashMap<>();
+    public static Map<DeferredItem<?>, ModelTemplate> ITEM_MODELS = new HashMap<>();
     public static Map<ItemLike, Integer> ITEM_BURNABLE = new HashMap<>();
 
     public enum Models {
@@ -273,11 +283,13 @@ public class VWRegistryHelper {
         FENCE_GATE,
         DOOR,
         TRAPDOOR,
+        WALL,
         SIGN,
         WALL_SIGN,
         HANGING_SIGN,
         WALL_HANGING_SIGN,
         PANE,
+        GRASS,
         ROTATABLE
     }
 }

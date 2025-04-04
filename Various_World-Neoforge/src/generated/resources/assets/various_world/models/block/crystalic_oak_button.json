@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "various_world:block/crystalic_oak_planks"
+  }
+}

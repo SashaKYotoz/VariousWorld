@@ -1,17 +1,17 @@
 {
   "values": [
-    "various_world:stripped_crystalic_log",
-    "various_world:crystalic_log",
-    "various_world:stripped_crystalic_wood",
-    "various_world:crystalic_wood",
-    "various_world:crystalic_planks",
-    "various_world:crystalic_stairs",
-    "various_world:crystalic_slab",
+    "various_world:stripped_crystalic_oak_log",
+    "various_world:crystalic_oak_log",
+    "various_world:stripped_crystalic_oak_wood",
+    "various_world:crystalic_oak_wood",
+    "various_world:crystalic_oak_planks",
+    "various_world:crystalic_oak_stairs",
+    "various_world:crystalic_oak_slab",
     "various_world:crystalic_pressure_plate",
-    "various_world:crystalic_button",
-    "various_world:crystalic_fence",
-    "various_world:crystalic_fence_gate",
-    "various_world:crystalic_door",
-    "various_world:crystalic_trapdoor"
+    "various_world:crystalic_oak_button",
+    "various_world:crystalic_oak_fence",
+    "various_world:crystalic_oak_fence_gate",
+    "various_world:crystalic_oak_door",
+    "various_world:crystalic_oak_trapdoor"
   ]
 }

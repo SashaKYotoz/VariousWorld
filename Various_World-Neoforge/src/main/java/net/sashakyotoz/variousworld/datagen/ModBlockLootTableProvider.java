@@ -30,7 +30,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
             else
                 dropOther(entry.getKey().get(), entry.getValue());
         }
-        add(VWBlocks.CRYSTALIC_LEAVES.get(), block -> createLeavesDrops(block, VWBlocks.CRYSTALIC_SAPLING.get(), 0.25f));
+        add(VWBlocks.CRYSTALIC_OAK_LEAVES.get(), block -> createLeavesDrops(block, VWBlocks.CRYSTALIC_OAK_SAPLING.get(), 0.25f));
     }
 
     @Override

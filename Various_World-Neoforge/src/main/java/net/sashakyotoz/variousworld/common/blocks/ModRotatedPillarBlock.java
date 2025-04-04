@@ -25,10 +25,10 @@ public class ModRotatedPillarBlock extends RotatedPillarBlock {
     public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility itemAbility, boolean simulate) {
         if (context.getItemInHand().getItem() instanceof AxeItem) {
             return switch (state.getBlock()) {
-                case ModRotatedPillarBlock block when block == VWBlocks.CRYSTALIC_LOG.get() ->
-                        VWBlocks.STRIPPED_CRYSTALIC_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
-                case ModRotatedPillarBlock block when block == VWBlocks.CRYSTALIC_WOOD.get() ->
-                        VWBlocks.STRIPPED_CRYSTALIC_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+                case ModRotatedPillarBlock block when block == VWBlocks.CRYSTALIC_OAK_LOG.get() ->
+                        VWBlocks.STRIPPED_CRYSTALIC_OAK_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+                case ModRotatedPillarBlock block when block == VWBlocks.CRYSTALIC_OAK_WOOD.get() ->
+                        VWBlocks.STRIPPED_CRYSTALIC_OAK_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
                 default -> super.getToolModifiedState(state, context, itemAbility, simulate);
             };
         }

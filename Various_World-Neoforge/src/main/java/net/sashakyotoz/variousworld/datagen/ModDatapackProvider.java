@@ -7,7 +7,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.armortrim.TrimMaterials;
 import net.minecraft.world.item.armortrim.TrimPatterns;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.sashakyotoz.variousworld.VariousWorld;
 
 import java.util.Set;

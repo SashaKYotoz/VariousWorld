@@ -2,11 +2,13 @@ package net.sashakyotoz.variousworld.datagen;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.data.DataMapProvider;
-import net.neoforged.neoforge.registries.datamaps.builtin.Compostable;
 import net.neoforged.neoforge.registries.datamaps.builtin.FurnaceFuel;
 import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
+import net.sashakyotoz.variousworld.init.VWRegistryHelper;
 
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class ModDataMapProvider extends DataMapProvider {
@@ -16,12 +18,7 @@ public class ModDataMapProvider extends DataMapProvider {
 
     @Override
     protected void gather() {
-//        this.builder(NeoForgeDataMaps.FURNACE_FUELS)
-//                .add(ModItems.STARLIGHT_ASHES.getId(), new FurnaceFuel(1200), false)
-//                .add(ModItems.FROSTFIRE_ICE.getId(), new FurnaceFuel(2400), false);
-//
-//        this.builder(NeoForgeDataMaps.COMPOSTABLES)
-//                .add(ModItems.RADISH_SEEDS.getId(), new Compostable(0.25f), false)
-//                .add(ModItems.RADISH.getId(), new Compostable(0.45f), false);
+        for (Map.Entry<ItemLike, Integer> entry : VWRegistryHelper.ITEM_BURNABLE.entrySet())
+            this.builder(NeoForgeDataMaps.FURNACE_FUELS).add(entry.getKey().asItem().builtInRegistryHolder(), new FurnaceFuel(entry.getValue()), false);
     }
 }
