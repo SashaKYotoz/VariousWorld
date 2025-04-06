@@ -273,6 +273,7 @@ public class VWRegistryHelper {
     public enum Models {
         CUBE,
         CROSS,
+        DIRECTIONAL_CROSS,
         PILLAR,
         WOOD,
         STAIRS,
@@ -290,6 +291,7 @@ public class VWRegistryHelper {
         WALL_HANGING_SIGN,
         PANE,
         GRASS,
+        CROSS_POTTED,
         ROTATABLE
     }
 }

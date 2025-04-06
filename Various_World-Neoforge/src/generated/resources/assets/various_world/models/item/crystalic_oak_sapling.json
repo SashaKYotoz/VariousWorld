@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "various_world:item/crystalic_oak_sapling"
+    "layer0": "various_world:block/crystalic_oak_sapling"
   }
 }

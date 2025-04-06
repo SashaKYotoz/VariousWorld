@@ -43,12 +43,23 @@ public class ModItemModelProvider extends ItemModelProvider {
             if (entry.getValue() == ModelTemplates.FLAT_ITEM)
                 simpleItem(entry.getKey());
         }
+        simpleItemlessModel("sodalite_sword");
+        simpleItemlessModel("sodalite_pickaxe");
+        simpleItemlessModel("sodalite_axe");
+        simpleItemlessModel("sodalite_shovel");
+        simpleItemlessModel("sodalite_hoe");
     }
 
     private ItemModelBuilder simpleItem(DeferredItem<?> item) {
         return withExistingParent(item.getId().getPath(),
                 ResourceLocation.parse("item/generated")).texture("layer0",
                 ResourceLocation.fromNamespaceAndPath(VariousWorld.MOD_ID, "item/" + item.getId().getPath()));
+    }
+    private ItemModelBuilder simpleItemlessModel(String path) {
+        return withExistingParent(VariousWorld.createVWLocation("item/" + path).getPath(),
+                ResourceLocation.parse("item/generated")).texture("layer0",
+                VariousWorld.createVWLocation("item/crystals/" + path));
+
     }
 
     private ItemModelBuilder simpleEggItem(DeferredItem<?> item) {

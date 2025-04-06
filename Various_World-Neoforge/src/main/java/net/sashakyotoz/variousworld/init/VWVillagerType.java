@@ -20,7 +20,7 @@ public class VWVillagerType {
     public void initVillagerTypes() {
         VariousWorld.LOGGER.debug("Registering villager types: {}", VillagerTrades.TRADES.size());
         CRYSTAL = registerType("crystalic_forest");
-        putTypeToBiome(VWBiomes.CRYSTALIC_FOREST, CRYSTAL);
+        putTypeToBiome(VWBiomes.CRYSTALLINE_FOREST, CRYSTAL);
     }
 
     public static void putTypeToBiome(ResourceKey<Biome> biomeIn, VillagerType type) {

@@ -1,7 +1,38 @@
 package net.sashakyotoz.variousworld.client;
 
 
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.resources.ResourceLocation;
+import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
+import net.sashakyotoz.variousworld.init.VWItems;
+import net.sashakyotoz.variousworld.init.VWMiscRegistries;
+
 public class VWItemProperties {
+    public static void init() {
+        ItemProperties.register(VWItems.SUPPLY_CRYSTAL.get(), ResourceLocation.withDefaultNamespace("crystal"), (itemStack, clientLevel, livingEntity, i) -> {
+            if (itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get()) != null) {
+                SupplyCrystalData data = itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get());
+                if (data != null && data.crystalStack().getItem().getDescriptionId().contains("sodalite"))
+                    return 1;
+            }
+            return 0;
+        });
+        ItemProperties.register(VWItems.SUPPLY_CRYSTAL.get(), ResourceLocation.withDefaultNamespace("tool"), (itemStack, clientLevel, livingEntity, i) -> {
+            if (itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get()) != null) {
+                SupplyCrystalData data = itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get());
+                if (data != null)
+                    return switch (data.toolType()) {
+                        case "sword" -> 1;
+                        case "pickaxe" -> 2;
+                        case "axe" -> 3;
+                        case "shovel" -> 4;
+                        case "hoe" -> 5;
+                        default -> 0;
+                    };
+            }
+            return 0;
+        });
+    }
 //	public static void addCustomItemProperties() {
 //		makeBow(VWItems.CRYSTALIC_BOW.get());
 //		makeCrossBow(VWItems.LORD_OF_FURIES_CROSSBOW.get());

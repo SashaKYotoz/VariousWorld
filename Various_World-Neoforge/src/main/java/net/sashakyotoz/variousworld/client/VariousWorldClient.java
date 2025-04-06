@@ -1,6 +1,5 @@
 package net.sashakyotoz.variousworld.client;
 
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -63,6 +62,7 @@ public class VariousWorldClient {
             ItemBlockRenderTypes.setRenderLayer((Block) block.get(), RenderType.translucent());
         event.enqueueWork(() -> {
             Sheets.addWoodType(ModWoodType.CRYSTALIC_OAK);
+            VWItemProperties.init();
         });
     }
 }

@@ -1,6 +1,11 @@
 {
   "values": [
     "various_world:dirt_with_crystals",
-    "various_world:crystalic_grass_block"
+    "various_world:crystalic_grass_block",
+    "various_world:sodalite_block",
+    "various_world:budding_sodalite",
+    "various_world:sodalite_cluster",
+    "various_world:medium_sodalite_bud",
+    "various_world:small_sodalite_bud"
   ]
 }
