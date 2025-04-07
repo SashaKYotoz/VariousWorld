@@ -5,6 +5,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.sashakyotoz.variousworld.common.ModConfigController;
 import net.sashakyotoz.variousworld.init.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,12 +20,11 @@ public class VariousWorld {
         VWSounds.init();
         VWBlocks.init();
         VWItems.init();
+        ModConfigController.init();
         VWEntities.ENTITIES.register(bus);
         VWMiscRegistries.register(bus);
         VWTabs.CREATIVE_MODE_TABS.register(bus);
         VWFeatures.register(bus);
-
-        container.registerConfig(ModConfig.Type.COMMON, VariousWorldConfig.SPEC);
     }
 
     public static ResourceLocation createVWLocation(String path) {

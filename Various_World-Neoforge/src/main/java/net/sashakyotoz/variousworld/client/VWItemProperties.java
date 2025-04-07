@@ -3,6 +3,7 @@ package net.sashakyotoz.variousworld.client;
 
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
+import net.sashakyotoz.variousworld.common.ModConfigController;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
 import net.sashakyotoz.variousworld.init.VWItems;
 import net.sashakyotoz.variousworld.init.VWMiscRegistries;
@@ -10,10 +11,12 @@ import net.sashakyotoz.variousworld.init.VWMiscRegistries;
 public class VWItemProperties {
     public static void init() {
         ItemProperties.register(VWItems.SUPPLY_CRYSTAL.get(), ResourceLocation.withDefaultNamespace("crystal"), (itemStack, clientLevel, livingEntity, i) -> {
-            if (itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get()) != null) {
-                SupplyCrystalData data = itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get());
-                if (data != null && data.crystalStack().getItem().getDescriptionId().contains("sodalite"))
-                    return 1;
+            if (itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get()) != null && ModConfigController.CRYSTALING_CONFIG_VALUES != null) {
+                for (ModConfigController.CrystalingSetting setting : ModConfigController.CRYSTALING_CONFIG_VALUES) {
+                    SupplyCrystalData data = itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get());
+                    if (data != null && data.crystalStack().is(setting.item()))
+                        return ModConfigController.CRYSTALING_CONFIG_VALUES.indexOf(setting) + 1;
+                }
             }
             return 0;
         });

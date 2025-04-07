@@ -4,15 +4,12 @@ import com.google.common.base.Suppliers;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.FeatureSorter;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.dimension.DimensionType;
@@ -22,14 +19,11 @@ import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
-import net.sashakyotoz.variousworld.VariousWorldConfig;
 import net.sashakyotoz.variousworld.init.VWBiomes;
 import net.sashakyotoz.variousworld.init.VWBlocks;
-import net.sashakyotoz.variousworld.init.VWVillagerType;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -58,6 +52,11 @@ public class OnActionsTrigger {
     }
 
     @SubscribeEvent
+    public static void onResourceReload(AddReloadListenerEvent event) {
+        ModConfigController.init();
+    }
+
+    @SubscribeEvent
     public static void onServerAboutToStart(ServerAboutToStartEvent event) {
         MinecraftServer server = event.getServer();
         Registry<DimensionType> dimensionTypeRegistry = server.registryAccess().registryOrThrow(Registries.DIMENSION_TYPE);
@@ -69,7 +68,7 @@ public class OnActionsTrigger {
                 ChunkGenerator chunkGenerator = levelStem.generator();
                 if (chunkGenerator.getBiomeSource() instanceof MultiNoiseBiomeSource noiseSource) {
                     List<Pair<Climate.ParameterPoint, Holder<Biome>>> parameters = new ArrayList<>(noiseSource.parameters().values());
-                    if (VariousWorldConfig.GENERATE_CRYSTALIC_FOREST.get()) {
+                    if (ModConfigController.MOD_CONFIG_VALUES != null && ModConfigController.MOD_CONFIG_VALUES.do_crystalline_forest()) {
                         parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.45f, 0.9f), Climate.Parameter.span(-0.2f, 0.4f), Climate.Parameter.span(0.015f, 0.7f), Climate.Parameter.span(-0.2225f, 0.515f),
                                 Climate.Parameter.point(0f), Climate.Parameter.span(-0.65f, 0.35f), 0), biomeRegistry.getHolderOrThrow(VWBiomes.CRYSTALLINE_FOREST)));
                         parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.45f, 0.9f), Climate.Parameter.span(-0.2f, 0.4f), Climate.Parameter.span(0.015f, 0.7f), Climate.Parameter.span(-0.2225f, 0.515f),
