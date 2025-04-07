@@ -3,7 +3,7 @@ package net.sashakyotoz.variousworld.client;
 
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
-import net.sashakyotoz.variousworld.common.ModConfigController;
+import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
 import net.sashakyotoz.variousworld.init.VWItems;
 import net.sashakyotoz.variousworld.init.VWMiscRegistries;

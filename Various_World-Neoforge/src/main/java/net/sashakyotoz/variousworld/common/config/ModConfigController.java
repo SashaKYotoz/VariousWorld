@@ -1,4 +1,4 @@
-package net.sashakyotoz.variousworld.common;
+package net.sashakyotoz.variousworld.common.config;
 
 import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;

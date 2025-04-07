@@ -22,6 +22,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.sashakyotoz.variousworld.common.config.ConfiguredData;
+import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import net.sashakyotoz.variousworld.init.VWBiomes;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 
@@ -54,6 +56,7 @@ public class OnActionsTrigger {
     @SubscribeEvent
     public static void onResourceReload(AddReloadListenerEvent event) {
         ModConfigController.init();
+        ConfiguredData.register();
     }
 
     @SubscribeEvent

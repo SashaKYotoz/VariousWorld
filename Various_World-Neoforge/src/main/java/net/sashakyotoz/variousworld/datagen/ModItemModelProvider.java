@@ -48,6 +48,11 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItemlessModel("sodalite_axe");
         simpleItemlessModel("sodalite_shovel");
         simpleItemlessModel("sodalite_hoe");
+        simpleItemlessModel("amethyst_sword");
+        simpleItemlessModel("amethyst_pickaxe");
+        simpleItemlessModel("amethyst_axe");
+        simpleItemlessModel("amethyst_shovel");
+        simpleItemlessModel("amethyst_hoe");
     }
 
     private ItemModelBuilder simpleItem(DeferredItem<?> item) {

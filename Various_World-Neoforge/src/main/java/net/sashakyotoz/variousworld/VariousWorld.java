@@ -4,8 +4,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
-import net.sashakyotoz.variousworld.common.ModConfigController;
+import net.sashakyotoz.variousworld.common.config.ConfiguredData;
+import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import net.sashakyotoz.variousworld.init.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,6 +21,7 @@ public class VariousWorld {
         VWBlocks.init();
         VWItems.init();
         ModConfigController.init();
+        ConfiguredData.register();
         VWEntities.ENTITIES.register(bus);
         VWMiscRegistries.register(bus);
         VWTabs.CREATIVE_MODE_TABS.register(bus);
