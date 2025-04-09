@@ -2,18 +2,19 @@ package net.sashakyotoz.variousworld.init;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
+import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.DoubleHighBlockItem;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.sashakyotoz.variousworld.VariousWorld;
@@ -28,11 +29,14 @@ public class VWRegistryHelper {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(VariousWorld.MOD_ID);
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(VariousWorld.MOD_ID);
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, VariousWorld.MOD_ID);
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
+            DeferredRegister.create(Registries.CREATIVE_MODE_TAB, VariousWorld.MOD_ID);
 
     public static void register(IEventBus bus) {
         ITEMS.register(bus);
         BLOCKS.register(bus);
         BLOCK_ENTITIES.register(bus);
+        CREATIVE_MODE_TABS.register(bus);
     }
 
     public static class BlockBuilder {
@@ -73,7 +77,7 @@ public class VWRegistryHelper {
 
         public BlockBuilder tagitem(TagKey<Item> tagname) {
             ITEM_TAGS.putIfAbsent(tagname, new ArrayList<>());
-            ITEM_TAGS.get(tagname).add(this.block.asItem());
+            ITEM_TAGS.get(tagname).add(this.block.get().asItem());
             return this;
         }
 
@@ -294,4 +298,17 @@ public class VWRegistryHelper {
         CROSS_POTTED,
         ROTATABLE
     }
+
+    public static final DeferredHolder<CreativeModeTab, ?> VARIOUS_WORLD_TAB = CREATIVE_MODE_TABS.register("various_world_tab",
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(VWBlocks.CRYSTALIC_OAK_LOG))
+                    .title(Component.translatable("creativetab.various_world_tab")).displayItems((pParameters, tabData) -> {
+                        BLOCKS.getEntries().forEach(block -> {
+                            if (!block.getRegisteredName().contains("pot"))
+                                tabData.accept(block.get().asItem());
+                        });
+                        ITEMS.getEntries().forEach(item -> {
+                            if (!item.is(VWItems.SUPPLY_CRYSTAL.getId()) && !item.getRegisteredName().contains("sign") && !item.getRegisteredName().contains("pot"))
+                                tabData.accept(item.get().asItem());
+                        });
+                    }).build());
 }

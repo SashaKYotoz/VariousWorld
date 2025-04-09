@@ -24,7 +24,6 @@ public class VariousWorld {
         ConfiguredData.register();
         VWEntities.ENTITIES.register(bus);
         VWMiscRegistries.register(bus);
-        VWTabs.CREATIVE_MODE_TABS.register(bus);
         VWFeatures.register(bus);
     }
 

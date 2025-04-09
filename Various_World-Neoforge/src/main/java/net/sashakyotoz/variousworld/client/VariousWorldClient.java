@@ -14,11 +14,14 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.common.blocks.ModWoodType;
+import net.sashakyotoz.variousworld.common.blocks.entities.gui.GemsmithTableScreen;
 import net.sashakyotoz.variousworld.init.VWBlocks;
+import net.sashakyotoz.variousworld.init.VWMiscRegistries;
 import net.sashakyotoz.variousworld.init.VWRegistryHelper;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -44,6 +47,11 @@ public class VariousWorldClient {
 
     @SubscribeEvent
     public static void registerParticles(RegisterParticleProvidersEvent event) {
+    }
+
+    @SubscribeEvent
+    public static void registerScreens(RegisterMenuScreensEvent event) {
+        event.register(VWMiscRegistries.GEMSMITH_TABLE.get(), GemsmithTableScreen::new);
     }
 
     @SubscribeEvent

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "various_world:crystalic_oak_logs"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "various_world:crystalic_oak_planks"
+  }
+}

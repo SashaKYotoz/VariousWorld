@@ -6,7 +6,10 @@ import net.minecraft.world.level.block.FlowerPotBlock;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
+import net.neoforged.neoforge.items.wrapper.InvWrapper;
+import net.sashakyotoz.variousworld.common.blocks.entities.GemsmithTableBlockEntity;
 import net.sashakyotoz.variousworld.common.items.data.CrystalData;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWItems;
@@ -25,5 +28,12 @@ public class OnModActionsTrigger {
     public static void modifyDefaultComponentsMap(ModifyDefaultComponentsEvent event) {
         event.modifyMatching(item -> item instanceof TieredItem, builder ->
                 builder.set(VWMiscRegistries.CRYSTAL_DATA.get(), new CrystalData(VWItems.SUPPLY_CRYSTAL.toStack(), 0)));
+    }
+
+    @SubscribeEvent
+    public static void registerProviders(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(GemsmithTableBlockEntity.TABLE_ITEM_HANDLER, VWBlocks.GEMSMITH_TABLE_BE.get(),
+                (workbench, side) -> new InvWrapper(workbench)
+        );
     }
 }

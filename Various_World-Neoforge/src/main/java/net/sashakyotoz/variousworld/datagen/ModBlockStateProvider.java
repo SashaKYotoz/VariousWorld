@@ -2,17 +2,8 @@ package net.sashakyotoz.variousworld.datagen;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.BlockFamily;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.models.BlockModelGenerators;
-import net.minecraft.data.models.blockstates.MultiVariantGenerator;
-import net.minecraft.data.models.blockstates.PropertyDispatch;
-import net.minecraft.data.models.blockstates.Variant;
-import net.minecraft.data.models.blockstates.VariantProperties;
-import net.minecraft.data.models.model.ModelLocationUtils;
-import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.data.models.model.TextureMapping;
-import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,8 +19,6 @@ import net.sashakyotoz.variousworld.common.blocks.custom.SodaliteWartBlock;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWRegistryHelper;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -99,17 +88,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
             }
         }
         crossWithPropertyBlock(VWBlocks.SODALITE_WART);
+        stateFromBlockModel(VWBlocks.GEMSMITH_TABLE);
+        furnaceFromBlockModels(VWBlocks.GEMSMITH_FURNACE);
     }
 
-    private void grassBlock(DeferredBlock<?> block) {
-        ResourceLocation resourcelocation = TextureMapping.getBlockTexture(VWBlocks.DIRT_WITH_CRYSTALS.get());
-        simpleBlock(block.get(), this.models().cubeBottomTop(BuiltInRegistries.BLOCK.getKey(block.get()).getPath(),
-                TextureMapping.getBlockTexture(block.get(), "_side"),
-                resourcelocation,
-                TextureMapping.getBlockTexture(block.get(), "_top")
-        ));
-        simpleBlockItem(block.get(), new ModelFile.UncheckedModelFile(VariousWorld.MOD_ID + ":block/" + block.getId().getPath()));
-    }
 
     private void buttonItem(DeferredBlock<?> block, DeferredBlock<?> baseBlock) {
         itemModels().withExistingParent(block.getId().getPath(), mcLoc("block/button_inventory"))
@@ -133,6 +115,29 @@ public class ModBlockStateProvider extends BlockStateProvider {
         itemModels().withExistingParent(block.getId().getPath(), mcLoc("block/wall_inventory"))
                 .texture("wall", ResourceLocation.fromNamespaceAndPath(VariousWorld.MOD_ID,
                         "block/" + baseBlock.getId().getPath()));
+    }
+
+    private void grassBlock(DeferredBlock<?> block) {
+        ResourceLocation resourcelocation = TextureMapping.getBlockTexture(VWBlocks.DIRT_WITH_CRYSTALS.get());
+        simpleBlock(block.get(), this.models().cubeBottomTop(BuiltInRegistries.BLOCK.getKey(block.get()).getPath(),
+                TextureMapping.getBlockTexture(block.get(), "_side"),
+                resourcelocation,
+                TextureMapping.getBlockTexture(block.get(), "_top")
+        ));
+        simpleBlockItem(block.get(), new ModelFile.UncheckedModelFile(VariousWorld.MOD_ID + ":block/" + block.getId().getPath()));
+    }
+
+    private void stateFromBlockModel(DeferredBlock<?> block) {
+        simpleBlock(block.get(), new ModelFile.UncheckedModelFile(VariousWorld.MOD_ID + ":block/" + block.getId().getPath()));
+        simpleBlockItem(block.get(), new ModelFile.UncheckedModelFile(VariousWorld.MOD_ID + ":block/" + block.getId().getPath()));
+    }
+
+    private void furnaceFromBlockModels(DeferredBlock<?> block) {
+        this.getVariantBuilder(block.get()).partialState().with(BlockStateProperties.LIT, true).modelForState()
+                .modelFile(new ModelFile.UncheckedModelFile(VariousWorld.MOD_ID + ":block/" + block.getId().getPath() + "_fired")).addModel().
+                partialState().with(BlockStateProperties.LIT, false).modelForState()
+                .modelFile(new ModelFile.UncheckedModelFile(VariousWorld.MOD_ID + ":block/" + block.getId().getPath())).addModel();
+        simpleBlockItem(block.get(), new ModelFile.UncheckedModelFile(VariousWorld.MOD_ID + ":block/" + block.getId().getPath()));
     }
 
     private void crossBlock(DeferredBlock<?> block) {

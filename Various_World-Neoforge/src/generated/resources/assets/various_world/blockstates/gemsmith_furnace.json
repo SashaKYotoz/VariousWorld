@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "various_world:block/gemsmith_furnace"
+    },
+    "lit=true": {
+      "model": "various_world:block/gemsmith_furnace_fired"
+    }
+  }
+}

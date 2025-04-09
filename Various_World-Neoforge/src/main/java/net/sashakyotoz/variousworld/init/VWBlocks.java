@@ -11,11 +11,11 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import net.sashakyotoz.variousworld.common.blocks.ModRotatedPillarBlock;
+import net.sashakyotoz.variousworld.common.blocks.custom.ModRotatedPillarBlock;
 import net.sashakyotoz.variousworld.common.blocks.ModWoodType;
-import net.sashakyotoz.variousworld.common.blocks.custom.BuddingSodaliteBlock;
-import net.sashakyotoz.variousworld.common.blocks.custom.CrystallineGrassBlock;
-import net.sashakyotoz.variousworld.common.blocks.custom.SodaliteWartBlock;
+import net.sashakyotoz.variousworld.common.blocks.custom.*;
+import net.sashakyotoz.variousworld.common.blocks.entities.GemsmithFurnaceBlockEntity;
+import net.sashakyotoz.variousworld.common.blocks.entities.GemsmithTableBlockEntity;
 import net.sashakyotoz.variousworld.common.blocks.entities.ModHangingSignBlockEntity;
 import net.sashakyotoz.variousworld.common.blocks.entities.ModSignBlockEntity;
 import net.sashakyotoz.variousworld.common.blocks.signs.ModHangingSignBlock;
@@ -88,6 +88,11 @@ public class VWBlocks {
     public static final DeferredBlock<AmethystClusterBlock> SMALL_SODALITE_BUD = VWRegistryHelper.ofBlock("small_sodalite_bud", () -> new AmethystClusterBlock(4.0F, 4.0F, BlockBehaviour.Properties.ofFullCopy(SODALITE_CLUSTER.get()).sound(SoundType.SMALL_AMETHYST_BUD)))
             .model(VWRegistryHelper.Models.DIRECTIONAL_CROSS).tool("stone_pickaxe").cutout().build();
 
+    public static final DeferredBlock<GemsmithTableBlock> GEMSMITH_TABLE = VWRegistryHelper.ofBlock("gemsmith_table", () -> new GemsmithTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_BRICKS).noOcclusion()))
+            .tool("stone_pickaxe").drop().cutout().build();
+    public static final DeferredBlock<GemsmithFurnaceBlock> GEMSMITH_FURNACE = VWRegistryHelper.ofBlock("gemsmith_furnace", () -> new GemsmithFurnaceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_BRICKS)))
+            .tool("stone_pickaxe").drop().build();
+
     public static ToIntFunction<BlockState> lightLevelFromBlockState(int litLevel, BooleanProperty property) {
         return state -> state.getValue(property) ? litLevel : 0;
     }
@@ -97,5 +102,11 @@ public class VWBlocks {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ModHangingSignBlockEntity>> MOD_HANGING_SIGN = VWRegistryHelper.BLOCK_ENTITIES.register("mod_hanging_sign", () -> BlockEntityType.Builder.of(ModHangingSignBlockEntity::new,
             VWBlocks.CRYSTALIC_OAK_HANGING_SIGN.get(),
             VWBlocks.CRYSTALIC_OAK_HANGING_WALL_SIGN.get()
+    ).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<GemsmithTableBlockEntity>> GEMSMITH_TABLE_BE = VWRegistryHelper.BLOCK_ENTITIES.register("gemsmith_table", () -> BlockEntityType.Builder.of(GemsmithTableBlockEntity::new,
+            VWBlocks.GEMSMITH_TABLE.get()
+    ).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<GemsmithFurnaceBlockEntity>> GEMSMITH_FURNACE_BE = VWRegistryHelper.BLOCK_ENTITIES.register("gemsmith_furnace", () -> BlockEntityType.Builder.of(GemsmithFurnaceBlockEntity::new,
+            VWBlocks.GEMSMITH_FURNACE.get()
     ).build(null));
 }
