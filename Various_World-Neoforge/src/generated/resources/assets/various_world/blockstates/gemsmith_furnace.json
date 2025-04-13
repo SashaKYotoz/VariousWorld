@@ -1,10 +1,48 @@
 {
   "variants": {
-    "lit=false": {
+    "facing=down,lit=false": {
+      "model": "various_world:block/gemsmith_furnace",
+      "x": 90
+    },
+    "facing=down,lit=true": {
+      "model": "various_world:block/gemsmith_furnace_fired",
+      "x": 90
+    },
+    "facing=east,lit=false": {
+      "model": "various_world:block/gemsmith_furnace",
+      "y": 90
+    },
+    "facing=east,lit=true": {
+      "model": "various_world:block/gemsmith_furnace_fired",
+      "y": 90
+    },
+    "facing=north,lit=false": {
       "model": "various_world:block/gemsmith_furnace"
     },
-    "lit=true": {
+    "facing=north,lit=true": {
       "model": "various_world:block/gemsmith_furnace_fired"
+    },
+    "facing=south,lit=false": {
+      "model": "various_world:block/gemsmith_furnace",
+      "y": 180
+    },
+    "facing=south,lit=true": {
+      "model": "various_world:block/gemsmith_furnace_fired",
+      "y": 180
+    },
+    "facing=up,lit=false": {
+      "model": "various_world:block/gemsmith_furnace"
+    },
+    "facing=up,lit=true": {
+      "model": "various_world:block/gemsmith_furnace_fired"
+    },
+    "facing=west,lit=false": {
+      "model": "various_world:block/gemsmith_furnace",
+      "y": 270
+    },
+    "facing=west,lit=true": {
+      "model": "various_world:block/gemsmith_furnace_fired",
+      "y": 270
     }
   }
 }

@@ -9,7 +9,8 @@
     "MultiPackResourceManagerMixin"
   ],
   "client": [
-    "ItemRendererMixin"
+    "ItemRendererMixin",
+    "ModelBakeryMixin"
   ],
   "injectors": {
     "defaultRequire": 1

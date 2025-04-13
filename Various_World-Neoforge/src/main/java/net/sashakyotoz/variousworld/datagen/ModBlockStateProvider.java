@@ -133,10 +133,27 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void furnaceFromBlockModels(DeferredBlock<?> block) {
-        this.getVariantBuilder(block.get()).partialState().with(BlockStateProperties.LIT, true).modelForState()
-                .modelFile(new ModelFile.UncheckedModelFile(VariousWorld.MOD_ID + ":block/" + block.getId().getPath() + "_fired")).addModel().
-                partialState().with(BlockStateProperties.LIT, false).modelForState()
-                .modelFile(new ModelFile.UncheckedModelFile(VariousWorld.MOD_ID + ":block/" + block.getId().getPath())).addModel();
+        Function<BlockState, ModelFile> furnaceFired = (state) -> new ModelFile.UncheckedModelFile(VariousWorld.MOD_ID + ":block/" + block.getId().getPath() + "_fired");
+        Function<BlockState, ModelFile> furnace = (state) -> new ModelFile.UncheckedModelFile(VariousWorld.MOD_ID + ":block/" + block.getId().getPath());
+        this.getVariantBuilder(block.get()).forAllStates(state -> {
+            int rotationX = 0;
+            int rotationY = 0;
+            switch (state.getValue(BlockStateProperties.FACING)) {
+                case DOWN -> rotationX = 90;
+                case EAST -> rotationY = 90;
+                case SOUTH -> rotationY = 180;
+                case WEST -> rotationY = 270;
+            }
+            ModelFile selectedModel = state.getValue(BlockStateProperties.LIT)
+                    ? furnaceFired.apply(state)
+                    : furnace.apply(state);
+
+            return ConfiguredModel.builder()
+                    .modelFile(selectedModel)
+                    .rotationX(rotationX)
+                    .rotationY(rotationY)
+                    .build();
+        });
         simpleBlockItem(block.get(), new ModelFile.UncheckedModelFile(VariousWorld.MOD_ID + ":block/" + block.getId().getPath()));
     }
 

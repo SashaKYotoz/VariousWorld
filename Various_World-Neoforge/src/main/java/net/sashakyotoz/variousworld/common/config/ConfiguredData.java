@@ -1,13 +1,16 @@
 package net.sashakyotoz.variousworld.common.config;
 
 import com.google.gson.*;
+import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.resources.ResourceLocation;
-import net.sashakyotoz.variousworld.VariousWorld;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.server.packs.resources.MultiPackResourceManager;
+import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -16,6 +19,7 @@ import java.util.function.Supplier;
 
 public class ConfiguredData {
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    public static final String[] toolNames = {"sword", "pickaxe", "axe", "shovel", "hoe"};
 
     public final ResourceLocation target;
     public Function<JsonElement, String> provider;
@@ -32,6 +36,7 @@ public class ConfiguredData {
                 JsonElement.class).toString();
     }
 
+    public static Map<Integer, MultiPackResourceManager> MANAGER_KEEPER = new HashMap<>();
 
     public static List<ConfiguredData> INSTANCES = new LinkedList<>();
 
@@ -45,25 +50,27 @@ public class ConfiguredData {
 
 
     public static void register() {
+        register(
+                ResourceLocation.fromNamespaceAndPath("various_world", "models/item/supply_crystal.json"),
+                () -> true,
+                json -> gson.toJson(supplyCrystalJson())
+        );
+    }
+
+    private static JsonObject supplyCrystalJson() {
         JsonObject root = new JsonObject();
         root.addProperty("parent", "item/generated");
 
         JsonObject textures = new JsonObject();
         textures.addProperty("layer0", "various_world:item/crystals/null");
         root.add("textures", textures);
-        JsonArray overrides = getJsonElements();
+        JsonArray overrides = getOverrides();
         root.add("overrides", overrides);
-        VariousWorld.LOGGER.info(gson.toJson(root));
-        register(
-                ResourceLocation.fromNamespaceAndPath("various_world", "models/item/supply_crystal.json"),
-                () -> true,
-                json -> gson.toJson(root)
-        );
+        return root;
     }
 
-    private static @NotNull JsonArray getJsonElements() {
+    private static JsonArray getOverrides() {
         JsonArray overrides = new JsonArray();
-        String[] toolNames = {"sword", "pickaxe", "axe", "shovel", "hoe"};
         for (int i = 0; i < ModConfigController.CRYSTALING_CONFIG_VALUES.size(); i++) {
             ModConfigController.CrystalingSetting setting = ModConfigController.CRYSTALING_CONFIG_VALUES.get(i);
             int crystalValue = i + 1;
@@ -81,5 +88,15 @@ public class ConfiguredData {
             }
         }
         return overrides;
+    }
+
+    public static JsonObject missingCrystalJson(String tool, Item item) {
+        JsonObject root = new JsonObject();
+        root.addProperty("parent", "various_world:item/missing/crystal_" + tool);
+
+        JsonObject textures = new JsonObject();
+        textures.addProperty("layer0", TextureMapping.getItemTexture(item).getPath());
+        root.add("textures", textures);
+        return root;
     }
 }

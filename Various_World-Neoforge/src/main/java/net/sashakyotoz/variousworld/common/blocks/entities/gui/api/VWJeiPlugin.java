@@ -19,7 +19,7 @@ import net.sashakyotoz.variousworld.init.VWBlocks;
 import java.util.List;
 
 @JeiPlugin
-public class WrathyArmamentJeiPlugin implements IModPlugin {
+public class VWJeiPlugin implements IModPlugin {
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -39,7 +39,7 @@ public class WrathyArmamentJeiPlugin implements IModPlugin {
 
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
-        registration.addRecipeClickArea(GemsmithTableScreen.class, 70, 52, 28, 28,
+        registration.addRecipeClickArea(GemsmithTableScreen.class, 82, 48, 24, 24,
                 GemsmithRecipeCategory.GEMSMITH_RECIPE);
     }
 

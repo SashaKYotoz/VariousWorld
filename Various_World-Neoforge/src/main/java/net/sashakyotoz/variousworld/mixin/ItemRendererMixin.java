@@ -7,15 +7,10 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.Level;
-import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.common.items.data.CrystalData;
-import net.sashakyotoz.variousworld.init.VWItems;
 import net.sashakyotoz.variousworld.init.VWMiscRegistries;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,7 +32,6 @@ public abstract class ItemRendererMixin {
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V"))
     private void renderExtra(ItemStack stack, ItemDisplayContext displayContext, boolean leftHand, PoseStack poseStack, MultiBufferSource bufferSource, int combinedLight, int combinedOverlay, BakedModel p_model, CallbackInfo ci) {
         CrystalData data = stack.get(VWMiscRegistries.CRYSTAL_DATA.get());
-        Item item = BuiltInRegistries.ITEM.get(ResourceLocation.parse("modid"));
         if (data != null) {
             poseStack.scale(1.001f, 1.001f, 1.001f);
             this.renderModelLists(minecraft.getItemRenderer().getModel(data.crystalStack(),

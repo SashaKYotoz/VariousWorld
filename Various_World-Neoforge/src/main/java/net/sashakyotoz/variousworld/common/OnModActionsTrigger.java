@@ -33,7 +33,7 @@ public class OnModActionsTrigger {
     @SubscribeEvent
     public static void registerProviders(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(GemsmithTableBlockEntity.TABLE_ITEM_HANDLER, VWBlocks.GEMSMITH_TABLE_BE.get(),
-                (workbench, side) -> new InvWrapper(workbench)
+                (table, side) -> new InvWrapper(table)
         );
     }
 }

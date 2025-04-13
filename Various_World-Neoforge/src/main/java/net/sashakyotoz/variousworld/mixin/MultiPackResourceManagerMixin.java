@@ -1,16 +1,19 @@
 package net.sashakyotoz.variousworld.mixin;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.MultiPackResourceManager;
 import net.minecraft.server.packs.resources.Resource;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.common.config.ConfiguredData;
 import net.sashakyotoz.variousworld.common.config.ConfiguredDataResourcePack;
+import net.sashakyotoz.variousworld.common.config.IResourceExistence;
 import org.apache.commons.io.input.CharSequenceInputStream;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.io.IOException;
@@ -24,7 +27,12 @@ import java.util.function.Predicate;
 //https://github.com/Lyof429/EndsPhantasm/blob/master/src/main/java/net/lyof/phantasm/mixin/LifecycledResourceManagerImplMixin.java
 
 @Mixin(MultiPackResourceManager.class)
-public class MultiPackResourceManagerMixin {
+public class MultiPackResourceManagerMixin implements IResourceExistence {
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void init(PackType type, List packs, CallbackInfo ci) {
+        ConfiguredData.MANAGER_KEEPER.put(0, (MultiPackResourceManager) ((Object) this));
+    }
+
     @Unique
     private static Resource readAndApply(Optional<Resource> resource, ConfiguredData data) {
         VariousWorld.LOGGER.info("Applying configured data: {}", data.target);
@@ -111,5 +119,10 @@ public class MultiPackResourceManagerMixin {
             cir.getReturnValue().replace(id, cir.getReturnValue().get(id).stream()
                     .map(resource -> readAndApply(resource, data)).toList());
         }
+    }
+
+    @Override
+    public boolean resourceExists(ResourceLocation id) {
+        return ((MultiPackResourceManager)(Object)this).getResource(id).isPresent();
     }
 }

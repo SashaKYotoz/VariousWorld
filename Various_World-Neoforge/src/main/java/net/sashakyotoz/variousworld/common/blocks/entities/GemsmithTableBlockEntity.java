@@ -1,18 +1,27 @@
 package net.sashakyotoz.variousworld.common.blocks.entities;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
@@ -36,6 +45,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
 
@@ -58,7 +68,7 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
 
     public GemsmithTableBlockEntity(BlockPos pos, BlockState state) {
         super(VWBlocks.GEMSMITH_TABLE_BE.get(), pos, state);
-        this.items = NonNullList.withSize(10, ItemStack.EMPTY);
+        this.items = NonNullList.withSize(3, ItemStack.EMPTY);
         this.data = new ContainerData() {
             @Override
             public int get(int index) {
@@ -180,7 +190,7 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
     private void craftItem(GemsmithTableBlockEntity pEntity) {
         Optional<RecipeHolder<GemsmithTransformRecipe>> matchedRecipe = getCurrentRecipe();
         if (matchedRecipe.isPresent()) {
-            ItemStack result = releaseResultStack(matchedRecipe.get());
+            ItemStack result = releaseResultStack(matchedRecipe.get(), pEntity);
             for (int i = 0; i < 2; i++)
                 pEntity.removeItem(i, 1);
             pEntity.setItem(2, result);
@@ -188,7 +198,7 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
         }
     }
 
-    private ItemStack releaseResultStack(RecipeHolder<GemsmithTransformRecipe> recipe) {
+    private ItemStack releaseResultStack(RecipeHolder<GemsmithTransformRecipe> recipe, GemsmithTableBlockEntity blockEntity) {
         List<ModConfigController.CrystalingSetting> setting = ModConfigController.CRYSTALING_CONFIG_VALUES;
         if (recipe.value().tool.getItems()[0].getItem() instanceof TieredItem) {
             ItemStack itemstack = recipe.value().tool.getItems()[0].copy();
@@ -212,6 +222,44 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
                             supplyGemStack,
                             crystalingSetting.durability()
                     ));
+                    var attributeKey = BuiltInRegistries.ATTRIBUTE.getKey(crystalingSetting.attribute());
+                    if (!itemstack.has(DataComponents.ATTRIBUTE_MODIFIERS) || attributeKey == null)
+                        return itemstack;
+                    List<ItemAttributeModifiers.Entry> modifiers = new ArrayList<>(
+                            itemstack.get(DataComponents.ATTRIBUTE_MODIFIERS).modifiers()
+                    );
+                    var registry = blockEntity.getLevel().registryAccess().lookupOrThrow(Registries.ATTRIBUTE);
+                    var resourceKey = ResourceKey.create(Registries.ATTRIBUTE, attributeKey);
+                    Optional<Holder.Reference<Attribute>> attributeHolderOpt = registry.get(resourceKey);
+                    if (attributeHolderOpt.isEmpty())
+                        return itemstack;
+                    Holder.Reference<Attribute> attributeHolder = attributeHolderOpt.get();
+                    if (modifiers.stream().anyMatch(entry -> entry.attribute().is(attributeKey))) {
+                        modifiers = modifiers.stream().map(entry -> {
+                            if (entry.attribute().is(attributeKey)) {
+                                var updatedModifier = new AttributeModifier(
+                                        entry.modifier().id(),
+                                        entry.modifier().amount() + crystalingSetting.modify_value(),
+                                        entry.modifier().operation()
+                                );
+                                return new ItemAttributeModifiers.Entry(entry.attribute(), updatedModifier, entry.slot());
+                            }
+                            return entry;
+                        }).collect(Collectors.toList());
+                    } else {
+                        var newModifier = new AttributeModifier(
+                                VariousWorld.createVWLocation("tool.modify_attribute" + crystalingSetting.prefix()),
+                                crystalingSetting.modify_value(),
+                                AttributeModifier.Operation.ADD_VALUE
+                        );
+                        modifiers.add(new ItemAttributeModifiers.Entry(attributeHolder, newModifier, EquipmentSlotGroup.MAINHAND));
+                    }
+
+                    itemstack.set(
+                            DataComponents.ATTRIBUTE_MODIFIERS,
+                            new ItemAttributeModifiers(modifiers, itemstack.get(DataComponents.ATTRIBUTE_MODIFIERS).showInTooltip())
+                    );
+
                 }
             }
             return itemstack;
