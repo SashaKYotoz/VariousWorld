@@ -1,10 +1,14 @@
 package net.sashakyotoz.variousworld.common.config;
 
 import com.google.gson.*;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.MultiPackResourceManager;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TieredItem;
+import net.sashakyotoz.variousworld.VariousWorld;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -55,6 +59,7 @@ public class ConfiguredData {
                 () -> true,
                 json -> gson.toJson(supplyCrystalJson())
         );
+        registerMissingRecipes();
     }
 
     private static JsonObject supplyCrystalJson() {
@@ -95,8 +100,46 @@ public class ConfiguredData {
         root.addProperty("parent", "various_world:item/missing/crystal_" + tool);
 
         JsonObject textures = new JsonObject();
-        textures.addProperty("layer0", TextureMapping.getItemTexture(item).getPath());
+        textures.addProperty("layer0", String.format("%s:%s",
+                BuiltInRegistries.ITEM.getKey(item).getNamespace(),
+                BuiltInRegistries.ITEM.getKey(item).withPrefix("item/").getPath()));
         root.add("textures", textures);
+        return root;
+    }
+
+    private static void registerMissingRecipes() {
+        BuiltInRegistries.ITEM.forEach(item -> {
+            if (item instanceof TieredItem) {
+                for (ModConfigController.CrystalingSetting setting : ModConfigController.CRYSTALING_CONFIG_VALUES) {
+                    ResourceLocation tool = BuiltInRegistries.ITEM.getKey(item);
+                    ResourceLocation gem = BuiltInRegistries.ITEM.getKey(setting.item());
+                    ResourceLocation key;
+                    if (gem.getNamespace().equals(VariousWorld.MOD_ID))
+                        key = ResourceLocation.parse(String.format("recipe/%s_%s_gemsmithing.json", tool.getPath(), gem.getPath()));
+                    else
+                        key = ResourceLocation.fromNamespaceAndPath(tool.getNamespace(), String.format("recipe/%s_%s_gemsmithing.json", tool.getPath(), gem.getPath()));
+                    VariousWorld.LOGGER.info("{} + {}", key, !((IResourceExistence) MANAGER_KEEPER.get(0)).resourceExists(key));
+                    if (!((IResourceExistence) MANAGER_KEEPER.get(0)).resourceExists(key))
+                        register(key, () -> true, json -> gson.toJson(missingRecipeJson(tool.getPath(), gem.getPath())));
+                }
+            }
+        });
+    }
+
+    private static JsonObject missingRecipeJson(String toolName, String gemName) {
+        JsonObject root = new JsonObject();
+        root.addProperty("type", "various_world:gemsmith_transform");
+
+        JsonObject tool = new JsonObject();
+        tool.addProperty("item", toolName);
+        root.add("tool", tool);
+        JsonObject gem = new JsonObject();
+        gem.addProperty("item", gemName);
+        root.add("gem", gem);
+        JsonObject result = new JsonObject();
+        result.addProperty("id", toolName);
+        result.addProperty("count", 1);
+        root.add("result", result);
         return root;
     }
 }

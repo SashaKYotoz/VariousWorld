@@ -1,0 +1,13 @@
+{
+  "type": "various_world:gemsmith_transform",
+  "gem": {
+    "item": "various_world:crystalline_slime_ball"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:diamond_hoe"
+  },
+  "tool": {
+    "item": "minecraft:diamond_hoe"
+  }
+}

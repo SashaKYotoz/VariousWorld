@@ -36,7 +36,7 @@ public abstract class ModelBakeryMixin {
                         && ((ResourceLocation) key).toString().contains(toolName)
                         && !setting.item().equals(Items.AIR)
                         && ((ResourceLocation) key).toString().contains(setting.prefix())) {
-                    BlockModel blockmodel = BlockModel.fromString(ConfiguredData.missingCrystalJson(toolName, setting.item().asItem()).toString());
+                    BlockModel blockmodel = BlockModel.fromString(ConfiguredData.missingCrystalJson(toolName, setting.item()).toString());
                     this.unbakedCache.put(((ResourceLocation) key), blockmodel);
                     return original.call(instance, key, blockmodel);
                 }

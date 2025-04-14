@@ -10,6 +10,8 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import net.sashakyotoz.variousworld.common.blocks.entities.GemsmithTableBlockEntity;
+import net.sashakyotoz.variousworld.common.config.ConfiguredData;
+import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import net.sashakyotoz.variousworld.common.items.data.CrystalData;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWItems;
@@ -20,6 +22,7 @@ public class OnModActionsTrigger {
 
     @SubscribeEvent
     public static void commonSetup(FMLCommonSetupEvent event) {
+        ModConfigController.init();
         ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(VWBlocks.SODALITE_WART.getId(), VWBlocks.POTTED_SODALITE_WART);
         ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(VWBlocks.CRYSTALIC_OAK_SAPLING.getId(), VWBlocks.POTTED_CRYSTALIC_OAK_SAPLING);
     }

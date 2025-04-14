@@ -59,6 +59,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         BuiltInRegistries.ITEM.forEach(item -> {
             if (item instanceof TieredItem) {
                 gemsmith(recipeOutput, item, VWItems.SODALITE_SHARD.get());
+                gemsmith(recipeOutput, item, VWItems.CRYSTALLINE_SLIME_BALL.get());
                 gemsmith(recipeOutput, item, Items.AMETHYST_SHARD);
             }
         });
@@ -114,6 +115,6 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private void gemsmith(RecipeOutput recipeOutput, ItemLike tool, ItemLike gem) {
-        GemsmithRecipeBuilder.smithing(Ingredient.of(tool), Ingredient.of(gem), RecipeCategory.COMBAT, tool.asItem()).unlocks("has_block", has(gem)).save(recipeOutput, String.format("%s_%s_gemsmithing", getItemName(tool), getItemName(gem)));
+        GemsmithRecipeBuilder.smithing(Ingredient.of(tool), Ingredient.of(gem), RecipeCategory.COMBAT, tool.asItem()).unlocks("has_gem", has(gem)).save(recipeOutput, String.format("%s_%s_gemsmithing", getItemName(tool), getItemName(gem)));
     }
 }

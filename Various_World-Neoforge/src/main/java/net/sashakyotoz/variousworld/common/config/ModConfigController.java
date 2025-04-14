@@ -18,6 +18,7 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class ModConfigController {
     public static Configs MOD_CONFIG_VALUES;
@@ -93,6 +94,13 @@ public class ModConfigController {
                         "durability": 128,
                         "attribute": "player.block_break_speed",
                         "modify_value": 0.2
+                      },
+                      {
+                        "item": "various_world:crystalline_slime_ball",
+                        "prefix": "crystalline_slime_ball",
+                        "durability": 32,
+                        "attribute": "generic.attack_knockback",
+                        "modify_value": 0.1
                       },
                       {
                         "item": "minecraft:amethyst_shard",

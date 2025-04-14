@@ -8,6 +8,9 @@ import net.minecraft.world.level.block.Block;
 import net.sashakyotoz.variousworld.VariousWorld;
 
 public class VWTags {
+    public static void init() {
+    }
+
     public static class Items {
         public static final TagKey<Item> CRYSTALIC_OAK_LOGS = createTag("crystalic_oak_logs");
 
