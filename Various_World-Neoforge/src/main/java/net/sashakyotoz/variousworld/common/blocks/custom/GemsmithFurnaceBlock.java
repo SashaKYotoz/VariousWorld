@@ -57,7 +57,7 @@ public class GemsmithFurnaceBlock extends BaseEntityBlock {
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (stack.getBurnTime(RecipeType.SMELTING) > 0 && level.getBlockEntity(pos) instanceof GemsmithFurnaceBlockEntity entity && entity.fuel < 4000) {
+        if (stack.getBurnTime(RecipeType.SMELTING) > 0 && level.getBlockEntity(pos) instanceof GemsmithFurnaceBlockEntity entity && !level.isClientSide()) {
             entity.fuel += stack.getBurnTime(RecipeType.SMELTING);
             level.setBlockAndUpdate(pos, state.setValue(LIT, true));
             stack.shrink(1);

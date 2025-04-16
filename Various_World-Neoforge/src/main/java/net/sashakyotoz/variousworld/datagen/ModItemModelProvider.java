@@ -5,11 +5,14 @@ import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.armortrim.TrimMaterial;
 import net.minecraft.world.item.armortrim.TrimMaterials;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.init.VWRegistryHelper;
@@ -43,6 +46,10 @@ public class ModItemModelProvider extends ItemModelProvider {
             if (entry.getValue() == ModelTemplates.FLAT_ITEM)
                 simpleItem(entry.getKey());
         }
+        for (DeferredHolder<Item, ? extends Item> entry : VWRegistryHelper.ITEMS.getEntries()){
+            if (entry.get() instanceof DeferredSpawnEggItem)
+                simpleEggItem(entry);
+        }
         simpleItemlessModel("sodalite_sword");
         simpleItemlessModel("sodalite_pickaxe");
         simpleItemlessModel("sodalite_axe");
@@ -60,6 +67,7 @@ public class ModItemModelProvider extends ItemModelProvider {
                 ResourceLocation.parse("item/generated")).texture("layer0",
                 ResourceLocation.fromNamespaceAndPath(VariousWorld.MOD_ID, "item/" + item.getId().getPath()));
     }
+
     private ItemModelBuilder simpleItemlessModel(String path) {
         return withExistingParent(VariousWorld.createVWLocation("item/" + path).getPath(),
                 ResourceLocation.parse("item/generated")).texture("layer0",
@@ -67,7 +75,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     }
 
-    private ItemModelBuilder simpleEggItem(DeferredItem<?> item) {
+    private ItemModelBuilder simpleEggItem(DeferredHolder<Item, ? extends Item> item) {
         return withExistingParent(item.getId().getPath(),
                 ResourceLocation.parse("item/template_spawn_egg"));
     }

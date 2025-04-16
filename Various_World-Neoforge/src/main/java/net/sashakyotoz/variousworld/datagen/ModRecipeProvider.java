@@ -63,6 +63,24 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 gemsmith(recipeOutput, item, Items.AMETHYST_SHARD);
             }
         });
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, VWBlocks.GEMSMITH_TABLE.get())
+                .define('i', Items.IRON_INGOT)
+                .define('s', Items.STICK)
+                .define('d', Items.DEEPSLATE_BRICKS)
+                .pattern("is ")
+                .pattern("dd ")
+                .pattern("dd ")
+                .unlockedBy("has_block", has(Items.DEEPSLATE_BRICKS))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, VWBlocks.GEMSMITH_FURNACE.get())
+                .define('f', Items.FURNACE)
+                .define('d', Items.DEEPSLATE_BRICKS)
+                .pattern("ddd")
+                .pattern("dfd")
+                .pattern("ddd")
+                .unlockedBy("has_block", has(Items.DEEPSLATE_BRICKS))
+                .save(recipeOutput);
     }
 
     protected static void oreSmelting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,

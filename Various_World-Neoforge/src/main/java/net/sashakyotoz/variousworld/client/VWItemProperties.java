@@ -14,7 +14,7 @@ public class VWItemProperties {
             if (itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get()) != null && ModConfigController.CRYSTALING_CONFIG_VALUES != null) {
                 for (ModConfigController.CrystalingSetting setting : ModConfigController.CRYSTALING_CONFIG_VALUES) {
                     SupplyCrystalData data = itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get());
-                    if (data != null && data.crystalStack().is(setting.item()))
+                    if (data != null && data.crystalStack().is(setting.item().build()))
                         return ModConfigController.CRYSTALING_CONFIG_VALUES.indexOf(setting) + 1;
                 }
             }

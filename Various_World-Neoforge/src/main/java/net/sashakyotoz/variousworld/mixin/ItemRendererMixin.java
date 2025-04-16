@@ -32,7 +32,7 @@ public abstract class ItemRendererMixin {
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V"))
     private void renderExtra(ItemStack stack, ItemDisplayContext displayContext, boolean leftHand, PoseStack poseStack, MultiBufferSource bufferSource, int combinedLight, int combinedOverlay, BakedModel p_model, CallbackInfo ci) {
         CrystalData data = stack.get(VWMiscRegistries.CRYSTAL_DATA.get());
-        if (data != null) {
+        if (data != null && data.crystalDurability() > 0) {
             poseStack.scale(1.001f, 1.001f, 1.001f);
             this.renderModelLists(minecraft.getItemRenderer().getModel(data.crystalStack(),
                     null, null, displayContext.ordinal()), stack, combinedLight, combinedOverlay, poseStack, bufferSource.getBuffer(RenderType.cutout()));

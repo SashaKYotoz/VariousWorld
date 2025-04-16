@@ -1,11 +1,9 @@
 package net.sashakyotoz.variousworld;
 
-import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.client.RecipeBookManager;
 import net.sashakyotoz.variousworld.common.config.ConfiguredData;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import net.sashakyotoz.variousworld.init.*;
@@ -22,10 +20,10 @@ public class VariousWorld {
         VWSounds.init();
         VWBlocks.init();
         VWItems.init();
+        VWEntities.init();
         ModConfigController.init();
         ConfiguredData.register();
         VWTags.init();
-        VWEntities.ENTITIES.register(bus);
         VWMiscRegistries.register(bus);
         VWFeatures.register(bus);
     }

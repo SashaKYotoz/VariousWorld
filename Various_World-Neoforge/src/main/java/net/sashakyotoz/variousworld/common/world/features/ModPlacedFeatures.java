@@ -27,7 +27,7 @@ public class ModPlacedFeatures {
         register(context, CRYSTALIC_TREE, configuredFeatures.getOrThrow(ModConfiguredFeatures.CRYSTALIC_TREE),
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.25F, 2), VWBlocks.CRYSTALIC_OAK_SAPLING.get()));
         register(context, SMALL_CRYSTALIC_TREE, configuredFeatures.getOrThrow(ModConfiguredFeatures.CRYSTALIC_TREE),
-                VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.25F, 2), VWBlocks.CRYSTALIC_OAK_SAPLING.get()));
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.125F, 2), VWBlocks.CRYSTALIC_OAK_SAPLING.get()));
 //        register(context, BISMUTH_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.OVERWORLD_BISMUTH_ORE_KEY),
 //                ModOrePlacement.commonOrePlacement(12, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(80))));
 

@@ -4,10 +4,13 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.block.state.BlockState;
@@ -15,6 +18,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
+import net.minecraft.world.level.material.MapColor;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.common.world.features.ModPlacedFeatures;
 
@@ -27,13 +31,14 @@ public class VWBiomes {
 
     public static Biome crystallineForest(BootstrapContext<Biome> context) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
-//        spawnBuilder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.RHINO.get(), 2, 3, 5));
+        spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(VWEntities.CRYSTALIC_SLIME.get(), 25, 1, 3));
 
         BiomeDefaultFeatures.farmAnimals(spawnBuilder);
 
         BiomeGenerationSettings.Builder biomeBuilder =
                 new BiomeGenerationSettings.Builder(context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));
         BiomeDefaultFeatures.addDefaultOres(biomeBuilder);
+        biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST);
         biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.CRYSTALIC_TREE);
         biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.SMALL_CRYSTALIC_TREE);
         biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.SODALITE_WART_PATCH);
@@ -46,10 +51,11 @@ public class VWBiomes {
                 .generationSettings(biomeBuilder.build())
                 .mobSpawnSettings(spawnBuilder.build())
                 .specialEffects((new BiomeSpecialEffects.Builder())
-                        .waterColor(5013401)
-                        .waterFogColor(5013401)
+                        .waterColor(MapColor.COLOR_CYAN.col)
+                        .waterFogColor(MapColor.COLOR_CYAN.col)
                         .skyColor(calculateSkyColor(0.9f))
-                        .fogColor(5013401)
+                        .fogColor(MapColor.COLOR_CYAN.col)
+                        .grassColorOverride(MapColor.COLOR_CYAN.col)
                         .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .backgroundMusic(Musics.createGameMusic(Holder.direct(SoundEvents.AMETHYST_BLOCK_CHIME))).build())
                 .build();

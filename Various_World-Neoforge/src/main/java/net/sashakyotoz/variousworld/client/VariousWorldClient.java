@@ -18,9 +18,12 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.sashakyotoz.variousworld.VariousWorld;
+import net.sashakyotoz.variousworld.client.models.CrystalicSlimeModel;
+import net.sashakyotoz.variousworld.client.renderers.CrystalicSlimeRenderer;
 import net.sashakyotoz.variousworld.common.blocks.ModWoodType;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.GemsmithTableScreen;
 import net.sashakyotoz.variousworld.init.VWBlocks;
+import net.sashakyotoz.variousworld.init.VWEntities;
 import net.sashakyotoz.variousworld.init.VWMiscRegistries;
 import net.sashakyotoz.variousworld.init.VWRegistryHelper;
 
@@ -35,6 +38,8 @@ public class VariousWorldClient {
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(VWBlocks.MOD_SIGN.get(), SignRenderer::new);
         event.registerBlockEntityRenderer(VWBlocks.MOD_HANGING_SIGN.get(), HangingSignRenderer::new);
+
+        event.registerEntityRenderer(VWEntities.CRYSTALIC_SLIME.get(), CrystalicSlimeRenderer::new);
     }
 
     @SubscribeEvent
@@ -56,6 +61,8 @@ public class VariousWorldClient {
 
     @SubscribeEvent
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(CrystalicSlimeModel.LAYER_LOCATION, CrystalicSlimeModel::createInnerBodyLayer);
+        event.registerLayerDefinition(CrystalicSlimeModel.OUTER_LAYER_LOCATION, CrystalicSlimeModel::createOuterBodyLayer);
     }
 
     @SubscribeEvent

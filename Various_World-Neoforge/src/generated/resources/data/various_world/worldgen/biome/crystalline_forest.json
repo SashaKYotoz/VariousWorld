@@ -3,6 +3,7 @@
   "downfall": 0.25,
   "effects": {
     "fog_color": 5013401,
+    "grass_color": 5013401,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
@@ -52,6 +53,7 @@
     ],
     [],
     [
+      "minecraft:patch_grass_forest",
       "various_world:crystalic_tree",
       "various_world:small_crystalic_tree",
       "various_world:sodalite_wart_patch"
@@ -89,7 +91,14 @@
       }
     ],
     "misc": [],
-    "monster": [],
+    "monster": [
+      {
+        "type": "various_world:crystalic_slime",
+        "maxCount": 3,
+        "minCount": 1,
+        "weight": 25
+      }
+    ],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

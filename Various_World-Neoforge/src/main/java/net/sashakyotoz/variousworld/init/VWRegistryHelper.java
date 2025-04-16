@@ -8,6 +8,8 @@ import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -29,6 +31,7 @@ public class VWRegistryHelper {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(VariousWorld.MOD_ID);
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(VariousWorld.MOD_ID);
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, VariousWorld.MOD_ID);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, VariousWorld.MOD_ID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, VariousWorld.MOD_ID);
 
@@ -36,6 +39,7 @@ public class VWRegistryHelper {
         ITEMS.register(bus);
         BLOCKS.register(bus);
         BLOCK_ENTITIES.register(bus);
+        ENTITIES.register(bus);
         CREATIVE_MODE_TABS.register(bus);
     }
 
@@ -298,6 +302,43 @@ public class VWRegistryHelper {
         CROSS_POTTED,
         ROTATABLE
     }
+
+    public static <T extends Entity> EntityBuilder ofEntity(String id, EntityType.Builder<T> tBuilder) {
+        return new EntityBuilder(id, tBuilder);
+    }
+
+    public static class EntityBuilder<T extends Entity> {
+        protected final String name;
+        protected final DeferredHolder<EntityType<?>, EntityType<T>> entity;
+
+        protected EntityBuilder(String name, EntityType.Builder<T> entityBuilder) {
+            this.name = name;
+            this.entity = register(name, entityBuilder);
+        }
+
+        public DeferredHolder<EntityType<?>, EntityType<T>> build() {
+            return this.entity;
+        }
+
+        private static <T extends Entity> DeferredHolder<EntityType<?>, EntityType<T>> register(
+                String registryName, EntityType.Builder<T> entityTypeBuilder) {
+            return ENTITIES.register(registryName, () -> entityTypeBuilder.build(registryName));
+        }
+
+        public EntityBuilder<T> drop(ItemLike loot) {
+            ENTITY_DROPS.putIfAbsent(this.entity, loot);
+            return this;
+        }
+
+        public EntityBuilder<T> tag(TagKey<EntityType<?>> tagname) {
+            ENTITY_TAGS.putIfAbsent(tagname, new ArrayList<>());
+            ENTITY_TAGS.get(tagname).add(this.entity);
+            return this;
+        }
+    }
+    public static Map<TagKey<EntityType<?>>, List<DeferredHolder<EntityType<?>, ?>>> ENTITY_TAGS = new HashMap<>();
+
+    public static Map<DeferredHolder<EntityType<?>, ?>, ItemLike> ENTITY_DROPS = new HashMap<>();
 
     public static final DeferredHolder<CreativeModeTab, ?> VARIOUS_WORLD_TAB = CREATIVE_MODE_TABS.register("various_world_tab",
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(VWBlocks.CRYSTALIC_OAK_LOG))

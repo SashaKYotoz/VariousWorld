@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_forest",
+  "features": "various_world:sodalite_geode",
+  "step": "underground_decoration"
+}

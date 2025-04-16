@@ -1,6 +1,7 @@
 package net.sashakyotoz.variousworld.init;
 
 import net.minecraft.world.item.*;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
 
@@ -18,4 +19,7 @@ public class VWItems {
 
     public static final DeferredItem<Item> SUPPLY_CRYSTAL = VWRegistryHelper.ofItem("supply_crystal", () -> new Item(new Item.Properties()
             .component(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get(), new SupplyCrystalData(ItemStack.EMPTY, "")))).build();
+
+    public static final DeferredItem<DeferredSpawnEggItem> CRYSTALIC_SLIME_SPAWN_EGG = VWRegistryHelper.ofItem("crystalic_slime_spawn_egg", () ->
+            new DeferredSpawnEggItem(VWEntities.CRYSTALIC_SLIME, -6693377, -3407617, new Item.Properties())).build();
 }

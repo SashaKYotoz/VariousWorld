@@ -2,7 +2,6 @@ package net.sashakyotoz.variousworld.common.config;
 
 import com.google.gson.*;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.MultiPackResourceManager;
 import net.minecraft.world.item.Item;
@@ -11,10 +10,7 @@ import net.minecraft.world.item.TieredItem;
 import net.sashakyotoz.variousworld.VariousWorld;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -107,24 +103,63 @@ public class ConfiguredData {
         return root;
     }
 
-    private static void registerMissingRecipes() {
+    private record PendingRecipe(ResourceLocation key, ModConfigController.LazyItem lazyGem,
+                                 String prefix) {
+    }
+
+    private static final List<PendingRecipe> pendingRecipes = new ArrayList<>();
+
+    public static void registerMissingRecipes() {
         BuiltInRegistries.ITEM.forEach(item -> {
             if (item instanceof TieredItem) {
                 for (ModConfigController.CrystalingSetting setting : ModConfigController.CRYSTALING_CONFIG_VALUES) {
                     ResourceLocation tool = BuiltInRegistries.ITEM.getKey(item);
-                    ResourceLocation gem = BuiltInRegistries.ITEM.getKey(setting.item());
+                    ResourceLocation gem = BuiltInRegistries.ITEM.getKey(setting.item().build());
+                    if (setting.item().build().equals(Items.AIR) && !gem.getNamespace().equals(VariousWorld.MOD_ID)) {
+                        pendingRecipes.add(new PendingRecipe(setting.item().getId(), setting.item(), setting.prefix()));
+                        continue;
+                    }
                     ResourceLocation key;
                     if (gem.getNamespace().equals(VariousWorld.MOD_ID))
                         key = ResourceLocation.parse(String.format("recipe/%s_%s_gemsmithing.json", tool.getPath(), gem.getPath()));
                     else
                         key = ResourceLocation.fromNamespaceAndPath(tool.getNamespace(), String.format("recipe/%s_%s_gemsmithing.json", tool.getPath(), gem.getPath()));
-                    VariousWorld.LOGGER.info("{} + {}", key, !((IResourceExistence) MANAGER_KEEPER.get(0)).resourceExists(key));
-                    if (!((IResourceExistence) MANAGER_KEEPER.get(0)).resourceExists(key))
+                    if (MANAGER_KEEPER.get(0) != null && !((IResourceExistence) MANAGER_KEEPER.get(0)).resourceExists(key))
                         register(key, () -> true, json -> gson.toJson(missingRecipeJson(tool.getPath(), gem.getPath())));
                 }
             }
         });
     }
+
+    public static void processPendingRecipes() {
+        BuiltInRegistries.ITEM.forEach(item -> {
+            if (item instanceof TieredItem) {
+                ResourceLocation toolRL = BuiltInRegistries.ITEM.getKey(item);
+                if (!toolRL.getNamespace().equals("minecraft")) {
+                    for (PendingRecipe pending : pendingRecipes) {
+                        Item gemItem = pending.lazyGem.build();
+                        if (gemItem.equals(Items.AIR)) {
+                            VariousWorld.LOGGER.info("Pending recipe: gem item {} still not found.", pending.lazyGem.getId());
+                            continue;
+                        }
+                        ResourceLocation gemRL = pending.lazyGem.getId();
+                        ResourceLocation key = ResourceLocation.fromNamespaceAndPath(
+                                toolRL.getNamespace(),
+                                String.format("recipe/%s_%s_gemsmithing.json", toolRL.getPath(), gemRL.getPath())
+                        );
+                        if (MANAGER_KEEPER.get(0) != null
+                                && !((IResourceExistence) MANAGER_KEEPER.get(0)).resourceExists(key)) {
+                            register(key, () -> true, json ->
+                                    gson.toJson(missingRecipeJson(String.format("%s:%s", toolRL.getNamespace(), toolRL.getPath()), gemRL.toString()))
+                            );
+                            VariousWorld.LOGGER.info("Registered recipe for tool {} using gem {}.", toolRL, gemRL);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
 
     private static JsonObject missingRecipeJson(String toolName, String gemName) {
         JsonObject root = new JsonObject();

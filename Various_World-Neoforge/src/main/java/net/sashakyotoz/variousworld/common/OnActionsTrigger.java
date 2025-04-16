@@ -6,6 +6,9 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.FeatureSorter;
@@ -19,18 +22,13 @@ import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
-import net.sashakyotoz.variousworld.common.config.ConfiguredData;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import net.sashakyotoz.variousworld.init.VWBiomes;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 @EventBusSubscriber
@@ -51,12 +49,6 @@ public class OnActionsTrigger {
         });
         actions.forEach(e -> e.getKey().run());
         workQueue.removeAll(actions);
-    }
-
-    @SubscribeEvent
-    public static void onResourceReload(AddReloadListenerEvent event) {
-        ModConfigController.init();
-        ConfiguredData.register();
     }
 
     @SubscribeEvent
@@ -95,6 +87,16 @@ public class OnActionsTrigger {
                     }
                 }
             }
+        }
+    }
+
+    public static void returnDefaultStack(ItemStack stack, LivingEntity entity) {
+        ItemStack tmpStack = stack.getItem().getDefaultInstance();
+        tmpStack.setCount(stack.getCount());
+        tmpStack.setDamageValue(stack.getDamageValue());
+        for (EquipmentSlot value : EquipmentSlot.values()) {
+            if (entity.getItemBySlot(value).equals(stack))
+                entity.setItemSlot(value, tmpStack);
         }
     }
 }

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "d": {
+      "item": "minecraft:deepslate_bricks"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "is ",
+    "dd ",
+    "dd "
+  ],
+  "result": {
+    "count": 1,
+    "id": "various_world:gemsmith_table"
+  }
+}

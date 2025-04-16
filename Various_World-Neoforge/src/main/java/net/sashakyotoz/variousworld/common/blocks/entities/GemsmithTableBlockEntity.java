@@ -205,7 +205,7 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
             ItemStack supplyGemStack = VWItems.SUPPLY_CRYSTAL.toStack();
             String toolName;
             for (ModConfigController.CrystalingSetting crystalingSetting : setting) {
-                if (recipe.value().gem.getItems()[0].is(crystalingSetting.item())) {
+                if (recipe.value().gem.getItems()[0].is(crystalingSetting.item().build())) {
                     switch (itemstack.getItem()) {
                         case TieredItem item when item instanceof SwordItem -> toolName = "sword";
                         case TieredItem item when item instanceof PickaxeItem -> toolName = "pickaxe";

@@ -1,0 +1,13 @@
+{
+  "type": "various_world:gemsmith_transform",
+  "gem": {
+    "item": "minecraft:amethyst_shard"
+  },
+  "result": {
+    "count": 1,
+    "id": "phantasm:crystalline_axe"
+  },
+  "tool": {
+    "item": "phantasm:crystalline_axe"
+  }
+}

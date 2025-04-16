@@ -5,12 +5,10 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.UnbakedModel;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.common.config.ConfiguredData;
-import net.sashakyotoz.variousworld.common.config.IResourceExistence;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -36,7 +34,7 @@ public abstract class ModelBakeryMixin {
                         && ((ResourceLocation) key).toString().contains(toolName)
                         && !setting.item().equals(Items.AIR)
                         && ((ResourceLocation) key).toString().contains(setting.prefix())) {
-                    BlockModel blockmodel = BlockModel.fromString(ConfiguredData.missingCrystalJson(toolName, setting.item()).toString());
+                    BlockModel blockmodel = BlockModel.fromString(ConfiguredData.missingCrystalJson(toolName, setting.item().build()).toString());
                     this.unbakedCache.put(((ResourceLocation) key), blockmodel);
                     return original.call(instance, key, blockmodel);
                 }

@@ -3,28 +3,22 @@ package net.sashakyotoz.variousworld.common.config;
 import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.neoforged.fml.loading.FMLPaths;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.sashakyotoz.variousworld.VariousWorld;
-import net.sashakyotoz.variousworld.init.VWRegistryHelper;
 
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class ModConfigController {
     public static Configs MOD_CONFIG_VALUES;
     public static List<CrystalingSetting> CRYSTALING_CONFIG_VALUES;
     private static final Gson gson = new GsonBuilder()
-            .registerTypeAdapter(Item.class, new ItemDeserializer())
+            .registerTypeAdapter(LazyItem.class, new LazyItemDeserializer())
             .registerTypeAdapter(Attribute.class, new AttributeDeserializer())
             .setPrettyPrinting()
             .create();
@@ -38,19 +32,29 @@ public class ModConfigController {
     public record Configs(boolean do_crystalline_forest, boolean do_guava_blossom) {
     }
 
-    public record CrystalingSetting(Item item, String prefix, int durability, Attribute attribute,
+    public record CrystalingSetting(LazyItem item, String prefix, int durability, Attribute attribute,
                                     double modify_value) {
     }
 
-    public static class ItemDeserializer implements JsonDeserializer<Item> {
+    public static class LazyItem {
+        private final ResourceLocation itemId;
+
+        public LazyItem(String id) {
+            this.itemId = ResourceLocation.parse(id);
+        }
+        public Item build() {
+            return BuiltInRegistries.ITEM.get(itemId);
+        }
+        public ResourceLocation getId() {
+            return itemId;
+        }
+    }
+    public static class LazyItemDeserializer implements JsonDeserializer<LazyItem> {
         @Override
-        public Item deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+        public LazyItem deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
             String itemId = json.getAsString();
-            Item item = BuiltInRegistries.ITEM.get(ResourceLocation.parse(itemId));
-            if (item.equals(Items.AIR))
-                VariousWorld.LOGGER.info("Unknown item id: {}", item.toString());
-            return item;
+            return new LazyItem(itemId);
         }
     }
 
