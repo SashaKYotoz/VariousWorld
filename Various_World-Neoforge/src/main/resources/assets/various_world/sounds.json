@@ -29,12 +29,6 @@
       "various_world:biome/sculk_valley/sculk_valley"
     ]
   },
-  "biome.shiny_valley": {
-    "subtitle": "subtitles.shiny_valley_sound",
-    "sounds": [
-      "various_world:biome/shiny_valley/shiny_valley"
-    ]
-  },
   "biome.peaceful_wasteland": {
     "subtitle": "subtitles.peaceful_wasteland_sound",
     "sounds": [

@@ -77,6 +77,7 @@ public class VariousWorldClient {
             ItemBlockRenderTypes.setRenderLayer((Block) block.get(), RenderType.translucent());
         event.enqueueWork(() -> {
             Sheets.addWoodType(ModWoodType.CRYSTALIC_OAK);
+            Sheets.addWoodType(ModWoodType.BLUE_JACARANDA);
             VWItemProperties.init();
         });
     }

@@ -11,6 +11,12 @@ import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.sashakyotoz.variousworld.VariousWorld;
+import net.sashakyotoz.variousworld.datagen.loot.ModBlockLootTableProvider;
+import net.sashakyotoz.variousworld.datagen.loot.ModEntityLootTableProvider;
+import net.sashakyotoz.variousworld.datagen.loot.ModGlobalLootModifierProvider;
+import net.sashakyotoz.variousworld.datagen.tags.ModBlockTagProvider;
+import net.sashakyotoz.variousworld.datagen.tags.ModEntityTagProvider;
+import net.sashakyotoz.variousworld.datagen.tags.ModItemTagProvider;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,6 +38,7 @@ public class DataGenerators {
         BlockTagsProvider blockTagsProvider = new ModBlockTagProvider(packOutput, lookupProvider, existingFileHelper);
         generator.addProvider(event.includeServer(), blockTagsProvider);
         generator.addProvider(event.includeServer(), new ModItemTagProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
+        generator.addProvider(event.includeServer(), new ModEntityTagProvider(packOutput, lookupProvider, existingFileHelper));
 
         generator.addProvider(event.includeServer(), new ModDataMapProvider(packOutput, lookupProvider));
 

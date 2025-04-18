@@ -29,7 +29,7 @@ public abstract class ItemMixin {
     @Inject(method = "appendHoverText", at = @At("HEAD"))
     private void appendDesc(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag, CallbackInfo ci) {
         Item item = (Item) ((Object) this);
-        if (item instanceof TieredItem && stack.has(VWMiscRegistries.CRYSTAL_DATA.get()) && stack.get(VWMiscRegistries.CRYSTAL_DATA.get()).crystalDurability() > 0) {
+        if (item instanceof TieredItem && ModConfigController.CRYSTALING_CONFIG_VALUES != null && stack.has(VWMiscRegistries.CRYSTAL_DATA.get()) && stack.get(VWMiscRegistries.CRYSTAL_DATA.get()).crystalDurability() > 0) {
             List<ModConfigController.CrystalingSetting> setting = ModConfigController.CRYSTALING_CONFIG_VALUES;
             for (ModConfigController.CrystalingSetting crystalingSetting : setting) {
                 if (stack.get(VWMiscRegistries.CRYSTAL_DATA.get()).crystalStack().get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get()).crystalStack().is(crystalingSetting.item().build())) {
@@ -46,8 +46,8 @@ public abstract class ItemMixin {
             if (data.crystalDurability() > 0)
                 stack.set(VWMiscRegistries.CRYSTAL_DATA.get(), new CrystalData(data.crystalStack(), data.crystalDurability() - 1));
             else {
-                attacker.playSound(this.getBreakingSound(),2,1.5f);
-                OnActionsTrigger.returnDefaultStack(stack,attacker);
+                attacker.playSound(this.getBreakingSound(), 2, 1.5f);
+                OnActionsTrigger.returnDefaultStack(stack, attacker);
             }
         }
     }
@@ -60,7 +60,7 @@ public abstract class ItemMixin {
                 stack.set(VWMiscRegistries.CRYSTAL_DATA.get(), new CrystalData(data.crystalStack(), data.crystalDurability() - 1));
             else {
                 miningEntity.playSound(this.getBreakingSound());
-                OnActionsTrigger.returnDefaultStack(stack,miningEntity);
+                OnActionsTrigger.returnDefaultStack(stack, miningEntity);
             }
         }
     }

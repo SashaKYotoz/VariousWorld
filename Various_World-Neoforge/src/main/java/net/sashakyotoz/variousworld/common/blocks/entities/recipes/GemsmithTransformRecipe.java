@@ -48,7 +48,7 @@ public class GemsmithTransformRecipe implements GemsmithRecipe {
     @Override
     public ItemStack assemble(GemsmithRecipeInput input, HolderLookup.Provider provider) {
         List<ModConfigController.CrystalingSetting> setting = ModConfigController.CRYSTALING_CONFIG_VALUES;
-        if (input.tool().getItem() instanceof TieredItem) {
+        if (input.tool().getItem() instanceof TieredItem && setting != null) {
             ItemStack itemstack = input.tool().copy();
             ItemStack supplyGemStack = VWItems.SUPPLY_CRYSTAL.toStack();
             String toolName;
@@ -76,6 +76,7 @@ public class GemsmithTransformRecipe implements GemsmithRecipe {
         } else
             return input.tool();
     }
+
     @Override
     public NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> completeInput = NonNullList.create();
@@ -83,10 +84,12 @@ public class GemsmithTransformRecipe implements GemsmithRecipe {
         completeInput.add(this.gem);
         return completeInput;
     }
+
     @Override
     public ItemStack getResultItem(HolderLookup.Provider provider) {
         return this.result;
     }
+
     @Override
     public RecipeSerializer<?> getSerializer() {
         return Serializer.INSTANCE;

@@ -16,14 +16,14 @@ public class VWTreeGrowers {
             Optional.empty(),
             Optional.empty()
     );
-//    public static final TreeGrower MAGNOLIA_TREE = new TreeGrower(
-//            "magnolia",
-//            0.25F,
-//            Optional.empty(),
-//            Optional.empty(),
-//            Optional.of(VWFeatures.MAGNOLIA_TREE),
-//            Optional.empty(),
-//            Optional.empty(),
-//            Optional.empty()
-//    );
+    public static final TreeGrower BLUE_JACARANDA_TREE = new TreeGrower(
+            "blue_jacaranda",
+            0.25F,
+            Optional.empty(),
+            Optional.empty(),
+            Optional.of(ModConfiguredFeatures.BLUE_JACARANDA_TREE),
+            Optional.empty(),
+            Optional.empty(),
+            Optional.empty()
+    );
 }

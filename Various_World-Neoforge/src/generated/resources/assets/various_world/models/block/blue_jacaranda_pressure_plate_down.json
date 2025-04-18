@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/pressure_plate_down",
+  "textures": {
+    "texture": "various_world:block/blue_jacaranda_planks"
+  }
+}

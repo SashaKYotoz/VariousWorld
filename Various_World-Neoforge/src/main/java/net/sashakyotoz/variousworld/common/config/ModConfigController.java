@@ -29,7 +29,7 @@ public class ModConfigController {
         public List<CrystalingSetting> crystalingSettings;
     }
 
-    public record Configs(boolean do_crystalline_forest, boolean do_guava_blossom) {
+    public record Configs(boolean do_crystalline_forest, boolean do_blue_jacaranda_meadow) {
     }
 
     public record CrystalingSetting(LazyItem item, String prefix, int durability, Attribute attribute,
@@ -89,7 +89,7 @@ public class ModConfigController {
                 {
                     "configs": {
                       "do_crystalline_forest": true,
-                      "do_guava_blossom": true
+                      "do_blue_jacaranda_meadow": true
                     },
                     "crystaling_settings": [
                       {

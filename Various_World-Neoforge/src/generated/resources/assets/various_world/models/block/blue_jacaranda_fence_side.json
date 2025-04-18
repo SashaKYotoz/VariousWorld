@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_side",
+  "textures": {
+    "texture": "various_world:block/blue_jacaranda_planks"
+  }
+}

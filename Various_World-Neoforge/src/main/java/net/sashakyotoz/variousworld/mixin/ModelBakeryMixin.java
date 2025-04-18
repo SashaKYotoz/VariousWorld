@@ -26,20 +26,21 @@ public abstract class ModelBakeryMixin {
 
     @WrapOperation(method = "getModel", at = @At(value = "INVOKE", target = "Ljava/util/Map;put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;", ordinal = 1))
     private Object handleNotRegisteredModel(Map instance, Object key, Object defaultValue, Operation<Object> original) {
-        for (ModConfigController.CrystalingSetting setting : ModConfigController.CRYSTALING_CONFIG_VALUES) {
-            for (int j = 0; j < ConfiguredData.toolNames.length; j++) {
-                String toolName = ConfiguredData.toolNames[j];
-                if (((ResourceLocation) key).getNamespace().contains(VariousWorld.MOD_ID)
-                        && !((ResourceLocation) key).toString().contains("air")
-                        && ((ResourceLocation) key).toString().contains(toolName)
-                        && !setting.item().equals(Items.AIR)
-                        && ((ResourceLocation) key).toString().contains(setting.prefix())) {
-                    BlockModel blockmodel = BlockModel.fromString(ConfiguredData.missingCrystalJson(toolName, setting.item().build()).toString());
-                    this.unbakedCache.put(((ResourceLocation) key), blockmodel);
-                    return original.call(instance, key, blockmodel);
+        if (ModConfigController.CRYSTALING_CONFIG_VALUES != null)
+            for (ModConfigController.CrystalingSetting setting : ModConfigController.CRYSTALING_CONFIG_VALUES) {
+                for (int j = 0; j < ConfiguredData.toolNames.length; j++) {
+                    String toolName = ConfiguredData.toolNames[j];
+                    if (((ResourceLocation) key).getNamespace().contains(VariousWorld.MOD_ID)
+                            && !((ResourceLocation) key).toString().contains("air")
+                            && ((ResourceLocation) key).toString().contains(toolName)
+                            && !setting.item().equals(Items.AIR)
+                            && ((ResourceLocation) key).toString().contains(setting.prefix())) {
+                        BlockModel blockmodel = BlockModel.fromString(ConfiguredData.missingCrystalJson(toolName, setting.item().build()).toString());
+                        this.unbakedCache.put(((ResourceLocation) key), blockmodel);
+                        return original.call(instance, key, blockmodel);
+                    }
                 }
             }
-        }
         return original.call(instance, key, defaultValue);
     }
 }

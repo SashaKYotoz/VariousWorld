@@ -7,11 +7,24 @@
     "various_world:crystalic_oak_planks",
     "various_world:crystalic_oak_stairs",
     "various_world:crystalic_oak_slab",
-    "various_world:crystalic_pressure_plate",
+    "various_world:crystalic_oak_pressure_plate",
     "various_world:crystalic_oak_button",
     "various_world:crystalic_oak_fence",
     "various_world:crystalic_oak_fence_gate",
     "various_world:crystalic_oak_door",
-    "various_world:crystalic_oak_trapdoor"
+    "various_world:crystalic_oak_trapdoor",
+    "various_world:stripped_blue_jacaranda_log",
+    "various_world:blue_jacaranda_log",
+    "various_world:stripped_blue_jacaranda_wood",
+    "various_world:blue_jacaranda_wood",
+    "various_world:blue_jacaranda_planks",
+    "various_world:blue_jacaranda_stairs",
+    "various_world:blue_jacaranda_slab",
+    "various_world:blue_jacaranda_pressure_plate",
+    "various_world:blue_jacaranda_button",
+    "various_world:blue_jacaranda_fence",
+    "various_world:blue_jacaranda_fence_gate",
+    "various_world:blue_jacaranda_door",
+    "various_world:blue_jacaranda_trapdoor"
   ]
 }

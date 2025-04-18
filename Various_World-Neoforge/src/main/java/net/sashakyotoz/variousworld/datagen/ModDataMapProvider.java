@@ -17,7 +17,7 @@ public class ModDataMapProvider extends DataMapProvider {
     }
 
     @Override
-    protected void gather() {
+    protected void gather(HolderLookup.Provider provider) {
         for (Map.Entry<ItemLike, Integer> entry : VWRegistryHelper.ITEM_BURNABLE.entrySet())
             this.builder(NeoForgeDataMaps.FURNACE_FUELS).add(entry.getKey().asItem().builtInRegistryHolder(), new FurnaceFuel(entry.getValue()), false);
     }

@@ -24,9 +24,11 @@ import net.sashakyotoz.variousworld.common.world.features.ModPlacedFeatures;
 
 public class VWBiomes {
     public static final ResourceKey<Biome> CRYSTALLINE_FOREST = registerKey("crystalline_forest");
+    public static final ResourceKey<Biome> BLUE_JACARANDA_MEADOW = registerKey("blue_jacaranda_meadow");
 
     public static void bootstrap(BootstrapContext<Biome> context) {
         context.register(CRYSTALLINE_FOREST, crystallineForest(context));
+        context.register(BLUE_JACARANDA_MEADOW, jacarandaMeadow(context));
     }
 
     public static Biome crystallineForest(BootstrapContext<Biome> context) {
@@ -60,11 +62,39 @@ public class VWBiomes {
                         .backgroundMusic(Musics.createGameMusic(Holder.direct(SoundEvents.AMETHYST_BLOCK_CHIME))).build())
                 .build();
     }
+    public static Biome jacarandaMeadow(BootstrapContext<Biome> context) {
+        MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
+        BiomeDefaultFeatures.farmAnimals(spawnBuilder);
+        BiomeDefaultFeatures.commonSpawns(spawnBuilder);
+
+        BiomeGenerationSettings.Builder biomeBuilder =
+                new BiomeGenerationSettings.Builder(context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));
+        BiomeDefaultFeatures.addDefaultOres(biomeBuilder);
+        BiomeDefaultFeatures.addDefaultCarversAndLakes(biomeBuilder);
+        biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST);
+        biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.JACARANDA_PETALS_PATCH);
+        biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.BLUE_JACARANDA_TREE);
+
+        return new Biome.BiomeBuilder()
+                .hasPrecipitation(true)
+                .downfall(0.35f)
+                .temperature(0.9f)
+                .generationSettings(biomeBuilder.build())
+                .mobSpawnSettings(spawnBuilder.build())
+                .specialEffects((new BiomeSpecialEffects.Builder())
+                        .waterColor(MapColor.COLOR_CYAN.col)
+                        .waterFogColor(329011)
+                        .grassColorModifier(BiomeSpecialEffects.GrassColorModifier.SWAMP)
+                        .skyColor(calculateSkyColor(0.95f))
+                        .fogColor(MapColor.COLOR_CYAN.col)
+                        .backgroundMusic(Musics.createGameMusic(Holder.direct(SoundEvents.ALLAY_AMBIENT_WITH_ITEM))).build())
+                .build();
+    }
 
     private static int calculateSkyColor(float temperature) {
-        float $$1 = temperature / 3.0F;
-        $$1 = Mth.clamp($$1, -1.0F, 1.0F);
-        return Mth.hsvToRgb(0.62222224F - $$1 * 0.05F, 0.5F + $$1 * 0.1F, 1.0F);
+        float v = temperature / 3.0F;
+        v = Mth.clamp(v, -1.0F, 1.0F);
+        return Mth.hsvToRgb(0.62222224F - v * 0.05F, 0.5F + v * 0.1F, 1.0F);
     }
 
     public static ResourceKey<Biome> registerKey(String name) {

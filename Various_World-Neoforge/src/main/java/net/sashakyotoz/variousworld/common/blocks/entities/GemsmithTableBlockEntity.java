@@ -200,7 +200,7 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
 
     private ItemStack releaseResultStack(RecipeHolder<GemsmithTransformRecipe> recipe, GemsmithTableBlockEntity blockEntity) {
         List<ModConfigController.CrystalingSetting> setting = ModConfigController.CRYSTALING_CONFIG_VALUES;
-        if (recipe.value().tool.getItems()[0].getItem() instanceof TieredItem) {
+        if (recipe.value().tool.getItems()[0].getItem() instanceof TieredItem && setting != null) {
             ItemStack itemstack = recipe.value().tool.getItems()[0].copy();
             ItemStack supplyGemStack = VWItems.SUPPLY_CRYSTAL.toStack();
             String toolName;

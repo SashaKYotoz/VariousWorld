@@ -8,10 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
-import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
-import net.neoforged.neoforge.client.model.generators.ModelProvider;
+import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.sashakyotoz.variousworld.VariousWorld;
@@ -20,7 +17,9 @@ import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWRegistryHelper;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.IntStream;
 
 public class ModBlockStateProvider extends BlockStateProvider {
     public ModBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
@@ -90,6 +89,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         crossWithPropertyBlock(VWBlocks.SODALITE_WART);
         stateFromBlockModel(VWBlocks.GEMSMITH_TABLE);
         furnaceFromBlockModels(VWBlocks.GEMSMITH_FURNACE);
+
+        petalsBlock(VWBlocks.BLUE_JACARANDA_PETALS);
     }
 
 
@@ -192,6 +193,72 @@ public class ModBlockStateProvider extends BlockStateProvider {
             simpleBlock(block.get(),
                     models().cross(BuiltInRegistries.BLOCK.getKey(block.get()).getPath(), blockTexture(block.get())));
         itemModels().getBuilder(BuiltInRegistries.BLOCK.getKey(block.get()).toString()).parent(new ModelFile.UncheckedModelFile("item/generated")).texture("layer0", blockTexture(block.get()));
+    }
+
+    private void petalsBlock(DeferredBlock<?> block) {
+        models().withExistingParent(name(block), "minecraft:block/flowerbed_" + 1)
+                .texture("flowerbed", modLoc("block/" + name(block)))
+                .texture("stem", modLoc("block/" + name(block) + "_stem"));
+        for (int i = 1; i < 5; i++) {
+            models().withExistingParent(name(block) + "_" + i, "minecraft:block/flowerbed_" + i)
+                    .texture("flowerbed", modLoc("block/" + name(block)))
+                    .texture("stem", modLoc("block/" + name(block) + "_stem"));
+        }
+        MultiPartBlockStateBuilder multipart = getMultipartBuilder(block.get());
+        for (int amount = 1; amount < 5; amount++) {
+            ModelFile model = models().getExistingFile(modLoc("block/" + name(block) + "_" + amount));
+            for (Direction dir : Direction.Plane.HORIZONTAL) {
+                int yRot = switch (dir) {
+                    case EAST -> 90;
+                    case SOUTH -> 180;
+                    case WEST -> 270;
+                    default -> 0;
+                };
+                switch (amount) {
+                    case 2 -> multipart
+                            .part()
+                            .modelFile(model)
+                            .rotationY(yRot)
+                            .addModel()
+                            .condition(BlockStateProperties.FLOWER_AMOUNT, 2, 3, 4)
+                            .condition(BlockStateProperties.HORIZONTAL_FACING, dir)
+                            .end();
+                    case 3 -> multipart
+                            .part()
+                            .modelFile(model)
+                            .rotationY(yRot)
+                            .addModel()
+                            .condition(BlockStateProperties.FLOWER_AMOUNT, 3, 4)
+                            .condition(BlockStateProperties.HORIZONTAL_FACING, dir)
+                            .end();
+                    case 4 -> multipart
+                            .part()
+                            .modelFile(model)
+                            .rotationY(yRot)
+                            .addModel()
+                            .condition(BlockStateProperties.FLOWER_AMOUNT, 4)
+                            .condition(BlockStateProperties.HORIZONTAL_FACING, dir)
+                            .end();
+                    default -> multipart
+                            .part()
+                            .modelFile(model)
+                            .rotationY(yRot)
+                            .addModel()
+                            .condition(BlockStateProperties.FLOWER_AMOUNT, 1, 2, 3, 4)
+                            .condition(BlockStateProperties.HORIZONTAL_FACING, dir)
+                            .end();
+                }
+            }
+        }
+        itemModels().basicItem(block.asItem());
+    }
+
+    public String name(DeferredBlock<?> block) {
+        return this.key(block.get()).getPath();
+    }
+
+    private ResourceLocation key(Block block) {
+        return BuiltInRegistries.BLOCK.getKey(block);
     }
 
     private void logBlockWithItem(DeferredBlock<?> block) {

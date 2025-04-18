@@ -4,6 +4,7 @@ import com.google.gson.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.MultiPackResourceManager;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TieredItem;
@@ -111,7 +112,7 @@ public class ConfiguredData {
 
     public static void registerMissingRecipes() {
         BuiltInRegistries.ITEM.forEach(item -> {
-            if (item instanceof TieredItem) {
+            if (item instanceof TieredItem && ModConfigController.CRYSTALING_CONFIG_VALUES != null) {
                 for (ModConfigController.CrystalingSetting setting : ModConfigController.CRYSTALING_CONFIG_VALUES) {
                     ResourceLocation tool = BuiltInRegistries.ITEM.getKey(item);
                     ResourceLocation gem = BuiltInRegistries.ITEM.getKey(setting.item().build());
