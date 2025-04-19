@@ -9,7 +9,7 @@
   "downfall": 0.35,
   "effects": {
     "fog_color": 5013401,
-    "grass_color_modifier": "swamp",
+    "grass_color": 8375321,
     "music": {
       "max_delay": 24000,
       "min_delay": 12000,

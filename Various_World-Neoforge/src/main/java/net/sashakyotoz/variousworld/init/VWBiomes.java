@@ -84,9 +84,8 @@ public class VWBiomes {
                 .specialEffects((new BiomeSpecialEffects.Builder())
                         .waterColor(MapColor.COLOR_CYAN.col)
                         .waterFogColor(329011)
-                        .grassColorModifier(BiomeSpecialEffects.GrassColorModifier.SWAMP)
+                        .grassColorOverride(MapColor.COLOR_LIGHT_GREEN.col)
                         .skyColor(calculateSkyColor(0.95f))
-                        .fogColor(MapColor.COLOR_CYAN.col)
                         .backgroundMusic(Musics.createGameMusic(Holder.direct(SoundEvents.ALLAY_AMBIENT_WITH_ITEM))).build())
                 .build();
     }

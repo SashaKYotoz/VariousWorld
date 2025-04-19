@@ -33,7 +33,7 @@ public abstract class ModelBakeryMixin {
                     if (((ResourceLocation) key).getNamespace().contains(VariousWorld.MOD_ID)
                             && !((ResourceLocation) key).toString().contains("air")
                             && ((ResourceLocation) key).toString().contains(toolName)
-                            && !setting.item().equals(Items.AIR)
+                            && !setting.item().build().equals(Items.AIR)
                             && ((ResourceLocation) key).toString().contains(setting.prefix())) {
                         BlockModel blockmodel = BlockModel.fromString(ConfiguredData.missingCrystalJson(toolName, setting.item().build()).toString());
                         this.unbakedCache.put(((ResourceLocation) key), blockmodel);

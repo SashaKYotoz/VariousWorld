@@ -1,6 +1,7 @@
 package net.sashakyotoz.variousworld.common.blocks.entities.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -60,6 +61,7 @@ public class GemsmithTableScreen extends AbstractContainerScreen<GemsmithTableMe
 
     @Override
     protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        guiGraphics.drawString(this.font, Component.translatable("block.various_world.gemsmith_table"), 56, 4, MapColor.COLOR_GRAY.col, false);
+        if (Minecraft.getInstance().getLanguageManager().getSelected().equals("en_us"))
+            guiGraphics.drawString(this.font, Component.translatable("block.various_world.gemsmith_table"), 56, 4, MapColor.COLOR_GRAY.col, false);
     }
 }

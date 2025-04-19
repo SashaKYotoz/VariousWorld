@@ -2,7 +2,6 @@ package net.sashakyotoz.variousworld.common;
 
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
@@ -30,8 +29,10 @@ public class OnModActionsTrigger {
 
     @SubscribeEvent
     public static void commonSetup(FMLCommonSetupEvent event) {
-        ModConfigController.init();
-        ConfiguredData.processPendingRecipes();
+        event.enqueueWork(() -> {
+            ModConfigController.init();
+            ConfiguredData.processPendingRecipes();
+        });
         ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(VWBlocks.SODALITE_WART.getId(), VWBlocks.POTTED_SODALITE_WART);
         ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(VWBlocks.CRYSTALIC_OAK_SAPLING.getId(), VWBlocks.POTTED_CRYSTALIC_OAK_SAPLING);
         ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(VWBlocks.BLUE_JACARANDA_SAPLING.getId(), VWBlocks.POTTED_BLUE_JACARANDA_SAPLING);

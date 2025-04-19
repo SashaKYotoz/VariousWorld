@@ -2,6 +2,7 @@ package net.sashakyotoz.variousworld.datagen;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
@@ -21,8 +22,9 @@ public class ModLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        VWRegistryHelper.ITEMS.getEntries().forEach(this::addItem);
+        VWRegistryHelper.ITEMS.getEntries().stream().filter(item -> !(item.get() instanceof BlockItem)).forEach(this::addItem);
         VWRegistryHelper.BLOCKS.getEntries().forEach(this::addBlock);
+        VWRegistryHelper.ENTITIES.getEntries().forEach(this::addEntityType);
         this.add("creativetab.various_world_tab","Various World");
     }
 

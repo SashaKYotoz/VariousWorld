@@ -136,8 +136,8 @@ public class ConfiguredData {
         BuiltInRegistries.ITEM.forEach(item -> {
             if (item instanceof TieredItem) {
                 ResourceLocation toolRL = BuiltInRegistries.ITEM.getKey(item);
-                if (!toolRL.getNamespace().equals("minecraft")) {
-                    for (PendingRecipe pending : pendingRecipes) {
+                for (PendingRecipe pending : pendingRecipes) {
+                    if (!pending.lazyGem.getId().getNamespace().equals("minecraft")) {
                         Item gemItem = pending.lazyGem.build();
                         if (gemItem.equals(Items.AIR)) {
                             VariousWorld.LOGGER.info("Pending recipe: gem item {} still not found.", pending.lazyGem.getId());
