@@ -94,9 +94,15 @@
     "monster": [
       {
         "type": "various_world:crystalic_slime",
-        "maxCount": 3,
+        "maxCount": 2,
         "minCount": 1,
-        "weight": 25
+        "weight": 20
+      },
+      {
+        "type": "various_world:wandering_zombie",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 10
       }
     ],
     "underground_water_creature": [],

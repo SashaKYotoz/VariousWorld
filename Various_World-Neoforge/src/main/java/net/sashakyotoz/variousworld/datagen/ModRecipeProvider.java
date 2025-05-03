@@ -2,10 +2,8 @@ package net.sashakyotoz.variousworld.datagen;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TieredItem;
@@ -63,7 +61,10 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 gemsmith(recipeOutput, item, Items.AMETHYST_SHARD);
             }
         });
-
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, Items.MAGENTA_DYE)
+                .unlockedBy("has_block", has(VWBlocks.BLUE_JACARANDA_PETALS.get()))
+                .requires(VWBlocks.BLUE_JACARANDA_PETALS.get())
+                .save(recipeOutput);
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, VWBlocks.GEMSMITH_TABLE.get())
                 .define('i', Items.IRON_INGOT)
                 .define('s', Items.STICK)
@@ -80,6 +81,16 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("dfd")
                 .pattern("ddd")
                 .unlockedBy("has_block", has(Items.DEEPSLATE_BRICKS))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, VWBlocks.ARTIFACT_TABLE.get())
+                .define('g', Items.GLASS)
+                .define('p', Items.PURPLE_CARPET)
+                .define('s', VWItems.SODALITE_SHARD.get())
+                .define('b', VWBlocks.BLUE_JACARANDA_PLANKS.get())
+                .pattern("sgs")
+                .pattern("bpb")
+                .pattern("bbb")
+                .unlockedBy("has_block", has(VWBlocks.BLUE_JACARANDA_PLANKS.get()))
                 .save(recipeOutput);
     }
 

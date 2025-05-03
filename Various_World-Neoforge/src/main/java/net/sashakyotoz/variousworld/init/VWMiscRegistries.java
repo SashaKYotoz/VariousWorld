@@ -14,6 +14,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.sashakyotoz.variousworld.common.blocks.entities.gui.ArtifactTableMenu;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.GemsmithTableMenu;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.common.blocks.entities.recipes.GemsmithTransformRecipe;
@@ -46,6 +47,7 @@ public class VWMiscRegistries {
 
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, VariousWorld.MOD_ID);
     public static final DeferredHolder<MenuType<?>, MenuType<GemsmithTableMenu>> GEMSMITH_TABLE = MENUS.register("gemsmith_table", () -> IMenuTypeExtension.create(GemsmithTableMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<ArtifactTableMenu>> ARTIFACT_TABLE = MENUS.register("artifact_table", () -> IMenuTypeExtension.create(ArtifactTableMenu::new));
 
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, VariousWorld.MOD_ID);
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> PEACEFUL_PARTICLE = PARTICLES.register("peaceful_particle", () -> new SimpleParticleType(false));

@@ -25,4 +25,6 @@ public class VWItems {
 
     public static final DeferredItem<DeferredSpawnEggItem> CRYSTALIC_SLIME_SPAWN_EGG = VWRegistryHelper.ofItem("crystalic_slime_spawn_egg", () ->
             new DeferredSpawnEggItem(VWEntities.CRYSTALIC_SLIME, -6693377, -3407617, new Item.Properties())).build();
+    public static final DeferredItem<DeferredSpawnEggItem> WANDERING_ZOMBIE_SPAWN_EGG = VWRegistryHelper.ofItem("wandering_zombie_spawn_egg", () ->
+            new DeferredSpawnEggItem(VWEntities.WANDERING_ZOMBIE, -12425662, -13057, new Item.Properties())).build();
 }

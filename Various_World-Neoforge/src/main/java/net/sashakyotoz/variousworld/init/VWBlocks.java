@@ -8,16 +8,14 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.sashakyotoz.variousworld.common.blocks.custom.ModRotatedPillarBlock;
 import net.sashakyotoz.variousworld.common.blocks.ModWoodType;
 import net.sashakyotoz.variousworld.common.blocks.custom.*;
-import net.sashakyotoz.variousworld.common.blocks.entities.GemsmithFurnaceBlockEntity;
-import net.sashakyotoz.variousworld.common.blocks.entities.GemsmithTableBlockEntity;
-import net.sashakyotoz.variousworld.common.blocks.entities.ModHangingSignBlockEntity;
-import net.sashakyotoz.variousworld.common.blocks.entities.ModSignBlockEntity;
+import net.sashakyotoz.variousworld.common.blocks.entities.*;
 import net.sashakyotoz.variousworld.common.blocks.signs.ModHangingSignBlock;
 import net.sashakyotoz.variousworld.common.blocks.signs.ModHangingWallSignBlock;
 import net.sashakyotoz.variousworld.common.blocks.signs.ModStandingSignBlock;
@@ -56,8 +54,8 @@ public class VWBlocks {
         ));
     }
 
-    private static final BlockBehaviour.Properties crystalWood = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).strength(2);
-    private static final BlockBehaviour.Properties jacarandaWood = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_MAGENTA).strength(1.5f);
+    private static final BlockBehaviour.Properties crystalWood = BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).ignitedByLava().strength(2);
+    private static final BlockBehaviour.Properties jacarandaWood = BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_MAGENTA).ignitedByLava().strength(1.5f);
     private static final BlockBehaviour.Properties crystalDirt = BlockBehaviour.Properties.of().strength(0.5F).requiresCorrectToolForDrops();
     //crystalic oak
     public static final DeferredBlock<ModRotatedPillarBlock> STRIPPED_CRYSTALIC_OAK_LOG = VWRegistryHelper.ofBlock("stripped_crystalic_oak_log", () -> new ModRotatedPillarBlock(crystalWood))
@@ -68,7 +66,7 @@ public class VWBlocks {
             .tag(BlockTags.LOGS_THAT_BURN).tool("_axe").model().drop().build();
     public static final DeferredBlock<ModRotatedPillarBlock> CRYSTALIC_OAK_WOOD = VWRegistryHelper.ofBlock("crystalic_oak_wood", () -> new ModRotatedPillarBlock(crystalWood))
             .tag(BlockTags.LOGS_THAT_BURN).tool("_axe").model().drop().build();
-    public static final DeferredBlock<LeavesBlock> CRYSTALIC_OAK_LEAVES = VWRegistryHelper.ofBlock("crystalic_oak_leaves", () -> new LeavesBlock(crystalWood.sound(SoundType.CHERRY_LEAVES).instabreak().noOcclusion())).tag(BlockTags.LEAVES).tool("_hoe").model().cutout().build();
+    public static final DeferredBlock<LeavesBlock> CRYSTALIC_OAK_LEAVES = VWRegistryHelper.ofBlock("crystalic_oak_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).ignitedByLava().sound(SoundType.CHERRY_LEAVES).instabreak().noOcclusion())).tag(BlockTags.LEAVES).tool("_hoe").model().cutout().build();
     public static final DeferredBlock<Block> CRYSTALIC_OAK_PLANKS = VWRegistryHelper.ofBlock("crystalic_oak_planks", () -> new Block(crystalWood)).tag(BlockTags.PLANKS).tool("_axe").drop().build();
     public static final DeferredBlock<StairBlock> CRYSTALIC_OAK_STAIRS = VWRegistryHelper.ofBlock("crystalic_oak_stairs", () -> new StairBlock(CRYSTALIC_OAK_PLANKS.get().defaultBlockState(), crystalWood)).tool("_axe").tag(BlockTags.WOODEN_STAIRS).drop().build();
     public static final DeferredBlock<SlabBlock> CRYSTALIC_OAK_SLAB = VWRegistryHelper.ofBlock("crystalic_oak_slab", () -> new SlabBlock(crystalWood)).tag(BlockTags.WOODEN_SLABS).tool("_axe").drop().build();
@@ -82,9 +80,9 @@ public class VWBlocks {
     public static final DeferredBlock<ModWallSignBlock> CRYSTALIC_OAK_WALL_SIGN = VWRegistryHelper.ofBlock("crystalic_oak_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN).lootFrom(CRYSTALIC_OAK_SIGN), ModWoodType.CRYSTALIC_OAK), false).build();
     public static final DeferredBlock<ModHangingSignBlock> CRYSTALIC_OAK_HANGING_SIGN = VWRegistryHelper.ofBlock("crystalic_oak_hanging_sign", () -> new ModHangingSignBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN), ModWoodType.CRYSTALIC_OAK), false).tag(BlockTags.CEILING_HANGING_SIGNS).drop().build();
     public static final DeferredBlock<ModHangingWallSignBlock> CRYSTALIC_OAK_HANGING_WALL_SIGN = VWRegistryHelper.ofBlock("crystalic_oak_hanging_wall_sign", () -> new ModHangingWallSignBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN).lootFrom(CRYSTALIC_OAK_HANGING_SIGN), ModWoodType.CRYSTALIC_OAK), false).build();
-    public static final DeferredBlock<SaplingBlock> CRYSTALIC_OAK_SAPLING = VWRegistryHelper.ofBlock("crystalic_oak_sapling", () -> new SaplingBlock(VWTreeGrowers.CRYSTALIC_TREE, crystalWood.instabreak().noCollission().randomTicks().sound(SoundType.CHERRY_SAPLING))).tag(BlockTags.SAPLINGS).tool("_hoe").model(VWRegistryHelper.Models.CROSS).drop().cutout().build();
+    public static final DeferredBlock<SaplingBlock> CRYSTALIC_OAK_SAPLING = VWRegistryHelper.ofBlock("crystalic_oak_sapling", () -> new SaplingBlock(VWTreeGrowers.CRYSTALIC_TREE, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).ignitedByLava().instabreak().noCollission().randomTicks().sound(SoundType.CHERRY_SAPLING))).tag(BlockTags.SAPLINGS).tool("_hoe").model(VWRegistryHelper.Models.CROSS).drop().cutout().build();
     public static final DeferredBlock<Block> DIRT_WITH_CRYSTALS = VWRegistryHelper.ofBlock("dirt_with_crystals", () -> new Block(crystalDirt.mapColor(MapColor.DIRT))).tag(BlockTags.DIRT, BlockTags.SNIFFER_DIGGABLE_BLOCK).tool("stone_shovel").model().drop().build();
-    public static final DeferredBlock<CrystallineGrassBlock> CRYSTALIC_GRASS_BLOCK = VWRegistryHelper.ofBlock("crystalic_grass_block", () -> new CrystallineGrassBlock(crystalDirt.mapColor(MapColor.COLOR_CYAN))).tag(BlockTags.DIRT, BlockTags.SNIFFER_DIGGABLE_BLOCK).tool("stone_shovel").model(VWRegistryHelper.Models.GRASS).drop().build();
+    public static final DeferredBlock<CrystallineGrassBlock> CRYSTALIC_GRASS_BLOCK = VWRegistryHelper.ofBlock("crystalic_grass_block", () -> new CrystallineGrassBlock(crystalDirt.mapColor(MapColor.COLOR_CYAN))).tag(BlockTags.DIRT, BlockTags.SNIFFER_DIGGABLE_BLOCK).tool("stone_shovel").model(VWRegistryHelper.Models.GRASS).build();
     public static final DeferredBlock<SodaliteWartBlock> SODALITE_WART = VWRegistryHelper.ofBlock("sodalite_wart", () -> new SodaliteWartBlock(MobEffects.GLOWING, 20, BlockBehaviour.Properties.ofFullCopy(Blocks.PEONY).randomTicks()
             .emissiveRendering((blockState, blockGetter, blockPos) -> blockState.getValue(SodaliteWartBlock.CLOSED)).lightLevel(lightLevelFromBlockState(6, SodaliteWartBlock.CLOSED)))).cutout().tag(BlockTags.FLOWERS).build();
     public static final DeferredBlock<FlowerPotBlock> POTTED_SODALITE_WART = VWRegistryHelper.ofBlock("potted_sodalite_wart", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, SODALITE_WART, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_POPPY)))
@@ -100,7 +98,7 @@ public class VWBlocks {
             .tag(BlockTags.LOGS_THAT_BURN).tool("_axe").model().drop().build();
     public static final DeferredBlock<ModRotatedPillarBlock> BLUE_JACARANDA_WOOD = VWRegistryHelper.ofBlock("blue_jacaranda_wood", () -> new ModRotatedPillarBlock(jacarandaWood))
             .tag(BlockTags.LOGS_THAT_BURN).tool("_axe").model().drop().build();
-    public static final DeferredBlock<LeavesBlock> BLUE_JACARANDA_LEAVES = VWRegistryHelper.ofBlock("blue_jacaranda_leaves", () -> new LeavesBlock(jacarandaWood.sound(SoundType.CHERRY_LEAVES).instabreak().noOcclusion())).tag(BlockTags.LEAVES).tool("_hoe").model().cutout().build();
+    public static final DeferredBlock<LeavesBlock> BLUE_JACARANDA_LEAVES = VWRegistryHelper.ofBlock("blue_jacaranda_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_MAGENTA).ignitedByLava().sound(SoundType.CHERRY_LEAVES).instabreak().noOcclusion())).tag(BlockTags.LEAVES).tool("_hoe").model().cutout().build();
     public static final DeferredBlock<Block> BLUE_JACARANDA_PLANKS = VWRegistryHelper.ofBlock("blue_jacaranda_planks", () -> new Block(jacarandaWood)).tag(BlockTags.PLANKS).tool("_axe").drop().build();
     public static final DeferredBlock<StairBlock> BLUE_JACARANDA_STAIRS = VWRegistryHelper.ofBlock("blue_jacaranda_stairs", () -> new StairBlock(CRYSTALIC_OAK_PLANKS.get().defaultBlockState(), jacarandaWood)).tool("_axe").tag(BlockTags.WOODEN_STAIRS).drop().build();
     public static final DeferredBlock<SlabBlock> BLUE_JACARANDA_SLAB = VWRegistryHelper.ofBlock("blue_jacaranda_slab", () -> new SlabBlock(jacarandaWood)).tag(BlockTags.WOODEN_SLABS).tool("_axe").drop().build();
@@ -114,7 +112,7 @@ public class VWBlocks {
     public static final DeferredBlock<ModWallSignBlock> BLUE_JACARANDA_WALL_SIGN = VWRegistryHelper.ofBlock("blue_jacaranda_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN).lootFrom(BLUE_JACARANDA_SIGN), ModWoodType.BLUE_JACARANDA), false).build();
     public static final DeferredBlock<ModHangingSignBlock> BLUE_JACARANDA_HANGING_SIGN = VWRegistryHelper.ofBlock("blue_jacaranda_hanging_sign", () -> new ModHangingSignBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN), ModWoodType.BLUE_JACARANDA), false).tag(BlockTags.CEILING_HANGING_SIGNS).drop().build();
     public static final DeferredBlock<ModHangingWallSignBlock> BLUE_JACARANDA_HANGING_WALL_SIGN = VWRegistryHelper.ofBlock("blue_jacaranda_hanging_wall_sign", () -> new ModHangingWallSignBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN).lootFrom(BLUE_JACARANDA_HANGING_SIGN), ModWoodType.BLUE_JACARANDA), false).build();
-    public static final DeferredBlock<SaplingBlock> BLUE_JACARANDA_SAPLING = VWRegistryHelper.ofBlock("blue_jacaranda_sapling", () -> new SaplingBlock(VWTreeGrowers.BLUE_JACARANDA_TREE, jacarandaWood.instabreak().noCollission().randomTicks().sound(SoundType.MANGROVE_ROOTS))).tag(BlockTags.SAPLINGS).tool("_hoe").model(VWRegistryHelper.Models.CROSS).drop().cutout().build();
+    public static final DeferredBlock<SaplingBlock> BLUE_JACARANDA_SAPLING = VWRegistryHelper.ofBlock("blue_jacaranda_sapling", () -> new SaplingBlock(VWTreeGrowers.BLUE_JACARANDA_TREE, BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_MAGENTA).ignitedByLava().instabreak().noCollission().randomTicks().sound(SoundType.MANGROVE_ROOTS))).tag(BlockTags.SAPLINGS).tool("_hoe").model(VWRegistryHelper.Models.CROSS).drop().cutout().build();
     public static final DeferredBlock<PinkPetalsBlock> BLUE_JACARANDA_PETALS = VWRegistryHelper.ofBlock("blue_jacaranda_petals", () -> new PinkPetalsBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.PINK_PETALS).mapColor(MapColor.TERRACOTTA_MAGENTA))).tag(BlockTags.FLOWERS).tool("_hoe").cutout().build();
     public static final DeferredBlock<FlowerPotBlock> POTTED_BLUE_JACARANDA_SAPLING = VWRegistryHelper.ofBlock("potted_blue_jacaranda_sapling", () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, BLUE_JACARANDA_SAPLING, BlockBehaviour.Properties.ofFullCopy(BLUE_JACARANDA_SAPLING.get())))
             .model(VWRegistryHelper.Models.CROSS_POTTED).cutout().tag(BlockTags.FLOWER_POTS).build();
@@ -134,6 +132,8 @@ public class VWBlocks {
             .tool("stone_pickaxe").drop().cutout().build();
     public static final DeferredBlock<GemsmithFurnaceBlock> GEMSMITH_FURNACE = VWRegistryHelper.ofBlock("gemsmith_furnace", () -> new GemsmithFurnaceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_BRICKS)))
             .tool("stone_pickaxe").drop().build();
+    public static final DeferredBlock<ArtifactTableBlock> ARTIFACT_TABLE = VWRegistryHelper.ofBlock("artifact_table", () -> new ArtifactTableBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).noOcclusion().strength(2.5F).sound(SoundType.WOOD).ignitedByLava()))
+            .tool("_axe").drop().translucent().build();
 
     public static ToIntFunction<BlockState> lightLevelFromBlockState(int litLevel, BooleanProperty property) {
         return state -> state.getValue(property) ? litLevel : 0;
@@ -156,5 +156,8 @@ public class VWBlocks {
     ).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<GemsmithFurnaceBlockEntity>> GEMSMITH_FURNACE_BE = VWRegistryHelper.BLOCK_ENTITIES.register("gemsmith_furnace", () -> BlockEntityType.Builder.of(GemsmithFurnaceBlockEntity::new,
             VWBlocks.GEMSMITH_FURNACE.get()
+    ).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ArtifactTableBlockEntity>> ARTIFACT_TABLE_BE = VWRegistryHelper.BLOCK_ENTITIES.register("artifact_table", () -> BlockEntityType.Builder.of(ArtifactTableBlockEntity::new,
+            VWBlocks.ARTIFACT_TABLE.get()
     ).build(null));
 }

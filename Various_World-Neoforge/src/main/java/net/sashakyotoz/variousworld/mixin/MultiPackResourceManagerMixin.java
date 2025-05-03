@@ -35,7 +35,7 @@ public class MultiPackResourceManagerMixin implements IResourceExistence {
 
     @Unique
     private static Resource readAndApply(Optional<Resource> resource, ConfiguredData data) {
-        VariousWorld.LOGGER.info("Applying configured data: {}", data.target);
+//        VariousWorld.LOGGER.info("Applying configured data: {}", data.target);
 
         String result = "";
         if (resource.isEmpty())
@@ -123,6 +123,6 @@ public class MultiPackResourceManagerMixin implements IResourceExistence {
 
     @Override
     public boolean resourceExists(ResourceLocation id) {
-        return ((MultiPackResourceManager)(Object)this).getResource(id).isPresent();
+        return ((MultiPackResourceManager) (Object) this).getResource(id).isPresent();
     }
 }

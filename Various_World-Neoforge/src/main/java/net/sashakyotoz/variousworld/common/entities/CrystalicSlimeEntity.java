@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.EntityType;
@@ -16,7 +15,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.sashakyotoz.variousworld.init.VWBiomes;
-import net.sashakyotoz.variousworld.init.VWBlocks;
 
 public class CrystalicSlimeEntity extends Slime {
     private static final EntityDataAccessor<Integer> TEXTURE_DATA = SynchedEntityData.defineId(CrystalicSlimeEntity.class, EntityDataSerializers.INT);

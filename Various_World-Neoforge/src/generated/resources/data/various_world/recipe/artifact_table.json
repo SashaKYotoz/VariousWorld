@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "b": {
+      "item": "various_world:blue_jacaranda_planks"
+    },
+    "g": {
+      "item": "minecraft:glass"
+    },
+    "p": {
+      "item": "minecraft:purple_carpet"
+    },
+    "s": {
+      "item": "various_world:sodalite_shard"
+    }
+  },
+  "pattern": [
+    "sgs",
+    "bpb",
+    "bbb"
+  ],
+  "result": {
+    "count": 1,
+    "id": "various_world:artifact_table"
+  }
+}

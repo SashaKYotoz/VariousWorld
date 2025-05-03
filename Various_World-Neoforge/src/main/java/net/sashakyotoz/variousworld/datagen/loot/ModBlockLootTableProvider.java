@@ -76,7 +76,8 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         this.dropWhenSilkTouch(VWBlocks.MEDIUM_SODALITE_BUD.get());
         this.dropWhenSilkTouch(VWBlocks.SMALL_SODALITE_BUD.get());
 
-        add(VWBlocks.BLUE_JACARANDA_PETALS.get(), this::createPetalsDrops);
+        this.add(VWBlocks.BLUE_JACARANDA_PETALS.get(), this::createPetalsDrops);
+        this.add(VWBlocks.CRYSTALIC_GRASS_BLOCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, VWBlocks.DIRT_WITH_CRYSTALS.get()));
     }
 
     @Override

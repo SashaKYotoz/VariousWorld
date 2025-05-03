@@ -17,9 +17,7 @@ import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWRegistryHelper;
 
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Function;
-import java.util.stream.IntStream;
 
 public class ModBlockStateProvider extends BlockStateProvider {
     public ModBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
@@ -88,6 +86,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         }
         crossWithPropertyBlock(VWBlocks.SODALITE_WART);
         stateFromBlockModel(VWBlocks.GEMSMITH_TABLE);
+        stateFromBlockModel(VWBlocks.ARTIFACT_TABLE);
         furnaceFromBlockModels(VWBlocks.GEMSMITH_FURNACE);
 
         petalsBlock(VWBlocks.BLUE_JACARANDA_PETALS);

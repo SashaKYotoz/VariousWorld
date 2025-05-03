@@ -1,0 +1,23 @@
+{
+  "fallback": "various_world:castle_ruin/ruins",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "various_world:castle_ruins/castle_ruins_main_tower0",
+        "processors": "minecraft:empty"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "various_world:castle_ruins/castle_ruins_main_tower1",
+        "processors": "minecraft:empty"
+      }
+    }
+  ]
+}

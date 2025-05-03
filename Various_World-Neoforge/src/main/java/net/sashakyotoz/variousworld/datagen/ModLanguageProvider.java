@@ -2,6 +2,7 @@ package net.sashakyotoz.variousworld.datagen;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -9,6 +10,7 @@ import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.init.VWRegistryHelper;
+import net.sashakyotoz.variousworld.init.VWVillagers;
 
 public class ModLanguageProvider extends LanguageProvider {
     private static final String NORMAL_CHARS = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_,;.?!/\\'";
@@ -25,12 +27,17 @@ public class ModLanguageProvider extends LanguageProvider {
         VWRegistryHelper.ITEMS.getEntries().stream().filter(item -> !(item.get() instanceof BlockItem)).forEach(this::addItem);
         VWRegistryHelper.BLOCKS.getEntries().forEach(this::addBlock);
         VWRegistryHelper.ENTITIES.getEntries().forEach(this::addEntityType);
+        VWVillagers.VILLAGER_PROFESSIONS.getEntries().forEach(this::addVillagerType);
         this.add("creativetab.various_world_tab","Various World");
     }
 
     private void addEntityType(DeferredHolder<EntityType<?>, ?> entity) {
         String key = entity.getId().getPath();
         super.add("entity.various_world." + key, convertToName(key));
+    }
+    private void addVillagerType(DeferredHolder<VillagerProfession, ?> entity) {
+        String key = entity.getId().getPath();
+        super.add("entity.minecraft.villager.various_world." + key, convertToName(key));
     }
 
     @Override

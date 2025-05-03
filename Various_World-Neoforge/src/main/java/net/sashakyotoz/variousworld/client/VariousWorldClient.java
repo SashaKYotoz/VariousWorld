@@ -1,12 +1,10 @@
 package net.sashakyotoz.variousworld.client;
 
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -17,11 +15,14 @@ import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
-import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.client.models.CrystalicSlimeModel;
+import net.sashakyotoz.variousworld.client.models.WanderingZombieModel;
 import net.sashakyotoz.variousworld.client.renderers.CrystalicSlimeRenderer;
+import net.sashakyotoz.variousworld.client.renderers.WanderingZombieRenderer;
 import net.sashakyotoz.variousworld.common.blocks.ModWoodType;
+import net.sashakyotoz.variousworld.common.blocks.entities.gui.ArtifactTableScreen;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.GemsmithTableScreen;
+import net.sashakyotoz.variousworld.common.blocks.entities.render.ArtifactTableBlockEntityRenderer;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWEntities;
 import net.sashakyotoz.variousworld.init.VWMiscRegistries;
@@ -29,17 +30,15 @@ import net.sashakyotoz.variousworld.init.VWRegistryHelper;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class VariousWorldClient {
-    private static final ModelLayerLocation CRYSTALIC_OAK_BOAT_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(VariousWorld.MOD_ID, "boat/crystalic_oak"), "main");
-    private static final ModelLayerLocation CRYSTALIC_OAK_CHEST_BOAT_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(VariousWorld.MOD_ID, "chest_boat/crystalic_oak"), "main");
-    private static final ModelLayerLocation MAGNOLIA_BOAT_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(VariousWorld.MOD_ID, "boat/magnolia"), "main");
-    private static final ModelLayerLocation MAGNOLIA_CHEST_BOAT_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(VariousWorld.MOD_ID, "chest_boat/magnolia"), "main");
 
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(VWBlocks.MOD_SIGN.get(), SignRenderer::new);
         event.registerBlockEntityRenderer(VWBlocks.MOD_HANGING_SIGN.get(), HangingSignRenderer::new);
+        event.registerBlockEntityRenderer(VWBlocks.ARTIFACT_TABLE_BE.get(), ArtifactTableBlockEntityRenderer::new);
 
         event.registerEntityRenderer(VWEntities.CRYSTALIC_SLIME.get(), CrystalicSlimeRenderer::new);
+        event.registerEntityRenderer(VWEntities.WANDERING_ZOMBIE.get(), WanderingZombieRenderer::new);
     }
 
     @SubscribeEvent
@@ -57,12 +56,14 @@ public class VariousWorldClient {
     @SubscribeEvent
     public static void registerScreens(RegisterMenuScreensEvent event) {
         event.register(VWMiscRegistries.GEMSMITH_TABLE.get(), GemsmithTableScreen::new);
+        event.register(VWMiscRegistries.ARTIFACT_TABLE.get(), ArtifactTableScreen::new);
     }
 
     @SubscribeEvent
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(CrystalicSlimeModel.LAYER_LOCATION, CrystalicSlimeModel::createInnerBodyLayer);
         event.registerLayerDefinition(CrystalicSlimeModel.OUTER_LAYER_LOCATION, CrystalicSlimeModel::createOuterBodyLayer);
+        event.registerLayerDefinition(WanderingZombieModel.LAYER_LOCATION, WanderingZombieModel::createBodyLayer);
     }
 
     @SubscribeEvent

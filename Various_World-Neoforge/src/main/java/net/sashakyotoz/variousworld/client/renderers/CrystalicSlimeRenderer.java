@@ -22,16 +22,16 @@ public class CrystalicSlimeRenderer extends MobRenderer<CrystalicSlimeEntity, Cr
         this.addLayer(new CrystalicSlimeOuterLayer<>(this, context.getModelSet()));
     }
 
-    public void render(CrystalicSlimeEntity entity, float p_115977_, float p_115978_, PoseStack stack, MultiBufferSource p_115980_, int p_115981_) {
+    public void render(CrystalicSlimeEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
         this.shadowRadius = 0.25F * (float) entity.getSize();
-        super.render(entity, p_115977_, p_115978_, stack, p_115980_, p_115981_);
+        super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }
 
-    protected void scale(CrystalicSlimeEntity entity, PoseStack stack, float p_115985_) {
+    protected void scale(CrystalicSlimeEntity entity, PoseStack stack, float partialTickTime) {
         stack.scale(0.999F, 0.999F, 0.999F);
         stack.translate(0.0D, 0.001F, 0.0D);
         float f1 = (float) entity.getSize();
-        float f2 = Mth.lerp(p_115985_, entity.oSquish, entity.squish) / (f1 * 0.5F + 1.0F);
+        float f2 = Mth.lerp(partialTickTime, entity.oSquish, entity.squish) / (f1 * 0.5F + 1.0F);
         float f3 = 1.0F / (f2 + 1.0F);
         stack.scale(f3 * f1, 1.0F / f3 * f1, f3 * f1);
     }

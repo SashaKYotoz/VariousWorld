@@ -1,4 +1,5 @@
 {
+  "block.various_world.artifact_table": "Артефактичний стіл",
   "block.various_world.blue_jacaranda_button": "Синя жакарандова кнопка",
   "block.various_world.blue_jacaranda_door": "Сині жакарандові двері",
   "block.various_world.blue_jacaranda_fence": "Синя жакарандовий паркан",
@@ -52,10 +53,14 @@
   "block.various_world.stripped_crystalic_oak_log": "Обтесана кристалічно дубова колода",
   "block.various_world.stripped_crystalic_oak_wood": "Обтесана кристалічно дубова деревина",
   "creativetab.various_world_tab": "Various World",
+  "entity.minecraft.villager.various_world.artifactologist": "Артефактологіст",
+  "entity.minecraft.villager.various_world.gemsmither": "Коваль самоцвітів",
   "entity.various_world.crystalic_slime": "Кристалічний слайм",
+  "entity.various_world.wandering_zombie": "Мандруючий зомбі",
   "item.various_world.crystalic_slime_spawn_egg": "Яйце виклику кристального слайму",
   "item.various_world.crystalline_slime_ball": "Кристалічний слизовий згусток",
   "item.various_world.crystalline_strength": "Кристалізована потуга",
   "item.various_world.sodalite_shard": "Содалітовий уламок",
-  "item.various_world.supply_crystal": "Кристал утримувач"
+  "item.various_world.supply_crystal": "Кристал утримувач",
+  "item.various_world.wandering_zombie_spawn_egg": "Яйце виклику мандруючого зомбі"
 }

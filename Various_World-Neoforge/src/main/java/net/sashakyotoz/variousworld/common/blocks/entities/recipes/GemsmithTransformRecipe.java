@@ -47,12 +47,12 @@ public class GemsmithTransformRecipe implements GemsmithRecipe {
 
     @Override
     public ItemStack assemble(GemsmithRecipeInput input, HolderLookup.Provider provider) {
-        List<ModConfigController.CrystalingSetting> setting = ModConfigController.CRYSTALING_CONFIG_VALUES;
+        List<ModConfigController.GemsmithingSetting> setting = ModConfigController.CRYSTALING_CONFIG_VALUES;
         if (input.tool().getItem() instanceof TieredItem && setting != null) {
             ItemStack itemstack = input.tool().copy();
             ItemStack supplyGemStack = VWItems.SUPPLY_CRYSTAL.toStack();
             String toolName;
-            for (ModConfigController.CrystalingSetting crystalingSetting : setting) {
+            for (ModConfigController.GemsmithingSetting crystalingSetting : setting) {
                 if (input.gem().is(crystalingSetting.item().build())) {
                     switch (itemstack.getItem()) {
                         case TieredItem item when item instanceof SwordItem -> toolName = "sword";

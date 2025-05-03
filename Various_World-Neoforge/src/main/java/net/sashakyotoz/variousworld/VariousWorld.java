@@ -25,6 +25,7 @@ public class VariousWorld {
         ConfiguredData.register();
         VWTags.init();
         VWMiscRegistries.register(bus);
+        VWVillagers.register(bus);
         VWFeatures.register(bus);
     }
 

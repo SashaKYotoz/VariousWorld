@@ -26,7 +26,7 @@ logoFile="logo.png" #optional
 authors = "SashaKYotoz" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
-description = '''${mod_description}'''
+description = '''Across world and its beauty!'''
 
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.
 [[mixins]]

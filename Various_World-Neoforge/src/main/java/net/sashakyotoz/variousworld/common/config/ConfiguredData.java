@@ -4,7 +4,6 @@ import com.google.gson.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.MultiPackResourceManager;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TieredItem;
@@ -74,7 +73,7 @@ public class ConfiguredData {
     private static JsonArray getOverrides() {
         JsonArray overrides = new JsonArray();
         for (int i = 0; i < ModConfigController.CRYSTALING_CONFIG_VALUES.size(); i++) {
-            ModConfigController.CrystalingSetting setting = ModConfigController.CRYSTALING_CONFIG_VALUES.get(i);
+            ModConfigController.GemsmithingSetting setting = ModConfigController.CRYSTALING_CONFIG_VALUES.get(i);
             int crystalValue = i + 1;
             for (int j = 0; j < toolNames.length; j++) {
                 int toolValue = j + 1;
@@ -111,9 +110,9 @@ public class ConfiguredData {
     private static final List<PendingRecipe> pendingRecipes = new ArrayList<>();
 
     public static void registerMissingRecipes() {
-        BuiltInRegistries.ITEM.forEach(item -> {
-            if (item instanceof TieredItem && ModConfigController.CRYSTALING_CONFIG_VALUES != null) {
-                for (ModConfigController.CrystalingSetting setting : ModConfigController.CRYSTALING_CONFIG_VALUES) {
+        BuiltInRegistries.ITEM.stream().filter(item -> item instanceof TieredItem).forEach(item -> {
+            if (ModConfigController.CRYSTALING_CONFIG_VALUES != null) {
+                for (ModConfigController.GemsmithingSetting setting : ModConfigController.CRYSTALING_CONFIG_VALUES) {
                     ResourceLocation tool = BuiltInRegistries.ITEM.getKey(item);
                     ResourceLocation gem = BuiltInRegistries.ITEM.getKey(setting.item().build());
                     if (setting.item().build().equals(Items.AIR) && !gem.getNamespace().equals(VariousWorld.MOD_ID)) {
@@ -153,7 +152,7 @@ public class ConfiguredData {
                             register(key, () -> true, json ->
                                     gson.toJson(missingRecipeJson(String.format("%s:%s", toolRL.getNamespace(), toolRL.getPath()), gemRL.toString()))
                             );
-                            VariousWorld.LOGGER.info("Registered recipe for tool {} using gem {}.", toolRL, gemRL);
+//                            VariousWorld.LOGGER.info("Registered recipe for tool {} using gem {}.", toolRL, gemRL);
                         }
                     }
                 }

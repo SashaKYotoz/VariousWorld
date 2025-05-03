@@ -330,9 +330,17 @@ public class VWRegistryHelper {
             return this;
         }
 
-        public EntityBuilder<T> tag(TagKey<EntityType<?>> tagname) {
-            ENTITY_TAGS.putIfAbsent(tagname, new ArrayList<>());
-            ENTITY_TAGS.get(tagname).add(this.entity);
+        public EntityBuilder<T> tag(TagKey<EntityType<?>> tagName) {
+            ENTITY_TAGS.putIfAbsent(tagName, new ArrayList<>());
+            ENTITY_TAGS.get(tagName).add(this.entity);
+            return this;
+        }
+        @SafeVarargs
+        public final EntityBuilder<T> tag(TagKey<EntityType<?>>... tagName) {
+            for (TagKey<EntityType<?>> tag : tagName) {
+                ENTITY_TAGS.putIfAbsent(tag, new ArrayList<>());
+                ENTITY_TAGS.get(tag).add(this.entity);
+            }
             return this;
         }
     }

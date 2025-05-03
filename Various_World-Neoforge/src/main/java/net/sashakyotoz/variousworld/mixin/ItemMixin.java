@@ -30,8 +30,8 @@ public abstract class ItemMixin {
     private void appendDesc(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag, CallbackInfo ci) {
         Item item = (Item) ((Object) this);
         if (item instanceof TieredItem && ModConfigController.CRYSTALING_CONFIG_VALUES != null && stack.has(VWMiscRegistries.CRYSTAL_DATA.get()) && stack.get(VWMiscRegistries.CRYSTAL_DATA.get()).crystalDurability() > 0) {
-            List<ModConfigController.CrystalingSetting> setting = ModConfigController.CRYSTALING_CONFIG_VALUES;
-            for (ModConfigController.CrystalingSetting crystalingSetting : setting) {
+            List<ModConfigController.GemsmithingSetting> setting = ModConfigController.CRYSTALING_CONFIG_VALUES;
+            for (ModConfigController.GemsmithingSetting crystalingSetting : setting) {
                 if (stack.get(VWMiscRegistries.CRYSTAL_DATA.get()).crystalStack().get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get()).crystalStack().is(crystalingSetting.item().build())) {
                     tooltipComponents.add(stack.get(VWMiscRegistries.CRYSTAL_DATA.get()).crystalStack().get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get()).crystalStack().getDisplayName());
                 }

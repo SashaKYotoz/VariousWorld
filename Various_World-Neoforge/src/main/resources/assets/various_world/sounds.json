@@ -36,14 +36,6 @@
       "various_world:biome/peaceful_wasteland/peaceful_wasteland1"
     ]
   },
-  "item.wand_shoot": {
-    "subtitle": "subtitles.ambient.cave",
-    "sounds": [
-      "various_world:item/wand/wand_shoot",
-      "various_world:item/wand/wand_shoot1",
-      "various_world:item/wand/wand_shoot2"
-    ]
-  },
   "entity.various_zombie_ambient": {
     "subtitle": "subtitles.entity.zombie.ambient",
     "sounds": [

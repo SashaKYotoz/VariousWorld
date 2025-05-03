@@ -1,4 +1,5 @@
 {
+  "block.various_world.artifact_table": "Artifact Table",
   "block.various_world.blue_jacaranda_button": "Blue Jacaranda Button",
   "block.various_world.blue_jacaranda_door": "Blue Jacaranda Door",
   "block.various_world.blue_jacaranda_fence": "Blue Jacaranda Fence",
@@ -52,10 +53,14 @@
   "block.various_world.stripped_crystalic_oak_log": "Stripped Crystalic Oak Log",
   "block.various_world.stripped_crystalic_oak_wood": "Stripped Crystalic Oak Wood",
   "creativetab.various_world_tab": "Various World",
+  "entity.minecraft.villager.various_world.artifactologist": "Artifactologist",
+  "entity.minecraft.villager.various_world.gemsmither": "Gemsmither",
   "entity.various_world.crystalic_slime": "Crystalic Slime",
+  "entity.various_world.wandering_zombie": "Wandering Zombie",
   "item.various_world.crystalic_slime_spawn_egg": "Crystalic Slime Spawn Egg",
   "item.various_world.crystalline_slime_ball": "Crystalline Slime Ball",
   "item.various_world.crystalline_strength": "Crystalline Strength",
   "item.various_world.sodalite_shard": "Sodalite Shard",
-  "item.various_world.supply_crystal": "Supply Crystal"
+  "item.various_world.supply_crystal": "Supply Crystal",
+  "item.various_world.wandering_zombie_spawn_egg": "Wandering Zombie Spawn Egg"
 }

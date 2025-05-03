@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#minecraft:stronghold_biased_to",
+  "spawners": {
+    "type": "various_world:wandering_zombie",
+    "maxCount": 2,
+    "minCount": 1,
+    "weight": 5
+  }
+}

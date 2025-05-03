@@ -33,7 +33,8 @@ public class VWBiomes {
 
     public static Biome crystallineForest(BootstrapContext<Biome> context) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
-        spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(VWEntities.CRYSTALIC_SLIME.get(), 25, 1, 3));
+        spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(VWEntities.CRYSTALIC_SLIME.get(), 20, 1, 2));
+        spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(VWEntities.WANDERING_ZOMBIE.get(), 10, 1, 1));
 
         BiomeDefaultFeatures.farmAnimals(spawnBuilder);
 
@@ -66,6 +67,7 @@ public class VWBiomes {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.farmAnimals(spawnBuilder);
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
+        spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(VWEntities.WANDERING_ZOMBIE.get(), 10, 1, 1));
 
         BiomeGenerationSettings.Builder biomeBuilder =
                 new BiomeGenerationSettings.Builder(context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));
@@ -84,6 +86,7 @@ public class VWBiomes {
                 .specialEffects((new BiomeSpecialEffects.Builder())
                         .waterColor(MapColor.COLOR_CYAN.col)
                         .waterFogColor(329011)
+                        .fogColor(12638463)
                         .grassColorOverride(MapColor.COLOR_LIGHT_GREEN.col)
                         .skyColor(calculateSkyColor(0.95f))
                         .backgroundMusic(Musics.createGameMusic(Holder.direct(SoundEvents.ALLAY_AMBIENT_WITH_ITEM))).build())
