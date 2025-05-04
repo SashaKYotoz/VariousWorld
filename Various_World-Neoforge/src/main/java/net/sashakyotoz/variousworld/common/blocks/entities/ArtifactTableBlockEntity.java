@@ -102,6 +102,17 @@ public class ArtifactTableBlockEntity extends BaseContainerBlockEntity {
     public void setItem(int slot, ItemStack stack) {
         super.setItem(slot, stack);
         itemHandler.setStackInSlot(slot, stack);
+        if (slot == 0) {
+            for (ModConfigController.ArtifactSetting setting : ModConfigController.ARTIFACTS_CONFIG_VALUES) {
+                if (currentSetting != null && !stack.getItem().equals(currentSetting.artifact().build())) {
+                    currentSetting = setting;
+                    break;
+                } else {
+                    settingName = "";
+                    currentSetting = null;
+                }
+            }
+        }
     }
 
     @Override
@@ -164,10 +175,10 @@ public class ArtifactTableBlockEntity extends BaseContainerBlockEntity {
                     if (setting.artifact().getId().getPath().equals(settingName)) {
                         currentSetting = setting;
                         break;
-                    } else if (settingName.isEmpty())
+                    } else if (settingName.isEmpty() && itemHandler.getStackInSlot(0).getItem().equals(setting.artifact().build()))
                         currentSetting = setting;
                 }
-                if (itemHandler.getStackInSlot(0).getItem().equals(setting.artifact().build())
+                if (!setting.artifact().build().equals(Items.AIR) && itemHandler.getStackInSlot(0).getItem().equals(setting.artifact().build())
                         && progress <= 0 && !itemHandler.getStackInSlot(1).isEmpty() && !itemHandler.getStackInSlot(2).isEmpty()) {
                     progress = 320;
                     OnActionsTrigger.spawnParticle(ParticleTypes.EFFECT, level, pos.getX(), pos.getY(), pos.getZ(), 2);
@@ -197,13 +208,18 @@ public class ArtifactTableBlockEntity extends BaseContainerBlockEntity {
                             player.addEffect(new MobEffectInstance(
                                     potions.potion().get().value().getEffects().getFirst().getEffect(),
                                     potions.potion().get().value().getEffects().getFirst().getDuration() / 2,
-                                    Math.min(0, potions.potion().get().value().getEffects().getFirst().getAmplifier() + strength)
+                                    adjustedAmplifier(potions.potion().get().value().getEffects().getFirst().getAmplifier(), strength)
                             ));
                         }
                     }
                 }
             }
         }
+    }
+
+    private int adjustedAmplifier(int baseAmplifier, int strength) {
+        int raw = baseAmplifier + strength;
+        return Math.max(0, raw);
     }
 
     @Override

@@ -17,7 +17,6 @@ public class VariousWorld {
 
     public VariousWorld(IEventBus bus, ModContainer container) {
         VWRegistryHelper.register(bus);
-        VWSounds.init();
         VWBlocks.init();
         VWItems.init();
         VWEntities.init();
@@ -27,6 +26,7 @@ public class VariousWorld {
         VWMiscRegistries.register(bus);
         VWVillagers.register(bus);
         VWFeatures.register(bus);
+        VWSounds.SOUND_EVENTS.register(bus);
     }
 
     public static ResourceLocation createVWLocation(String path) {

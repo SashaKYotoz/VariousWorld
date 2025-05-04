@@ -29,13 +29,6 @@
       "various_world:biome/sculk_valley/sculk_valley"
     ]
   },
-  "biome.peaceful_wasteland": {
-    "subtitle": "subtitles.peaceful_wasteland_sound",
-    "sounds": [
-      "various_world:biome/peaceful_wasteland/peaceful_wasteland",
-      "various_world:biome/peaceful_wasteland/peaceful_wasteland1"
-    ]
-  },
   "entity.various_zombie_ambient": {
     "subtitle": "subtitles.entity.zombie.ambient",
     "sounds": [

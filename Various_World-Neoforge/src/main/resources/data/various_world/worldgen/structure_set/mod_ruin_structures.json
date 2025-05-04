@@ -7,6 +7,10 @@
     {
       "structure": "various_world:old_castle_ruins",
       "weight": 1
+    },
+    {
+      "structure": "various_world:building_remaining",
+      "weight": 2
     }
   ],
   "placement": {
