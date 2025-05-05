@@ -1,22 +1,19 @@
 package net.sashakyotoz.variousworld.client.models;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.world.entity.monster.Slime;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.sashakyotoz.variousworld.VariousWorld;
 
-public class CrystalicSlimeModel<T extends Slime> extends HierarchicalModel<T> {
+public class CrystalicSlimeModel extends EntityModel<EntityRenderState> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(VariousWorld.createVWLocation("crystalic_slime_model"), "main");
     public static final ModelLayerLocation OUTER_LAYER_LOCATION = new ModelLayerLocation(VariousWorld.createVWLocation("crystalic_slime_model"), "outer");
-    private final ModelPart root;
 
     public CrystalicSlimeModel(ModelPart root) {
-        this.root = root;
+        super(root);
     }
 
     public static LayerDefinition createOuterBodyLayer() {
@@ -45,20 +42,5 @@ public class CrystalicSlimeModel<T extends Slime> extends HierarchicalModel<T> {
                                 .mirror().addBox(1.3F, -2.0F, -3.5F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false).texOffs(16, 0).addBox(0.0F, 1.0F, -3.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)),
                         PartPose.offset(0.0F, 20.0F, 0.0F));
         return LayerDefinition.create(meshdefinition, 64, 64);
-    }
-
-    @Override
-    public ModelPart root() {
-        return this.root;
-    }
-
-    @Override
-    public void setupAnim(Slime entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
-    }
-
-    @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        root.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
     }
 }

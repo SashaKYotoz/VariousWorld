@@ -1,23 +1,18 @@
 package net.sashakyotoz.variousworld.client.models;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.client.renderer.entity.state.ZombieRenderState;
 import net.sashakyotoz.variousworld.VariousWorld;
 
-public class WanderingZombieModel<T extends Zombie> extends ZombieModel<T> {
+public class WanderingZombieModel<T extends ZombieRenderState> extends ZombieModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(VariousWorld.createVWLocation("wandering_zombie_model"), "main");
-    public final ModelPart root;
 
     public WanderingZombieModel(ModelPart root) {
         super(root);
-        this.root = root;
-
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -39,10 +34,5 @@ public class WanderingZombieModel<T extends Zombie> extends ZombieModel<T> {
         partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 16).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, cubeDeformation), PartPose.offset(-1.9F, 12.0F + yOffset, 0.0F));
         partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 16).mirror().addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, cubeDeformation), PartPose.offset(1.9F, 12.0F + yOffset, 0.0F));
         return LayerDefinition.create(meshdefinition, 64, 64);
-    }
-
-    @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        root.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
     }
 }

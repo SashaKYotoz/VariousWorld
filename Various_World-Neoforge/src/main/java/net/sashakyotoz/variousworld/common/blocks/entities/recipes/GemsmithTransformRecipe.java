@@ -11,6 +11,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.sashakyotoz.variousworld.common.OnActionsTrigger;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import net.sashakyotoz.variousworld.common.items.data.CrystalData;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
@@ -48,18 +49,18 @@ public class GemsmithTransformRecipe implements GemsmithRecipe {
     @Override
     public ItemStack assemble(GemsmithRecipeInput input, HolderLookup.Provider provider) {
         List<ModConfigController.GemsmithingSetting> setting = ModConfigController.CRYSTALING_CONFIG_VALUES;
-        if (input.tool().getItem() instanceof TieredItem && setting != null) {
+        if (OnActionsTrigger.isInstanceOfAny(input.tool().getItem()) && setting != null) {
             ItemStack itemstack = input.tool().copy();
             ItemStack supplyGemStack = VWItems.SUPPLY_CRYSTAL.toStack();
             String toolName;
             for (ModConfigController.GemsmithingSetting crystalingSetting : setting) {
                 if (input.gem().is(crystalingSetting.item().build())) {
                     switch (itemstack.getItem()) {
-                        case TieredItem item when item instanceof SwordItem -> toolName = "sword";
-                        case TieredItem item when item instanceof PickaxeItem -> toolName = "pickaxe";
-                        case TieredItem item when item instanceof AxeItem -> toolName = "axe";
-                        case TieredItem item when item instanceof HoeItem -> toolName = "hoe";
-                        case TieredItem item when item instanceof ShovelItem -> toolName = "shovel";
+                        case Item item when item instanceof SwordItem -> toolName = "sword";
+                        case Item item when item instanceof PickaxeItem -> toolName = "pickaxe";
+                        case Item item when item instanceof AxeItem -> toolName = "axe";
+                        case Item item when item instanceof HoeItem -> toolName = "hoe";
+                        case Item item when item instanceof ShovelItem -> toolName = "shovel";
                         default -> toolName = "";
                     }
                     supplyGemStack.set(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get(), new SupplyCrystalData(

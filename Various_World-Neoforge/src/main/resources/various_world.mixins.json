@@ -9,7 +9,6 @@
     "MultiPackResourceManagerMixin"
   ],
   "client": [
-    "ClientRecipeBookMixin",
     "ItemRendererMixin",
     "ModelBakeryMixin"
   ],

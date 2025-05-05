@@ -46,10 +46,6 @@ public class VariousWorldClient {
     }
 
     @SubscribeEvent
-    public static void itemColorLoad(RegisterColorHandlersEvent.Item event) {
-    }
-
-    @SubscribeEvent
     public static void registerParticles(RegisterParticleProvidersEvent event) {
     }
 

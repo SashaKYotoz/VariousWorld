@@ -3,8 +3,9 @@ package net.sashakyotoz.variousworld.common.blocks.custom;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -18,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.sashakyotoz.variousworld.common.blocks.entities.GemsmithFurnaceBlockEntity;
 import net.sashakyotoz.variousworld.init.VWBlocks;
@@ -26,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class GemsmithFurnaceBlock extends BaseEntityBlock {
     public static final MapCodec<GemsmithFurnaceBlock> CODEC = simpleCodec(GemsmithFurnaceBlock::new);
-    public static final DirectionProperty FACING = BlockStateProperties.FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     public GemsmithFurnaceBlock(Properties properties) {
@@ -56,12 +57,12 @@ public class GemsmithFurnaceBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (stack.getBurnTime(RecipeType.SMELTING) > 0 && level.getBlockEntity(pos) instanceof GemsmithFurnaceBlockEntity entity && !level.isClientSide()) {
-            entity.fuel += stack.getBurnTime(RecipeType.SMELTING);
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (level instanceof ServerLevel level1 && stack.getBurnTime(RecipeType.SMELTING, level1.fuelValues()) > 0 && level.getBlockEntity(pos) instanceof GemsmithFurnaceBlockEntity entity && !level.isClientSide()) {
+            entity.fuel += stack.getBurnTime(RecipeType.SMELTING,level1.fuelValues());
             level.setBlockAndUpdate(pos, state.setValue(LIT, true));
             stack.shrink(1);
-            return ItemInteractionResult.CONSUME;
+            return InteractionResult.CONSUME;
         }
         return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
     }

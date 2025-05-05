@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'idea'
-    id 'net.neoforged.moddev' version '2.0.74'
+    id 'net.neoforged.moddev' version '2.0.78'
 }
 
 version = mod_version
@@ -10,12 +10,6 @@ group = mod_group_id
 
 repositories {
     mavenLocal()
-    maven {
-        url "https://cursemaven.com"
-        content {
-            includeGroup "curse.maven"
-        }
-    }
 }
 
 base {
@@ -61,7 +55,7 @@ neoForge {
         }
 
         data {
-            data()
+            clientData()
 
             // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
             // gameDirectory = project.file('run-data')
@@ -102,8 +96,6 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 
 dependencies {
-    compileOnly "curse.maven:jei-238222:5846880"
-    runtimeOnly "curse.maven:jei-238222:5846880"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

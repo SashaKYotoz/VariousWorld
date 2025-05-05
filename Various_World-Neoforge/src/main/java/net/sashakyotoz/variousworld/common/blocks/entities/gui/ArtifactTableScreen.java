@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -38,16 +39,16 @@ public class ArtifactTableScreen extends AbstractContainerScreen<ArtifactTableMe
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        guiGraphics.blit(BACKGROUND_LOCATION, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+        guiGraphics.blit(RenderType::crosshair, BACKGROUND_LOCATION, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
         renderIconsProgress(guiGraphics);
         RenderSystem.disableBlend();
     }
 
     private void renderIconsProgress(GuiGraphics graphics) {
         if (getMenu().isRefreshing())
-            graphics.blit(BACKGROUND_LOCATION, this.leftPos + 80, this.topPos + 16, 176, 16, 16, getMenu().getScaledProgress());
+            graphics.blit(RenderType::crosshair, BACKGROUND_LOCATION, this.leftPos + 80, this.topPos + 16, 176, 16, 16, 32, 16, getMenu().getScaledProgress());
         if (getMenu().isPowered())
-            graphics.blit(BACKGROUND_LOCATION, this.leftPos + 32, this.topPos + 48, 176, 48, 16, 16);
+            graphics.blit(RenderType::crosshair, BACKGROUND_LOCATION, this.leftPos + 32, this.topPos + 48, 176, 48, 16, 16, 16, 16);
     }
 
     @Override

@@ -8,11 +8,11 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
+import net.sashakyotoz.variousworld.common.OnActionsTrigger;
 import net.sashakyotoz.variousworld.common.blocks.entities.GemsmithTableBlockEntity;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWMiscRegistries;
@@ -45,7 +45,7 @@ public class GemsmithTableMenu extends AbstractContainerMenu {
             this.addSlot(new SlotItemHandler(handler, 0, 43, 48) {
                 @Override
                 public boolean mayPlace(ItemStack stack) {
-                    return super.mayPlace(stack) && stack.getItem() instanceof TieredItem;
+                    return super.mayPlace(stack) && OnActionsTrigger.isInstanceOfAny(stack.getItem());
                 }
             });
             this.addSlot(new SlotItemHandler(handler, 1, 61, 48));

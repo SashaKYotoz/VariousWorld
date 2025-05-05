@@ -1,11 +1,12 @@
 package net.sashakyotoz.variousworld.init;
 
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.client.data.models.model.ModelTemplate;
+import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.models.model.ModelTemplate;
-import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
@@ -322,7 +323,7 @@ public class VWRegistryHelper {
 
         private static <T extends Entity> DeferredHolder<EntityType<?>, EntityType<T>> register(
                 String registryName, EntityType.Builder<T> entityTypeBuilder) {
-            return ENTITIES.register(registryName, () -> entityTypeBuilder.build(registryName));
+            return ENTITIES.register(registryName, () -> entityTypeBuilder.build(ResourceKey.create(registryName)));
         }
 
         public EntityBuilder<T> drop(ItemLike loot) {

@@ -6,8 +6,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.MultiPackResourceManager;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.TieredItem;
 import net.sashakyotoz.variousworld.VariousWorld;
+import net.sashakyotoz.variousworld.common.OnActionsTrigger;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -110,7 +110,7 @@ public class ConfiguredData {
     private static final List<PendingRecipe> pendingRecipes = new ArrayList<>();
 
     public static void registerMissingRecipes() {
-        BuiltInRegistries.ITEM.stream().filter(item -> item instanceof TieredItem).forEach(item -> {
+        BuiltInRegistries.ITEM.stream().filter(OnActionsTrigger::isInstanceOfAny).forEach(item -> {
             if (ModConfigController.CRYSTALING_CONFIG_VALUES != null) {
                 for (ModConfigController.GemsmithingSetting setting : ModConfigController.CRYSTALING_CONFIG_VALUES) {
                     ResourceLocation tool = BuiltInRegistries.ITEM.getKey(item);
@@ -133,7 +133,7 @@ public class ConfiguredData {
 
     public static void processPendingRecipes() {
         BuiltInRegistries.ITEM.forEach(item -> {
-            if (item instanceof TieredItem) {
+            if (OnActionsTrigger.isInstanceOfAny(item)) {
                 ResourceLocation toolRL = BuiltInRegistries.ITEM.getKey(item);
                 for (PendingRecipe pending : pendingRecipes) {
                     if (!pending.lazyGem.getId().getNamespace().equals("minecraft")) {

@@ -201,7 +201,7 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
 
     private ItemStack releaseResultStack(RecipeHolder<GemsmithTransformRecipe> recipe, GemsmithTableBlockEntity blockEntity) {
         List<ModConfigController.GemsmithingSetting> setting = ModConfigController.CRYSTALING_CONFIG_VALUES;
-        if (recipe.value().tool.getItems()[0].getItem() instanceof TieredItem && setting != null) {
+        if (OnActionsTrigger.isInstanceOfAny(recipe.value().tool.getValues().get(0).value()) && setting != null) {
             ItemStack itemstack = recipe.value().tool.getItems()[0].copy();
             ItemStack supplyGemStack = VWItems.SUPPLY_CRYSTAL.toStack();
             String toolName;
@@ -287,7 +287,7 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
             stacks.add(i, this.itemHandler.getStackInSlot(i));
         }
         GemsmithRecipeInput inventory = new GemsmithRecipeInput(stacks.get(0), stacks.get(1));
-        return this.getLevel().getRecipeManager().getRecipeFor(GemsmithTransformRecipe.Type.INSTANCE, inventory, this.getLevel());
+        return this.getLevel().recipeAccess().propertySet().getRecipeFor(GemsmithTransformRecipe.Type.INSTANCE, inventory, this.getLevel());
     }
 
     private void resetProgress() {

@@ -2,7 +2,6 @@ package net.sashakyotoz.variousworld.common;
 
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -43,7 +42,7 @@ public class OnModActionsTrigger {
 
     @SubscribeEvent
     public static void modifyDefaultComponentsMap(ModifyDefaultComponentsEvent event) {
-        event.modifyMatching(item -> item instanceof TieredItem, builder ->
+        event.modifyMatching(OnActionsTrigger::isInstanceOfAny, builder ->
                 builder.set(VWMiscRegistries.CRYSTAL_DATA.get(), new CrystalData(VWItems.SUPPLY_CRYSTAL.toStack(), 0)));
     }
 

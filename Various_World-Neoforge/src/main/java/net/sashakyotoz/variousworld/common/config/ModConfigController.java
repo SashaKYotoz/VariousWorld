@@ -8,12 +8,10 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.Item;
 import net.neoforged.fml.loading.FMLPaths;
 import net.sashakyotoz.variousworld.VariousWorld;
-import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.List;
 
 public class ModConfigController {
@@ -52,7 +50,7 @@ public class ModConfigController {
         }
 
         public Item build() {
-            return BuiltInRegistries.ITEM.get(itemId);
+            return BuiltInRegistries.ITEM.get(itemId).get().value();
         }
 
         public ResourceLocation getId() {
@@ -74,7 +72,7 @@ public class ModConfigController {
         public Attribute deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
             String attributeId = json.getAsString();
-            return BuiltInRegistries.ATTRIBUTE.get(ResourceLocation.parse(attributeId));
+            return BuiltInRegistries.ATTRIBUTE.get(ResourceLocation.parse(attributeId)).get().value();
         }
     }
 

@@ -39,10 +39,26 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 @EventBusSubscriber
 public class OnActionsTrigger {
+    private static final Class<?>[] GEMSMITHING_APPLYING_CLASSES = {
+            SwordItem.class,
+            PickaxeItem.class,
+            AxeItem.class,
+            ShovelItem.class,
+            HoeItem.class
+    };
+
     private static final Collection<AbstractMap.SimpleEntry<Runnable, Integer>> workQueue = new ConcurrentLinkedQueue<>();
 
     public static void queueServerWork(int tick, Runnable action) {
         workQueue.add(new AbstractMap.SimpleEntry<>(action, tick));
+    }
+
+    public static boolean isInstanceOfAny(Item item) {
+        for (Class<?> clazz : GEMSMITHING_APPLYING_CLASSES) {
+            if (clazz.isInstance(item))
+                return true;
+        }
+        return false;
     }
 
     public static void returnDefaultStack(ItemStack stack, LivingEntity entity) {
@@ -55,10 +71,11 @@ public class OnActionsTrigger {
         }
     }
 
+
     public static ItemStack returnStackWithGem(ItemStack stack, ItemStack gem) {
         ItemStack supplyGemStack = VWItems.SUPPLY_CRYSTAL.toStack();
         String toolName = getToolName(stack);
-        if (stack.getItem() instanceof TieredItem && stack.has(VWMiscRegistries.CRYSTAL_DATA.get())) {
+        if (isInstanceOfAny(stack.getItem()) && stack.has(VWMiscRegistries.CRYSTAL_DATA.get())) {
             for (ModConfigController.GemsmithingSetting setting : ModConfigController.CRYSTALING_CONFIG_VALUES) {
                 if (gem.getItem().equals(setting.item().build())) {
                     supplyGemStack.set(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get(), new SupplyCrystalData(gem, toolName));
@@ -73,11 +90,11 @@ public class OnActionsTrigger {
     public static String getToolName(ItemStack stack) {
         String toolName;
         switch (stack.getItem()) {
-            case TieredItem item when item instanceof SwordItem -> toolName = "sword";
-            case TieredItem item when item instanceof PickaxeItem -> toolName = "pickaxe";
-            case TieredItem item when item instanceof AxeItem -> toolName = "axe";
-            case TieredItem item when item instanceof HoeItem -> toolName = "hoe";
-            case TieredItem item when item instanceof ShovelItem -> toolName = "shovel";
+            case Item item when item instanceof SwordItem -> toolName = "sword";
+            case Item item when item instanceof PickaxeItem -> toolName = "pickaxe";
+            case Item item when item instanceof AxeItem -> toolName = "axe";
+            case Item item when item instanceof HoeItem -> toolName = "hoe";
+            case Item item when item instanceof ShovelItem -> toolName = "shovel";
             default -> toolName = "";
         }
         return toolName;
