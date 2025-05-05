@@ -88,7 +88,11 @@ public class GemsmithTableMenu extends AbstractContainerMenu {
     }
 
     public float getLitProgress() {
-        return Mth.clamp((float) this.data.get(2) / 200, 0.0F, 1.0F);
+        return isCrafting() ? Mth.clamp(this.data.get(2) / 1000f, 0.0F, 1.0F) : 0;
+    }
+
+    public boolean isLit() {
+        return this.data.get(2) > 0;
     }
 
     private static final int HOTBAR_SLOT_COUNT = 9;

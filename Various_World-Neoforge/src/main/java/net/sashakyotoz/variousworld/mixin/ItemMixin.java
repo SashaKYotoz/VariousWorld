@@ -41,8 +41,9 @@ public abstract class ItemMixin {
 
     @Inject(method = "hurtEnemy", at = @At("HEAD"))
     private void handleAttack(ItemStack stack, LivingEntity target, LivingEntity attacker, CallbackInfoReturnable<Boolean> cir) {
-        if (stack.has(VWMiscRegistries.CRYSTAL_DATA.get())) {
-            CrystalData data = stack.get(VWMiscRegistries.CRYSTAL_DATA.get());
+        CrystalData data = stack.get(VWMiscRegistries.CRYSTAL_DATA.get());
+        if (data != null && data.crystalStack().has(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get())
+                && !data.crystalStack().get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get()).crystalStack().isEmpty()) {
             if (data.crystalDurability() > 0)
                 stack.set(VWMiscRegistries.CRYSTAL_DATA.get(), new CrystalData(data.crystalStack(), data.crystalDurability() - 1));
             else {
@@ -54,8 +55,9 @@ public abstract class ItemMixin {
 
     @Inject(method = "mineBlock", at = @At("HEAD"))
     private void handleMine(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity miningEntity, CallbackInfoReturnable<Boolean> cir) {
-        if (stack.has(VWMiscRegistries.CRYSTAL_DATA.get())) {
-            CrystalData data = stack.get(VWMiscRegistries.CRYSTAL_DATA.get());
+        CrystalData data = stack.get(VWMiscRegistries.CRYSTAL_DATA.get());
+        if (data != null && data.crystalStack().has(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get())
+                && !data.crystalStack().get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get()).crystalStack().isEmpty()) {
             if (data.crystalDurability() > 0)
                 stack.set(VWMiscRegistries.CRYSTAL_DATA.get(), new CrystalData(data.crystalStack(), data.crystalDurability() - 1));
             else {

@@ -6,6 +6,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -46,8 +47,12 @@ public class GemsmithTableScreen extends AbstractContainerScreen<GemsmithTableMe
     private void renderIconsProgress(GuiGraphics graphics) {
         if (getMenu().isCrafting())
             graphics.blit(BACKGROUND_LOCATION, this.leftPos + 85, this.topPos + 48, 176, 49, getMenu().getScaledProgress(), 16);
-        if (getMenu().getLitProgress() > 0)
-            graphics.blit(BACKGROUND_LOCATION, this.leftPos + 90, this.topPos + 66, 176, 66, 14, Math.round(14 * getMenu().getLitProgress()));
+        if (getMenu().isLit()) {
+            int l = Mth.ceil(this.menu.getLitProgress() * 13.0F) + 1;
+            int k = l - 14;
+            VariousWorld.LOGGER.info(k);
+            graphics.blit(BACKGROUND_LOCATION, this.leftPos + 90, this.topPos + 66, 176, 66 - k, 14, 14);
+        }
     }
 
     @Override
