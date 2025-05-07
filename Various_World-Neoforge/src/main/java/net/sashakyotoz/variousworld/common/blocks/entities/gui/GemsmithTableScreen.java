@@ -48,10 +48,10 @@ public class GemsmithTableScreen extends AbstractContainerScreen<GemsmithTableMe
         if (getMenu().isCrafting())
             graphics.blit(BACKGROUND_LOCATION, this.leftPos + 85, this.topPos + 48, 176, 49, getMenu().getScaledProgress(), 16);
         if (getMenu().isLit()) {
-            int l = Mth.ceil(this.menu.getLitProgress() * 13.0F) + 1;
+            int l = Mth.ceil(this.menu.getLitProgress() * 14.0F);
             int k = l - 14;
             VariousWorld.LOGGER.info(k);
-            graphics.blit(BACKGROUND_LOCATION, this.leftPos + 90, this.topPos + 66, 176, 66 - k, 14, 14);
+            graphics.blit(BACKGROUND_LOCATION, this.leftPos + 90, this.topPos + 66 - k, 176, 66 - k, 14, 14);
         }
     }
 

@@ -16,8 +16,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class ArtifactTableRandomTickProcedure {
 
-	private static ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
-		BlockEntity blockEntity = world.getBlockEntity(pos);
+	private static ItemStack getItemStack(LevelAccessor accessor, BlockPos pos, int slotid) {
+		BlockEntity blockEntity = accessor.getBlockEntity(pos);
 		if (blockEntity != null) {
 			AtomicReference<ItemStack> itemStackRef = new AtomicReference<>(ItemStack.EMPTY);
 			blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(handler -> {

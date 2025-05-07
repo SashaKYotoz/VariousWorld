@@ -172,6 +172,8 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
     public void tick(Level level, BlockPos pos, BlockState state, GemsmithTableBlockEntity blockEntity) {
         if (!level.isClientSide()) {
             GemsmithFurnaceBlockEntity furnace = getFurnace(level, pos);
+            if (!hasRecipe() && furnace != null && blockEntity.fuel > 0 && furnace.fuel == 0)
+                blockEntity.fuel = 0;
             if (hasRecipe() && furnace != null) {
                 blockEntity.fuel = furnace.fuel;
                 if (blockEntity.fuel > 0)

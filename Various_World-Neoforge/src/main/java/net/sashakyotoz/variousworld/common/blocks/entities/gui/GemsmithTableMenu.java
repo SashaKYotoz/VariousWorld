@@ -88,7 +88,7 @@ public class GemsmithTableMenu extends AbstractContainerMenu {
     }
 
     public float getLitProgress() {
-        return isCrafting() ? Mth.clamp(this.data.get(2) / 1000f, 0.0F, 1.0F) : 0;
+        return Mth.clamp(this.data.get(2) / 1000f, 0.0F, 1.0F);
     }
 
     public boolean isLit() {

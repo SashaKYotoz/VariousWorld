@@ -119,11 +119,6 @@ public class VWRegistryHelper {
             return this;
         }
 
-//        public BlockBuilder itemModel(ModelTemplate model) {
-//            ITEM_MODELS.put(this.block, model);
-//            return this;
-//        }
-
         public BlockBuilder cutout() {
             BLOCK_CUTOUT.add(this.block);
             return this;
