@@ -75,7 +75,7 @@ public class OnActionsTrigger {
     public static ItemStack returnStackWithGem(ItemStack stack, ItemStack gem) {
         ItemStack supplyGemStack = VWItems.SUPPLY_CRYSTAL.toStack();
         String toolName = getToolName(stack);
-        if (isInstanceOfAny(stack.getItem()) && stack.has(VWMiscRegistries.CRYSTAL_DATA.get())) {
+        if (ModConfigController.CRYSTALING_CONFIG_VALUES != null && isInstanceOfAny(stack.getItem()) && stack.has(VWMiscRegistries.CRYSTAL_DATA.get())) {
             for (ModConfigController.GemsmithingSetting setting : ModConfigController.CRYSTALING_CONFIG_VALUES) {
                 if (gem.getItem().equals(setting.item().build())) {
                     supplyGemStack.set(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get(), new SupplyCrystalData(gem, toolName));
@@ -122,26 +122,26 @@ public class OnActionsTrigger {
     @SubscribeEvent
     public static void onServerAboutToStart(ServerAboutToStartEvent event) {
         MinecraftServer server = event.getServer();
-        Registry<DimensionType> dimensionTypeRegistry = server.registryAccess().registryOrThrow(Registries.DIMENSION_TYPE);
-        Registry<LevelStem> levelStemTypeRegistry = server.registryAccess().registryOrThrow(Registries.LEVEL_STEM);
-        Registry<Biome> biomeRegistry = server.registryAccess().registryOrThrow(Registries.BIOME);
+        Registry<DimensionType> dimensionTypeRegistry = server.registryAccess().lookupOrThrow(Registries.DIMENSION_TYPE);
+        Registry<LevelStem> levelStemTypeRegistry = server.registryAccess().lookupOrThrow(Registries.LEVEL_STEM);
+        Registry<Biome> biomeRegistry = server.registryAccess().lookupOrThrow(Registries.BIOME);
         for (LevelStem levelStem : levelStemTypeRegistry.stream().toList()) {
             DimensionType dimensionType = levelStem.type().value();
-            if (dimensionType == dimensionTypeRegistry.getOrThrow(BuiltinDimensionTypes.OVERWORLD)) {
+            if (dimensionType == dimensionTypeRegistry.getOrThrow(BuiltinDimensionTypes.OVERWORLD).value()) {
                 ChunkGenerator chunkGenerator = levelStem.generator();
                 if (chunkGenerator.getBiomeSource() instanceof MultiNoiseBiomeSource noiseSource) {
                     List<Pair<Climate.ParameterPoint, Holder<Biome>>> parameters = new ArrayList<>(noiseSource.parameters().values());
                     if (ModConfigController.MOD_CONFIG_VALUES != null && ModConfigController.MOD_CONFIG_VALUES.do_crystalline_forest()) {
                         parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.35f, 0.7f), Climate.Parameter.span(-0.25f, 0.35f), Climate.Parameter.span(0.1f, 0.5f), Climate.Parameter.span(-0.125f, 0.35f),
-                                Climate.Parameter.point(0f), Climate.Parameter.span(-0.64f, 0.28f), 0), biomeRegistry.getHolderOrThrow(VWBiomes.CRYSTALLINE_FOREST)));
+                                Climate.Parameter.point(0f), Climate.Parameter.span(-0.64f, 0.28f), 0), biomeRegistry.getOrThrow(VWBiomes.CRYSTALLINE_FOREST)));
                         parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.35f, 0.7f), Climate.Parameter.span(-0.25f, 0.35f), Climate.Parameter.span(0.1f, 0.5f), Climate.Parameter.span(-0.125f, 0.35f),
-                                Climate.Parameter.point(1f), Climate.Parameter.span(-0.64f, 0.28f), 0), biomeRegistry.getHolderOrThrow(VWBiomes.CRYSTALLINE_FOREST)));
+                                Climate.Parameter.point(1f), Climate.Parameter.span(-0.64f, 0.28f), 0), biomeRegistry.getOrThrow(VWBiomes.CRYSTALLINE_FOREST)));
                     }
                     if (ModConfigController.MOD_CONFIG_VALUES != null && ModConfigController.MOD_CONFIG_VALUES.do_blue_jacaranda_meadow()) {
                         parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.45f, 0.9f), Climate.Parameter.span(-0.125f, 0.65f), Climate.Parameter.span(0.2f, 0.7f), Climate.Parameter.span(-0.25f, 0.5f),
-                                Climate.Parameter.point(0f), Climate.Parameter.span(-0.56f, 0.46f), 0), biomeRegistry.getHolderOrThrow(VWBiomes.BLUE_JACARANDA_MEADOW)));
+                                Climate.Parameter.point(0f), Climate.Parameter.span(-0.56f, 0.46f), 0), biomeRegistry.getOrThrow(VWBiomes.BLUE_JACARANDA_MEADOW)));
                         parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.45f, 0.9f), Climate.Parameter.span(-0.125f, 0.65f), Climate.Parameter.span(0.2f, 0.7f), Climate.Parameter.span(-0.25f, 0.5f),
-                                Climate.Parameter.point(1f), Climate.Parameter.span(-0.56f, 0.46f), 0), biomeRegistry.getHolderOrThrow(VWBiomes.BLUE_JACARANDA_MEADOW)));
+                                Climate.Parameter.point(1f), Climate.Parameter.span(-0.56f, 0.46f), 0), biomeRegistry.getOrThrow(VWBiomes.BLUE_JACARANDA_MEADOW)));
                     }
                     chunkGenerator.biomeSource = MultiNoiseBiomeSource.createFromList(new Climate.ParameterList<>(parameters));
                     chunkGenerator.featuresPerStep = Suppliers

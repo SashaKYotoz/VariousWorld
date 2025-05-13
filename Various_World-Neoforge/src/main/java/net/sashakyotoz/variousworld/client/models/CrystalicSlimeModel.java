@@ -36,7 +36,7 @@ public class CrystalicSlimeModel extends EntityModel<EntityRenderState> {
     public static LayerDefinition createInnerBodyLayer() {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
-        PartDefinition head = partdefinition
+        partdefinition
                 .addOrReplaceChild(
                         "head", CubeListBuilder.create().texOffs(0, 16).addBox(-3.0F, -3.0F, -3.0F, 6.0F, 6.0F, 6.0F, new CubeDeformation(0.0F)).texOffs(0, 0).addBox(-3.3F, -2.0F, -3.5F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).texOffs(0, 0)
                                 .mirror().addBox(1.3F, -2.0F, -3.5F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false).texOffs(16, 0).addBox(0.0F, 1.0F, -3.5F, 1.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)),

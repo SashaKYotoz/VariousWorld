@@ -22,20 +22,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ItemRenderer.class)
 public abstract class ItemRendererMixin {
 
-    @Shadow
-    @Final
-    private Minecraft minecraft;
-
-    @Shadow
-    public abstract void renderModelLists(BakedModel model, ItemStack stack, int combinedLight, int combinedOverlay, PoseStack poseStack, VertexConsumer buffer);
-
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V"))
-    private void renderExtra(ItemStack stack, ItemDisplayContext displayContext, boolean leftHand, PoseStack poseStack, MultiBufferSource bufferSource, int combinedLight, int combinedOverlay, BakedModel p_model, CallbackInfo ci) {
-        CrystalData data = stack.get(VWMiscRegistries.CRYSTAL_DATA.get());
-        if (data != null && data.crystalDurability() > 0) {
-            poseStack.scale(1.001f, 1.001f, 1.001f);
-            this.renderModelLists(minecraft.getItemRenderer().getModel(data.crystalStack(),
-                    null, null, displayContext.ordinal()), stack, combinedLight, combinedOverlay, poseStack, bufferSource.getBuffer(RenderType.cutout()));
-        }
-    }
+//    @Shadow
+//    @Final
+//    private Minecraft minecraft;
+//
+//    @Shadow
+//    public abstract void renderModelLists(BakedModel model, ItemStack stack, int combinedLight, int combinedOverlay, PoseStack poseStack, VertexConsumer buffer);
+//
+//    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;popPose()V"))
+//    private void renderExtra(ItemStack stack, ItemDisplayContext displayContext, boolean leftHand, PoseStack poseStack, MultiBufferSource bufferSource, int combinedLight, int combinedOverlay, BakedModel p_model, CallbackInfo ci) {
+//        CrystalData data = stack.get(VWMiscRegistries.CRYSTAL_DATA.get());
+//        if (data != null && data.crystalDurability() > 0) {
+//            poseStack.scale(1.001f, 1.001f, 1.001f);
+//            this.renderModelLists(minecraft.getItemRenderer().getModel(data.crystalStack(),
+//                    null, null, displayContext.ordinal()), stack, combinedLight, combinedOverlay, poseStack, bufferSource.getBuffer(RenderType.cutout()));
+//        }
+//    }
 }

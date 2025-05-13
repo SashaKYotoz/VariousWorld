@@ -102,7 +102,7 @@ public class ArtifactTableBlockEntity extends BaseContainerBlockEntity {
     public void setItem(int slot, ItemStack stack) {
         super.setItem(slot, stack);
         itemHandler.setStackInSlot(slot, stack);
-        if (slot == 0) {
+        if (slot == 0 && ModConfigController.ARTIFACTS_CONFIG_VALUES != null) {
             for (ModConfigController.ArtifactSetting setting : ModConfigController.ARTIFACTS_CONFIG_VALUES) {
                 if (currentSetting != null && !stack.getItem().equals(currentSetting.artifact().build())) {
                     currentSetting = setting;

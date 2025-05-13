@@ -7,6 +7,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
@@ -22,10 +23,8 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.sashakyotoz.variousworld.VariousWorld;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class VWRegistryHelper {
@@ -44,8 +43,8 @@ public class VWRegistryHelper {
         CREATIVE_MODE_TABS.register(bus);
     }
 
-    public static class BlockBuilder {
-        public BlockBuilder(String name, Supplier<? extends Block> block, boolean doubleBlock, boolean item) {
+    public static class BlockBuilder<T extends Block> {
+        public BlockBuilder(String name, Function<ResourceLocation, T> block, boolean doubleBlock, boolean item) {
             this.name = name;
             this.block = doubleBlock ? registerDoubleBlock(name, block, item) : registerBlock(name, block, item);
         }
@@ -120,11 +119,6 @@ public class VWRegistryHelper {
             return this;
         }
 
-//        public BlockBuilder itemModel(ModelTemplate model) {
-//            ITEM_MODELS.put(this.block, model);
-//            return this;
-//        }
-
         public BlockBuilder cutout() {
             BLOCK_CUTOUT.add(this.block);
             return this;
@@ -151,10 +145,10 @@ public class VWRegistryHelper {
         }
     }
 
-    public static class ItemBuilder {
-        protected ItemBuilder(String name, Supplier<? extends Item> item) {
+    public static class ItemBuilder<T extends Item> {
+        protected ItemBuilder(String name, Function<Item.Properties, T> item) {
             this.name = name;
-            this.item = ITEMS.registerItem(name, properties -> item.get());
+            this.item = ITEMS.registerItem(name, item);
         }
 
         public DeferredItem build() {
@@ -193,42 +187,42 @@ public class VWRegistryHelper {
         }
     }
 
-    public static BlockBuilder ofBlock(String id, Supplier<? extends Block> block) {
+    public static <T extends Block> BlockBuilder<T> ofBlock(String id, Function<ResourceLocation, T> block) {
         return VWRegistryHelper.ofBlock(id, block, true);
     }
 
-    public static BlockBuilder ofBlock(String id, Supplier<? extends Block> block, boolean doubleBlock, boolean item) {
-        return new BlockBuilder(id, block, doubleBlock, item);
+    public static <T extends Block> BlockBuilder<T> ofBlock(String id, Function<ResourceLocation, T> block, boolean doubleBlock, boolean item) {
+        return new BlockBuilder<>(id, block, doubleBlock, item);
     }
 
-    public static BlockBuilder ofBlock(String id, Supplier<? extends Block> block, boolean item) {
-        return new BlockBuilder(id, block, false, item);
+    public static <T extends Block> BlockBuilder<T> ofBlock(String id, Function<ResourceLocation, T> block, boolean item) {
+        return new BlockBuilder<>(id, block, false, item);
     }
 
-    public static ItemBuilder ofItem(String id, Supplier<? extends Item> item) {
-        return new ItemBuilder(id, item);
+    public static <T extends Item> ItemBuilder<T> ofItem(String id, Function<Item.Properties, T> item) {
+        return new ItemBuilder<>(id, item);
     }
 
-    public static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block, boolean registerItem) {
+    public static <T extends Block> DeferredBlock<T> registerBlock(String name, Function<ResourceLocation, T> block, boolean registerItem) {
         DeferredBlock<T> toReturn = VWRegistryHelper.BLOCKS.register(name, block);
         if (registerItem)
             registerBlockItem(name, toReturn);
         return toReturn;
     }
 
-    public static <T extends Block> DeferredBlock<T> registerDoubleBlock(String name, Supplier<T> block, boolean registerItem) {
+    public static <T extends Block> DeferredBlock<T> registerDoubleBlock(String name, Function<ResourceLocation, T> block, boolean registerItem) {
         DeferredBlock<T> toReturn = VWRegistryHelper.BLOCKS.register(name, block);
         if (registerItem)
             registerDoubleBlockItem(name, toReturn);
         return toReturn;
     }
 
-    private static <T extends Block> DeferredItem<Item> registerBlockItem(String name, DeferredBlock<T> block) {
-        return VWRegistryHelper.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+    private static <T extends Block> DeferredItem<BlockItem> registerBlockItem(String name, DeferredBlock<T> block) {
+        return VWRegistryHelper.ITEMS.registerSimpleBlockItem(name, block);
     }
 
     private static <T extends Block> DeferredItem<Item> registerDoubleBlockItem(String name, DeferredBlock<T> block) {
-        return VWRegistryHelper.ITEMS.register(name, () -> new DoubleHighBlockItem(block.get(), new Item.Properties()));
+        return VWRegistryHelper.ITEMS.register(name, (key) -> new DoubleHighBlockItem(block.get(), new Item.Properties().setId(ResourceKey.create(Registries.ITEM, key)).useBlockDescriptionPrefix()));
     }
 
     public static List<DeferredBlock<?>> getModelList(Models key) {
@@ -323,7 +317,7 @@ public class VWRegistryHelper {
 
         private static <T extends Entity> DeferredHolder<EntityType<?>, EntityType<T>> register(
                 String registryName, EntityType.Builder<T> entityTypeBuilder) {
-            return ENTITIES.register(registryName, () -> entityTypeBuilder.build(ResourceKey.create(registryName)));
+            return ENTITIES.register(registryName, () -> entityTypeBuilder.build(ResourceKey.create(Registries.ENTITY_TYPE, VariousWorld.createVWLocation(registryName))));
         }
 
         public EntityBuilder<T> drop(ItemLike loot) {
@@ -336,6 +330,7 @@ public class VWRegistryHelper {
             ENTITY_TAGS.get(tagName).add(this.entity);
             return this;
         }
+
         @SafeVarargs
         public final EntityBuilder<T> tag(TagKey<EntityType<?>>... tagName) {
             for (TagKey<EntityType<?>> tag : tagName) {
@@ -345,6 +340,7 @@ public class VWRegistryHelper {
             return this;
         }
     }
+
     public static Map<TagKey<EntityType<?>>, List<DeferredHolder<EntityType<?>, ?>>> ENTITY_TAGS = new HashMap<>();
 
     public static Map<DeferredHolder<EntityType<?>, ?>, ItemLike> ENTITY_DROPS = new HashMap<>();

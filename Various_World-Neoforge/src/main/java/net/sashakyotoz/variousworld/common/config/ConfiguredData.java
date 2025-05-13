@@ -72,23 +72,26 @@ public class ConfiguredData {
 
     private static JsonArray getOverrides() {
         JsonArray overrides = new JsonArray();
-        for (int i = 0; i < ModConfigController.CRYSTALING_CONFIG_VALUES.size(); i++) {
-            ModConfigController.GemsmithingSetting setting = ModConfigController.CRYSTALING_CONFIG_VALUES.get(i);
-            int crystalValue = i + 1;
-            for (int j = 0; j < toolNames.length; j++) {
-                int toolValue = j + 1;
-                String toolName = toolNames[j];
+        if (ModConfigController.CRYSTALING_CONFIG_VALUES != null) {
+            for (int i = 0; i < ModConfigController.CRYSTALING_CONFIG_VALUES.size(); i++) {
+                ModConfigController.GemsmithingSetting setting = ModConfigController.CRYSTALING_CONFIG_VALUES.get(i);
+                int crystalValue = i + 1;
+                for (int j = 0; j < toolNames.length; j++) {
+                    int toolValue = j + 1;
+                    String toolName = toolNames[j];
 
-                JsonObject overrideEntry = new JsonObject();
-                JsonObject predicate = new JsonObject();
-                predicate.addProperty("crystal", crystalValue);
-                predicate.addProperty("tool", toolValue);
-                overrideEntry.add("predicate", predicate);
-                overrideEntry.addProperty("model", "various_world:item/" + setting.prefix() + "_" + toolName);
-                overrides.add(overrideEntry);
+                    JsonObject overrideEntry = new JsonObject();
+                    JsonObject predicate = new JsonObject();
+                    predicate.addProperty("crystal", crystalValue);
+                    predicate.addProperty("tool", toolValue);
+                    overrideEntry.add("predicate", predicate);
+                    overrideEntry.addProperty("model", "various_world:item/" + setting.prefix() + "_" + toolName);
+                    overrides.add(overrideEntry);
+                }
             }
+            return overrides;
         }
-        return overrides;
+        return new JsonArray();
     }
 
     public static JsonObject missingCrystalJson(String tool, Item item) {

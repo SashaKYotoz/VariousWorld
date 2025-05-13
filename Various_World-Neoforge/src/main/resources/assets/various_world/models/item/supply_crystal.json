@@ -2,42 +2,5 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "various_world:item/crystals/null"
-  },
-  "overrides": [
-    {
-      "predicate": {
-        "crystal": 1,
-        "tool": 1
-      },
-      "model": "various_world:item/sodalite_sword"
-    },
-    {
-      "predicate": {
-        "crystal": 1,
-        "tool": 2
-      },
-      "model": "various_world:item/sodalite_pickaxe"
-    },
-    {
-      "predicate": {
-        "crystal": 1,
-        "tool": 3
-      },
-      "model": "various_world:item/sodalite_axe"
-    },
-    {
-      "predicate": {
-        "crystal": 1,
-        "tool": 4
-      },
-      "model": "various_world:item/sodalite_shovel"
-    },
-    {
-      "predicate": {
-        "crystal": 1,
-        "tool": 5
-      },
-      "model": "various_world:item/sodalite_hoe"
-    }
-  ]
+  }
 }

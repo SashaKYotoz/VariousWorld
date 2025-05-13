@@ -3,13 +3,10 @@ package net.sashakyotoz.variousworld.common.blocks.entities.recipes;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.sashakyotoz.variousworld.common.OnActionsTrigger;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
@@ -79,26 +76,23 @@ public class GemsmithTransformRecipe implements GemsmithRecipe {
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
-        NonNullList<Ingredient> completeInput = NonNullList.create();
-        completeInput.add(this.tool);
-        completeInput.add(this.gem);
-        return completeInput;
-    }
-
-    @Override
-    public ItemStack getResultItem(HolderLookup.Provider provider) {
-        return this.result;
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<GemsmithRecipeInput>> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<GemsmithRecipeInput>> getType() {
         return Type.INSTANCE;
+    }
+
+    @Override
+    public PlacementInfo placementInfo() {
+        return null;
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.SMOKER_FOOD;
     }
 
     public static class Type implements RecipeType<GemsmithTransformRecipe> {

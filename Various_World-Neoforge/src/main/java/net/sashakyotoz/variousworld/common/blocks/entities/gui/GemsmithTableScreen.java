@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -38,16 +39,16 @@ public class GemsmithTableScreen extends AbstractContainerScreen<GemsmithTableMe
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        guiGraphics.blit(BACKGROUND_LOCATION, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+        guiGraphics.blit(RenderType::guiTextured, BACKGROUND_LOCATION, this.imageWidth, this.imageHeight, 0.0F, 0.0F, this.leftPos, this.topPos, 256, 256);
         renderIconsProgress(guiGraphics);
         RenderSystem.disableBlend();
     }
 
     private void renderIconsProgress(GuiGraphics graphics) {
         if (getMenu().isCrafting())
-            graphics.blit(BACKGROUND_LOCATION, this.leftPos + 85, this.topPos + 48, 176, 49, getMenu().getScaledProgress(), 16);
+            graphics.blitSprite(RenderType::guiTextured, BACKGROUND_LOCATION, getMenu().getScaledProgress(), 16, 176, 49, this.leftPos + 85, this.topPos + 48, getMenu().getScaledProgress(), 16);
         if (getMenu().getLitProgress() > 0)
-            graphics.blit(BACKGROUND_LOCATION, this.leftPos + 90, this.topPos + 66, 176, 66, 14, Math.round(14 * getMenu().getLitProgress()));
+            graphics.blitSprite(RenderType::guiTextured, BACKGROUND_LOCATION, 14, Math.round(14 * getMenu().getLitProgress()), 176, 66, this.leftPos + 90, this.topPos + 66, 14, Math.round(14 * getMenu().getLitProgress()));
     }
 
     @Override

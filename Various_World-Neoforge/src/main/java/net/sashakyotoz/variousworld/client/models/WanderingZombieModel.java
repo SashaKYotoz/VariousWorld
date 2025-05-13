@@ -20,8 +20,8 @@ public class WanderingZombieModel<T extends ZombieRenderState> extends ZombieMod
         float yOffset = 0.0F;
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
-        partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, cubeDeformation), PartPose.offset(0.0F, 0.0F + yOffset, 0.0F));
-        partdefinition.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, cubeDeformation.extend(0.5F)), PartPose.offset(0.0F, 0.0F + yOffset, 0.0F));
+        PartDefinition head = partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, cubeDeformation), PartPose.offset(0.0F, 0.0F + yOffset, 0.0F));
+        head.addOrReplaceChild("hat", CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, cubeDeformation.extend(0.5F)), PartPose.offset(0.0F, 0.0F + yOffset, 0.0F));
         PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, cubeDeformation), PartPose.offset(0.0F, 0.0F + yOffset, 0.0F));
         body.addOrReplaceChild("cube_r1",
                 CubeListBuilder.create().texOffs(29, 32).addBox(0.0F, -4.0F, 2.45F, 8.0F, 8.0F, 0.0F, new CubeDeformation(0.0F)).texOffs(29, 32).addBox(0.0F, -4.0F, -2.55F, 8.0F, 8.0F, 0.0F, new CubeDeformation(0.0F)),
