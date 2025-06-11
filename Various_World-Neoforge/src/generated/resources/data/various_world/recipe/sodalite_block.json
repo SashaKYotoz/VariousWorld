@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "#": {
-      "item": "various_world:sodalite_shard"
-    }
+    "#": "various_world:sodalite_shard"
   },
   "pattern": [
     "##",

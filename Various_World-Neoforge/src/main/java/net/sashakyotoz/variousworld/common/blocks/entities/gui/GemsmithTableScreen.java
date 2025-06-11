@@ -26,6 +26,8 @@ public class GemsmithTableScreen extends AbstractContainerScreen<GemsmithTableMe
     }
 
     public static final ResourceLocation BACKGROUND_LOCATION = VariousWorld.createVWLocation("textures/gui/gemsmith_table.png");
+    private static final ResourceLocation LIT_PROGRESS = ResourceLocation.withDefaultNamespace("container/furnace/lit_progress");
+    private static final ResourceLocation BURN_PROGRESS = ResourceLocation.withDefaultNamespace("container/furnace/burn_progress");
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
@@ -39,16 +41,16 @@ public class GemsmithTableScreen extends AbstractContainerScreen<GemsmithTableMe
         RenderSystem.setShaderColor(1, 1, 1, 1);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        guiGraphics.blit(RenderType::guiTextured, BACKGROUND_LOCATION, this.imageWidth, this.imageHeight, 0.0F, 0.0F, this.leftPos, this.topPos, 256, 256);
+        guiGraphics.blit(RenderType::guiTextured, BACKGROUND_LOCATION, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
         renderIconsProgress(guiGraphics);
         RenderSystem.disableBlend();
     }
 
     private void renderIconsProgress(GuiGraphics graphics) {
         if (getMenu().isCrafting())
-            graphics.blitSprite(RenderType::guiTextured, BACKGROUND_LOCATION, getMenu().getScaledProgress(), 16, 176, 49, this.leftPos + 85, this.topPos + 48, getMenu().getScaledProgress(), 16);
+            graphics.blitSprite(RenderType::guiTextured, BURN_PROGRESS, getMenu().getScaledProgress(), 16, 0, 0, this.leftPos + 85, this.topPos + 48, getMenu().getScaledProgress(), 16);
         if (getMenu().getLitProgress() > 0)
-            graphics.blitSprite(RenderType::guiTextured, BACKGROUND_LOCATION, 14, Math.round(14 * getMenu().getLitProgress()), 176, 66, this.leftPos + 90, this.topPos + 66, 14, Math.round(14 * getMenu().getLitProgress()));
+            graphics.blitSprite(RenderType::guiTextured, LIT_PROGRESS, 14, Math.round(14 * getMenu().getLitProgress()), 0, 0, this.leftPos + 90, this.topPos + 66, 14, Math.round(14 * getMenu().getLitProgress()));
     }
 
     @Override

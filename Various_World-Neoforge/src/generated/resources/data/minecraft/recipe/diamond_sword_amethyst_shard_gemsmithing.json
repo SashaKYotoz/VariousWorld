@@ -1,13 +1,9 @@
 {
   "type": "various_world:gemsmith_transform",
-  "gem": {
-    "item": "minecraft:amethyst_shard"
-  },
+  "gem": "minecraft:amethyst_shard",
   "result": {
     "count": 1,
     "id": "minecraft:diamond_sword"
   },
-  "tool": {
-    "item": "minecraft:diamond_sword"
-  }
+  "tool": "minecraft:diamond_sword"
 }

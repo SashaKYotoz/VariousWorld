@@ -4,6 +4,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeInput;
 
 public record GemsmithRecipeInput(ItemStack tool, ItemStack gem) implements RecipeInput {
+    @Override
     public ItemStack getItem(int i) {
         ItemStack stack;
         switch (i) {
@@ -15,19 +16,8 @@ public record GemsmithRecipeInput(ItemStack tool, ItemStack gem) implements Reci
         return stack;
     }
 
+    @Override
     public int size() {
         return 3;
-    }
-
-    public boolean isEmpty() {
-        return this.tool.isEmpty() && this.gem.isEmpty();
-    }
-
-    public ItemStack tool() {
-        return this.tool;
-    }
-
-    public ItemStack gem() {
-        return this.gem;
     }
 }

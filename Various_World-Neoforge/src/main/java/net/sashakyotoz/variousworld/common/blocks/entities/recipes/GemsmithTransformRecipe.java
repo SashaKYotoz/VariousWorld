@@ -17,16 +17,8 @@ import net.sashakyotoz.variousworld.init.VWMiscRegistries;
 
 import java.util.List;
 
-public class GemsmithTransformRecipe implements GemsmithRecipe {
-    public final Ingredient tool;
-    public final Ingredient gem;
-    final ItemStack result;
-
-    public GemsmithTransformRecipe(Ingredient tool, Ingredient gem, ItemStack result) {
-        this.tool = tool;
-        this.gem = gem;
-        this.result = result;
-    }
+public record GemsmithTransformRecipe(Ingredient tool, Ingredient gem,
+                                      ItemStack result) implements GemsmithRecipe, Recipe<GemsmithRecipeInput> {
 
     @Override
     public boolean isToolIngredient(ItemStack tool) {
@@ -87,7 +79,7 @@ public class GemsmithTransformRecipe implements GemsmithRecipe {
 
     @Override
     public PlacementInfo placementInfo() {
-        return null;
+        return PlacementInfo.create(List.of(tool, gem));
     }
 
     @Override

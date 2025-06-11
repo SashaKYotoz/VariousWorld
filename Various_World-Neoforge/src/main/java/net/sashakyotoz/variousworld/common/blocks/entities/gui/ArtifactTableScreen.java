@@ -1,6 +1,5 @@
 package net.sashakyotoz.variousworld.common.blocks.entities.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -26,6 +25,8 @@ public class ArtifactTableScreen extends AbstractContainerScreen<ArtifactTableMe
     }
 
     public static final ResourceLocation BACKGROUND_LOCATION = VariousWorld.createVWLocation("textures/gui/artifact_table.png");
+    public static final ResourceLocation TORCH = VariousWorld.createVWLocation("artifact_table_torch");
+    public static final ResourceLocation EFFECT_ICON = VariousWorld.createVWLocation("artifact_table_effect");
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
@@ -36,19 +37,15 @@ public class ArtifactTableScreen extends AbstractContainerScreen<ArtifactTableMe
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int gx, int gy) {
-        RenderSystem.setShaderColor(1, 1, 1, 1);
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
         guiGraphics.blit(RenderType::guiTextured, BACKGROUND_LOCATION, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
         renderIconsProgress(guiGraphics);
-        RenderSystem.disableBlend();
     }
 
     private void renderIconsProgress(GuiGraphics graphics) {
         if (getMenu().isRefreshing())
-            graphics.blitSprite(RenderType::guiTextured, BACKGROUND_LOCATION, 16,32, 176, 16, this.leftPos + 80, this.topPos + 16, 16, getMenu().getScaledProgress());
+            graphics.blitSprite(RenderType::guiTextured, EFFECT_ICON, 16,32, 0, 0, this.leftPos + 80, this.topPos + 16, 16, getMenu().getScaledProgress());
         if (getMenu().isPowered())
-            graphics.blitSprite(RenderType::guiTextured, BACKGROUND_LOCATION, 16,16, 176, 48, this.leftPos + 32, this.topPos + 48, 16, 16);
+            graphics.blitSprite(RenderType::guiTextured, TORCH, 16,16, 0, 0, this.leftPos + 26, this.topPos + 48, 16, 16);
     }
 
     @Override

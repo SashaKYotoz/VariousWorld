@@ -29,6 +29,7 @@ import net.neoforged.neoforge.common.BasicItemListing;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
+import net.sashakyotoz.variousworld.common.config.ConfiguredData;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import net.sashakyotoz.variousworld.common.items.data.CrystalData;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
@@ -165,7 +166,6 @@ public class OnActionsTrigger {
             }
         }
     }
-
     @SubscribeEvent
     public static void registerTrades(VillagerTradesEvent event) {
         if (event.getType().equals(VWVillagers.GEMSMITHER.value())) {

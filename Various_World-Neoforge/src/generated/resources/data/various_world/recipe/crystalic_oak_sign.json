@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "sign",
   "key": {
-    "#": {
-      "item": "various_world:crystalic_oak_planks"
-    },
-    "X": {
-      "item": "minecraft:stick"
-    }
+    "#": "various_world:crystalic_oak_planks",
+    "X": "minecraft:stick"
   },
   "pattern": [
     "###",

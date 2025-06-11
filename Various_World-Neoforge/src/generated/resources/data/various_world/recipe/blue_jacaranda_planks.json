@@ -3,10 +3,10 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-    "#various_world:crystalic_oak_logs"
+    "#various_world:blue_jacaranda_logs"
   ],
   "result": {
     "count": 4,
-    "id": "various_world:crystalic_oak_planks"
+    "id": "various_world:blue_jacaranda_planks"
   }
 }

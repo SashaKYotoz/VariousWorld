@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "d": {
-      "item": "minecraft:deepslate_bricks"
-    },
-    "f": {
-      "item": "minecraft:furnace"
-    }
+    "d": "minecraft:deepslate_bricks",
+    "f": "minecraft:furnace"
   },
   "pattern": [
     "ddd",

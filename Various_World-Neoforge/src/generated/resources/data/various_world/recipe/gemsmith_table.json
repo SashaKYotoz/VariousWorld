@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "d": {
-      "item": "minecraft:deepslate_bricks"
-    },
-    "i": {
-      "item": "minecraft:iron_ingot"
-    },
-    "s": {
-      "item": "minecraft:stick"
-    }
+    "d": "minecraft:deepslate_bricks",
+    "i": "minecraft:iron_ingot",
+    "s": "minecraft:stick"
   },
   "pattern": [
     "is ",

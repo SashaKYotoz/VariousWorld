@@ -10,14 +10,18 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.client.event.RegisterConditionalItemModelPropertyEvent;
+import net.neoforged.neoforge.client.event.RegisterSelectItemModelPropertyEvent;
 import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
+import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.common.blocks.entities.ArtifactTableBlockEntity;
 import net.sashakyotoz.variousworld.common.blocks.entities.GemsmithTableBlockEntity;
 import net.sashakyotoz.variousworld.common.config.ConfiguredData;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
+import net.sashakyotoz.variousworld.common.config.items.CrystalItemModelProperty;
 import net.sashakyotoz.variousworld.common.entities.CrystalicSlimeEntity;
 import net.sashakyotoz.variousworld.common.entities.WanderingZombieEntity;
 import net.sashakyotoz.variousworld.common.items.data.CrystalData;
@@ -38,6 +42,11 @@ public class OnModActionsTrigger {
     @SubscribeEvent
     public static void fmlSetup(FMLLoadCompleteEvent event) {
         ConfiguredData.processPendingRecipes();
+    }
+
+    @SubscribeEvent
+    public static void registerCrystals(RegisterSelectItemModelPropertyEvent event) {
+        event.register(VariousWorld.createVWLocation("crystal"), CrystalItemModelProperty.TYPE);
     }
 
     @SubscribeEvent

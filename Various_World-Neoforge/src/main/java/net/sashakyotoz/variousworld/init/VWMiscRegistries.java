@@ -10,6 +10,7 @@ import net.minecraft.world.effect.MobEffect;
 
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -51,15 +52,26 @@ public class VWMiscRegistries {
 
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, VariousWorld.MOD_ID);
     public static final DeferredHolder<ParticleType<?>, SimpleParticleType> PEACEFUL_PARTICLE = PARTICLES.register("peaceful_particle", () -> new SimpleParticleType(false));
-    public static final DeferredRegister<RecipeSerializer<?>> RECIPES = DeferredRegister.create(Registries.RECIPE_SERIALIZER, VariousWorld.MOD_ID);
+
+    public static final DeferredRegister<RecipeSerializer<?>> RECIPE = DeferredRegister.create(Registries.RECIPE_SERIALIZER, VariousWorld.MOD_ID);
     public static final DeferredHolder<RecipeSerializer<?>, GemsmithTransformRecipe.Serializer> GEMSMITH_TRANSFORM =
-            RECIPES.register("gemsmith_transform", () -> GemsmithTransformRecipe.Serializer.INSTANCE);
+            RECIPE.register("gemsmith_transform", () -> GemsmithTransformRecipe.Serializer.INSTANCE);
+
+    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPE = DeferredRegister.create(Registries.RECIPE_TYPE, VariousWorld.MOD_ID);
+    public static final DeferredHolder<RecipeType<?>, RecipeType<GemsmithTransformRecipe>> GEMSMITH_TRANSFORM_TYPE =
+            RECIPE_TYPE.register("gemsmith_transform", () -> new RecipeType<>() {
+                @Override
+                public String toString() {
+                    return "gemsmith_transform";
+                }
+            });
 
     public static void register(IEventBus bus) {
         EFFECTS.register(bus);
         DATA_COMPONENT_TYPES.register(bus);
         MENUS.register(bus);
         PARTICLES.register(bus);
-        RECIPES.register(bus);
+        RECIPE.register(bus);
+        RECIPE_TYPE.register(bus);
     }
 }

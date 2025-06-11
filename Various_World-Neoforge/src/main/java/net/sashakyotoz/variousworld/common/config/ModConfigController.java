@@ -5,7 +5,9 @@ import com.google.gson.annotations.SerializedName;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.neoforged.fml.loading.FMLPaths;
 import net.sashakyotoz.variousworld.VariousWorld;
 
@@ -50,7 +52,10 @@ public class ModConfigController {
         }
 
         public Item build() {
-            return BuiltInRegistries.ITEM.get(itemId).get().value();
+            if (BuiltInRegistries.ITEM.get(itemId).isPresent())
+                return BuiltInRegistries.ITEM.get(itemId).get().value();
+            else
+                return Items.AIR;
         }
 
         public ResourceLocation getId() {
@@ -72,7 +77,10 @@ public class ModConfigController {
         public Attribute deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
             String attributeId = json.getAsString();
-            return BuiltInRegistries.ATTRIBUTE.get(ResourceLocation.parse(attributeId)).get().value();
+            if (BuiltInRegistries.ATTRIBUTE.get(ResourceLocation.parse(attributeId)).isPresent())
+                return BuiltInRegistries.ATTRIBUTE.get(ResourceLocation.parse(attributeId)).get().value();
+            else
+                return Attributes.MOVEMENT_SPEED.value();
         }
     }
 
@@ -89,6 +97,7 @@ public class ModConfigController {
             MOD_CONFIG_VALUES = data.configs;
             CRYSTALING_CONFIG_VALUES = data.crystalingSettings;
             ARTIFACTS_CONFIG_VALUES = data.artifactsSettings;
+            VariousWorld.LOGGER.info(CRYSTALING_CONFIG_VALUES.toString());
         } catch (Exception e) {
             VariousWorld.LOGGER.error("Various World config can't be read");
         }

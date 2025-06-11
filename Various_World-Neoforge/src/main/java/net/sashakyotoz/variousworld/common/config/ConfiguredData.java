@@ -8,6 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.common.OnActionsTrigger;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -51,47 +52,70 @@ public class ConfiguredData {
 
     public static void register() {
         register(
-                ResourceLocation.fromNamespaceAndPath("various_world", "models/item/supply_crystal.json"),
+                ResourceLocation.fromNamespaceAndPath("various_world", "items/supply_crystal.json"),
                 () -> true,
                 json -> gson.toJson(supplyCrystalJson())
         );
         registerMissingRecipes();
+        registerModels();
     }
 
     private static JsonObject supplyCrystalJson() {
         JsonObject root = new JsonObject();
-        root.addProperty("parent", "item/generated");
-
-        JsonObject textures = new JsonObject();
-        textures.addProperty("layer0", "various_world:item/crystals/null");
-        root.add("textures", textures);
-        JsonArray overrides = getOverrides();
-        root.add("overrides", overrides);
+        JsonObject model = new JsonObject();
+        model.addProperty("type", "minecraft:select");
+        JsonArray casesArray = getOverrides();
+        model.add("cases", casesArray);
+        JsonObject fallback = new JsonObject();
+        fallback.addProperty("type", "minecraft:model");
+        fallback.addProperty("model", "various_world:item/supply_crystal");
+        model.add("fallback", fallback);
+        model.addProperty("property", "various_world:crystal");
+        root.add("model", model);
         return root;
     }
 
     private static JsonArray getOverrides() {
         JsonArray overrides = new JsonArray();
         if (ModConfigController.CRYSTALING_CONFIG_VALUES != null) {
-            for (int i = 0; i < ModConfigController.CRYSTALING_CONFIG_VALUES.size(); i++) {
-                ModConfigController.GemsmithingSetting setting = ModConfigController.CRYSTALING_CONFIG_VALUES.get(i);
-                int crystalValue = i + 1;
-                for (int j = 0; j < toolNames.length; j++) {
-                    int toolValue = j + 1;
-                    String toolName = toolNames[j];
-
-                    JsonObject overrideEntry = new JsonObject();
-                    JsonObject predicate = new JsonObject();
-                    predicate.addProperty("crystal", crystalValue);
-                    predicate.addProperty("tool", toolValue);
-                    overrideEntry.add("predicate", predicate);
-                    overrideEntry.addProperty("model", "various_world:item/" + setting.prefix() + "_" + toolName);
-                    overrides.add(overrideEntry);
+            for (ModConfigController.GemsmithingSetting setting : ModConfigController.CRYSTALING_CONFIG_VALUES) {
+                for (String toolName : toolNames) {
+                    JsonObject caseEntry = getEntry(setting, toolName);
+                    overrides.add(caseEntry);
                 }
             }
             return overrides;
         }
         return new JsonArray();
+    }
+
+    private static final List<String> pendingModels = new ArrayList<>();
+
+    private static @NotNull JsonObject getEntry(ModConfigController.GemsmithingSetting setting, String toolName) {
+        JsonObject caseEntry = new JsonObject();
+        JsonObject caseModel = new JsonObject();
+        caseModel.addProperty("type", "minecraft:model");
+        pendingModels.add("various_world:item/" + setting.prefix() + "_" + toolName);
+        caseModel.addProperty(
+                "model",
+                "various_world:item/" + setting.prefix() + "_" + toolName
+        );
+        caseEntry.add("model", caseModel);
+        caseEntry.addProperty("when", "%s_%s".formatted(setting.prefix(), toolName));
+        return caseEntry;
+    }
+
+    public static void registerModels() {
+        if (ModConfigController.CRYSTALING_CONFIG_VALUES != null)
+            for (ModConfigController.GemsmithingSetting setting : ModConfigController.CRYSTALING_CONFIG_VALUES) {
+                for (int j = 0; j < ConfiguredData.toolNames.length; j++) {
+                    String toolName = ConfiguredData.toolNames[j];
+                    for (String model : pendingModels) {
+                        if (model.contains(toolName) && model.contains(setting.prefix()))
+                            missingCrystalJson(toolName, setting.item().build());
+                    }
+                }
+            }
     }
 
     public static JsonObject missingCrystalJson(String tool, Item item) {
@@ -118,15 +142,11 @@ public class ConfiguredData {
                 for (ModConfigController.GemsmithingSetting setting : ModConfigController.CRYSTALING_CONFIG_VALUES) {
                     ResourceLocation tool = BuiltInRegistries.ITEM.getKey(item);
                     ResourceLocation gem = BuiltInRegistries.ITEM.getKey(setting.item().build());
-                    if (setting.item().build().equals(Items.AIR) && !gem.getNamespace().equals(VariousWorld.MOD_ID)) {
+                    if (setting.item().build().equals(Items.AIR)) {
                         pendingRecipes.add(new PendingRecipe(setting.item().getId(), setting.item(), setting.prefix()));
                         continue;
                     }
-                    ResourceLocation key;
-                    if (gem.getNamespace().equals(VariousWorld.MOD_ID))
-                        key = ResourceLocation.parse(String.format("recipe/%s_%s_gemsmithing.json", tool.getPath(), gem.getPath()));
-                    else
-                        key = ResourceLocation.fromNamespaceAndPath(tool.getNamespace(), String.format("recipe/%s_%s_gemsmithing.json", tool.getPath(), gem.getPath()));
+                    ResourceLocation key = ResourceLocation.fromNamespaceAndPath(tool.getNamespace(), String.format("recipe/%s_%s_gemsmithing.json", tool.getPath(), gem.getPath()));
                     if (MANAGER_KEEPER.get(0) != null && !((IResourceExistence) MANAGER_KEEPER.get(0)).resourceExists(key))
                         register(key, () -> true, json -> gson.toJson(missingRecipeJson(tool.getPath(), gem.getPath())));
                 }
@@ -155,7 +175,6 @@ public class ConfiguredData {
                             register(key, () -> true, json ->
                                     gson.toJson(missingRecipeJson(String.format("%s:%s", toolRL.getNamespace(), toolRL.getPath()), gemRL.toString()))
                             );
-//                            VariousWorld.LOGGER.info("Registered recipe for tool {} using gem {}.", toolRL, gemRL);
                         }
                     }
                 }
@@ -167,17 +186,12 @@ public class ConfiguredData {
     private static JsonObject missingRecipeJson(String toolName, String gemName) {
         JsonObject root = new JsonObject();
         root.addProperty("type", "various_world:gemsmith_transform");
-
-        JsonObject tool = new JsonObject();
-        tool.addProperty("item", toolName);
-        root.add("tool", tool);
-        JsonObject gem = new JsonObject();
-        gem.addProperty("item", gemName);
-        root.add("gem", gem);
-        JsonObject result = new JsonObject();
-        result.addProperty("id", toolName);
-        result.addProperty("count", 1);
-        root.add("result", result);
+        root.addProperty("tool", toolName);
+        root.addProperty("gem", gemName);
+        JsonObject resultObj = new JsonObject();
+        resultObj.addProperty("id", toolName);
+        root.add("result", resultObj);
+        VariousWorld.LOGGER.info("Recipe: %s".formatted(root.toString()));
         return root;
     }
 }
