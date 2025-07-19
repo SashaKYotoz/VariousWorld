@@ -13,8 +13,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.sashakyotoz.variousworld.common.blocks.custom.ModRotatedPillarBlock;
 import net.sashakyotoz.variousworld.common.blocks.ModWoodType;
 import net.sashakyotoz.variousworld.common.blocks.custom.*;
 import net.sashakyotoz.variousworld.common.blocks.entities.*;

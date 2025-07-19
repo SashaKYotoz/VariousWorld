@@ -18,6 +18,6 @@ public record GemsmithRecipeInput(ItemStack tool, ItemStack gem) implements Reci
 
     @Override
     public int size() {
-        return 3;
+        return 2;
     }
 }

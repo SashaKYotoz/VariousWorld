@@ -21,7 +21,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
@@ -192,22 +192,22 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
     private void craftItem(GemsmithTableBlockEntity pEntity) {
         Optional<RecipeHolder<GemsmithTransformRecipe>> matchedRecipe = getCurrentRecipe();
         if (matchedRecipe.isPresent()) {
-            ItemStack result = releaseResultStack(matchedRecipe.get(), pEntity);
-            for (int i = 0; i < 2; i++)
-                pEntity.removeItem(i, 1);
-            pEntity.setItem(2, result);
-            pEntity.resetProgress();
+               ItemStack result = releaseResultStack(matchedRecipe.get(), pEntity);
+               pEntity.setItem(2, result);
+               for (int i = 0; i < 2; i++)
+                   pEntity.removeItem(i, 1);
+               pEntity.resetProgress();
         }
     }
 
     private ItemStack releaseResultStack(RecipeHolder<GemsmithTransformRecipe> recipe, GemsmithTableBlockEntity blockEntity) {
         List<ModConfigController.GemsmithingSetting> setting = ModConfigController.CRYSTALING_CONFIG_VALUES;
-        if (OnActionsTrigger.isInstanceOfAny(recipe.value().tool().getValues().get(0).value()) && setting != null) {
-            ItemStack itemstack = this.itemHandler.getStackInSlot(0).copy();
-            ItemStack supplyGemStack = VWItems.SUPPLY_CRYSTAL.toStack();
+        if (OnActionsTrigger.isInstanceOfAny(recipe.value().result().getItem()) && setting != null) {
+            ItemStack itemstack = recipe.value().result().copy();
+            ItemStack supplyGemStack = new ItemStack(VWItems.SUPPLY_CRYSTAL.get());
             String toolName;
-            for (ModConfigController.GemsmithingSetting crystalingSetting : setting) {
-                if (itemHandler.getStackInSlot(0).is(crystalingSetting.item().build())) {
+            for (ModConfigController.GemsmithingSetting crystalSetting : setting) {
+                if (itemHandler.getStackInSlot(1).is(crystalSetting.item().build())) {
                     toolName = OnActionsTrigger.getToolName(itemstack);
                     supplyGemStack.set(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get(), new SupplyCrystalData(
                             itemHandler.getStackInSlot(1),
@@ -215,9 +215,9 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
                     ));
                     itemstack.set(VWMiscRegistries.CRYSTAL_DATA.get(), new CrystalData(
                             supplyGemStack,
-                            crystalingSetting.durability()
+                            crystalSetting.durability()
                     ));
-                    var attributeKey = BuiltInRegistries.ATTRIBUTE.getKey(crystalingSetting.attribute());
+                    var attributeKey = BuiltInRegistries.ATTRIBUTE.getKey(crystalSetting.attribute());
                     if (!itemstack.has(DataComponents.ATTRIBUTE_MODIFIERS) || attributeKey == null)
                         return itemstack;
                     List<ItemAttributeModifiers.Entry> modifiers = new ArrayList<>(
@@ -234,7 +234,7 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
                             if (entry.attribute().is(attributeKey)) {
                                 var updatedModifier = new AttributeModifier(
                                         entry.modifier().id(),
-                                        entry.modifier().amount() + crystalingSetting.modify_value(),
+                                        entry.modifier().amount() + crystalSetting.modify_value(),
                                         entry.modifier().operation()
                                 );
                                 return new ItemAttributeModifiers.Entry(entry.attribute(), updatedModifier, entry.slot());
@@ -243,13 +243,12 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
                         }).collect(Collectors.toList());
                     } else {
                         var newModifier = new AttributeModifier(
-                                VariousWorld.createVWLocation("tool.modify_attribute" + crystalingSetting.prefix()),
-                                crystalingSetting.modify_value(),
+                                VariousWorld.createVWLocation("tool.modify_attribute" + crystalSetting.prefix()),
+                                crystalSetting.modify_value(),
                                 AttributeModifier.Operation.ADD_VALUE
                         );
                         modifiers.add(new ItemAttributeModifiers.Entry(attributeHolder, newModifier, EquipmentSlotGroup.MAINHAND));
                     }
-
                     itemstack.set(
                             DataComponents.ATTRIBUTE_MODIFIERS,
                             new ItemAttributeModifiers(modifiers, itemstack.get(DataComponents.ATTRIBUTE_MODIFIERS).showInTooltip())
@@ -275,16 +274,14 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
 
     public boolean hasRecipe() {
         Optional<RecipeHolder<GemsmithTransformRecipe>> recipe = getCurrentRecipe();
-        if (recipe.isEmpty())
+        if (recipe.isEmpty()) {
             return false;
+        }
         ItemStack result = recipe.get().value().result();
-
-        return canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+        return canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result);
     }
 
     private Optional<RecipeHolder<GemsmithTransformRecipe>> getCurrentRecipe() {
-        VariousWorld.LOGGER.info("Recipe: %s".formatted(((ServerLevel) this.level).recipeAccess().getRecipeFor(VWMiscRegistries.GEMSMITH_TRANSFORM_TYPE.get(), new GemsmithRecipeInput(
-                this.itemHandler.getStackInSlot(0), this.itemHandler.getStackInSlot(1)), this.level)));
         return ((ServerLevel) this.level).recipeAccess().getRecipeFor(VWMiscRegistries.GEMSMITH_TRANSFORM_TYPE.get(), new GemsmithRecipeInput(
                 this.itemHandler.getStackInSlot(0), this.itemHandler.getStackInSlot(1)), this.level);
     }
@@ -293,8 +290,9 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
         this.progress = 0;
     }
 
-    private boolean canInsertItemIntoOutputSlot(Item item) {
-        return this.itemHandler.getStackInSlot(2).isEmpty() || this.itemHandler.getStackInSlot(2).is(item);
+    private boolean canInsertItemIntoOutputSlot(ItemStack output) {
+        return itemHandler.getStackInSlot(2).isEmpty() ||
+                itemHandler.getStackInSlot(2).getItem() == output.getItem();
     }
 
     private boolean canInsertAmountIntoOutputSlot(int count) {

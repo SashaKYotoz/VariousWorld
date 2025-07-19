@@ -13,23 +13,37 @@ public class VWItems {
     }
 
     public static final DeferredItem<SignItem> CRYSTALIC_OAK_SIGN = VWRegistryHelper.ofItem("crystalic_oak_sign", properties -> new SignItem(VWBlocks.CRYSTALIC_OAK_SIGN.get(), VWBlocks.CRYSTALIC_OAK_WALL_SIGN.get(), new Item.Properties()
-            .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("crystalic_oak_sign"))))).model().build();
+            .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("crystalic_oak_sign")))))
+//            .model()
+            .build();
     public static final DeferredItem<HangingSignItem> CRYSTALIC_OAK_HANGING_SIGN = VWRegistryHelper.ofItem("crystalic_oak_hanging_sign", properties -> new HangingSignItem(VWBlocks.CRYSTALIC_OAK_HANGING_SIGN.get(), VWBlocks.CRYSTALIC_OAK_HANGING_WALL_SIGN.get(), new Item.Properties()
-            .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("crystalic_oak_hanging_sign"))))).model().build();
+            .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("crystalic_oak_hanging_sign")))))
+//            .model()
+            .build();
 
     public static final DeferredItem<SignItem> BLUE_JACARANDA_SIGN = VWRegistryHelper.ofItem("blue_jacaranda_sign", properties -> new SignItem(VWBlocks.BLUE_JACARANDA_SIGN.get(), VWBlocks.BLUE_JACARANDA_WALL_SIGN.get(), new Item.Properties()
-            .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("blue_jacaranda_sign"))))).model().build();
+            .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("blue_jacaranda_sign")))))
+//            .model()
+            .build();
     public static final DeferredItem<HangingSignItem> BLUE_JACARANDA_HANGING_SIGN = VWRegistryHelper.ofItem("blue_jacaranda_hanging_sign", properties -> new HangingSignItem(VWBlocks.BLUE_JACARANDA_HANGING_SIGN.get(), VWBlocks.BLUE_JACARANDA_HANGING_WALL_SIGN.get(), new Item.Properties()
             .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("blue_jacaranda_hanging_sign")))
-    )).model().build();
+    ))
+//            .model()
+            .build();
 
     public static final DeferredItem<Item> SODALITE_SHARD = VWRegistryHelper.ofItem("sodalite_shard", properties -> new Item(new Item.Properties()
-            .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("sodalite_shard"))))).model().build();
+            .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("sodalite_shard")))))
+//            .model()
+            .build();
     public static final DeferredItem<Item> CRYSTALLINE_SLIME_BALL = VWRegistryHelper.ofItem("crystalline_slime_ball", properties -> new Item(new Item.Properties()
-            .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("crystalline_slime_ball"))))).model().build();
+            .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("crystalline_slime_ball")))))
+//            .model()
+            .build();
     public static final DeferredItem<Item> CRYSTALLINE_STRENGTH = VWRegistryHelper.ofItem("crystalline_strength", properties -> new Item(new Item.Properties()
             .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("crystalline_strength")))
-            .rarity(Rarity.RARE))).model().build();
+            .rarity(Rarity.RARE)))
+//            .model()
+            .build();
 
     public static final DeferredItem<Item> SUPPLY_CRYSTAL = VWRegistryHelper.ofItem("supply_crystal", properties -> new Item(new Item.Properties()
             .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("supply_crystal")))

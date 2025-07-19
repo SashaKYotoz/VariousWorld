@@ -29,13 +29,15 @@ import net.neoforged.neoforge.common.BasicItemListing;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
-import net.sashakyotoz.variousworld.common.config.ConfiguredData;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import net.sashakyotoz.variousworld.common.items.data.CrystalData;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
 import net.sashakyotoz.variousworld.init.*;
 
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 @EventBusSubscriber
@@ -70,6 +72,12 @@ public class OnActionsTrigger {
             if (entity.getItemBySlot(value).equals(stack))
                 entity.setItemSlot(value, tmpStack);
         }
+    }
+    public static ItemStack returnDefaultStack(ItemStack stack) {
+        ItemStack tmpStack = stack.getItem().getDefaultInstance();
+        tmpStack.setCount(Math.max(1, stack.getCount()));
+        tmpStack.setDamageValue(stack.getDamageValue());
+        return tmpStack;
     }
 
 

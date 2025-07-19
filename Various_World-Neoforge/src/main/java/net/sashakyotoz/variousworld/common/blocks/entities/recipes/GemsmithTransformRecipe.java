@@ -18,17 +18,7 @@ import net.sashakyotoz.variousworld.init.VWMiscRegistries;
 import java.util.List;
 
 public record GemsmithTransformRecipe(Ingredient tool, Ingredient gem,
-                                      ItemStack result) implements GemsmithRecipe, Recipe<GemsmithRecipeInput> {
-
-    @Override
-    public boolean isToolIngredient(ItemStack tool) {
-        return this.tool.test(tool);
-    }
-
-    @Override
-    public boolean isGemIngredient(ItemStack gem) {
-        return this.gem.test(gem);
-    }
+                                      ItemStack result) implements Recipe<GemsmithRecipeInput> {
 
     @Override
     public boolean matches(GemsmithRecipeInput input, Level level) {
@@ -69,12 +59,12 @@ public record GemsmithTransformRecipe(Ingredient tool, Ingredient gem,
 
     @Override
     public RecipeSerializer<? extends Recipe<GemsmithRecipeInput>> getSerializer() {
-        return Serializer.INSTANCE;
+        return VWMiscRegistries.GEMSMITH_TRANSFORM.get();
     }
 
     @Override
     public RecipeType<? extends Recipe<GemsmithRecipeInput>> getType() {
-        return Type.INSTANCE;
+        return VWMiscRegistries.GEMSMITH_TRANSFORM_TYPE.get();
     }
 
     @Override
@@ -84,29 +74,25 @@ public record GemsmithTransformRecipe(Ingredient tool, Ingredient gem,
 
     @Override
     public RecipeBookCategory recipeBookCategory() {
-        return RecipeBookCategories.SMOKER_FOOD;
-    }
-
-    public static class Type implements RecipeType<GemsmithTransformRecipe> {
-        private Type() {
-        }
-
-        public static final Type INSTANCE = new Type();
+        return RecipeBookCategories.SMITHING;
     }
 
     public static class Serializer implements RecipeSerializer<GemsmithTransformRecipe> {
-        public static final Serializer INSTANCE = new Serializer();
         private static final MapCodec<GemsmithTransformRecipe> CODEC = RecordCodecBuilder.mapCodec(
                 instance -> instance.group(
-                                Ingredient.CODEC.fieldOf("tool").forGetter(recipe -> recipe.tool),
-                                Ingredient.CODEC.fieldOf("gem").forGetter(recipe -> recipe.gem),
-                                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+                                Ingredient.CODEC.fieldOf("tool").forGetter(GemsmithTransformRecipe::tool),
+                                Ingredient.CODEC.fieldOf("gem").forGetter(GemsmithTransformRecipe::gem),
+                                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(GemsmithTransformRecipe::result)
                         )
                         .apply(instance, GemsmithTransformRecipe::new)
         );
-        public static final StreamCodec<RegistryFriendlyByteBuf, GemsmithTransformRecipe> STREAM_CODEC = StreamCodec.of(
-                GemsmithTransformRecipe.Serializer::toNetwork, GemsmithTransformRecipe.Serializer::fromNetwork
-        );
+        public static final StreamCodec<RegistryFriendlyByteBuf, GemsmithTransformRecipe> STREAM_CODEC =
+                StreamCodec.composite(
+                        Ingredient.CONTENTS_STREAM_CODEC, GemsmithTransformRecipe::tool,
+                        Ingredient.CONTENTS_STREAM_CODEC, GemsmithTransformRecipe::gem,
+                        ItemStack.STREAM_CODEC, GemsmithTransformRecipe::result,
+                        GemsmithTransformRecipe::new
+                );
 
         @Override
         public MapCodec<GemsmithTransformRecipe> codec() {
@@ -116,19 +102,6 @@ public record GemsmithTransformRecipe(Ingredient tool, Ingredient gem,
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, GemsmithTransformRecipe> streamCodec() {
             return STREAM_CODEC;
-        }
-
-        private static GemsmithTransformRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
-            Ingredient ingredient = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-            Ingredient ingredient1 = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-            ItemStack itemstack = ItemStack.STREAM_CODEC.decode(buffer);
-            return new GemsmithTransformRecipe(ingredient, ingredient1, itemstack);
-        }
-
-        private static void toNetwork(RegistryFriendlyByteBuf buffer, GemsmithTransformRecipe recipe) {
-            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.tool);
-            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.gem);
-            ItemStack.STREAM_CODEC.encode(buffer, recipe.result);
         }
     }
 }

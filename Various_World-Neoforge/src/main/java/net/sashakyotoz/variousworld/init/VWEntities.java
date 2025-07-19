@@ -3,7 +3,6 @@ package net.sashakyotoz.variousworld.init;
 
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
-
 import net.minecraft.world.entity.MobCategory;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.sashakyotoz.variousworld.common.entities.CrystalicSlimeEntity;

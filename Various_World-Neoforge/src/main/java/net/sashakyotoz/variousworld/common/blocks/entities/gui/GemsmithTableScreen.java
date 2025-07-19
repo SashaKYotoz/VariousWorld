@@ -48,9 +48,9 @@ public class GemsmithTableScreen extends AbstractContainerScreen<GemsmithTableMe
 
     private void renderIconsProgress(GuiGraphics graphics) {
         if (getMenu().isCrafting())
-            graphics.blitSprite(RenderType::guiTextured, BURN_PROGRESS, getMenu().getScaledProgress(), 16, 0, 0, this.leftPos + 85, this.topPos + 48, getMenu().getScaledProgress(), 16);
+            graphics.blitSprite(RenderType::guiTextured, BURN_PROGRESS, 22, 16, 22-getMenu().getScaledProgress(), 0, this.leftPos + 85, this.topPos + 48, getMenu().getScaledProgress(), 16);
         if (getMenu().getLitProgress() > 0)
-            graphics.blitSprite(RenderType::guiTextured, LIT_PROGRESS, 14, Math.round(14 * getMenu().getLitProgress()), 0, 0, this.leftPos + 90, this.topPos + 66, 14, Math.round(14 * getMenu().getLitProgress()));
+            graphics.blitSprite(RenderType::guiTextured, LIT_PROGRESS, 14, Math.round(14 * getMenu().getLitProgress()), 0, 14-Math.round(14 * getMenu().getLitProgress()), this.leftPos + 90, this.topPos + 66, 14, Math.round(14 * getMenu().getLitProgress()));
     }
 
     @Override

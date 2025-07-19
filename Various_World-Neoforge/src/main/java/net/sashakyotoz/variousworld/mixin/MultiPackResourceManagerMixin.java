@@ -4,7 +4,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.MultiPackResourceManager;
 import net.minecraft.server.packs.resources.Resource;
-import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.common.config.ConfiguredData;
 import net.sashakyotoz.variousworld.common.config.ConfiguredDataResourcePack;
 import net.sashakyotoz.variousworld.common.config.IResourceExistence;

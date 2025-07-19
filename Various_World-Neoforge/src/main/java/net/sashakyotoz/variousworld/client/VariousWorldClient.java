@@ -10,10 +10,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.sashakyotoz.variousworld.client.models.CrystalicSlimeModel;
 import net.sashakyotoz.variousworld.client.models.WanderingZombieModel;
@@ -23,6 +20,7 @@ import net.sashakyotoz.variousworld.common.blocks.ModWoodType;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.ArtifactTableScreen;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.GemsmithTableScreen;
 import net.sashakyotoz.variousworld.common.blocks.entities.render.ArtifactTableBlockEntityRenderer;
+import net.sashakyotoz.variousworld.common.config.ConfiguredData;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWEntities;
 import net.sashakyotoz.variousworld.init.VWMiscRegistries;
@@ -39,10 +37,6 @@ public class VariousWorldClient {
 
         event.registerEntityRenderer(VWEntities.CRYSTALIC_SLIME.get(), CrystalicSlimeRenderer::new);
         event.registerEntityRenderer(VWEntities.WANDERING_ZOMBIE.get(), WanderingZombieRenderer::new);
-    }
-
-    @SubscribeEvent
-    public static void blockColorLoad(RegisterColorHandlersEvent.Block event) {
     }
 
     @SubscribeEvent

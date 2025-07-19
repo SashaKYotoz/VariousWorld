@@ -80,7 +80,7 @@ public class ModConfigController {
             if (BuiltInRegistries.ATTRIBUTE.get(ResourceLocation.parse(attributeId)).isPresent())
                 return BuiltInRegistries.ATTRIBUTE.get(ResourceLocation.parse(attributeId)).get().value();
             else
-                return Attributes.MOVEMENT_SPEED.value();
+                return Attributes.ENTITY_INTERACTION_RANGE.value();
         }
     }
 
@@ -97,7 +97,6 @@ public class ModConfigController {
             MOD_CONFIG_VALUES = data.configs;
             CRYSTALING_CONFIG_VALUES = data.crystalingSettings;
             ARTIFACTS_CONFIG_VALUES = data.artifactsSettings;
-            VariousWorld.LOGGER.info(CRYSTALING_CONFIG_VALUES.toString());
         } catch (Exception e) {
             VariousWorld.LOGGER.error("Various World config can't be read");
         }
@@ -115,21 +114,21 @@ public class ModConfigController {
                         "item": "various_world:sodalite_shard",
                         "prefix": "sodalite",
                         "durability": 128,
-                        "attribute": "player.block_break_speed",
+                        "attribute": "block_break_speed",
                         "modify_value": 0.2
                       },
                       {
                         "item": "various_world:crystalline_slime_ball",
                         "prefix": "crystalline_slime_ball",
                         "durability": 32,
-                        "attribute": "generic.attack_knockback",
+                        "attribute": "attack_knockback",
                         "modify_value": 0.1
                       },
                       {
                         "item": "minecraft:amethyst_shard",
                         "prefix": "amethyst",
                         "durability": 72,
-                        "attribute": "generic.attack_damage",
+                        "attribute": "attack_damage",
                         "modify_value": 1
                       }
                     ],

@@ -6,11 +6,11 @@
   "refmap": "various_world.refmap.json",
   "mixins": [
     "ItemMixin",
-    "MultiPackResourceManagerMixin"
+    "MultiPackResourceManagerMixin",
+    "ServerRecipeBookMixin"
   ],
   "client": [
-    "ItemRendererMixin",
-    "ModelBakeryMixin"
+    "GuiGraphicsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

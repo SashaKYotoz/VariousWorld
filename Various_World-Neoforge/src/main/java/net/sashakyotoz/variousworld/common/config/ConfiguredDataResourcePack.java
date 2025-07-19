@@ -13,7 +13,6 @@ import net.sashakyotoz.variousworld.VariousWorld;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
 import java.util.Set;

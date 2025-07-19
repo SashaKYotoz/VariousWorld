@@ -16,6 +16,8 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -23,7 +25,10 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.sashakyotoz.variousworld.VariousWorld;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -172,10 +177,11 @@ public class VWRegistryHelper {
             return this;
         }
 
+        @OnlyIn(Dist.CLIENT)
         public ItemBuilder model() {
             return this.model(ModelTemplates.FLAT_ITEM);
         }
-
+        @OnlyIn(Dist.CLIENT)
         public ItemBuilder model(ModelTemplate model) {
             ITEM_MODELS.put(this.item, model);
             return this;

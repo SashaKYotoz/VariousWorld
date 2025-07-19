@@ -10,7 +10,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.client.event.RegisterConditionalItemModelPropertyEvent;
 import net.neoforged.neoforge.client.event.RegisterSelectItemModelPropertyEvent;
 import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
@@ -41,6 +40,8 @@ public class OnModActionsTrigger {
 
     @SubscribeEvent
     public static void fmlSetup(FMLLoadCompleteEvent event) {
+        ConfiguredData.supplyCrystalJson();
+        ConfiguredData.registerMissingRecipes();
         ConfiguredData.processPendingRecipes();
     }
 
