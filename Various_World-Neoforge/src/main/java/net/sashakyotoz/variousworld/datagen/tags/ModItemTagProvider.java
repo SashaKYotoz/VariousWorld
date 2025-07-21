@@ -29,11 +29,19 @@ public class ModItemTagProvider extends ItemTagsProvider {
         for (TagKey<Item> tag : VWRegistryHelper.ITEM_TAGS.keySet()) {
             for (Item item : VWRegistryHelper.ITEM_TAGS.get(tag))
                 this.tag(tag).add(item);
-            this.tag(VWTags.Items.CRYSTALIC_OAK_LOGS).add(
-                    VWBlocks.CRYSTALIC_OAK_LOG.get().asItem(),
-                    VWBlocks.STRIPPED_CRYSTALIC_OAK_LOG.get().asItem()
-            );
         }
+        this.tag(VWTags.Items.CRYSTALIC_OAK_LOGS).add(
+                VWBlocks.CRYSTALIC_OAK_LOG.get().asItem(),
+                VWBlocks.STRIPPED_CRYSTALIC_OAK_LOG.get().asItem(),
+                VWBlocks.CRYSTALIC_OAK_WOOD.get().asItem(),
+                VWBlocks.STRIPPED_CRYSTALIC_OAK_WOOD.get().asItem()
+        );
+        this.tag(VWTags.Items.BLUE_JACARANDA_LOGS).add(
+                VWBlocks.BLUE_JACARANDA_LOG.get().asItem(),
+                VWBlocks.STRIPPED_BLUE_JACARANDA_LOG.get().asItem(),
+                VWBlocks.STRIPPED_BLUE_JACARANDA_WOOD.get().asItem(),
+                VWBlocks.BLUE_JACARANDA_WOOD.get().asItem()
+        );
         for (DeferredHolder<Item, ? extends Item> item : VWRegistryHelper.ITEMS.getEntries()) {
             if (item.get() instanceof ArmorItem armorItem)
                 this.tag(ItemTags.TRIMMABLE_ARMOR).add(armorItem);

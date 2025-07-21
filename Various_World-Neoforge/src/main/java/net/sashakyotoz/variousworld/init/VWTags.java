@@ -13,6 +13,7 @@ public class VWTags {
 
     public static class Items {
         public static final TagKey<Item> CRYSTALIC_OAK_LOGS = createTag("crystalic_oak_logs");
+        public static final TagKey<Item> BLUE_JACARANDA_LOGS = createTag("blue_jacaranda_logs");
 
         private static TagKey<Item> createTag(String name) {
             return ItemTags.create(VariousWorld.createVWLocation(name));

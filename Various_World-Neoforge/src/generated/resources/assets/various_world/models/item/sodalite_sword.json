@@ -1,6 +1,6 @@
 {
-	"parent": "minecraft:item/generated",
-	"textures": {
-		"layer0": "various_world:item/crystals/sodalite_sword"
-	}
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "various_world:item/crystals/sodalite_sword"
+  }
 }

@@ -52,6 +52,11 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         planksFromLog(recipeOutput, VWBlocks.CRYSTALIC_OAK_PLANKS.get(), VWTags.Items.CRYSTALIC_OAK_LOGS, 4);
 
+        woodFromLogs(recipeOutput, VWBlocks.BLUE_JACARANDA_WOOD.get(), VWBlocks.BLUE_JACARANDA_LOG.get());
+        woodFromLogs(recipeOutput, VWBlocks.STRIPPED_BLUE_JACARANDA_WOOD.get(), VWBlocks.STRIPPED_BLUE_JACARANDA_LOG.get());
+
+        planksFromLog(recipeOutput, VWBlocks.BLUE_JACARANDA_PLANKS.get(), VWTags.Items.BLUE_JACARANDA_LOGS, 4);
+
         twoByTwoPacker(recipeOutput, RecipeCategory.BUILDING_BLOCKS, VWBlocks.SODALITE_BLOCK.get(), VWItems.SODALITE_SHARD.get());
 
         BuiltInRegistries.ITEM.forEach(item -> {

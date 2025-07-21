@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    {
+      "tag": "various_world:blue_jacaranda_logs"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "id": "various_world:blue_jacaranda_planks"
+  }
+}
