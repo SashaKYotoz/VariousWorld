@@ -158,23 +158,21 @@ public class ConfiguredData {
             if (OnActionsTrigger.isInstanceOfAny(item)) {
                 ResourceLocation toolRL = BuiltInRegistries.ITEM.getKey(item);
                 for (PendingRecipe pending : pendingRecipes) {
-                    if (!pending.lazyGem.getId().getNamespace().equals("minecraft")) {
-                        Item gemItem = pending.lazyGem.build();
-                        if (gemItem.equals(Items.AIR)) {
-                            VariousWorld.LOGGER.info("Pending recipe: gem item {} still not found.", pending.lazyGem.getId());
-                            continue;
-                        }
-                        ResourceLocation gemRL = pending.lazyGem.getId();
-                        ResourceLocation key = ResourceLocation.fromNamespaceAndPath(
-                                toolRL.getNamespace(),
-                                String.format("recipe/%s_%s_gemsmithing.json", toolRL.getPath(), gemRL.getPath())
+                    Item gemItem = pending.lazyGem.build();
+                    if (gemItem.equals(Items.AIR)) {
+                        VariousWorld.LOGGER.info("Pending recipe: gem item {} still not found.", pending.lazyGem.getId());
+                        continue;
+                    }
+                    ResourceLocation gemRL = pending.lazyGem.getId();
+                    ResourceLocation key = ResourceLocation.fromNamespaceAndPath(
+                            toolRL.getNamespace(),
+                            String.format("recipe/%s_%s_gemsmithing.json", toolRL.getPath(), gemRL.getPath())
+                    );
+                    if (MANAGER_KEEPER.get(0) != null
+                            && !((IResourceExistence) MANAGER_KEEPER.get(0)).resourceExists(key)) {
+                        register(key, () -> true, json ->
+                                gson.toJson(missingRecipeJson(String.format("%s:%s", toolRL.getNamespace(), toolRL.getPath()), gemRL.toString()))
                         );
-                        if (MANAGER_KEEPER.get(0) != null
-                                && !((IResourceExistence) MANAGER_KEEPER.get(0)).resourceExists(key)) {
-                            register(key, () -> true, json ->
-                                    gson.toJson(missingRecipeJson(String.format("%s:%s", toolRL.getNamespace(), toolRL.getPath()), gemRL.toString()))
-                            );
-                        }
                     }
                 }
             }

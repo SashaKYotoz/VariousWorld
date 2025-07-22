@@ -205,12 +205,13 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
         if (OnActionsTrigger.isInstanceOfAny(recipe.value().result().getItem()) && setting != null) {
             ItemStack itemstack = recipe.value().result().copy();
             ItemStack supplyGemStack = new ItemStack(VWItems.SUPPLY_CRYSTAL.get());
+            ItemStack gemStack = itemHandler.getStackInSlot(1).copy();
             String toolName;
             for (ModConfigController.GemsmithingSetting crystalSetting : setting) {
-                if (itemHandler.getStackInSlot(1).is(crystalSetting.item().build())) {
+                if (!gemStack.isEmpty() && gemStack.is(crystalSetting.item().build())) {
                     toolName = OnActionsTrigger.getToolName(itemstack);
                     supplyGemStack.set(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get(), new SupplyCrystalData(
-                            itemHandler.getStackInSlot(1),
+                            gemStack,
                             toolName
                     ));
                     itemstack.set(VWMiscRegistries.CRYSTAL_DATA.get(), new CrystalData(
