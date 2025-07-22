@@ -30,8 +30,8 @@ public class VWBiomes {
 
     public static Biome crystallineForest(BootstrapContext<Biome> context) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
-        spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(VWEntities.CRYSTALIC_SLIME.get(), 20, 1, 2));
-        spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(VWEntities.WANDERING_ZOMBIE.get(), 10, 1, 1));
+        spawnBuilder.addSpawn(MobCategory.MONSTER, 20, new MobSpawnSettings.SpawnerData(VWEntities.CRYSTALIC_SLIME.get(), 1, 2));
+        spawnBuilder.addSpawn(MobCategory.MONSTER, 10, new MobSpawnSettings.SpawnerData(VWEntities.WANDERING_ZOMBIE.get(), 1, 2));
 
         BiomeDefaultFeatures.farmAnimals(spawnBuilder);
 
@@ -60,11 +60,12 @@ public class VWBiomes {
                         .backgroundMusic(Musics.createGameMusic(Holder.direct(SoundEvents.AMETHYST_BLOCK_CHIME))).build())
                 .build();
     }
+
     public static Biome jacarandaMeadow(BootstrapContext<Biome> context) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.farmAnimals(spawnBuilder);
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
-        spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(VWEntities.WANDERING_ZOMBIE.get(), 10, 1, 1));
+        spawnBuilder.addSpawn(MobCategory.MONSTER, 10, new MobSpawnSettings.SpawnerData(VWEntities.WANDERING_ZOMBIE.get(), 1, 1));
 
         BiomeGenerationSettings.Builder biomeBuilder =
                 new BiomeGenerationSettings.Builder(context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));

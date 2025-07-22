@@ -48,17 +48,6 @@ public class GemsmithTableBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-        if (pState.getBlock() != pNewState.getBlock()) {
-            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            if (blockEntity instanceof GemsmithTableBlockEntity block)
-                block.drops();
-        }
-        pLevel.invalidateCapabilities(pPos);
-        super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
-    }
-
-    @Override
     protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         level.invalidateCapabilities(pos);
         super.onPlace(state, level, pos, oldState, movedByPiston);

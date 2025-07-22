@@ -141,13 +141,19 @@ public class ArtifactTableBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     public void loadAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
-        itemHandler.deserializeNBT(registries, nbt.getCompound("menus"));
+        itemHandler.deserializeNBT(registries, nbt.getCompound("menus").get());
         ContainerHelper.loadAllItems(nbt, this.items, registries);
         for (int i = 0; i < items.size(); i++)
             itemHandler.setStackInSlot(i, items.get(i));
-        progress = nbt.getInt("table.progress");
-        settingName = nbt.getString("table.setting_name");
+        progress = nbt.getInt("table.progress").get();
+        settingName = nbt.getString("table.setting_name").get();
         super.loadAdditional(nbt, registries);
+    }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        drops();
+        super.preRemoveSideEffects(pos, state);
     }
 
     @Nullable

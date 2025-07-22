@@ -19,7 +19,7 @@ public class GemsmithFurnaceBlockEntity extends BlockEntity {
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        fuel = tag.getInt("furnace.progress");
+        fuel = tag.getInt("furnace.progress").get();
     }
 
     @Override

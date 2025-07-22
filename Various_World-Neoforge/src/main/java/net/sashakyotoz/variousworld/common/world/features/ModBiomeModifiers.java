@@ -5,6 +5,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.neoforged.neoforge.common.world.BiomeModifier;
@@ -29,7 +30,7 @@ public class ModBiomeModifiers {
                 GenerationStep.Decoration.UNDERGROUND_DECORATION));
         context.register(WANDERING_ZOMBIE_MODIFIER, new BiomeModifiers.AddSpawnsBiomeModifier(
                 biomes.getOrThrow(BiomeTags.STRONGHOLD_BIASED_TO),
-                List.of(new MobSpawnSettings.SpawnerData(VWEntities.WANDERING_ZOMBIE.get(), 5, 1, 2))
+                WeightedList.of(new MobSpawnSettings.SpawnerData(VWEntities.WANDERING_ZOMBIE.get(), 1, 2))
         ));
     }
 

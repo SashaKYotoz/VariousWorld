@@ -3,6 +3,7 @@ package net.sashakyotoz.variousworld.init;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
@@ -30,16 +31,15 @@ public class VWVillagers {
             () -> new PoiType(ImmutableSet.copyOf(VWBlocks.ARTIFACT_TABLE.get().getStateDefinition().getPossibleStates()), 1, 1));
 
     public static final Holder<VillagerProfession> GEMSMITHER = VILLAGER_PROFESSIONS.register("gemsmither",
-            () -> new VillagerProfession("gemsmither", holder -> holder.value() == GEMSMITHER_POI.value(),
+            () -> new VillagerProfession(Component.literal("gemsmither"), holder -> holder.value() == GEMSMITHER_POI.value(),
                     poiTypeHolder -> poiTypeHolder.value() == GEMSMITHER_POI.value(), ImmutableSet.of(), ImmutableSet.of(),
                     SoundEvents.AMETHYST_BLOCK_CHIME));
     public static final Holder<VillagerProfession> ARTIFACTOLOGIST = VILLAGER_PROFESSIONS.register("artifactologist",
-            () -> new VillagerProfession("artifactologist", holder -> holder.value() == ARTIFACTOLOGIST_POI.value(),
+            () -> new VillagerProfession(Component.literal("artifactologist"), holder -> holder.value() == ARTIFACTOLOGIST_POI.value(),
                     poiTypeHolder -> poiTypeHolder.value() == ARTIFACTOLOGIST_POI.value(), ImmutableSet.of(), ImmutableSet.of(),
                     SoundEvents.VILLAGER_WORK_CLERIC));
 
-    public static final Holder<VillagerType> CRYSTALLINE = VILLAGER_TYPES.register("crystalline",
-            () -> new VillagerType("crystalline"));
+    public static final Holder<VillagerType> CRYSTALLINE = VILLAGER_TYPES.register("crystalline", VillagerType::new);
 
     public static void putTypeToBiome(ResourceKey<Biome> biomeIn, VillagerType type) {
         try {

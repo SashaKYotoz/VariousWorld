@@ -1,9 +1,11 @@
 package net.sashakyotoz.variousworld.common.config.items;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.sashakyotoz.variousworld.VariousWorld;
@@ -29,6 +31,11 @@ public class CrystalItemModelProperty implements SelectItemModelProperty<Crystal
             }
         }
         return new Crystal("air");
+    }
+
+    @Override
+    public Codec<Crystal> valueCodec() {
+        return Crystal.CODEC;
     }
 
     @Override

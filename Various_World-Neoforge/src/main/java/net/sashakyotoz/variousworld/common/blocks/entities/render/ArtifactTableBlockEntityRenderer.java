@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import net.sashakyotoz.variousworld.common.blocks.entities.ArtifactTableBlockEntity;
 
 public class ArtifactTableBlockEntityRenderer implements BlockEntityRenderer<ArtifactTableBlockEntity> {
@@ -19,7 +20,7 @@ public class ArtifactTableBlockEntityRenderer implements BlockEntityRenderer<Art
     }
 
     @Override
-    public void render(ArtifactTableBlockEntity entity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay) {
+    public void render(ArtifactTableBlockEntity entity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay, Vec3 vec3) {
         ItemStack item = entity.itemHandler.getStackInSlot(0);
         ItemStack potion = entity.itemHandler.getStackInSlot(1);
         if (entity.progress > 0) {

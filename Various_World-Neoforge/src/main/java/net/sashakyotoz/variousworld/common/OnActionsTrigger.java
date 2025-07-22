@@ -42,12 +42,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 @EventBusSubscriber
 public class OnActionsTrigger {
-    private static final Class<?>[] GEMSMITHING_APPLYING_CLASSES = {
-            SwordItem.class,
-            PickaxeItem.class,
-            AxeItem.class,
-            ShovelItem.class,
-            HoeItem.class
+    private static final String[] GEMSMITHING_APPLYING_CLASSES = {
+            "sword",
+            "axe",
+            "hoe",
+            "shovel"
     };
 
     private static final Collection<AbstractMap.SimpleEntry<Runnable, Integer>> workQueue = new ConcurrentLinkedQueue<>();
@@ -57,8 +56,8 @@ public class OnActionsTrigger {
     }
 
     public static boolean isInstanceOfAny(Item item) {
-        for (Class<?> clazz : GEMSMITHING_APPLYING_CLASSES) {
-            if (clazz.isInstance(item))
+        for (String s : GEMSMITHING_APPLYING_CLASSES) {
+            if (item.getDescriptionId().contains(s))
                 return true;
         }
         return false;
@@ -73,6 +72,7 @@ public class OnActionsTrigger {
                 entity.setItemSlot(value, tmpStack);
         }
     }
+
     public static ItemStack returnDefaultStack(ItemStack stack) {
         ItemStack tmpStack = stack.getItem().getDefaultInstance();
         tmpStack.setCount(Math.max(1, stack.getCount()));
@@ -98,12 +98,12 @@ public class OnActionsTrigger {
 
     public static String getToolName(ItemStack stack) {
         String toolName;
-        switch (stack.getItem()) {
-            case Item item when item instanceof SwordItem -> toolName = "sword";
-            case Item item when item instanceof PickaxeItem -> toolName = "pickaxe";
-            case Item item when item instanceof AxeItem -> toolName = "axe";
-            case Item item when item instanceof HoeItem -> toolName = "hoe";
-            case Item item when item instanceof ShovelItem -> toolName = "shovel";
+        switch (stack.getItem().getDescriptionId()) {
+            case String s when s.contains("sword") -> toolName = "sword";
+            case String s when s.contains("pickaxe") -> toolName = "pickaxe";
+            case String s when s.contains("axe") && !s.contains("pick") -> toolName = "axe";
+            case String s when s.contains("hoe") -> toolName = "hoe";
+            case String s when s.contains("shovel") -> toolName = "shovel";
             default -> toolName = "";
         }
         return toolName;
@@ -174,6 +174,7 @@ public class OnActionsTrigger {
             }
         }
     }
+
     @SubscribeEvent
     public static void registerTrades(VillagerTradesEvent event) {
         if (event.getType().equals(VWVillagers.GEMSMITHER.value())) {

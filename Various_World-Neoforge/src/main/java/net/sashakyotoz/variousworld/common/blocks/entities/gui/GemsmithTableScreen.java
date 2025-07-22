@@ -39,11 +39,8 @@ public class GemsmithTableScreen extends AbstractContainerScreen<GemsmithTableMe
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int gx, int gy) {
         RenderSystem.setShaderColor(1, 1, 1, 1);
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
         guiGraphics.blit(RenderType::guiTextured, BACKGROUND_LOCATION, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
         renderIconsProgress(guiGraphics);
-        RenderSystem.disableBlend();
     }
 
     private void renderIconsProgress(GuiGraphics graphics) {

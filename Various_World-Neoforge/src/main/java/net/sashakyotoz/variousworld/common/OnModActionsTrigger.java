@@ -26,7 +26,7 @@ import net.sashakyotoz.variousworld.common.entities.WanderingZombieEntity;
 import net.sashakyotoz.variousworld.common.items.data.CrystalData;
 import net.sashakyotoz.variousworld.init.*;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber
 public class OnModActionsTrigger {
 
     @SubscribeEvent

@@ -21,8 +21,9 @@ public class CrystallineGrassBlock extends SnowyDirtBlock {
         return super.addLandingEffects(state1, level, pos, state2, entity, numberOfParticles);
     }
 
+
     @Override
-    public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+    public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
         entity.causeFallDamage(fallDistance, 1.05F, entity.damageSources().fall());
     }
 }

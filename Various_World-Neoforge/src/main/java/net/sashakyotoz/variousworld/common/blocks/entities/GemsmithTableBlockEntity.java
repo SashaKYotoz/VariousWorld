@@ -133,22 +133,21 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
-        nbt.put("menus", itemHandler.serializeNBT(registries));
-        nbt.putInt("table.progress", this.progress);
-        ContainerHelper.saveAllItems(nbt, this.items, registries);
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        pTag.put("inventory", itemHandler.serializeNBT(pRegistries));
+        pTag.putInt("gemsmith.progress", progress);
+        pTag.putInt("gemsmith.max_progress", maxProgress);
+
+        super.saveAdditional(pTag, pRegistries);
     }
 
     @Override
-    public void loadAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
-        itemHandler.deserializeNBT(registries, nbt.getCompound("menus"));
-        ContainerHelper.loadAllItems(nbt, this.items, registries);
-        for (int i = 0; i < items.size(); i++) {
-            itemHandler.setStackInSlot(i, items.get(i));
-        }
-        progress = nbt.getInt("table.progress");
-        super.loadAdditional(nbt, registries);
+    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.loadAdditional(pTag, pRegistries);
+        if (pTag.getCompound("inventory").isPresent())
+            itemHandler.deserializeNBT(pRegistries, pTag.getCompound("inventory").get());
+        progress = pTag.getInt("gemsmith.progress").get();
+        maxProgress = pTag.getInt("gemsmith.max_progress").get();
     }
 
     @Nullable
@@ -192,12 +191,18 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
     private void craftItem(GemsmithTableBlockEntity pEntity) {
         Optional<RecipeHolder<GemsmithTransformRecipe>> matchedRecipe = getCurrentRecipe();
         if (matchedRecipe.isPresent()) {
-               ItemStack result = releaseResultStack(matchedRecipe.get(), pEntity);
-               pEntity.setItem(2, result);
-               for (int i = 0; i < 2; i++)
-                   pEntity.removeItem(i, 1);
-               pEntity.resetProgress();
+            ItemStack result = releaseResultStack(matchedRecipe.get(), pEntity);
+            pEntity.setItem(2, result);
+            for (int i = 0; i < 2; i++)
+                pEntity.removeItem(i, 1);
+            pEntity.resetProgress();
         }
+    }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        drops();
+        super.preRemoveSideEffects(pos, state);
     }
 
     private ItemStack releaseResultStack(RecipeHolder<GemsmithTransformRecipe> recipe, GemsmithTableBlockEntity blockEntity) {
@@ -252,7 +257,7 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
                     }
                     itemstack.set(
                             DataComponents.ATTRIBUTE_MODIFIERS,
-                            new ItemAttributeModifiers(modifiers, itemstack.get(DataComponents.ATTRIBUTE_MODIFIERS).showInTooltip())
+                            new ItemAttributeModifiers(modifiers)
                     );
 
                 }

@@ -36,9 +36,9 @@ public class SodaliteWartBlock extends FlowerBlock implements SimpleWaterloggedB
 
     @Override
     protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (level.canSeeSky(pos.above()) && (level.isRainingAt(pos.above()) || level.isNight()))
+        if (level.canSeeSky(pos.above()) && (level.isRainingAt(pos.above()) || !level.isBrightOutside()))
             level.setBlockAndUpdate(pos, state.setValue(CLOSED, true));
-        if (!(level.isRainingAt(pos.above()) || level.isNight()))
+        if (!(level.isRainingAt(pos.above()) || !level.isBrightOutside()))
             level.setBlockAndUpdate(pos, state.setValue(CLOSED, false));
     }
 }

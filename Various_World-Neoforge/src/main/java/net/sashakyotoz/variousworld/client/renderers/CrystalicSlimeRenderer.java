@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.SlimeRenderState;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.client.models.CrystalicSlimeModel;
 import net.sashakyotoz.variousworld.client.renderers.layers.CrystalicSlimeOuterLayer;
@@ -24,6 +25,13 @@ public class CrystalicSlimeRenderer extends MobRenderer<CrystalicSlimeEntity,Sli
     @Override
     public SlimeRenderState createRenderState() {
         return new SlimeRenderState();
+    }
+
+    @Override
+    public void extractRenderState(CrystalicSlimeEntity entity, SlimeRenderState state, float squish) {
+        super.extractRenderState(entity, state, squish);
+        state.squish = Mth.lerp(squish, entity.oSquish, entity.squish);
+        state.size = entity.getSize();
     }
 
     protected void scale(SlimeRenderState state, PoseStack stack) {

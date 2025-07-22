@@ -6,8 +6,7 @@
   "refmap": "various_world.refmap.json",
   "mixins": [
     "ItemMixin",
-    "MultiPackResourceManagerMixin",
-    "ServerRecipeBookMixin"
+    "MultiPackResourceManagerMixin"
   ],
   "client": [
     "GuiGraphicsMixin"

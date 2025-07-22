@@ -7,10 +7,10 @@ import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.PinkPetalsBlock;
+import net.minecraft.world.level.block.FlowerBedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GeodeBlockSettings;
 import net.minecraft.world.level.levelgen.GeodeCrackSettings;
@@ -92,11 +92,11 @@ public class ModConfiguredFeatures {
 //
 //        register(context, OVERWORLD_BISMUTH_ORE_KEY, Feature.ORE, new OreConfiguration(overworldBismuthOres, 9));
 
-        SimpleWeightedRandomList.Builder<BlockState> builder = SimpleWeightedRandomList.builder();
+        WeightedList.Builder<BlockState> builder = WeightedList.builder();
         for (int i = 1; i <= 4; i++) {
             for (Direction direction : Direction.Plane.HORIZONTAL) {
                 builder.add(
-                        VWBlocks.BLUE_JACARANDA_PETALS.get().defaultBlockState().setValue(PinkPetalsBlock.AMOUNT, i).setValue(PinkPetalsBlock.FACING, direction), 1
+                        VWBlocks.BLUE_JACARANDA_PETALS.get().defaultBlockState().setValue(FlowerBedBlock.AMOUNT, i).setValue(FlowerBedBlock.FACING, direction), 1
                 );
             }
         }

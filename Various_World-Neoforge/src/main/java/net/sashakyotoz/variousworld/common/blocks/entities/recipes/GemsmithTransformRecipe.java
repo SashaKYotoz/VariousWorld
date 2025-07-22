@@ -34,14 +34,7 @@ public record GemsmithTransformRecipe(Ingredient tool, Ingredient gem,
             String toolName;
             for (ModConfigController.GemsmithingSetting crystalingSetting : setting) {
                 if (input.gem().is(crystalingSetting.item().build())) {
-                    switch (itemstack.getItem()) {
-                        case Item item when item instanceof SwordItem -> toolName = "sword";
-                        case Item item when item instanceof PickaxeItem -> toolName = "pickaxe";
-                        case Item item when item instanceof AxeItem -> toolName = "axe";
-                        case Item item when item instanceof HoeItem -> toolName = "hoe";
-                        case Item item when item instanceof ShovelItem -> toolName = "shovel";
-                        default -> toolName = "";
-                    }
+                    toolName = OnActionsTrigger.getToolName(itemstack);
                     supplyGemStack.set(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get(), new SupplyCrystalData(
                             input.gem(),
                             toolName
