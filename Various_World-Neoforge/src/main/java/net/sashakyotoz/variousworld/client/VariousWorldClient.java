@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -63,9 +64,9 @@ public class VariousWorldClient {
     @SubscribeEvent
     public static void clientSetUp(FMLClientSetupEvent event) {
         for (DeferredBlock block : VWRegistryHelper.BLOCK_CUTOUT)
-            ItemBlockRenderTypes.setRenderLayer((Block) block.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer((Block) block.get(), ChunkSectionLayer.CUTOUT);
         for (DeferredBlock block : VWRegistryHelper.BLOCK_TRANSLUCENT)
-            ItemBlockRenderTypes.setRenderLayer((Block) block.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer((Block) block.get(), ChunkSectionLayer.TRANSLUCENT);
         event.enqueueWork(() -> {
             Sheets.addWoodType(ModWoodType.CRYSTALIC_OAK);
             Sheets.addWoodType(ModWoodType.BLUE_JACARANDA);

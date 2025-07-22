@@ -24,6 +24,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -131,23 +133,23 @@ public class ArtifactTableBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
-        nbt.put("menus", itemHandler.serializeNBT(registries));
-        nbt.putInt("table.progress", this.progress);
-        nbt.putString("table.setting_name", this.settingName);
-        ContainerHelper.saveAllItems(nbt, this.items, registries);
-        super.saveAdditional(nbt, registries);
+    protected void saveAdditional(ValueOutput valueOutput) {
+        itemHandler.serialize(valueOutput);
+        valueOutput.putInt("table.progress", this.progress);
+        valueOutput.putString("table.setting_name", this.settingName);
+        ContainerHelper.saveAllItems(valueOutput, this.items);
+        super.saveAdditional(valueOutput);
     }
 
     @Override
-    public void loadAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
-        itemHandler.deserializeNBT(registries, nbt.getCompound("menus").get());
-        ContainerHelper.loadAllItems(nbt, this.items, registries);
+    public void loadAdditional(ValueInput valueInput) {
+        itemHandler.deserialize(valueInput);
+        ContainerHelper.loadAllItems(valueInput, this.items);
         for (int i = 0; i < items.size(); i++)
             itemHandler.setStackInSlot(i, items.get(i));
-        progress = nbt.getInt("table.progress").get();
-        settingName = nbt.getString("table.setting_name").get();
-        super.loadAdditional(nbt, registries);
+        progress = valueInput.getInt("table.progress").get();
+        settingName = valueInput.getString("table.setting_name").get();
+        super.loadAdditional(valueInput);
     }
 
     @Override

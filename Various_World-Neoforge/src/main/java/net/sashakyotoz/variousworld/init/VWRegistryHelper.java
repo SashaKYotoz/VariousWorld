@@ -16,8 +16,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -177,11 +175,10 @@ public class VWRegistryHelper {
             return this;
         }
 
-        @OnlyIn(Dist.CLIENT)
         public ItemBuilder model() {
             return this.model(ModelTemplates.FLAT_ITEM);
         }
-        @OnlyIn(Dist.CLIENT)
+
         public ItemBuilder model(ModelTemplate model) {
             ITEM_MODELS.put(this.item, model);
             return this;

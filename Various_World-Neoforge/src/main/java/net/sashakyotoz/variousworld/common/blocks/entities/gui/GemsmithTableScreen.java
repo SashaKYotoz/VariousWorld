@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -38,16 +39,15 @@ public class GemsmithTableScreen extends AbstractContainerScreen<GemsmithTableMe
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int gx, int gy) {
-        RenderSystem.setShaderColor(1, 1, 1, 1);
-        guiGraphics.blit(RenderType::guiTextured, BACKGROUND_LOCATION, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND_LOCATION, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
         renderIconsProgress(guiGraphics);
     }
 
     private void renderIconsProgress(GuiGraphics graphics) {
         if (getMenu().isCrafting())
-            graphics.blitSprite(RenderType::guiTextured, BURN_PROGRESS, 22, 16, 22-getMenu().getScaledProgress(), 0, this.leftPos + 85, this.topPos + 48, getMenu().getScaledProgress(), 16);
+            graphics.blitSprite(RenderPipelines.GUI_TEXTURED, BURN_PROGRESS, 22, 16, 22-getMenu().getScaledProgress(), 0, this.leftPos + 85, this.topPos + 48, getMenu().getScaledProgress(), 16);
         if (getMenu().getLitProgress() > 0)
-            graphics.blitSprite(RenderType::guiTextured, LIT_PROGRESS, 14, Math.round(14 * getMenu().getLitProgress()), 0, 14-Math.round(14 * getMenu().getLitProgress()), this.leftPos + 90, this.topPos + 66, 14, Math.round(14 * getMenu().getLitProgress()));
+            graphics.blitSprite(RenderPipelines.GUI_TEXTURED, LIT_PROGRESS, 14, Math.round(14 * getMenu().getLitProgress()), 0, 14-Math.round(14 * getMenu().getLitProgress()), this.leftPos + 90, this.topPos + 66, 14, Math.round(14 * getMenu().getLitProgress()));
     }
 
     @Override

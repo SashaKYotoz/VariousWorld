@@ -7,6 +7,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 
 public class GemsmithFurnaceBlockEntity extends BlockEntity {
@@ -17,15 +19,15 @@ public class GemsmithFurnaceBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        fuel = tag.getInt("furnace.progress").get();
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        fuel = input.getInt("furnace.progress").get();
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        tag.putInt("furnace.progress", this.fuel);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        output.putInt("furnace.progress", this.fuel);
     }
 
     public void tick(Level level, BlockPos pos, BlockState state, GemsmithFurnaceBlockEntity blockEntity) {

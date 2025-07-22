@@ -28,6 +28,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -133,21 +135,21 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        pTag.put("inventory", itemHandler.serializeNBT(pRegistries));
-        pTag.putInt("gemsmith.progress", progress);
-        pTag.putInt("gemsmith.max_progress", maxProgress);
-
-        super.saveAdditional(pTag, pRegistries);
+    protected void saveAdditional(ValueOutput output) {
+        itemHandler.serialize(output);
+        ContainerHelper.saveAllItems(output, this.items);
+        output.putInt("gemsmith.progress", progress);
+        output.putInt("gemsmith.max_progress", maxProgress);
+        super.saveAdditional(output);
     }
 
     @Override
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.loadAdditional(pTag, pRegistries);
-        if (pTag.getCompound("inventory").isPresent())
-            itemHandler.deserializeNBT(pRegistries, pTag.getCompound("inventory").get());
-        progress = pTag.getInt("gemsmith.progress").get();
-        maxProgress = pTag.getInt("gemsmith.max_progress").get();
+    public void loadAdditional(ValueInput valueInput) {
+        super.loadAdditional(valueInput);
+        itemHandler.deserialize(valueInput);
+        ContainerHelper.loadAllItems(valueInput, this.items);
+        progress = valueInput.getInt("gemsmith.progress").get();
+        maxProgress = valueInput.getInt("gemsmith.max_progress").get();
     }
 
     @Nullable

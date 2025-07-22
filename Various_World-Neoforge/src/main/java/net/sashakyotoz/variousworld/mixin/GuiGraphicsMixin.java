@@ -16,13 +16,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(GuiGraphics.class)
 public abstract class GuiGraphicsMixin {
 
-    @Shadow protected abstract void renderItem(@Nullable LivingEntity entity, @Nullable Level level, ItemStack stack, int x, int y, int seed, int guiOffset);
+    @Shadow
+    protected abstract void renderItem(@Nullable LivingEntity entity, @Nullable Level level, ItemStack stack, int x, int y, int seed);
 
-    @Inject(method = "renderItem(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;IIII)V", at = @At("HEAD"))
-    private void renderCrystal(LivingEntity entity, Level level, ItemStack stack, int x, int y, int seed, int guiOffset, CallbackInfo ci) {
+    @Inject(method = "renderItem(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;III)V", at = @At("HEAD"))
+    private void renderCrystal(LivingEntity entity, Level level, ItemStack stack, int x, int y, int seed, CallbackInfo ci) {
         CrystalData data = stack.get(VWMiscRegistries.CRYSTAL_DATA.get());
         if (data != null && data.crystalDurability() > 0) {
-            this.renderItem(entity, level, data.crystalStack(), x - 1, y - 1, seed, guiOffset);
+            this.renderItem(entity, level, data.crystalStack(), x - 1, y - 1, seed);
         }
     }
 }

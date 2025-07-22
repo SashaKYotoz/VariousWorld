@@ -3,6 +3,7 @@ package net.sashakyotoz.variousworld.common.blocks.entities.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -37,15 +38,15 @@ public class ArtifactTableScreen extends AbstractContainerScreen<ArtifactTableMe
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int gx, int gy) {
-        guiGraphics.blit(RenderType::guiTextured, BACKGROUND_LOCATION, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, BACKGROUND_LOCATION, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
         renderIconsProgress(guiGraphics);
     }
 
     private void renderIconsProgress(GuiGraphics graphics) {
         if (getMenu().isRefreshing())
-            graphics.blitSprite(RenderType::guiTextured, EFFECT_ICON, 16,32, 0, 0, this.leftPos + 80, this.topPos + 16, 16, getMenu().getScaledProgress());
+            graphics.blitSprite(RenderPipelines.GUI_TEXTURED, EFFECT_ICON, 16,32, 0, 0, this.leftPos + 80, this.topPos + 16, 16, getMenu().getScaledProgress());
         if (getMenu().isPowered())
-            graphics.blitSprite(RenderType::guiTextured, TORCH, 16,16, 0, 0, this.leftPos + 26, this.topPos + 48, 16, 16);
+            graphics.blitSprite(RenderPipelines.GUI_TEXTURED, TORCH, 16,16, 0, 0, this.leftPos + 26, this.topPos + 48, 16, 16);
     }
 
     @Override
