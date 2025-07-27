@@ -34,7 +34,10 @@ import net.sashakyotoz.variousworld.common.items.data.CrystalData;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
 import net.sashakyotoz.variousworld.init.*;
 
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 @EventBusSubscriber

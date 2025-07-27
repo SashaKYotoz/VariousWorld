@@ -4,19 +4,17 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
-
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
-
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.ArtifactTableMenu;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.GemsmithTableMenu;
-import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.common.blocks.entities.recipes.GemsmithTransformRecipe;
 import net.sashakyotoz.variousworld.common.items.data.CrystalData;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;

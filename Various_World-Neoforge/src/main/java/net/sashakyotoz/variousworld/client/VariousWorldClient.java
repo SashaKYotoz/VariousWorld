@@ -42,10 +42,6 @@ public class VariousWorldClient {
     }
 
     @SubscribeEvent
-    public static void blockColorLoad(RegisterColorHandlersEvent.Block event) {
-    }
-
-    @SubscribeEvent
     public static void itemColorLoad(RegisterColorHandlersEvent.Item event) {
     }
 

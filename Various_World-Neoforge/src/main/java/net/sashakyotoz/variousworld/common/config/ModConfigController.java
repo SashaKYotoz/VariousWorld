@@ -8,12 +8,10 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.Item;
 import net.neoforged.fml.loading.FMLPaths;
 import net.sashakyotoz.variousworld.VariousWorld;
-import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.List;
 
 public class ModConfigController {
