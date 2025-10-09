@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "d": {
+      "item": "minecraft:dripstone_block"
+    },
+    "g": {
+      "item": "minecraft:glass"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "s": {
+      "item": "minecraft:smooth_stone"
+    }
+  },
+  "pattern": [
+    "igi",
+    "sds",
+    "sds"
+  ],
+  "result": {
+    "count": 1,
+    "id": "various_world:disassembly_table"
+  }
+}

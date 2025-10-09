@@ -17,6 +17,7 @@ public class VWItems {
     public static final DeferredItem<HangingSignItem> BLUE_JACARANDA_HANGING_SIGN = VWRegistryHelper.ofItem("blue_jacaranda_hanging_sign", () -> new HangingSignItem(VWBlocks.BLUE_JACARANDA_HANGING_SIGN.get(), VWBlocks.BLUE_JACARANDA_HANGING_WALL_SIGN.get(), new Item.Properties())).model().build();
 
     public static final DeferredItem<Item> SODALITE_SHARD = VWRegistryHelper.ofItem("sodalite_shard", () -> new Item(new Item.Properties())).model().build();
+    public static final DeferredItem<Item> RECLAIMITE_SHARD = VWRegistryHelper.ofItem("reclaimite_shard", () -> new Item(new Item.Properties())).model().build();
     public static final DeferredItem<Item> CRYSTALLINE_SLIME_BALL = VWRegistryHelper.ofItem("crystalline_slime_ball", () -> new Item(new Item.Properties())).model().build();
     public static final DeferredItem<Item> CRYSTALLINE_STRENGTH = VWRegistryHelper.ofItem("crystalline_strength", () -> new Item(new Item.Properties().rarity(Rarity.RARE))).model().build();
 
@@ -27,4 +28,6 @@ public class VWItems {
             new DeferredSpawnEggItem(VWEntities.CRYSTALIC_SLIME, -6693377, -3407617, new Item.Properties())).build();
     public static final DeferredItem<DeferredSpawnEggItem> WANDERING_ZOMBIE_SPAWN_EGG = VWRegistryHelper.ofItem("wandering_zombie_spawn_egg", () ->
             new DeferredSpawnEggItem(VWEntities.WANDERING_ZOMBIE, -12425662, -13057, new Item.Properties())).build();
+    public static final DeferredItem<DeferredSpawnEggItem> SQUEALING_SPIDER_SPAWN_EGG = VWRegistryHelper.ofItem("squealing_spider_spawn_egg", () ->
+            new DeferredSpawnEggItem(VWEntities.SQUEALING_SPIDER, 2430480, 5013401, new Item.Properties())).build();
 }

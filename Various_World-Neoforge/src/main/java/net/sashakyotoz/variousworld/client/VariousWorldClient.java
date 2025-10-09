@@ -11,18 +11,21 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.sashakyotoz.variousworld.client.models.CrystalicSlimeModel;
+import net.sashakyotoz.variousworld.client.models.SquealingSpiderModel;
 import net.sashakyotoz.variousworld.client.models.WanderingZombieModel;
 import net.sashakyotoz.variousworld.client.renderers.CrystalicSlimeRenderer;
+import net.sashakyotoz.variousworld.client.renderers.SquealingSpiderRenderer;
 import net.sashakyotoz.variousworld.client.renderers.WanderingZombieRenderer;
 import net.sashakyotoz.variousworld.common.blocks.ModWoodType;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.ArtifactTableScreen;
+import net.sashakyotoz.variousworld.common.blocks.entities.gui.DisassemblyTableScreen;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.GemsmithTableScreen;
 import net.sashakyotoz.variousworld.common.blocks.entities.render.ArtifactTableBlockEntityRenderer;
+import net.sashakyotoz.variousworld.common.blocks.entities.render.DisassemblyTableBlockEntityRenderer;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWEntities;
 import net.sashakyotoz.variousworld.init.VWMiscRegistries;
@@ -36,13 +39,11 @@ public class VariousWorldClient {
         event.registerBlockEntityRenderer(VWBlocks.MOD_SIGN.get(), SignRenderer::new);
         event.registerBlockEntityRenderer(VWBlocks.MOD_HANGING_SIGN.get(), HangingSignRenderer::new);
         event.registerBlockEntityRenderer(VWBlocks.ARTIFACT_TABLE_BE.get(), ArtifactTableBlockEntityRenderer::new);
+        event.registerBlockEntityRenderer(VWBlocks.DISASSEMBLY_TABLE_BE.get(), DisassemblyTableBlockEntityRenderer::new);
 
         event.registerEntityRenderer(VWEntities.CRYSTALIC_SLIME.get(), CrystalicSlimeRenderer::new);
         event.registerEntityRenderer(VWEntities.WANDERING_ZOMBIE.get(), WanderingZombieRenderer::new);
-    }
-
-    @SubscribeEvent
-    public static void itemColorLoad(RegisterColorHandlersEvent.Item event) {
+        event.registerEntityRenderer(VWEntities.SQUEALING_SPIDER.get(), SquealingSpiderRenderer::new);
     }
 
     @SubscribeEvent
@@ -53,6 +54,7 @@ public class VariousWorldClient {
     public static void registerScreens(RegisterMenuScreensEvent event) {
         event.register(VWMiscRegistries.GEMSMITH_TABLE.get(), GemsmithTableScreen::new);
         event.register(VWMiscRegistries.ARTIFACT_TABLE.get(), ArtifactTableScreen::new);
+        event.register(VWMiscRegistries.DISASSEMBLY_TABLE.get(), DisassemblyTableScreen::new);
     }
 
     @SubscribeEvent
@@ -60,6 +62,7 @@ public class VariousWorldClient {
         event.registerLayerDefinition(CrystalicSlimeModel.LAYER_LOCATION, CrystalicSlimeModel::createInnerBodyLayer);
         event.registerLayerDefinition(CrystalicSlimeModel.OUTER_LAYER_LOCATION, CrystalicSlimeModel::createOuterBodyLayer);
         event.registerLayerDefinition(WanderingZombieModel.LAYER_LOCATION, WanderingZombieModel::createBodyLayer);
+        event.registerLayerDefinition(SquealingSpiderModel.LAYER_LOCATION, SquealingSpiderModel::createBodyLayer);
     }
 
     @SubscribeEvent

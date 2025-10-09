@@ -6,11 +6,13 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.sashakyotoz.variousworld.common.OnActionsTrigger;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import net.sashakyotoz.variousworld.common.items.data.CrystalData;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
@@ -54,14 +56,7 @@ public class GemsmithTransformRecipe implements GemsmithRecipe {
             String toolName;
             for (ModConfigController.GemsmithingSetting crystalingSetting : setting) {
                 if (input.gem().is(crystalingSetting.item().build())) {
-                    switch (itemstack.getItem()) {
-                        case TieredItem item when item instanceof SwordItem -> toolName = "sword";
-                        case TieredItem item when item instanceof PickaxeItem -> toolName = "pickaxe";
-                        case TieredItem item when item instanceof AxeItem -> toolName = "axe";
-                        case TieredItem item when item instanceof HoeItem -> toolName = "hoe";
-                        case TieredItem item when item instanceof ShovelItem -> toolName = "shovel";
-                        default -> toolName = "";
-                    }
+                    toolName = OnActionsTrigger.getToolName(itemstack);
                     supplyGemStack.set(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get(), new SupplyCrystalData(
                             input.gem(),
                             toolName

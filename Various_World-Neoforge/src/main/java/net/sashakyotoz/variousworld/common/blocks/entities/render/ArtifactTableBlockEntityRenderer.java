@@ -3,15 +3,12 @@ package net.sashakyotoz.variousworld.common.blocks.entities.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.sashakyotoz.variousworld.common.blocks.entities.ArtifactTableBlockEntity;
 
-public class ArtifactTableBlockEntityRenderer implements BlockEntityRenderer<ArtifactTableBlockEntity> {
+public class ArtifactTableBlockEntityRenderer extends IBlockEntityRenderer<ArtifactTableBlockEntity> {
     private final ItemRenderer itemRenderer;
 
     public ArtifactTableBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
@@ -20,17 +17,17 @@ public class ArtifactTableBlockEntityRenderer implements BlockEntityRenderer<Art
 
     @Override
     public void render(ArtifactTableBlockEntity entity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay) {
-        ItemStack item = entity.itemHandler.getStackInSlot(0);
-        ItemStack potion = entity.itemHandler.getStackInSlot(1);
+        ItemStack item = entity.getItem(0);
+        ItemStack potion = entity.getItem(1);
         if (entity.progress > 0) {
             poseStack.pushPose();
-            poseStack.scale(0.5f,0.5f,0.5f);
+            poseStack.scale(0.5f, 0.5f, 0.5f);
             poseStack.translate(1f, 1.55f, 1f);
             poseStack.mulPose(Axis.XP.rotationDegrees(90));
-            this.itemRenderer.renderStatic(item, ItemDisplayContext.GUI, packedLight, OverlayTexture.NO_OVERLAY, poseStack, buffer, entity.getLevel(), packedOverlay);
+            this.renderItem(this.itemRenderer, item, poseStack, buffer, entity.getLevel(), entity.getBlockPos());
             poseStack.translate(0, 0.01, 0);
             poseStack.scale(1.001f, 1.001f, 1.001f);
-            this.itemRenderer.renderStatic(potion, ItemDisplayContext.GUI, packedLight, OverlayTexture.NO_OVERLAY, poseStack, buffer, entity.getLevel(), packedOverlay);
+            this.renderItem(this.itemRenderer, potion, poseStack, buffer, entity.getLevel(), entity.getBlockPos());
             poseStack.popPose();
         }
     }

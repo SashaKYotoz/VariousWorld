@@ -1,14 +1,7 @@
 package net.sashakyotoz.variousworld.init;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.ParticleUtils;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -19,6 +12,7 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.sashakyotoz.variousworld.common.blocks.BlockUtils;
 import net.sashakyotoz.variousworld.common.blocks.ModWoodType;
 import net.sashakyotoz.variousworld.common.blocks.custom.*;
 import net.sashakyotoz.variousworld.common.blocks.entities.*;
@@ -80,7 +74,7 @@ public class VWBlocks {
     public static final DeferredBlock<ButtonBlock> CRYSTALIC_OAK_BUTTON = VWRegistryHelper.ofBlock("crystalic_oak_button", () -> new ButtonBlock(BlockSetType.ACACIA, 30, crystalWood)).tool("_axe").tag(BlockTags.WOODEN_BUTTONS).drop().build();
     public static final DeferredBlock<FenceBlock> CRYSTALIC_OAK_FENCE = VWRegistryHelper.ofBlock("crystalic_oak_fence", () -> new FenceBlock(crystalWood)).tag(BlockTags.FENCES).tool("_axe").drop().build();
     public static final DeferredBlock<FenceGateBlock> CRYSTALIC_OAK_FENCE_GATE = VWRegistryHelper.ofBlock("crystalic_oak_fence_gate", () -> new FenceGateBlock(ModWoodType.CRYSTALIC_OAK, crystalWood)).tag(BlockTags.FENCE_GATES).tool("_axe").drop().build();
-    public static final DeferredBlock<DoorBlock> CRYSTALIC_OAK_DOOR = VWRegistryHelper.ofBlock("crystalic_oak_door", () -> new DoorBlock(BlockSetType.ACACIA, crystalWood), true, true).tag(BlockTags.WOODEN_DOORS).model(VWRegistryHelper.Models.DOOR).tool("_axe").drop().build();
+    public static final DeferredBlock<DoorBlock> CRYSTALIC_OAK_DOOR = VWRegistryHelper.ofBlock("crystalic_oak_door", () -> new DoorBlock(BlockSetType.ACACIA, crystalWood.noOcclusion()), true, true).tag(BlockTags.WOODEN_DOORS).model(VWRegistryHelper.Models.DOOR).tool("_axe").drop().build();
     public static final DeferredBlock<TrapDoorBlock> CRYSTALIC_OAK_TRAPDOOR = VWRegistryHelper.ofBlock("crystalic_oak_trapdoor", () -> new TrapDoorBlock(BlockSetType.ACACIA, crystalWood.noOcclusion())).tag(BlockTags.WOODEN_TRAPDOORS).tool("_axe").cutout().model(VWRegistryHelper.Models.TRAPDOOR).drop().build();
     public static final DeferredBlock<ModStandingSignBlock> CRYSTALIC_OAK_SIGN = VWRegistryHelper.ofBlock("crystalic_oak_sign", () -> new ModStandingSignBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN), ModWoodType.CRYSTALIC_OAK), false).tag(BlockTags.STANDING_SIGNS).drop().build();
     public static final DeferredBlock<ModWallSignBlock> CRYSTALIC_OAK_WALL_SIGN = VWRegistryHelper.ofBlock("crystalic_oak_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN).lootFrom(CRYSTALIC_OAK_SIGN), ModWoodType.CRYSTALIC_OAK), false).build();
@@ -112,7 +106,7 @@ public class VWBlocks {
     public static final DeferredBlock<ButtonBlock> BLUE_JACARANDA_BUTTON = VWRegistryHelper.ofBlock("blue_jacaranda_button", () -> new ButtonBlock(BlockSetType.MANGROVE, 30, jacarandaWood)).tool("_axe").tag(BlockTags.WOODEN_BUTTONS).drop().build();
     public static final DeferredBlock<FenceBlock> BLUE_JACARANDA_FENCE = VWRegistryHelper.ofBlock("blue_jacaranda_fence", () -> new FenceBlock(jacarandaWood)).tag(BlockTags.FENCES).tool("_axe").drop().build();
     public static final DeferredBlock<FenceGateBlock> BLUE_JACARANDA_FENCE_GATE = VWRegistryHelper.ofBlock("blue_jacaranda_fence_gate", () -> new FenceGateBlock(ModWoodType.CRYSTALIC_OAK, jacarandaWood)).tag(BlockTags.FENCE_GATES).tool("_axe").drop().build();
-    public static final DeferredBlock<DoorBlock> BLUE_JACARANDA_DOOR = VWRegistryHelper.ofBlock("blue_jacaranda_door", () -> new DoorBlock(BlockSetType.MANGROVE, jacarandaWood), true, true).tag(BlockTags.WOODEN_DOORS).model(VWRegistryHelper.Models.DOOR).tool("_axe").cutout().drop().build();
+    public static final DeferredBlock<DoorBlock> BLUE_JACARANDA_DOOR = VWRegistryHelper.ofBlock("blue_jacaranda_door", () -> new DoorBlock(BlockSetType.MANGROVE, jacarandaWood.noOcclusion()), true, true).tag(BlockTags.WOODEN_DOORS).model(VWRegistryHelper.Models.DOOR).tool("_axe").cutout().drop().build();
     public static final DeferredBlock<TrapDoorBlock> BLUE_JACARANDA_TRAPDOOR = VWRegistryHelper.ofBlock("blue_jacaranda_trapdoor", () -> new TrapDoorBlock(BlockSetType.MANGROVE, jacarandaWood.noOcclusion())).tag(BlockTags.WOODEN_TRAPDOORS).tool("_axe").model(VWRegistryHelper.Models.TRAPDOOR).drop().build();
     public static final DeferredBlock<ModStandingSignBlock> BLUE_JACARANDA_SIGN = VWRegistryHelper.ofBlock("blue_jacaranda_sign", () -> new ModStandingSignBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN), ModWoodType.BLUE_JACARANDA), false).tag(BlockTags.STANDING_SIGNS).drop().build();
     public static final DeferredBlock<ModWallSignBlock> BLUE_JACARANDA_WALL_SIGN = VWRegistryHelper.ofBlock("blue_jacaranda_wall_sign", () -> new ModWallSignBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN).lootFrom(BLUE_JACARANDA_SIGN), ModWoodType.BLUE_JACARANDA), false).build();
@@ -133,6 +127,7 @@ public class VWBlocks {
             .model(VWRegistryHelper.Models.DIRECTIONAL_CROSS).tool("stone_pickaxe").cutout().build();
     public static final DeferredBlock<AmethystClusterBlock> SMALL_SODALITE_BUD = VWRegistryHelper.ofBlock("small_sodalite_bud", () -> new AmethystClusterBlock(4.0F, 4.0F, BlockBehaviour.Properties.ofFullCopy(SODALITE_CLUSTER.get()).sound(SoundType.SMALL_AMETHYST_BUD)))
             .model(VWRegistryHelper.Models.DIRECTIONAL_CROSS).tool("stone_pickaxe").cutout().build();
+    public static final DeferredBlock<AmethystClusterBlock> RECLAIMITE_CRYSTAL = VWRegistryHelper.ofBlock("reclaimite_crystal", () -> new AmethystClusterBlock(6.0F, 3.0F, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).emissiveRendering((blockState, blockGetter, blockPos) -> blockGetter.getBlockState(blockPos).hasProperty(BlockUtils.RECLAMITE_SHARDED)).forceSolidOn().noOcclusion().sound(SoundType.AMETHYST_CLUSTER).strength(1F).sound(SoundType.MEDIUM_AMETHYST_BUD))).model(VWRegistryHelper.Models.DIRECTIONAL_CROSS).tool("stone_pickaxe").cutout().build();
 
     public static final DeferredBlock<GemsmithTableBlock> GEMSMITH_TABLE = VWRegistryHelper.ofBlock("gemsmith_table", () -> new GemsmithTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_BRICKS).noOcclusion()))
             .tool("stone_pickaxe").drop().cutout().build();
@@ -140,6 +135,8 @@ public class VWBlocks {
             .tool("stone_pickaxe").drop().build();
     public static final DeferredBlock<ArtifactTableBlock> ARTIFACT_TABLE = VWRegistryHelper.ofBlock("artifact_table", () -> new ArtifactTableBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).noOcclusion().strength(2.5F).sound(SoundType.WOOD).ignitedByLava()))
             .tool("_axe").drop().translucent().build();
+    public static final DeferredBlock<DisassemblyTableBlock> DISASSEMBLY_TABLE = VWRegistryHelper.ofBlock("disassembly_table", () -> new DisassemblyTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SMITHING_TABLE).noOcclusion()))
+            .tool("stone_pickaxe").drop().translucent().build();
 
     public static ToIntFunction<BlockState> lightLevelFromBlockState(int litLevel, BooleanProperty property) {
         return state -> state.getValue(property) ? litLevel : 0;
@@ -165,5 +162,8 @@ public class VWBlocks {
     ).build(null));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ArtifactTableBlockEntity>> ARTIFACT_TABLE_BE = VWRegistryHelper.BLOCK_ENTITIES.register("artifact_table", () -> BlockEntityType.Builder.of(ArtifactTableBlockEntity::new,
             VWBlocks.ARTIFACT_TABLE.get()
+    ).build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DisassemblyTableBlockEntity>> DISASSEMBLY_TABLE_BE = VWRegistryHelper.BLOCK_ENTITIES.register("disassembly_table", () -> BlockEntityType.Builder.of(DisassemblyTableBlockEntity::new,
+            VWBlocks.DISASSEMBLY_TABLE.get()
     ).build(null));
 }

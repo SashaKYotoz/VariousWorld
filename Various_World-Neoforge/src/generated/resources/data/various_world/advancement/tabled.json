@@ -1,0 +1,60 @@
+{
+  "parent": "various_world:across_the_world",
+  "criteria": {
+    "artifact_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": "various_world:artifact_table"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "disassembly_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": "various_world:disassembly_table"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "gemsmith_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": "various_world:gemsmith_table"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.various_world.tabled.desc"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "various_world:artifact_table"
+    },
+    "title": {
+      "translate": "advancement.various_world.tabled"
+    }
+  },
+  "requirements": [
+    [
+      "disassembly_table"
+    ],
+    [
+      "artifact_table"
+    ],
+    [
+      "gemsmith_table"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

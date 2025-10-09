@@ -63,7 +63,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         this.add(VWBlocks.BUDDING_SODALITE.get(), noDrop());
         this.add(VWBlocks.SODALITE_CLUSTER.get(), block -> this.createSilkTouchDispatchTable(
                 block,
-                LootItem.lootTableItem(Items.AMETHYST_SHARD)
+                LootItem.lootTableItem(VWItems.SODALITE_SHARD.get())
                         .apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F)))
                         .apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
                         .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES)))
@@ -75,6 +75,19 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         ));
         this.dropWhenSilkTouch(VWBlocks.MEDIUM_SODALITE_BUD.get());
         this.dropWhenSilkTouch(VWBlocks.SMALL_SODALITE_BUD.get());
+
+        this.add(VWBlocks.RECLAIMITE_CRYSTAL.get(), block -> this.createSilkTouchDispatchTable(
+                block,
+                LootItem.lootTableItem(VWItems.RECLAIMITE_SHARD)
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))
+                        .apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
+                        .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES)))
+                        .otherwise(
+                                this.applyExplosionDecay(
+                                        block, LootItem.lootTableItem(VWItems.RECLAIMITE_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))
+                                )
+                        )
+        ));
 
         this.add(VWBlocks.BLUE_JACARANDA_PETALS.get(), this::createPetalsDrops);
         this.add(VWBlocks.CRYSTALIC_GRASS_BLOCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, VWBlocks.DIRT_WITH_CRYSTALS.get()));

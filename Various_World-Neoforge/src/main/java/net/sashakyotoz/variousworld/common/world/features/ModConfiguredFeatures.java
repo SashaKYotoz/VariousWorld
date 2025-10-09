@@ -1,6 +1,7 @@
 package net.sashakyotoz.variousworld.common.world.features;
 
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
@@ -8,13 +9,17 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.PinkPetalsBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GeodeBlockSettings;
 import net.minecraft.world.level.levelgen.GeodeCrackSettings;
 import net.minecraft.world.level.levelgen.GeodeLayerSettings;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
@@ -23,13 +28,13 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.ForkingTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
-import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
-import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
+import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
+import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.common.world.features.trees.ExtraBranchedTrunkPlacer;
 import net.sashakyotoz.variousworld.common.world.features.trees.FancyHangingFoliagePlacer;
 import net.sashakyotoz.variousworld.init.VWBlocks;
+import net.sashakyotoz.variousworld.init.VWFeatures;
 
 import java.util.List;
 import java.util.OptionalInt;
@@ -44,12 +49,12 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> SODALITE_WART_PATCH = registerKey("sodalite_wart_patch");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> SODALITE_GEODE = registerKey("sodalite_geode");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> RECLAIMITE_POINTED_DRIPSTONE = registerKey("reclaimite_pointed_dripstone");
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> GLOW_LICHEN_VEIN = registerKey("glow_lichen_vein");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> COBWEB_BLOCKS_CHAIN = registerKey("cobweb_blocks_chain");
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
-        RuleTest stoneReplaceables = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
-        RuleTest deepslateReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
-        RuleTest netherrackReplaceables = new BlockMatchTest(Blocks.NETHERRACK);
-        RuleTest endReplaceables = new BlockMatchTest(Blocks.END_STONE);
 
         register(context, CRYSTALIC_TREE, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(VWBlocks.CRYSTALIC_OAK_LOG.get()),
@@ -83,14 +88,18 @@ public class ModConfiguredFeatures {
                         VWBlocks.MEDIUM_SODALITE_BUD.get().defaultBlockState(), VWBlocks.MEDIUM_SODALITE_BUD.get().defaultBlockState(),
                         VWBlocks.SODALITE_CLUSTER.get().defaultBlockState()), BlockTags.FEATURES_CANNOT_REPLACE, BlockTags.GEODE_INVALID_BLOCKS),
                 new GeodeLayerSettings(1.7, 2.2, 3.2, 4.2),
-                new GeodeCrackSettings(0.95, 2.0, 2), 0.35, 0.075,
+                new GeodeCrackSettings(0.8, 2.0, 2), 0.35, 0.075,
                 true, UniformInt.of(4, 6), UniformInt.of(3, 4), UniformInt.of(1, 2), -16, 16, 0.05, 1));
+        register(context, RECLAIMITE_POINTED_DRIPSTONE, Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration(HolderSet.direct(PlacementUtils.inlinePlaced(VWFeatures.RECLAIMITE_POINTED_DRIPSTONE_FEATURE.get(),
+                new PointedDripstoneConfiguration(0.1F, 0.8F, 0.6F, 0.6F),
+                EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 16),
+                RandomOffsetPlacement.vertical(ConstantInt.of(1))), PlacementUtils.inlinePlaced(VWFeatures.RECLAIMITE_POINTED_DRIPSTONE_FEATURE.get(),
+                new PointedDripstoneConfiguration(0.1F, 0.8F, 0.6F, 0.6F),
+                EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 16),
+                RandomOffsetPlacement.vertical(ConstantInt.of(-1))))));
+        register(context, COBWEB_BLOCKS_CHAIN, VWFeatures.BLOCKS_CHAIN_FEATURE.get(), new BlockStateConfiguration(Blocks.COBWEB.defaultBlockState()));
 
-//        List<OreConfiguration.TargetBlockState> overworldBismuthOres = List.of(
-//                OreConfiguration.target(stoneReplaceables, ModBlocks.BISMUTH_ORE.get().defaultBlockState()),
-//                OreConfiguration.target(deepslateReplaceables, ModBlocks.BISMUTH_DEEPSLATE_ORE.get().defaultBlockState()));
-//
-//        register(context, OVERWORLD_BISMUTH_ORE_KEY, Feature.ORE, new OreConfiguration(overworldBismuthOres, 9));
+        register(context, GLOW_LICHEN_VEIN, Feature.MULTIFACE_GROWTH, new MultifaceGrowthConfiguration((MultifaceBlock) Blocks.GLOW_LICHEN, 24, true, true, true, 1.0F, HolderSet.direct(Block::builtInRegistryHolder, Blocks.STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.DRIPSTONE_BLOCK, Blocks.CALCITE, Blocks.TUFF, Blocks.DEEPSLATE)));
 
         SimpleWeightedRandomList.Builder<BlockState> builder = SimpleWeightedRandomList.builder();
         for (int i = 1; i <= 4; i++) {

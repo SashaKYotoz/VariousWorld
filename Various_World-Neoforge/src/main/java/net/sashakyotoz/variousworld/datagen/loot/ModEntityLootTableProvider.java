@@ -55,6 +55,22 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
                                         .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.025F, 0.01F))
                         )
         );
+        this.add(VWEntities.SQUEALING_SPIDER.get(),
+                LootTable.lootTable()
+                        .withPool(
+                                LootPool.lootPool()
+                                        .setRolls(ConstantValue.exactly(1.0F))
+                                        .add(
+                                                LootItem.lootTableItem(Items.STRING)
+                                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
+                                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))))
+                        .withPool(
+                                LootPool.lootPool()
+                                        .setRolls(ConstantValue.exactly(1.0F))
+                                        .add(LootItem.lootTableItem(VWItems.RECLAIMITE_SHARD.get())
+                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(-1.0F, 1.0F)))
+                                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
+                                        .when(LootItemKilledByPlayerCondition.killedByPlayer())));
     }
 
     private LootTable.Builder createSingleItemTable(ItemLike item) {

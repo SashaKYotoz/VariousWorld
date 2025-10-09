@@ -6,6 +6,8 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.valueproviders.ClampedNormalInt;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
@@ -24,6 +26,10 @@ public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> SODALITE_WART_PATCH = registerKey("sodalite_wart_patch");
 
     public static final ResourceKey<PlacedFeature> SODALITE_GEODE = registerKey("sodalite_geode");
+    public static final ResourceKey<PlacedFeature> RECLAIMITE_POINTED_DRIPSTONE = registerKey("reclaimite_pointed_dripstone");
+
+    public static final ResourceKey<PlacedFeature> GLOW_LICHEN_VEIN = registerKey("glow_lichen_vein");
+    public static final ResourceKey<PlacedFeature> COBWEB_BLOCKS_CHAIN = registerKey("cobweb_blocks_chain");
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         var configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -53,6 +59,17 @@ public class ModPlacedFeatures {
                 HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(12), VerticalAnchor.absolute(48)),
                 BiomeFilter.biome()
         ));
+        register(context, RECLAIMITE_POINTED_DRIPSTONE, configuredFeatures.getOrThrow(ModConfiguredFeatures.RECLAIMITE_POINTED_DRIPSTONE), List.of(CountPlacement.of(UniformInt.of(128, 192)), InSquarePlacement.spread(),
+                PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, CountPlacement.of(UniformInt.of(1, 5)),
+                RandomOffsetPlacement.of(ClampedNormalInt.of(0.0F, 3.0F, -10, 10),
+                        ClampedNormalInt.of(0.0F, 0.6F, -2, 2)), BiomeFilter.biome()));
+
+        register(context, GLOW_LICHEN_VEIN, configuredFeatures.getOrThrow(ModConfiguredFeatures.GLOW_LICHEN_VEIN), List.of(CountPlacement.of(UniformInt.of(128, 192)),
+                InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(128)),
+                BiomeFilter.biome()));
+        register(context, COBWEB_BLOCKS_CHAIN, configuredFeatures.getOrThrow(ModConfiguredFeatures.COBWEB_BLOCKS_CHAIN), List.of(CountPlacement.of(UniformInt.of(32, 64)),
+                InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(64)),
+                BiomeFilter.biome()));
     }
 
     private static ResourceKey<PlacedFeature> registerKey(String name) {

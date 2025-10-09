@@ -87,6 +87,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         crossWithPropertyBlock(VWBlocks.SODALITE_WART);
         stateFromBlockModel(VWBlocks.GEMSMITH_TABLE);
         stateFromBlockModel(VWBlocks.ARTIFACT_TABLE);
+        stateFromBlockModel(VWBlocks.DISASSEMBLY_TABLE);
         furnaceFromBlockModels(VWBlocks.GEMSMITH_FURNACE);
 
         petalsBlock(VWBlocks.BLUE_JACARANDA_PETALS);

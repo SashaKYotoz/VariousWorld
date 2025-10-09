@@ -28,13 +28,28 @@ public class ModLanguageProvider extends LanguageProvider {
         VWRegistryHelper.BLOCKS.getEntries().forEach(this::addBlock);
         VWRegistryHelper.ENTITIES.getEntries().forEach(this::addEntityType);
         VWVillagers.VILLAGER_PROFESSIONS.getEntries().forEach(this::addVillagerType);
-        this.add("creativetab.various_world_tab","Various World");
+        this.add("creativetab.various_world_tab", "Various World");
+        this.add("biome.various_world.crystalline_forest", "Crystalline Forest");
+        this.add("biome.various_world.blue_jacaranda_meadow", "Blue Jacaranda Meadow");
+        this.add("biome.various_world.reclaimite_caves", "Reclaimite Caves");
+
+        this.add("jei.various_world.disassembly_table", "Disassembly Table \n table block that allows to gather part of crafting ingredients of item. Only 3x3 recipes are detectable");
+        this.add("jei.various_world.artifact_table", "Artifact Table \n table block that allows to spread effect of potion in small area. \n Requires redstone power, potion, dragon breath and some valuable item to work.");
+        this.add("jei.various_world.gemsmith_table", "Gemsmithing Table \n table block that allows to modify tools adding materials. \n Recipes and models are registering dynamically, only config changes are required");
+
+        this.add("advancement.various_world.across_the_world", "Across The Various World");
+        this.add("advancement.various_world.across_the_world.desc", "Get into any biome of Various World");
+        this.add("advancement.various_world.master_of_various_world", "Master of Various World");
+        this.add("advancement.various_world.master_of_various_world.desc", "Get a curiosity from a each of foreign biome");
+        this.add("advancement.various_world.tabled", "Tabled");
+        this.add("advancement.various_world.tabled.desc", "Acquire each of mod's working table");
     }
 
     private void addEntityType(DeferredHolder<EntityType<?>, ?> entity) {
         String key = entity.getId().getPath();
         super.add("entity.various_world." + key, convertToName(key));
     }
+
     private void addVillagerType(DeferredHolder<VillagerProfession, ?> entity) {
         String key = entity.getId().getPath();
         super.add("entity.minecraft.villager.various_world." + key, convertToName(key));

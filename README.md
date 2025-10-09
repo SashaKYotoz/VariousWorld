@@ -6,10 +6,10 @@ Status: **Stable**
 
 # About:
 
-"Various World" - expansion oriented Minecraft mod for Forge(and NeoForge in future), that try to expanse Minecraft content in general:
+"Various World" - expansion oriented Minecraft mod for (Neo)Forge, that try to expanse Minecraft content in general:
 New difficulties, tools and materials, materials and workbenches, to fit its slogan - Across world and its beauty!
 
-![](https://media.forgecdn.net/attachments/description/544497/description_7f2908a8-1a25-4c79-837a-7e41a23aa084.png)
+![](https://media.forgecdn.net/attachments/description/544497/description_a300e873-3f25-4a59-b18d-305e26ed4122.png)
 
 <hr>
 
@@ -18,10 +18,11 @@ Wiki for mod is on [sashakyotoz_dev](https://sashakyotoz.github.io/sashakyotoz_d
 Currently plans for versions:
 
 - ~~Update version for 1.19.2~~
-- Port mod to NeoForge and support 1.21.1 version of game
+- ~~Port mod to NeoForge and support 1.21.1 version of game~~
+- Support and regularly update version for 1.21.1 and 1.21.8+
 
 The mod is translated into 5 languages:  
 
 - English(original), Belarusian and Ukrainian - by SashaKYotoz
-- Japanese - by SAGA
-- Spanish - by Basics
+- Japanese - by SAGA (for forge versions)
+- Spanish - by Basics (for forge versions)

@@ -1,4 +1,4 @@
-package net.sashakyotoz.variousworld.mixin;
+package net.sashakyotoz.variousworld.mixin.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;

@@ -56,6 +56,7 @@ public class ConfiguredData {
                 json -> gson.toJson(supplyCrystalJson())
         );
         registerMissingRecipes();
+
     }
 
     private static JsonObject supplyCrystalJson() {
@@ -120,10 +121,11 @@ public class ConfiguredData {
                         continue;
                     }
                     ResourceLocation key;
+                    String keyS = String.format("recipe/%s_%s_gemsmithing.json", tool.getPath(), gem.getPath());
                     if (gem.getNamespace().equals(VariousWorld.MOD_ID))
-                        key = ResourceLocation.parse(String.format("recipe/%s_%s_gemsmithing.json", tool.getPath(), gem.getPath()));
+                        key = ResourceLocation.parse(keyS);
                     else
-                        key = ResourceLocation.fromNamespaceAndPath(tool.getNamespace(), String.format("recipe/%s_%s_gemsmithing.json", tool.getPath(), gem.getPath()));
+                        key = ResourceLocation.fromNamespaceAndPath(tool.getNamespace(), keyS);
                     if (MANAGER_KEEPER.get(0) != null && !((IResourceExistence) MANAGER_KEEPER.get(0)).resourceExists(key))
                         register(key, () -> true, json -> gson.toJson(missingRecipeJson(tool.getPath(), gem.getPath())));
                 }
@@ -152,7 +154,6 @@ public class ConfiguredData {
                             register(key, () -> true, json ->
                                     gson.toJson(missingRecipeJson(String.format("%s:%s", toolRL.getNamespace(), toolRL.getPath()), gemRL.toString()))
                             );
-//                            VariousWorld.LOGGER.info("Registered recipe for tool {} using gem {}.", toolRL, gemRL);
                         }
                     }
                 }

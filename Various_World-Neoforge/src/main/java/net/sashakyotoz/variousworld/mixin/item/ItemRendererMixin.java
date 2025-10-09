@@ -1,4 +1,4 @@
-package net.sashakyotoz.variousworld.mixin;
+package net.sashakyotoz.variousworld.mixin.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

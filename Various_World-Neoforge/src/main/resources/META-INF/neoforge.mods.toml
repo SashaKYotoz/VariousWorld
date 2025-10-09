@@ -11,7 +11,7 @@ license = "AGNYA License"
 # The modid of the mod
 modId = "various_world" #mandatory
 # The version number of the mod
-version = "1.0r" #mandatory
+version = "1.1r" #mandatory
 # A display name for the mod
 displayName = "Various World" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification https://docs.neoforge.net/docs/misc/updatechecker/

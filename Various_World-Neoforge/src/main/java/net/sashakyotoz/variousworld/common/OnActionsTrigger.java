@@ -1,12 +1,18 @@
 package net.sashakyotoz.variousworld.common;
 
+import com.google.common.base.Predicate;
 import com.google.common.base.Suppliers;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.*;
@@ -16,19 +22,24 @@ import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.FeatureSorter;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.SurfaceRules;
+import net.minecraft.world.level.material.Fluids;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.BasicItemListing;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
+import net.sashakyotoz.variousworld.common.blocks.BlockUtils;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import net.sashakyotoz.variousworld.common.items.data.CrystalData;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
@@ -46,6 +57,10 @@ public class OnActionsTrigger {
 
     public static void queueServerWork(int tick, Runnable action) {
         workQueue.add(new AbstractMap.SimpleEntry<>(action, tick));
+    }
+
+    public static boolean isMovingOnLand(LivingEntity entity) {
+        return entity.onGround() && entity.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
     }
 
     public static void returnDefaultStack(ItemStack stack, LivingEntity entity) {
@@ -93,6 +108,56 @@ public class OnActionsTrigger {
         }
     }
 
+    public static ArrayList<BlockPos> findBlocksInRegion(Level level, BlockPos min, BlockPos max,
+                                                         Predicate<BlockState> matcher, int maxResults) {
+        ArrayList<BlockPos> found = new ArrayList<>();
+        final int minX = Math.min(min.getX(), max.getX());
+        final int maxX = Math.max(min.getX(), max.getX());
+        final int columnMinY = Math.max(-63, Math.min(min.getY(), max.getY()));
+        final int maxY = Math.max(min.getY(), max.getY());
+        final int minZ = Math.min(min.getZ(), max.getZ());
+        final int maxZ = Math.max(min.getZ(), max.getZ());
+        BlockPos.MutableBlockPos mpos = new BlockPos.MutableBlockPos();
+        for (int x = minX; x <= maxX; x++) {
+            for (int z = minZ; z <= maxZ; z++) {
+                int topY = level.getHeight(Heightmap.Types.WORLD_SURFACE, x, z);
+                int columnMaxY = Math.min(maxY, topY);
+                if (columnMinY > columnMaxY) continue;
+                for (int y = columnMaxY; y >= columnMinY; y--) {
+                    mpos.set(x, y, z);
+                    BlockState state = level.getBlockState(mpos);
+                    if (matcher.test(state)) {
+                        found.add(mpos.immutable());
+                        if (maxResults > 0 && found.size() >= maxResults) return found;
+                    }
+                }
+            }
+        }
+        return found;
+    }
+
+    public static BlockPos findNearest(List<BlockPos> candidates, LivingEntity entity, Level level) {
+        if (candidates.isEmpty()) return null;
+        double bestDistSq = Double.POSITIVE_INFINITY;
+        BlockPos best = null;
+        final double ex = entity.getX();
+        final double ey = entity.getY();
+        final double ez = entity.getZ();
+        for (BlockPos pos : candidates) {
+            double dx = pos.getX() + 0.5 - ex;
+            double dy = pos.getY() + 0.5 - ey;
+            double dz = pos.getZ() + 0.5 - ez;
+            double distSq = dx * dx + dy * dy + dz * dz;
+            if (distSq >= bestDistSq) continue;
+            if (level.getFluidState(pos).isSource() && level.getFluidState(pos).is(Fluids.LAVA)) continue;
+            if (!level.isAreaLoaded(pos, 1)) continue;
+            bestDistSq = distSq;
+            best = pos;
+        }
+
+        return best;
+    }
+
     @SubscribeEvent
     public static void tick(ServerTickEvent.Post event) {
         List<AbstractMap.SimpleEntry<Runnable, Integer>> actions = new ArrayList<>();
@@ -103,6 +168,22 @@ public class OnActionsTrigger {
         });
         actions.forEach(e -> e.getKey().run());
         workQueue.removeAll(actions);
+    }
+
+    @SubscribeEvent
+    public static void onRightClick(PlayerInteractEvent.RightClickBlock event) {
+        ItemStack stack = event.getItemStack();
+        BlockState state = event.getLevel().getBlockState(event.getPos());
+        BlockPos pos = event.getPos();
+        Level level = event.getLevel();
+        if (BlockUtils.isReclamited(state) && stack.getItem() instanceof PickaxeItem) {
+            if (level.isClientSide()) {
+                level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, VWBlocks.RECLAIMITE_CRYSTAL.get().defaultBlockState()), pos.getX(), pos.getY(), pos.getZ(), 0.0D, 0.0D, 0.0D);
+                level.playLocalSound(pos, SoundEvents.MEDIUM_AMETHYST_BUD_BREAK, SoundSource.BLOCKS, 1, 0.4f, true);
+            }
+            level.setBlockAndUpdate(pos, state.setValue(BlockUtils.RECLAMITE_SHARDED, false));
+            event.getEntity().drop(VWItems.RECLAIMITE_SHARD.toStack(), false);
+        }
     }
 
     @SubscribeEvent
@@ -128,6 +209,10 @@ public class OnActionsTrigger {
                                 Climate.Parameter.point(0f), Climate.Parameter.span(-0.56f, 0.46f), 0), biomeRegistry.getHolderOrThrow(VWBiomes.BLUE_JACARANDA_MEADOW)));
                         parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(0.45f, 0.9f), Climate.Parameter.span(-0.125f, 0.65f), Climate.Parameter.span(0.2f, 0.7f), Climate.Parameter.span(-0.25f, 0.5f),
                                 Climate.Parameter.point(1f), Climate.Parameter.span(-0.56f, 0.46f), 0), biomeRegistry.getHolderOrThrow(VWBiomes.BLUE_JACARANDA_MEADOW)));
+                    }
+                    if (ModConfigController.MOD_CONFIG_VALUES != null && ModConfigController.MOD_CONFIG_VALUES.do_reclamite_caves()) {
+                        parameters.add(new Pair<>(new Climate.ParameterPoint(Climate.Parameter.span(-1f, 1f), Climate.Parameter.span(0.5f, 1f), Climate.Parameter.span(-0.5f, 0.5f), Climate.Parameter.span(0f, 0.75f),
+                                Climate.Parameter.span(0.6f, 1.1f), Climate.Parameter.span(-1f, 1f), 0), biomeRegistry.getHolderOrThrow(VWBiomes.RECLAIMITE_CAVES)));
                     }
                     chunkGenerator.biomeSource = MultiNoiseBiomeSource.createFromList(new Climate.ParameterList<>(parameters));
                     chunkGenerator.featuresPerStep = Suppliers

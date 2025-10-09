@@ -8,6 +8,7 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -35,6 +36,10 @@ public class VWJeiPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         List<GemsmithTransformRecipe> recipes = Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(GemsmithTransformRecipe.Type.INSTANCE).stream().map(RecipeHolder::value).toList();
         registration.addRecipes(GemsmithRecipeCategory.GEMSMITH_RECIPE, recipes);
+
+        registration.addIngredientInfo(VWBlocks.DISASSEMBLY_TABLE.get(), Component.translatable("jei.various_world.disassembly_table"));
+        registration.addIngredientInfo(VWBlocks.ARTIFACT_TABLE.get(), Component.translatable("jei.various_world.artifact_table"));
+        registration.addIngredientInfo(VWBlocks.GEMSMITH_TABLE.get(), Component.translatable("jei.various_world.gemsmith_table"));
     }
 
     @Override

@@ -1,0 +1,77 @@
+{
+  "criteria": {
+    "various_world:blue_jacaranda_meadow": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "various_world:blue_jacaranda_meadow"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "various_world:crystalline_forest": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "various_world:crystalline_forest"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "various_world:reclaimite_caves": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "various_world:reclaimite_caves"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "background": "various_world:textures/block/blue_jacaranda_leaves.png",
+    "description": {
+      "translate": "advancement.various_world.across_the_world.desc"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "various_world:blue_jacaranda_sapling"
+    },
+    "title": {
+      "translate": "advancement.various_world.across_the_world"
+    }
+  },
+  "requirements": [
+    [
+      "various_world:blue_jacaranda_meadow",
+      "various_world:crystalline_forest",
+      "various_world:reclaimite_caves"
+    ]
+  ],
+  "rewards": {
+    "experience": 10
+  },
+  "sends_telemetry_event": true
+}

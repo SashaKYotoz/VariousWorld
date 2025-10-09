@@ -7,6 +7,7 @@ import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.sashakyotoz.variousworld.VariousWorld;
+import net.sashakyotoz.variousworld.common.world.ModCarvers;
 import net.sashakyotoz.variousworld.common.world.features.ModBiomeModifiers;
 import net.sashakyotoz.variousworld.common.world.features.ModConfiguredFeatures;
 import net.sashakyotoz.variousworld.common.world.features.ModPlacedFeatures;
@@ -17,11 +18,10 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModDatapackProvider extends DatapackBuiltinEntriesProvider {
     public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
-//            .add(Registries.ENCHANTMENT, ModEnchantments::bootstrap)
-//
             .add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap)
             .add(Registries.BIOME, VWBiomes::bootstrap)
             .add(Registries.PLACED_FEATURE, ModPlacedFeatures::bootstrap)
+            .add(Registries.CONFIGURED_CARVER, ModCarvers::bootstrap)
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers::bootstrap);
 
     public ModDatapackProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

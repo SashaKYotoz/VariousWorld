@@ -53,7 +53,7 @@
                       "function": "minecraft:apply_bonus"
                     }
                   ],
-                  "name": "minecraft:amethyst_shard"
+                  "name": "various_world:sodalite_shard"
                 },
                 {
                   "type": "minecraft:item",

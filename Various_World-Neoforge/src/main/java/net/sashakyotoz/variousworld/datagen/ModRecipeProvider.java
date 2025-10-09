@@ -7,19 +7,17 @@ import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TieredItem;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 import net.neoforged.neoforge.registries.DeferredBlock;
-import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.datagen.builders.GemsmithRecipeBuilder;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWItems;
 import net.sashakyotoz.variousworld.init.VWRegistryHelper;
 import net.sashakyotoz.variousworld.init.VWTags;
 
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
@@ -97,26 +95,16 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("bbb")
                 .unlockedBy("has_block", has(VWBlocks.BLUE_JACARANDA_PLANKS.get()))
                 .save(recipeOutput);
-    }
-
-    protected static void oreSmelting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,
-                                      float pExperience, int pCookingTIme, String pGroup) {
-        oreCooking(recipeOutput, RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new, pIngredients, pCategory, pResult,
-                pExperience, pCookingTIme, pGroup, "_from_smelting");
-    }
-
-    protected static void oreBlasting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,
-                                      float pExperience, int pCookingTime, String pGroup) {
-        oreCooking(recipeOutput, RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new, pIngredients, pCategory, pResult,
-                pExperience, pCookingTime, pGroup, "_from_blasting");
-    }
-
-    protected static <T extends AbstractCookingRecipe> void oreCooking(RecipeOutput recipeOutput, RecipeSerializer<T> pCookingSerializer, AbstractCookingRecipe.Factory<T> factory,
-                                                                       List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTime, String pGroup, String pRecipeName) {
-        for (ItemLike itemlike : pIngredients) {
-            SimpleCookingRecipeBuilder.generic(Ingredient.of(itemlike), pCategory, pResult, pExperience, pCookingTime, pCookingSerializer, factory).group(pGroup).unlockedBy(getHasName(itemlike), has(itemlike))
-                    .save(recipeOutput, VariousWorld.MOD_ID + ":" + getItemName(pResult) + pRecipeName + "_" + getItemName(itemlike));
-        }
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, VWBlocks.DISASSEMBLY_TABLE.get())
+                .define('g', Items.GLASS)
+                .define('i', Items.IRON_INGOT)
+                .define('s', Items.SMOOTH_STONE)
+                .define('d', Items.DRIPSTONE_BLOCK)
+                .pattern("igi")
+                .pattern("sds")
+                .pattern("sds")
+                .unlockedBy("has_block", has(Items.DRIPSTONE_BLOCK))
+                .save(recipeOutput);
     }
 
     private void sign(RecipeOutput recipeOutput, ItemLike sign, ItemLike material) {

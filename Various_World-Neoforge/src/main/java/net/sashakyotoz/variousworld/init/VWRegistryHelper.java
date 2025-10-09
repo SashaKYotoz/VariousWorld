@@ -330,6 +330,7 @@ public class VWRegistryHelper {
             ENTITY_TAGS.get(tagName).add(this.entity);
             return this;
         }
+
         @SafeVarargs
         public final EntityBuilder<T> tag(TagKey<EntityType<?>>... tagName) {
             for (TagKey<EntityType<?>> tag : tagName) {
@@ -339,12 +340,13 @@ public class VWRegistryHelper {
             return this;
         }
     }
+
     public static Map<TagKey<EntityType<?>>, List<DeferredHolder<EntityType<?>, ?>>> ENTITY_TAGS = new HashMap<>();
 
     public static Map<DeferredHolder<EntityType<?>, ?>, ItemLike> ENTITY_DROPS = new HashMap<>();
 
     public static final DeferredHolder<CreativeModeTab, ?> VARIOUS_WORLD_TAB = CREATIVE_MODE_TABS.register("various_world_tab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(VWBlocks.CRYSTALIC_OAK_LOG))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(VWBlocks.BLUE_JACARANDA_SAPLING))
                     .title(Component.translatable("creativetab.various_world_tab")).displayItems((pParameters, tabData) -> {
                         BLOCKS.getEntries().forEach(block -> {
                             if (!block.getRegisteredName().contains("pot"))

@@ -6,6 +6,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.sashakyotoz.variousworld.common.entities.CrystalicSlimeEntity;
+import net.sashakyotoz.variousworld.common.entities.SquealingSpiderEntity;
 import net.sashakyotoz.variousworld.common.entities.WanderingZombieEntity;
 
 @SuppressWarnings("unchecked")
@@ -21,4 +22,8 @@ public class VWEntities {
                     EntityType.Builder.of(WanderingZombieEntity::new, MobCategory.MONSTER)
                             .sized(0.6F, 1.95F).eyeHeight(1.74F).passengerAttachments(2.0125F).ridingOffset(-0.7F).clientTrackingRange(8))
             .tag(EntityTypeTags.ZOMBIES, EntityTypeTags.UNDEAD).build();
+    public static final DeferredHolder<EntityType<?>, EntityType<SquealingSpiderEntity>> SQUEALING_SPIDER = VWRegistryHelper.ofEntity("squealing_spider",
+                    EntityType.Builder.of(SquealingSpiderEntity::new, MobCategory.MONSTER)
+                            .sized(0.8F, 0.6F).passengerAttachments(1F).clientTrackingRange(8))
+            .tag(EntityTypeTags.POWDER_SNOW_WALKABLE_MOBS, EntityTypeTags.ARTHROPOD).build();
 }

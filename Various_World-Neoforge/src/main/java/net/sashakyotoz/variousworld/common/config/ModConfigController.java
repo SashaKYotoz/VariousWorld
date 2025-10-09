@@ -32,7 +32,7 @@ public class ModConfigController {
         public List<ArtifactSetting> artifactsSettings;
     }
 
-    public record Configs(boolean do_crystalline_forest, boolean do_blue_jacaranda_meadow) {
+    public record Configs(boolean do_crystalline_forest, boolean do_blue_jacaranda_meadow , boolean do_reclamite_caves) {
     }
 
     public record GemsmithingSetting(LazyItem item, String prefix, int durability, Attribute attribute,
@@ -99,7 +99,8 @@ public class ModConfigController {
                 {
                     "configs": {
                       "do_crystalline_forest": true,
-                      "do_blue_jacaranda_meadow": true
+                      "do_blue_jacaranda_meadow": true,
+                      "do_reclamite_caves": true
                     },
                     "crystaling_settings": [
                       {
@@ -121,6 +122,13 @@ public class ModConfigController {
                         "prefix": "amethyst",
                         "durability": 72,
                         "attribute": "generic.attack_damage",
+                        "modify_value": 1
+                      },
+                      {
+                        "item": "various_world:reclaimite_shard",
+                        "prefix": "reclaimite",
+                        "durability": 32,
+                        "attribute": "player.mining_efficiency",
                         "modify_value": 1
                       }
                     ],

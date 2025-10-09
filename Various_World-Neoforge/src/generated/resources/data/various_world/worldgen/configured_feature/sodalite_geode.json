@@ -68,7 +68,7 @@
     "crack": {
       "base_crack_size": 2.0,
       "crack_point_offset": 2,
-      "generate_crack_chance": 0.95
+      "generate_crack_chance": 0.8
     },
     "distribution_points": {
       "type": "minecraft:uniform",
