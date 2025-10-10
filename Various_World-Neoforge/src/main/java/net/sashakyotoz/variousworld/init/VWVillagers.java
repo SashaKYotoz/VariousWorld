@@ -48,7 +48,7 @@ public class VWVillagers {
             Map<ResourceKey<Biome>, VillagerType> byBiome = (Map<ResourceKey<Biome>, VillagerType>) byBiomeField.get(null);
             byBiome.put(biomeIn, type);
         } catch (Exception e) {
-            VariousWorld.LOGGER.error("Failed to register villager type: {}", type);
+            VariousWorld.log("Failed to register villager type: %s".formatted(type));
         }
     }
 

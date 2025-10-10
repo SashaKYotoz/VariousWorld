@@ -7,7 +7,10 @@
     "various_world:sodalite_cluster",
     "various_world:medium_sodalite_bud",
     "various_world:small_sodalite_bud",
+    "various_world:reclaimite_crystal",
     "various_world:gemsmith_table",
-    "various_world:gemsmith_furnace"
+    "various_world:gemsmith_furnace",
+    "various_world:gemsmith_furnace",
+    "various_world:disassembly_table"
   ]
 }

@@ -4,6 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.loading.FMLLoader;
 import net.sashakyotoz.variousworld.common.config.ConfiguredData;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import net.sashakyotoz.variousworld.init.*;
@@ -31,5 +32,9 @@ public class VariousWorld {
 
     public static ResourceLocation createVWLocation(String path) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+    }
+    public static <T> void log(T message) {
+        if (FMLLoader.isProduction())
+            LOGGER.info(String.valueOf(message));
     }
 }

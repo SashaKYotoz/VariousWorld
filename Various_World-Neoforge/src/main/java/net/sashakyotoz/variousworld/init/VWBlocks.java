@@ -13,6 +13,8 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.sashakyotoz.variousworld.common.blocks.BlockUtils;
 import net.sashakyotoz.variousworld.common.blocks.ModWoodType;
 import net.sashakyotoz.variousworld.common.blocks.custom.*;
 import net.sashakyotoz.variousworld.common.blocks.entities.*;
@@ -128,6 +130,8 @@ public class VWBlocks {
             .model(VWRegistryHelper.Models.DIRECTIONAL_CROSS).tool("stone_pickaxe").cutout().build();
     public static final DeferredBlock<AmethystClusterBlock> SMALL_SODALITE_BUD = VWRegistryHelper.ofBlock("small_sodalite_bud", registry -> new AmethystClusterBlock(4.0F, 4.0F, BlockBehaviour.Properties.ofFullCopy(SODALITE_CLUSTER.get()).setId(ResourceKey.create(Registries.BLOCK, registry)).sound(SoundType.SMALL_AMETHYST_BUD)))
             .model(VWRegistryHelper.Models.DIRECTIONAL_CROSS).tool("stone_pickaxe").cutout().build();
+    public static final DeferredBlock<AmethystClusterBlock> RECLAIMITE_CRYSTAL = VWRegistryHelper.ofBlock("reclaimite_crystal", registry -> new AmethystClusterBlock(6.0F, 3.0F, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).emissiveRendering((blockState, blockGetter, blockPos) ->
+            blockGetter.getBlockState(blockPos).hasProperty(BlockUtils.RECLAMITE_SHARDED)).forceSolidOn().noOcclusion().sound(SoundType.AMETHYST_CLUSTER).strength(1F).setId(ResourceKey.create(Registries.BLOCK, registry)).sound(SoundType.MEDIUM_AMETHYST_BUD))).model(VWRegistryHelper.Models.DIRECTIONAL_CROSS).tool("stone_pickaxe").cutout().build();
 
     public static final DeferredBlock<GemsmithTableBlock> GEMSMITH_TABLE = VWRegistryHelper.ofBlock("gemsmith_table", registry -> new GemsmithTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_BRICKS).setId(ResourceKey.create(Registries.BLOCK, registry)).noOcclusion()))
             .tool("stone_pickaxe").drop().cutout().build();
@@ -135,6 +139,8 @@ public class VWBlocks {
             .tool("stone_pickaxe").drop().build();
     public static final DeferredBlock<ArtifactTableBlock> ARTIFACT_TABLE = VWRegistryHelper.ofBlock("artifact_table", registry -> new ArtifactTableBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, registry)).mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).noOcclusion().strength(2.5F).sound(SoundType.WOOD).ignitedByLava()))
             .tool("_axe").drop().translucent().build();
+    public static final DeferredBlock<DisassemblyTableBlock> DISASSEMBLY_TABLE = VWRegistryHelper.ofBlock("disassembly_table", registry -> new DisassemblyTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SMITHING_TABLE).setId(ResourceKey.create(Registries.BLOCK, registry)).noOcclusion()))
+            .tool("stone_pickaxe").drop().translucent().build();
 
     public static ToIntFunction<BlockState> lightLevelFromBlockState(int litLevel, BooleanProperty property) {
         return state -> state.getValue(property) ? litLevel : 0;
@@ -160,5 +166,8 @@ public class VWBlocks {
     ));
     public static final Supplier<BlockEntityType<ArtifactTableBlockEntity>> ARTIFACT_TABLE_BE = VWRegistryHelper.BLOCK_ENTITIES.register("artifact_table", () -> new BlockEntityType<>(ArtifactTableBlockEntity::new,
             VWBlocks.ARTIFACT_TABLE.get()
+    ));
+    public static final Supplier<BlockEntityType<DisassemblyTableBlockEntity>> DISASSEMBLY_TABLE_BE = VWRegistryHelper.BLOCK_ENTITIES.register("disassembly_table", () -> new BlockEntityType<>(DisassemblyTableBlockEntity::new,
+            VWBlocks.DISASSEMBLY_TABLE.get()
     ));
 }

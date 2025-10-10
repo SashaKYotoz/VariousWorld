@@ -17,11 +17,13 @@ import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.common.blocks.entities.ArtifactTableBlockEntity;
+import net.sashakyotoz.variousworld.common.blocks.entities.DisassemblyTableBlockEntity;
 import net.sashakyotoz.variousworld.common.blocks.entities.GemsmithTableBlockEntity;
 import net.sashakyotoz.variousworld.common.config.ConfiguredData;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import net.sashakyotoz.variousworld.common.config.items.CrystalItemModelProperty;
 import net.sashakyotoz.variousworld.common.entities.CrystalicSlimeEntity;
+import net.sashakyotoz.variousworld.common.entities.SquealingSpiderEntity;
 import net.sashakyotoz.variousworld.common.entities.WanderingZombieEntity;
 import net.sashakyotoz.variousworld.common.items.data.CrystalData;
 import net.sashakyotoz.variousworld.init.*;
@@ -64,12 +66,16 @@ public class OnModActionsTrigger {
         event.registerBlockEntity(ArtifactTableBlockEntity.TABLE_ITEM_HANDLER, VWBlocks.ARTIFACT_TABLE_BE.get(),
                 (table, side) -> new InvWrapper(table)
         );
+        event.registerBlockEntity(DisassemblyTableBlockEntity.TABLE_ITEM_HANDLER, VWBlocks.DISASSEMBLY_TABLE_BE.get(),
+                (table, side) -> new InvWrapper(table)
+        );
     }
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(VWEntities.CRYSTALIC_SLIME.get(), Monster.createMonsterAttributes().build());
         event.put(VWEntities.WANDERING_ZOMBIE.get(), WanderingZombieEntity.createAttributes().build());
+        event.put(VWEntities.SQUEALING_SPIDER.get(), SquealingSpiderEntity.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -78,5 +84,7 @@ public class OnModActionsTrigger {
                 CrystalicSlimeEntity::checkCrystalicSlimeSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
         event.register(VWEntities.WANDERING_ZOMBIE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
+        event.register(VWEntities.SQUEALING_SPIDER.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                SquealingSpiderEntity::checkSquealingSpiderSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
     }
 }

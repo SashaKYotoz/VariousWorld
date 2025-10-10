@@ -73,7 +73,7 @@ public class ConfiguredData {
         model.add("fallback", fallback);
         model.addProperty("property", "various_world:crystal");
         root.add("model", model);
-        VariousWorld.LOGGER.debug("Model: %s".formatted(root.toString()));
+        VariousWorld.log("Model: %s".formatted(root.toString()));
         return root;
     }
 
@@ -160,7 +160,7 @@ public class ConfiguredData {
                 for (PendingRecipe pending : pendingRecipes) {
                     Item gemItem = pending.lazyGem.build();
                     if (gemItem.equals(Items.AIR)) {
-                        VariousWorld.LOGGER.info("Pending recipe: gem item {} still not found.", pending.lazyGem.getId());
+                        VariousWorld.log("Pending recipe: gem item %s still not found.".formatted(pending.lazyGem.getId()));
                         continue;
                     }
                     ResourceLocation gemRL = pending.lazyGem.getId();

@@ -1,5 +1,6 @@
 package net.sashakyotoz.variousworld.common.entities;
 
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -19,6 +20,7 @@ import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
 import net.sashakyotoz.variousworld.init.VWEntities;
 import net.sashakyotoz.variousworld.init.VWItems;
 import net.sashakyotoz.variousworld.init.VWMiscRegistries;
+import net.sashakyotoz.variousworld.init.VWSounds;
 
 public class WanderingZombieEntity extends Zombie {
 
@@ -52,5 +54,10 @@ public class WanderingZombieEntity extends Zombie {
         builder = builder.add(Attributes.FOLLOW_RANGE, 32);
         builder = builder.add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
         return builder;
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return VWSounds.WANDERING_ZOMBIE_AMBIENT.value();
     }
 }

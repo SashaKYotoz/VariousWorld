@@ -35,6 +35,10 @@ public class VWItems {
             .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("sodalite_shard")))))
 //            .model()
             .build();
+    public static final DeferredItem<Item> RECLAIMITE_SHARD = VWRegistryHelper.ofItem("reclaimite_shard", properties -> new Item(new Item.Properties()
+                    .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("reclaimite_shard")))))
+//            .model()
+            .build();
     public static final DeferredItem<Item> CRYSTALLINE_SLIME_BALL = VWRegistryHelper.ofItem("crystalline_slime_ball", properties -> new Item(new Item.Properties()
             .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("crystalline_slime_ball")))))
 //            .model()
@@ -55,4 +59,7 @@ public class VWItems {
     public static final DeferredItem<SpawnEggItem> WANDERING_ZOMBIE_SPAWN_EGG = VWRegistryHelper.ofItem("wandering_zombie_spawn_egg", properties ->
             new SpawnEggItem(VWEntities.WANDERING_ZOMBIE.get(), new Item.Properties()
                     .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("wandering_zombie_spawn_egg"))))).build();
+    public static final DeferredItem<SpawnEggItem> SQUEALING_SPIDER_SPAWN_EGG = VWRegistryHelper.ofItem("squealing_spider_spawn_egg", properties ->
+            new SpawnEggItem(VWEntities.SQUEALING_SPIDER.get(), new Item.Properties()
+                    .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("squealing_spider_spawn_egg"))))).build();
 }

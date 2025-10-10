@@ -22,10 +22,12 @@ import net.sashakyotoz.variousworld.common.world.features.ModPlacedFeatures;
 public class VWBiomes {
     public static final ResourceKey<Biome> CRYSTALLINE_FOREST = registerKey("crystalline_forest");
     public static final ResourceKey<Biome> BLUE_JACARANDA_MEADOW = registerKey("blue_jacaranda_meadow");
+    public static final ResourceKey<Biome> RECLAIMITE_CAVES = registerKey("reclaimite_caves");
 
     public static void bootstrap(BootstrapContext<Biome> context) {
         context.register(CRYSTALLINE_FOREST, crystallineForest(context));
         context.register(BLUE_JACARANDA_MEADOW, jacarandaMeadow(context));
+//        context.register(RECLAIMITE_CAVES, reclaimiteCaves(context));
     }
 
     public static Biome crystallineForest(BootstrapContext<Biome> context) {

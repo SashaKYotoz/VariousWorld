@@ -15,13 +15,13 @@ New difficulties, tools and materials, materials and workbenches, to fit its slo
 
 Wiki for mod is on [sashakyotoz_dev](https://sashakyotoz.github.io/sashakyotoz_dev/) website
 
-Currently plans for versions:
+# Currently plans for versions:
 
-- ~~Update version for 1.19.2~~
-- Port mod to NeoForge and support 1.21.1 version of game
+- ~~Port mod to NeoForge and support 1.21.1 version of game~~
+- Support and regularly update version for 1.21.1 and 1.21.8+
 
-The mod is translated into 5 languages:  
+The mod is translated into 5 languages:
 
 - English(original), Belarusian and Ukrainian - by SashaKYotoz
-- Japanese - by SAGA
-- Spanish - by Basics
+- Japanese - by SAGA (for forge versions)
+- Spanish - by Basics (for forge versions)

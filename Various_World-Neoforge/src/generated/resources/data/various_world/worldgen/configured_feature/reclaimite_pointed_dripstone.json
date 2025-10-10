@@ -1,0 +1,73 @@
+{
+  "type": "minecraft:simple_random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": {
+          "type": "various_world:reclaimite_pointed_dripstone",
+          "config": {
+            "chance_of_directional_spread": 0.8,
+            "chance_of_spread_radius2": 0.6,
+            "chance_of_spread_radius3": 0.6,
+            "chance_of_taller_dripstone": 0.1
+          }
+        },
+        "placement": [
+          {
+            "type": "minecraft:environment_scan",
+            "allowed_search_condition": {
+              "type": "minecraft:matching_blocks",
+              "blocks": [
+                "minecraft:air",
+                "minecraft:water"
+              ]
+            },
+            "direction_of_search": "down",
+            "max_steps": 16,
+            "target_condition": {
+              "type": "minecraft:solid"
+            }
+          },
+          {
+            "type": "minecraft:random_offset",
+            "xz_spread": 0,
+            "y_spread": 1
+          }
+        ]
+      },
+      {
+        "feature": {
+          "type": "various_world:reclaimite_pointed_dripstone",
+          "config": {
+            "chance_of_directional_spread": 0.8,
+            "chance_of_spread_radius2": 0.6,
+            "chance_of_spread_radius3": 0.6,
+            "chance_of_taller_dripstone": 0.1
+          }
+        },
+        "placement": [
+          {
+            "type": "minecraft:environment_scan",
+            "allowed_search_condition": {
+              "type": "minecraft:matching_blocks",
+              "blocks": [
+                "minecraft:air",
+                "minecraft:water"
+              ]
+            },
+            "direction_of_search": "up",
+            "max_steps": 16,
+            "target_condition": {
+              "type": "minecraft:solid"
+            }
+          },
+          {
+            "type": "minecraft:random_offset",
+            "xz_spread": 0,
+            "y_spread": -1
+          }
+        ]
+      }
+    ]
+  }
+}

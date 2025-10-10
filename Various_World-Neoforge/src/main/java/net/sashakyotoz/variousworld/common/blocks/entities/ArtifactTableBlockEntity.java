@@ -147,8 +147,8 @@ public class ArtifactTableBlockEntity extends BaseContainerBlockEntity {
         ContainerHelper.loadAllItems(valueInput, this.items);
         for (int i = 0; i < items.size(); i++)
             itemHandler.setStackInSlot(i, items.get(i));
-        progress = valueInput.getInt("table.progress").get();
-        settingName = valueInput.getString("table.setting_name").get();
+        valueInput.getInt("table.progress").ifPresent(value -> this.progress = value);
+        valueInput.getString("table.setting_name").ifPresent(value -> this.settingName = value);
         super.loadAdditional(valueInput);
     }
 

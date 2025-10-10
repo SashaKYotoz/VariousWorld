@@ -6,15 +6,17 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.monster.Slime;
-import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.sashakyotoz.variousworld.init.VWBiomes;
+import org.jetbrains.annotations.Nullable;
 
 public class CrystalicSlimeEntity extends Slime {
     private static final EntityDataAccessor<Integer> TEXTURE_DATA = SynchedEntityData.defineId(CrystalicSlimeEntity.class, EntityDataSerializers.INT);
@@ -24,9 +26,10 @@ public class CrystalicSlimeEntity extends Slime {
     }
 
     @Override
-    public void onAddedToLevel() {
-        super.onAddedToLevel();
-        this.entityData.set(TEXTURE_DATA, this.getRandom().nextInt(3));
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, @Nullable SpawnGroupData spawnGroupData) {
+        int i = this.getRandom().nextInt(3);
+        this.entityData.set(TEXTURE_DATA, i);
+        return super.finalizeSpawn(level, difficulty, spawnReason, spawnGroupData);
     }
 
     @Override
@@ -37,6 +40,18 @@ public class CrystalicSlimeEntity extends Slime {
 
     public int getTextureInt() {
         return this.entityData.get(TEXTURE_DATA);
+    }
+
+    @Override
+    protected void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        input.getInt("texture_variant").ifPresent(value -> this.entityData.set(TEXTURE_DATA, value));
+    }
+
+    @Override
+    protected void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putInt("texture_variant", this.entityData.get(TEXTURE_DATA));
     }
 
     public static boolean checkCrystalicSlimeSpawnRules(EntityType<CrystalicSlimeEntity> slime, LevelAccessor level, EntitySpawnReason spawnReason, BlockPos pos, RandomSource random) {

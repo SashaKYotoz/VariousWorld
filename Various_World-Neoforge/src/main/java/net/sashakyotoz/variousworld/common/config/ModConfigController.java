@@ -34,7 +34,7 @@ public class ModConfigController {
         public List<ArtifactSetting> artifactsSettings;
     }
 
-    public record Configs(boolean do_crystalline_forest, boolean do_blue_jacaranda_meadow) {
+    public record Configs(boolean do_crystalline_forest, boolean do_blue_jacaranda_meadow, boolean do_reclamite_caves) {
     }
 
     public record GemsmithingSetting(LazyItem item, String prefix, int durability, Attribute attribute,
@@ -98,7 +98,7 @@ public class ModConfigController {
             CRYSTALING_CONFIG_VALUES = data.crystalingSettings;
             ARTIFACTS_CONFIG_VALUES = data.artifactsSettings;
         } catch (Exception e) {
-            VariousWorld.LOGGER.error("Various World config can't be read");
+            VariousWorld.log("Various World config can't be read");
         }
     }
 
@@ -107,7 +107,8 @@ public class ModConfigController {
                 {
                     "configs": {
                       "do_crystalline_forest": true,
-                      "do_blue_jacaranda_meadow": true
+                      "do_blue_jacaranda_meadow": true,
+                      "do_reclamite_caves": true
                     },
                     "crystaling_settings": [
                       {

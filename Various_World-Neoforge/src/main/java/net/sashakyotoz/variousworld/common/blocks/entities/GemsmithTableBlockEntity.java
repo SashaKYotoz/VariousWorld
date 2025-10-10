@@ -148,8 +148,8 @@ public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
         super.loadAdditional(valueInput);
         itemHandler.deserialize(valueInput);
         ContainerHelper.loadAllItems(valueInput, this.items);
-        progress = valueInput.getInt("gemsmith.progress").get();
-        maxProgress = valueInput.getInt("gemsmith.max_progress").get();
+        valueInput.getInt("gemsmith.progress").ifPresent(value -> this.progress = value);
+        valueInput.getInt("gemsmith.max_progress").ifPresent(value -> this.maxProgress = value);
     }
 
     @Nullable
