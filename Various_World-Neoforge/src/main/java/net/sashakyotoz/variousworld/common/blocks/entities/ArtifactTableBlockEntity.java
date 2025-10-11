@@ -1,11 +1,10 @@
 package net.sashakyotoz.variousworld.common.blocks.entities;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.particles.SpellParticleOption;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -190,13 +189,13 @@ public class ArtifactTableBlockEntity extends BaseContainerBlockEntity {
                 if (!setting.artifact().build().equals(Items.AIR) && itemHandler.getStackInSlot(0).getItem().equals(setting.artifact().build())
                         && progress <= 0 && !itemHandler.getStackInSlot(1).isEmpty() && !itemHandler.getStackInSlot(2).isEmpty()) {
                     progress = 320;
-                    OnActionsTrigger.spawnParticle(ParticleTypes.EFFECT, level, pos.getX(), pos.getY(), pos.getZ(), 2);
+                    OnActionsTrigger.spawnParticle(SpellParticleOption.create(ParticleTypes.EFFECT,-929639936,1), level, pos.getX(), pos.getY(), pos.getZ(), 2);
                     level.playLocalSound(pos, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 1.5f, 1f, true);
                 }
             }
             if (progress > 0 && itemHandler.getStackInSlot(2).is(Items.DRAGON_BREATH)) {
                 progress--;
-                OnActionsTrigger.spawnParticle(ParticleTypes.EFFECT, level, pos.getX(), pos.getY() + 0.5f, pos.getZ(), 2);
+                OnActionsTrigger.spawnParticle(SpellParticleOption.create(ParticleTypes.EFFECT,-929639936,3), level, pos.getX(), pos.getY() + 0.5f, pos.getZ(), 2);
                 if (progress < 2) {
                     level.playLocalSound(pos, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 1.5f, 1f, true);
                     blockEntity.removeItem(1, 1);

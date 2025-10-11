@@ -2,14 +2,12 @@
 package net.sashakyotoz.variousworld.client.renderers.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.renderer.entity.state.SlimeRenderState;
 import net.sashakyotoz.variousworld.client.models.CrystalicSlimeModel;
 import net.sashakyotoz.variousworld.client.models.states.CrystalicSlimeRenderState;
 import net.sashakyotoz.variousworld.client.renderers.CrystalicSlimeRenderer;
@@ -22,13 +20,12 @@ public class CrystalicSlimeOuterLayer extends RenderLayer<CrystalicSlimeRenderSt
         this.model = new CrystalicSlimeModel(context.bakeLayer(CrystalicSlimeModel.OUTER_LAYER_LOCATION));
     }
 
-    public void render(PoseStack stack, MultiBufferSource source, int i, CrystalicSlimeRenderState entity, float v, float v1) {
-        boolean flag = entity.appearsGlowing && entity.isInvisible;
-        if (!entity.isInvisible || flag) {
-            VertexConsumer vertexconsumer = flag ? source.getBuffer(RenderType.outline(CrystalicSlimeRenderer.SLIME_LOCATION))
-                    : source.getBuffer(RenderType.entityTranslucent(CrystalicSlimeRenderer.SLIME_LOCATION));
-            this.model.setupAnim(entity);
-            this.model.renderToBuffer(stack, vertexconsumer, i, LivingEntityRenderer.getOverlayCoords(entity, 0.0F));
+    @Override
+    public void submit(PoseStack poseStack, SubmitNodeCollector nodeCollector, int packedLight, CrystalicSlimeRenderState renderState, float v, float v1) {
+        boolean flag = renderState.appearsGlowing() && renderState.isInvisible;
+        if (!renderState.isInvisible || flag) {
+            int i = LivingEntityRenderer.getOverlayCoords(renderState, 0.0F);
+            nodeCollector.order(1).submitModel(this.model, renderState, poseStack, flag ? RenderType.outline(CrystalicSlimeRenderer.SLIME_LOCATION) : RenderType.entityTranslucent(CrystalicSlimeRenderer.SLIME_LOCATION), packedLight, i, -1, null, renderState.outlineColor, null);
         }
     }
 }

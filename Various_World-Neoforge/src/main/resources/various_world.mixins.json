@@ -13,9 +13,9 @@
   ],
   "client": [
     "GuiGraphicsMixin",
+    "ItemInHandRendererMixin",
     "block.BlockRenderDispatcherMixin",
-    "block.SectionCompilerMixin",
-    "block.sodium.BlockRendererMixin"
+    "block.SectionCompilerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

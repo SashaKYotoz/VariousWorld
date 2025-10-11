@@ -172,7 +172,7 @@ public class SquealingSpiderEntity extends Spider {
         if (this.soundTick == 0) {
             this.playWhirlSound();
         }
-        if (!this.level().isClientSide)
+        if (!this.level().isClientSide())
             this.setClimbing(this.horizontalCollision);
         super.tick();
     }

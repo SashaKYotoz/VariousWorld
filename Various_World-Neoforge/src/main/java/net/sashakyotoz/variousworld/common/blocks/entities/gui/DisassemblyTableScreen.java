@@ -57,15 +57,6 @@ public class DisassemblyTableScreen extends AbstractContainerScreen<DisassemblyT
     }
 
     @Override
-    public boolean keyPressed(int key, int b, int c) {
-        if (key == 256) {
-            this.minecraft.player.closeContainer();
-            return true;
-        }
-        return super.keyPressed(key, b, c);
-    }
-
-    @Override
     protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         if (Minecraft.getInstance().getLanguageManager().getSelected().equals("en_us"))
             guiGraphics.drawString(this.font, Component.translatable("block.various_world.disassembly_table"), 44, 3, MapColor.COLOR_GRAY.col, false);

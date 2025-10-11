@@ -1,9 +1,11 @@
 package net.sashakyotoz.variousworld.client.renderers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.model.ZombieModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.AbstractZombieRenderer;
+import net.minecraft.client.renderer.entity.ArmorModelSet;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.ZombieRenderState;
 import net.minecraft.resources.ResourceLocation;
@@ -15,7 +17,7 @@ public class WanderingZombieRenderer extends AbstractZombieRenderer<WanderingZom
     private static final ResourceLocation ZOMBIE_LOCATION = VariousWorld.createVWLocation("textures/entity/wandering_zombie.png");
 
     public WanderingZombieRenderer(EntityRendererProvider.Context context) {
-        this(context, WanderingZombieModel.LAYER_LOCATION, ModelLayers.ZOMBIE_INNER_ARMOR, ModelLayers.ZOMBIE_OUTER_ARMOR);
+        this(context, WanderingZombieModel.LAYER_LOCATION, ModelLayers.ZOMBIE_BABY, ModelLayers.ZOMBIE_ARMOR, ModelLayers.ZOMBIE_BABY_ARMOR);
     }
 
     @Override
@@ -23,9 +25,8 @@ public class WanderingZombieRenderer extends AbstractZombieRenderer<WanderingZom
         return new ZombieRenderState();
     }
 
-    public WanderingZombieRenderer(EntityRendererProvider.Context context, ModelLayerLocation location, ModelLayerLocation innerArmor, ModelLayerLocation outerArmor) {
-        super(context, new WanderingZombieModel(context.bakeLayer(location)), new WanderingZombieModel(context.bakeLayer(innerArmor)), new WanderingZombieModel(context.bakeLayer(outerArmor)),
-                new WanderingZombieModel(context.bakeLayer(location)), new WanderingZombieModel(context.bakeLayer(innerArmor)), new WanderingZombieModel(context.bakeLayer(outerArmor)));
+    public WanderingZombieRenderer(EntityRendererProvider.Context context, ModelLayerLocation modelLayer, ModelLayerLocation babyModelLayer, ArmorModelSet<ModelLayerLocation> armorModelSet, ArmorModelSet<ModelLayerLocation> babyArmorModelSet) {
+        super(context, new WanderingZombieModel<>(context.bakeLayer(modelLayer)), new WanderingZombieModel<>(context.bakeLayer(babyModelLayer)), ArmorModelSet.bake(armorModelSet, context.getModelSet(), WanderingZombieModel::new), ArmorModelSet.bake(babyArmorModelSet, context.getModelSet(), WanderingZombieModel::new));
     }
 
     @Override

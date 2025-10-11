@@ -1,5 +1,6 @@
 package net.sashakyotoz.variousworld.init;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.*;
@@ -54,12 +55,12 @@ public class VWItems {
             .component(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get(), new SupplyCrystalData(ItemStack.EMPTY, "")))).build();
 
     public static final DeferredItem<SpawnEggItem> CRYSTALIC_SLIME_SPAWN_EGG = VWRegistryHelper.ofItem("crystalic_slime_spawn_egg", properties ->
-            new SpawnEggItem(VWEntities.CRYSTALIC_SLIME.get(), new Item.Properties()
+            new SpawnEggItem(new Item.Properties().spawnEgg(VWEntities.CRYSTALIC_SLIME.get())
                     .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("crystalic_slime_spawn_egg"))))).build();
     public static final DeferredItem<SpawnEggItem> WANDERING_ZOMBIE_SPAWN_EGG = VWRegistryHelper.ofItem("wandering_zombie_spawn_egg", properties ->
-            new SpawnEggItem(VWEntities.WANDERING_ZOMBIE.get(), new Item.Properties()
+            new SpawnEggItem(new Item.Properties().spawnEgg(VWEntities.WANDERING_ZOMBIE.get())
                     .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("wandering_zombie_spawn_egg"))))).build();
     public static final DeferredItem<SpawnEggItem> SQUEALING_SPIDER_SPAWN_EGG = VWRegistryHelper.ofItem("squealing_spider_spawn_egg", properties ->
-            new SpawnEggItem(VWEntities.SQUEALING_SPIDER.get(), new Item.Properties()
+            new SpawnEggItem(new Item.Properties().spawnEgg(VWEntities.SQUEALING_SPIDER.get())
                     .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("squealing_spider_spawn_egg"))))).build();
 }

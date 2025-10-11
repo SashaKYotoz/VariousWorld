@@ -50,15 +50,6 @@ public class ArtifactTableScreen extends AbstractContainerScreen<ArtifactTableMe
     }
 
     @Override
-    public boolean keyPressed(int key, int b, int c) {
-        if (key == 256) {
-            this.minecraft.player.closeContainer();
-            return true;
-        }
-        return super.keyPressed(key, b, c);
-    }
-
-    @Override
     protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         if (Minecraft.getInstance().getLanguageManager().getSelected().equals("en_us"))
             guiGraphics.drawString(this.font, Component.translatable("block.various_world.artifact_table"), 56, 4, MapColor.COLOR_GRAY.col, false);

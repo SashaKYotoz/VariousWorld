@@ -57,7 +57,7 @@ public class ConfiguredData {
                 () -> true,
                 json -> gson.toJson(supplyCrystalJson())
         );
-        ConfiguredData.registerModels();
+        registerModels();
         registerMissingRecipes();
     }
 
@@ -115,10 +115,12 @@ public class ConfiguredData {
                 for (int j = 0; j < ConfiguredData.toolNames.length; j++) {
                     String toolName = ConfiguredData.toolNames[j];
                     for (String model : pendingModels) {
-                        if (model.contains(toolName) && model.contains(setting.prefix()))
+                        if (model.contains(toolName) && model.contains(setting.prefix())) {
                             register(ResourceLocation.fromNamespaceAndPath("various_world", "models/item/%s_%s.json".formatted(setting.prefix(), toolName)),
                                     () -> true,
                                     json -> gson.toJson(missingCrystalJson(toolName, setting.item().build())));
+                            VariousWorld.log("Model: %s".formatted(gson.toJson(missingCrystalJson(toolName, setting.item().build()))));
+                        }
                     }
                 }
             }

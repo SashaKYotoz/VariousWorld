@@ -4,9 +4,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.client.models.SquealingSpiderModel;
 import net.sashakyotoz.variousworld.client.models.states.SquealingSpiderRenderState;
@@ -19,13 +22,7 @@ public class SquealingSpiderGlowingLayer extends RenderLayer<SquealingSpiderRend
     }
 
     @Override
-    public void render(PoseStack stack, MultiBufferSource source, int p_116985_, SquealingSpiderRenderState state, float p_116987_, float p_116988_) {
-        VertexConsumer vertexconsumer = source.getBuffer(this.renderType());
-        if (!state.shoot.isStarted())
-            this.getParentModel().renderToBuffer(stack, vertexconsumer, p_116985_, OverlayTexture.NO_OVERLAY);
-    }
-
-    public RenderType renderType() {
-        return SPIDER_EYES;
+    public void submit(PoseStack poseStack, SubmitNodeCollector nodeCollector, int packedLight, SquealingSpiderRenderState renderState, float v, float v1) {
+        nodeCollector.order(1).submitModel(this.getParentModel(), renderState, poseStack, SPIDER_EYES, packedLight, OverlayTexture.NO_OVERLAY, -1, null, renderState.outlineColor, null);
     }
 }

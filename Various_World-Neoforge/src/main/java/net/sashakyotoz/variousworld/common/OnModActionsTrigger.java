@@ -57,7 +57,7 @@ public class OnModActionsTrigger {
         event.modifyMatching(OnActionsTrigger::isInstanceOfAny, builder ->
                 builder.set(VWMiscRegistries.CRYSTAL_DATA.get(), new CrystalData(VWItems.SUPPLY_CRYSTAL.toStack(), 0)));
     }
-
+    @SuppressWarnings("removal")
     @SubscribeEvent
     public static void registerProviders(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(GemsmithTableBlockEntity.TABLE_ITEM_HANDLER, VWBlocks.GEMSMITH_TABLE_BE.get(),

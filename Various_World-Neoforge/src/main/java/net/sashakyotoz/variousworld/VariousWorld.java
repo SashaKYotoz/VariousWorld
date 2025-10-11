@@ -34,7 +34,7 @@ public class VariousWorld {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
     }
     public static <T> void log(T message) {
-        if (FMLLoader.isProduction())
+        if (FMLLoader.getCurrent().isProduction())
             LOGGER.info(String.valueOf(message));
     }
 }

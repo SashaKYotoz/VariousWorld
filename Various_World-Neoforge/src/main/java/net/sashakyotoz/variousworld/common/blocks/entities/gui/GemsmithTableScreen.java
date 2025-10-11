@@ -1,11 +1,9 @@
 package net.sashakyotoz.variousworld.common.blocks.entities.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -48,15 +46,6 @@ public class GemsmithTableScreen extends AbstractContainerScreen<GemsmithTableMe
             graphics.blitSprite(RenderPipelines.GUI_TEXTURED, BURN_PROGRESS, 22, 16, 22-getMenu().getScaledProgress(), 0, this.leftPos + 85, this.topPos + 48, getMenu().getScaledProgress(), 16);
         if (getMenu().getLitProgress() > 0)
             graphics.blitSprite(RenderPipelines.GUI_TEXTURED, LIT_PROGRESS, 14, Math.round(14 * getMenu().getLitProgress()), 0, 14-Math.round(14 * getMenu().getLitProgress()), this.leftPos + 90, this.topPos + 66, 14, Math.round(14 * getMenu().getLitProgress()));
-    }
-
-    @Override
-    public boolean keyPressed(int key, int b, int c) {
-        if (key == 256) {
-            this.minecraft.player.closeContainer();
-            return true;
-        }
-        return super.keyPressed(key, b, c);
     }
 
     @Override
