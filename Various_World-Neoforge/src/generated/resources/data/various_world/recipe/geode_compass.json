@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "minecraft:amethyst_shard",
+    "#": "minecraft:dripstone_block",
+    "S": "various_world:sodalite_shard",
+    "X": "various_world:reclaimite_shard"
+  },
+  "pattern": [
+    " #A",
+    "#X#",
+    "S# "
+  ],
+  "result": {
+    "count": 1,
+    "id": "various_world:geode_compass"
+  }
+}

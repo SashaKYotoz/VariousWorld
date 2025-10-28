@@ -1,11 +1,17 @@
 package net.sashakyotoz.variousworld.init;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.sashakyotoz.variousworld.VariousWorld;
+import net.sashakyotoz.variousworld.common.items.custom.GeodeCompassItem;
+import net.sashakyotoz.variousworld.common.items.data.GeodeCompassData;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
 
 @SuppressWarnings("unchecked")
@@ -14,26 +20,26 @@ public class VWItems {
     }
 
     public static final DeferredItem<SignItem> CRYSTALIC_OAK_SIGN = VWRegistryHelper.ofItem("crystalic_oak_sign", properties -> new SignItem(VWBlocks.CRYSTALIC_OAK_SIGN.get(), VWBlocks.CRYSTALIC_OAK_WALL_SIGN.get(), new Item.Properties()
-            .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("crystalic_oak_sign")))))
+                    .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("crystalic_oak_sign")))))
 //            .model()
             .build();
     public static final DeferredItem<HangingSignItem> CRYSTALIC_OAK_HANGING_SIGN = VWRegistryHelper.ofItem("crystalic_oak_hanging_sign", properties -> new HangingSignItem(VWBlocks.CRYSTALIC_OAK_HANGING_SIGN.get(), VWBlocks.CRYSTALIC_OAK_HANGING_WALL_SIGN.get(), new Item.Properties()
-            .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("crystalic_oak_hanging_sign")))))
+                    .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("crystalic_oak_hanging_sign")))))
 //            .model()
             .build();
 
     public static final DeferredItem<SignItem> BLUE_JACARANDA_SIGN = VWRegistryHelper.ofItem("blue_jacaranda_sign", properties -> new SignItem(VWBlocks.BLUE_JACARANDA_SIGN.get(), VWBlocks.BLUE_JACARANDA_WALL_SIGN.get(), new Item.Properties()
-            .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("blue_jacaranda_sign")))))
+                    .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("blue_jacaranda_sign")))))
 //            .model()
             .build();
     public static final DeferredItem<HangingSignItem> BLUE_JACARANDA_HANGING_SIGN = VWRegistryHelper.ofItem("blue_jacaranda_hanging_sign", properties -> new HangingSignItem(VWBlocks.BLUE_JACARANDA_HANGING_SIGN.get(), VWBlocks.BLUE_JACARANDA_HANGING_WALL_SIGN.get(), new Item.Properties()
-            .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("blue_jacaranda_hanging_sign")))
-    ))
+                    .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("blue_jacaranda_hanging_sign")))
+            ))
 //            .model()
             .build();
 
     public static final DeferredItem<Item> SODALITE_SHARD = VWRegistryHelper.ofItem("sodalite_shard", properties -> new Item(new Item.Properties()
-            .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("sodalite_shard")))))
+                    .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("sodalite_shard")))))
 //            .model()
             .build();
     public static final DeferredItem<Item> RECLAIMITE_SHARD = VWRegistryHelper.ofItem("reclaimite_shard", properties -> new Item(new Item.Properties()
@@ -41,13 +47,18 @@ public class VWItems {
 //            .model()
             .build();
     public static final DeferredItem<Item> CRYSTALLINE_SLIME_BALL = VWRegistryHelper.ofItem("crystalline_slime_ball", properties -> new Item(new Item.Properties()
-            .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("crystalline_slime_ball")))))
+                    .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("crystalline_slime_ball")))))
 //            .model()
             .build();
     public static final DeferredItem<Item> CRYSTALLINE_STRENGTH = VWRegistryHelper.ofItem("crystalline_strength", properties -> new Item(new Item.Properties()
-            .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("crystalline_strength")))
-            .rarity(Rarity.RARE)))
+                    .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("crystalline_strength")))
+                    .rarity(Rarity.RARE)))
 //            .model()
+            .build();
+    public static final DeferredItem<Item> GEODE_COMPASS = VWRegistryHelper.ofItem("geode_compass", properties -> new GeodeCompassItem(new Item.Properties()
+                    .setId(ResourceKey.create(Registries.ITEM, VariousWorld.createVWLocation("geode_compass")))
+                    .component(VWMiscRegistries.GEODE_COMPASS_DATA.get(), new GeodeCompassData(new GlobalPos(Level.OVERWORLD, new BlockPos(0, 0, 0))))
+                    .rarity(Rarity.UNCOMMON)))
             .build();
 
     public static final DeferredItem<Item> SUPPLY_CRYSTAL = VWRegistryHelper.ofItem("supply_crystal", properties -> new Item(new Item.Properties()

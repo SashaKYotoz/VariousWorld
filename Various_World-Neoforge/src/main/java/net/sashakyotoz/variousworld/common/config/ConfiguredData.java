@@ -59,6 +59,7 @@ public class ConfiguredData {
         );
         registerModels();
         registerMissingRecipes();
+        geodeCompassModels();
     }
 
     public static JsonObject supplyCrystalJson() {
@@ -73,8 +74,24 @@ public class ConfiguredData {
         model.add("fallback", fallback);
         model.addProperty("property", "various_world:crystal");
         root.add("model", model);
-        VariousWorld.log("Model: %s".formatted(root.toString()));
         return root;
+    }
+
+    public static void geodeCompassModels(){
+        for (int i = 0; i < 32; i++) {
+            String s = i < 10 ? "0%s".formatted(i) : "%s".formatted(i);
+            register(VariousWorld.createVWLocation("models/item/geode_compass_%s.json".formatted(s)),
+                    () -> true,
+                    json -> gson.toJson(compassModel(s)));
+        }
+    }
+    public static JsonObject compassModel(String s) {
+        JsonObject model = new JsonObject();
+        model.addProperty("parent", "minecraft:item/generated");
+        JsonObject textures = new JsonObject();
+        textures.addProperty("layer0", "various_world:item/geode_compass/geode_compass_%s".formatted(s));
+        model.add("textures", textures);
+        return model;
     }
 
     private static JsonArray getCases() {

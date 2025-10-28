@@ -50,7 +50,7 @@
     }
   },
   "display": {
-    "background": "various_world:textures/block/blue_jacaranda_leaves.png",
+    "background": "various_world:gui/advancements/across_the_world",
     "description": {
       "translate": "advancement.various_world.across_the_world.desc"
     },

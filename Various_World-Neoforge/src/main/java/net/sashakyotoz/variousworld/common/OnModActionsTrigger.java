@@ -10,6 +10,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.client.event.RegisterRangeSelectItemModelPropertyEvent;
 import net.neoforged.neoforge.client.event.RegisterSelectItemModelPropertyEvent;
 import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
@@ -22,6 +23,7 @@ import net.sashakyotoz.variousworld.common.blocks.entities.GemsmithTableBlockEnt
 import net.sashakyotoz.variousworld.common.config.ConfiguredData;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import net.sashakyotoz.variousworld.common.config.items.CrystalItemModelProperty;
+import net.sashakyotoz.variousworld.common.config.items.GeodeCompassAngleProperty;
 import net.sashakyotoz.variousworld.common.entities.CrystalicSlimeEntity;
 import net.sashakyotoz.variousworld.common.entities.SquealingSpiderEntity;
 import net.sashakyotoz.variousworld.common.entities.WanderingZombieEntity;
@@ -43,13 +45,18 @@ public class OnModActionsTrigger {
     @SubscribeEvent
     public static void fmlSetup(FMLLoadCompleteEvent event) {
         ConfiguredData.supplyCrystalJson();
+        ConfiguredData.geodeCompassModels();
         ConfiguredData.registerMissingRecipes();
         ConfiguredData.processPendingRecipes();
     }
 
     @SubscribeEvent
-    public static void registerCrystals(RegisterSelectItemModelPropertyEvent event) {
+    public static void registerSelectProperties(RegisterSelectItemModelPropertyEvent event) {
         event.register(VariousWorld.createVWLocation("crystal"), CrystalItemModelProperty.TYPE);
+    }
+    @SubscribeEvent
+    public static void registerRangeProperties(RegisterRangeSelectItemModelPropertyEvent event) {
+        event.register(VariousWorld.createVWLocation("geode_compass"), GeodeCompassAngleProperty.MAP_CODEC);
     }
 
     @SubscribeEvent

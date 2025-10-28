@@ -37,9 +37,11 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.BasicItemListing;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.sashakyotoz.variousworld.common.blocks.BlockUtils;
+import net.sashakyotoz.variousworld.common.config.ConfiguredData;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import net.sashakyotoz.variousworld.common.items.data.CrystalData;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
@@ -186,7 +188,6 @@ public class OnActionsTrigger {
             event.getEntity().drop(VWItems.RECLAIMITE_SHARD.toStack(), false);
         }
     }
-
     @SubscribeEvent
     public static void onServerAboutToStart(ServerAboutToStartEvent event) {
         MinecraftServer server = event.getServer();
