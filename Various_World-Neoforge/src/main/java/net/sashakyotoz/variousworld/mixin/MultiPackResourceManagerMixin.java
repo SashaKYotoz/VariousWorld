@@ -1,6 +1,6 @@
 package net.sashakyotoz.variousworld.mixin;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.MultiPackResourceManager;
 import net.minecraft.server.packs.resources.Resource;
@@ -59,7 +59,7 @@ public class MultiPackResourceManagerMixin implements IResourceExistence {
     }
 
     @Inject(method = "getResource", at = @At("RETURN"), cancellable = true)
-    public void getConfiguredResource(ResourceLocation id, CallbackInfoReturnable<Optional<Resource>> cir) {
+    public void getConfiguredResource(Identifier id, CallbackInfoReturnable<Optional<Resource>> cir) {
         ConfiguredData data = ConfiguredData.get(id);
         if (data == null || !data.enabled.get() || (cir.getReturnValue().isPresent() && cir.getReturnValue().get().source() instanceof ConfiguredDataResourcePack))
             return;
@@ -68,7 +68,7 @@ public class MultiPackResourceManagerMixin implements IResourceExistence {
     }
 
     @Inject(method = "getResourceStack", at = @At("RETURN"), cancellable = true)
-    public void getAllConfiguredResource(ResourceLocation id, CallbackInfoReturnable<List<Resource>> cir) {
+    public void getAllConfiguredResource(Identifier id, CallbackInfoReturnable<List<Resource>> cir) {
         ConfiguredData data = ConfiguredData.get(id);
         if (data == null || !data.enabled.get()) return;
 
@@ -78,8 +78,8 @@ public class MultiPackResourceManagerMixin implements IResourceExistence {
     }
 
     @Inject(method = "listResources", at = @At("RETURN"), cancellable = true)
-    public void findConfiguredResources(String startingPath, Predicate<ResourceLocation> allowedPathPredicate,
-                                        CallbackInfoReturnable<Map<ResourceLocation, Resource>> cir) {
+    public void findConfiguredResources(String startingPath, Predicate<Identifier> allowedPathPredicate,
+                                        CallbackInfoReturnable<Map<Identifier, Resource>> cir) {
 
         for (ConfiguredData data : ConfiguredData.INSTANCES) {
             if (data.enabled.get() && data.target.getPath().startsWith(startingPath + "/") && allowedPathPredicate.test(data.target)) {
@@ -89,8 +89,8 @@ public class MultiPackResourceManagerMixin implements IResourceExistence {
             }
         }
 
-        List<ResourceLocation> ids = cir.getReturnValue().keySet().stream().toList();
-        for (ResourceLocation id : ids) {
+        List<Identifier> ids = cir.getReturnValue().keySet().stream().toList();
+        for (Identifier id : ids) {
             ConfiguredData data = ConfiguredData.get(id);
             if (data == null || !data.enabled.get()) continue;
 
@@ -99,8 +99,8 @@ public class MultiPackResourceManagerMixin implements IResourceExistence {
     }
 
     @Inject(method = "listResourceStacks", at = @At("RETURN"), cancellable = true)
-    public void findAllConfiguredResources(String startingPath, Predicate<ResourceLocation> allowedPathPredicate,
-                                           CallbackInfoReturnable<Map<ResourceLocation, List<Resource>>> cir) {
+    public void findAllConfiguredResources(String startingPath, Predicate<Identifier> allowedPathPredicate,
+                                           CallbackInfoReturnable<Map<Identifier, List<Resource>>> cir) {
 
         for (ConfiguredData data : ConfiguredData.INSTANCES) {
             if (data.enabled.get() && data.target.getPath().startsWith(startingPath) && allowedPathPredicate.test(data.target)) {
@@ -110,8 +110,8 @@ public class MultiPackResourceManagerMixin implements IResourceExistence {
             }
         }
 
-        List<ResourceLocation> ids = cir.getReturnValue().keySet().stream().toList();
-        for (ResourceLocation id : ids) {
+        List<Identifier> ids = cir.getReturnValue().keySet().stream().toList();
+        for (Identifier id : ids) {
             ConfiguredData data = ConfiguredData.get(id);
             if (data == null || !data.enabled.get()) continue;
 
@@ -121,7 +121,7 @@ public class MultiPackResourceManagerMixin implements IResourceExistence {
     }
 
     @Override
-    public boolean resourceExists(ResourceLocation id) {
+    public boolean resourceExists(Identifier id) {
         return ((MultiPackResourceManager) (Object) this).getResource(id).isPresent();
     }
 }

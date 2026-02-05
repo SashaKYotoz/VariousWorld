@@ -14,8 +14,6 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.init.VWEntities;
 
-import java.util.List;
-
 public class ModBiomeModifiers {
     public static final ResourceKey<BiomeModifier> SODALITE_GEODE_MODIFIER = registerKey("sodalite_geode_modifier");
     public static final ResourceKey<BiomeModifier> WANDERING_ZOMBIE_MODIFIER = registerKey("wandering_zombie_modifier");

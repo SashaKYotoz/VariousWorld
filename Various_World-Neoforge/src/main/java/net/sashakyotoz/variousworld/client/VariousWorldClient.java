@@ -1,7 +1,6 @@
 package net.sashakyotoz.variousworld.client;
 
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
@@ -11,7 +10,8 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.sashakyotoz.variousworld.client.models.CrystalicSlimeModel;
 import net.sashakyotoz.variousworld.client.models.SquealingSpiderModel;
@@ -25,7 +25,6 @@ import net.sashakyotoz.variousworld.common.blocks.entities.gui.DisassemblyTableS
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.GemsmithTableScreen;
 import net.sashakyotoz.variousworld.common.blocks.entities.render.ArtifactTableBlockEntityRenderer;
 import net.sashakyotoz.variousworld.common.blocks.entities.render.DisassemblyTableBlockEntityRenderer;
-import net.sashakyotoz.variousworld.common.config.ConfiguredData;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWEntities;
 import net.sashakyotoz.variousworld.init.VWMiscRegistries;

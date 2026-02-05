@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.client.models.SquealingSpiderModel;
 import net.sashakyotoz.variousworld.client.models.states.SquealingSpiderRenderState;
@@ -12,7 +12,7 @@ import net.sashakyotoz.variousworld.client.renderers.layers.SquealingSpiderGlowi
 import net.sashakyotoz.variousworld.common.entities.SquealingSpiderEntity;
 
 public class SquealingSpiderRenderer extends MobRenderer<SquealingSpiderEntity, SquealingSpiderRenderState, SquealingSpiderModel> {
-    private static final ResourceLocation SPIDER_LOCATION = VariousWorld.createVWLocation("textures/entity/squealing_spider/squealing_spider.png");
+    private static final Identifier SPIDER_LOCATION = VariousWorld.createVWLocation("textures/entity/squealing_spider/squealing_spider.png");
 
     public SquealingSpiderRenderer(EntityRendererProvider.Context context) {
         super(context, new SquealingSpiderModel(context.bakeLayer(SquealingSpiderModel.LAYER_LOCATION)), 0.8f);
@@ -50,7 +50,7 @@ public class SquealingSpiderRenderer extends MobRenderer<SquealingSpiderEntity, 
     }
 
     @Override
-    public ResourceLocation getTextureLocation(SquealingSpiderRenderState squealingSpiderEntity) {
+    public Identifier getTextureLocation(SquealingSpiderRenderState squealingSpiderEntity) {
         return SPIDER_LOCATION;
     }
 }

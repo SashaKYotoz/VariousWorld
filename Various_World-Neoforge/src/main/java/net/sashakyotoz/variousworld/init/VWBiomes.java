@@ -1,16 +1,16 @@
 package net.sashakyotoz.variousworld.init;
 
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.sounds.Musics;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.SurfaceRules;
@@ -54,12 +54,8 @@ public class VWBiomes {
                 .mobSpawnSettings(spawnBuilder.build())
                 .specialEffects((new BiomeSpecialEffects.Builder())
                         .waterColor(MapColor.COLOR_CYAN.col)
-                        .waterFogColor(MapColor.COLOR_CYAN.col)
-                        .skyColor(calculateSkyColor(0.9f))
-                        .fogColor(MapColor.COLOR_CYAN.col)
                         .grassColorOverride(MapColor.COLOR_CYAN.col)
-                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-                        .backgroundMusic(Musics.createGameMusic(Holder.direct(SoundEvents.AMETHYST_BLOCK_CHIME))).build())
+                        .build())
                 .build();
     }
 
@@ -85,11 +81,7 @@ public class VWBiomes {
                 .mobSpawnSettings(spawnBuilder.build())
                 .specialEffects((new BiomeSpecialEffects.Builder())
                         .waterColor(MapColor.COLOR_CYAN.col)
-                        .waterFogColor(329011)
-                        .fogColor(12638463)
-                        .grassColorOverride(MapColor.COLOR_LIGHT_GREEN.col)
-                        .skyColor(calculateSkyColor(0.95f))
-                        .backgroundMusic(Musics.createGameMusic(Holder.direct(SoundEvents.ALLAY_AMBIENT_WITH_ITEM))).build())
+                        .build())
                 .build();
     }
 

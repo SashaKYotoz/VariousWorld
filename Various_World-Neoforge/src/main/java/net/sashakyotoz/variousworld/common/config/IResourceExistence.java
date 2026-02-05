@@ -1,7 +1,7 @@
 package net.sashakyotoz.variousworld.common.config;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public interface IResourceExistence {
-    boolean resourceExists(ResourceLocation id);
+    boolean resourceExists(Identifier id);
 }

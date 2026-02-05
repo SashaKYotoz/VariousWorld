@@ -6,8 +6,8 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
@@ -47,7 +47,7 @@ public class VWRegistryHelper {
     }
 
     public static class BlockBuilder<T extends Block> {
-        public BlockBuilder(String name, Function<ResourceLocation, T> block, boolean doubleBlock, boolean item) {
+        public BlockBuilder(String name, Function<Identifier, T> block, boolean doubleBlock, boolean item) {
             this.name = name;
             this.block = doubleBlock ? registerDoubleBlock(name, block, item) : registerBlock(name, block, item);
         }
@@ -190,15 +190,15 @@ public class VWRegistryHelper {
         }
     }
 
-    public static <T extends Block> BlockBuilder<T> ofBlock(String id, Function<ResourceLocation, T> block) {
+    public static <T extends Block> BlockBuilder<T> ofBlock(String id, Function<Identifier, T> block) {
         return VWRegistryHelper.ofBlock(id, block, true);
     }
 
-    public static <T extends Block> BlockBuilder<T> ofBlock(String id, Function<ResourceLocation, T> block, boolean doubleBlock, boolean item) {
+    public static <T extends Block> BlockBuilder<T> ofBlock(String id, Function<Identifier, T> block, boolean doubleBlock, boolean item) {
         return new BlockBuilder<>(id, block, doubleBlock, item);
     }
 
-    public static <T extends Block> BlockBuilder<T> ofBlock(String id, Function<ResourceLocation, T> block, boolean item) {
+    public static <T extends Block> BlockBuilder<T> ofBlock(String id, Function<Identifier, T> block, boolean item) {
         return new BlockBuilder<>(id, block, false, item);
     }
 
@@ -206,14 +206,14 @@ public class VWRegistryHelper {
         return new ItemBuilder<>(id, item);
     }
 
-    public static <T extends Block> DeferredBlock<T> registerBlock(String name, Function<ResourceLocation, T> block, boolean registerItem) {
+    public static <T extends Block> DeferredBlock<T> registerBlock(String name, Function<Identifier, T> block, boolean registerItem) {
         DeferredBlock<T> toReturn = VWRegistryHelper.BLOCKS.register(name, block);
         if (registerItem)
             registerBlockItem(name, toReturn);
         return toReturn;
     }
 
-    public static <T extends Block> DeferredBlock<T> registerDoubleBlock(String name, Function<ResourceLocation, T> block, boolean registerItem) {
+    public static <T extends Block> DeferredBlock<T> registerDoubleBlock(String name, Function<Identifier, T> block, boolean registerItem) {
         DeferredBlock<T> toReturn = VWRegistryHelper.BLOCKS.register(name, block);
         if (registerItem)
             registerDoubleBlockItem(name, toReturn);

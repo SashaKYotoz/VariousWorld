@@ -2,7 +2,7 @@ package net.sashakyotoz.variousworld.client;
 
 public class VWItemProperties {
     public static void init() {
-//        ItemProperties.register(VWItems.SUPPLY_CRYSTAL.get(), ResourceLocation.withDefaultNamespace("crystal"), (itemStack, clientLevel, livingEntity, i) -> {
+//        ItemProperties.register(VWItems.SUPPLY_CRYSTAL.get(), Identifier.withDefaultNamespace("crystal"), (itemStack, clientLevel, livingEntity, i) -> {
 //            if (itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get()) != null && ModConfigController.CRYSTALING_CONFIG_VALUES != null) {
 //                for (ModConfigController.GemsmithingSetting setting : ModConfigController.CRYSTALING_CONFIG_VALUES) {
 //                    SupplyCrystalData data = itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get());
@@ -12,7 +12,7 @@ public class VWItemProperties {
 //            }
 //            return 0;
 //        });
-//        ItemProperties.register(VWItems.SUPPLY_CRYSTAL.get(), ResourceLocation.withDefaultNamespace("tool"), (itemStack, clientLevel, livingEntity, i) -> {
+//        ItemProperties.register(VWItems.SUPPLY_CRYSTAL.get(), Identifier.withDefaultNamespace("tool"), (itemStack, clientLevel, livingEntity, i) -> {
 //            if (itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get()) != null) {
 //                SupplyCrystalData data = itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get());
 //                if (data != null)

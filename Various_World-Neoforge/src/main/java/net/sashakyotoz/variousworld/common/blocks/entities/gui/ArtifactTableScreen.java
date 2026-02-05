@@ -4,9 +4,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -25,9 +24,9 @@ public class ArtifactTableScreen extends AbstractContainerScreen<ArtifactTableMe
         this.imageHeight = 164;
     }
 
-    public static final ResourceLocation BACKGROUND_LOCATION = VariousWorld.createVWLocation("textures/gui/artifact_table.png");
-    public static final ResourceLocation TORCH = VariousWorld.createVWLocation("artifact_table_torch");
-    public static final ResourceLocation EFFECT_ICON = VariousWorld.createVWLocation("artifact_table_effect");
+    public static final Identifier BACKGROUND_LOCATION = VariousWorld.createVWLocation("textures/gui/artifact_table.png");
+    public static final Identifier TORCH = VariousWorld.createVWLocation("artifact_table_torch");
+    public static final Identifier EFFECT_ICON = VariousWorld.createVWLocation("artifact_table_effect");
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {

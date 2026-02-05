@@ -2,12 +2,10 @@ package net.sashakyotoz.variousworld.common.blocks.entities;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -51,7 +49,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("NullableProblems")
+@SuppressWarnings("NullableProblems,removal")
 public class GemsmithTableBlockEntity extends BaseContainerBlockEntity {
     public static final BlockCapability<IItemHandler, Void> TABLE_ITEM_HANDLER =
             BlockCapability.createVoid(

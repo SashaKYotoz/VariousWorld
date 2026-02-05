@@ -4,7 +4,7 @@
   "group": "hanging_sign",
   "key": {
     "#":  "various_world:blue_jacaranda_planks",
-    "X":  "minecraft:chain"
+    "X":  "minecraft:iron_chain"
   },
   "pattern": [
     "X X",

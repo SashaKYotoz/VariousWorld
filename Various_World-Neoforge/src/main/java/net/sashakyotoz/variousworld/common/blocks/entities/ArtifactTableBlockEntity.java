@@ -35,9 +35,8 @@ import net.sashakyotoz.variousworld.common.blocks.entities.gui.ArtifactTableMenu
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 import org.jetbrains.annotations.Nullable;
-
 import java.util.List;
-
+@SuppressWarnings("removal")
 public class ArtifactTableBlockEntity extends BaseContainerBlockEntity {
 
     public static final BlockCapability<IItemHandler, Void> TABLE_ITEM_HANDLER =

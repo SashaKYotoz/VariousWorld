@@ -7,6 +7,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -59,7 +60,7 @@ public class CrystalicSlimeEntity extends Slime {
             if (EntitySpawnReason.isSpawner(spawnReason))
                 return checkMobSpawnRules(slime, level, spawnReason, pos, random);
             if (level.getBiome(pos).is(VWBiomes.CRYSTALLINE_FOREST) && pos.getY() > 48 && pos.getY() < 72 && random.nextFloat() < 0.75F
-                    && random.nextFloat() < level.getMoonBrightness() && level.getMaxLocalRawBrightness(pos) <= random.nextInt(9))
+                    && random.nextFloat() < level.environmentAttributes().getValue(EnvironmentAttributes.SURFACE_SLIME_SPAWN_CHANCE, pos) && level.getMaxLocalRawBrightness(pos) <= random.nextInt(9))
                 return checkMobSpawnRules(slime, level, spawnReason, pos, random);
 
             if (!(level instanceof WorldGenLevel))

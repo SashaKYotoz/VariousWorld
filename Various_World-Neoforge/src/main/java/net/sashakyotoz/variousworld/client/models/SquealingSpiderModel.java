@@ -6,7 +6,6 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.client.models.states.SquealingSpiderRenderState;
 import net.sashakyotoz.variousworld.common.entities.anim.SquealingSpiderAnimations;

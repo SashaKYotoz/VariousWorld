@@ -5,7 +5,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -25,10 +25,10 @@ public class DisassemblyTableScreen extends AbstractContainerScreen<DisassemblyT
         this.imageHeight = 164;
     }
 
-    public static final ResourceLocation BACKGROUND_LOCATION = VariousWorld.createVWLocation("textures/gui/disassembly_table.png");
-    public static final ResourceLocation LEFT_ARROW = VariousWorld.createVWLocation("left_arrow");
-    public static final ResourceLocation RIGHT_ARROW = VariousWorld.createVWLocation("right_arrow");
-    public static final ResourceLocation PROGRESS_BAR = VariousWorld.createVWLocation("progress_bar");
+    public static final Identifier BACKGROUND_LOCATION = VariousWorld.createVWLocation("textures/gui/disassembly_table.png");
+    public static final Identifier LEFT_ARROW = VariousWorld.createVWLocation("left_arrow");
+    public static final Identifier RIGHT_ARROW = VariousWorld.createVWLocation("right_arrow");
+    public static final Identifier PROGRESS_BAR = VariousWorld.createVWLocation("progress_bar");
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {

@@ -17,7 +17,7 @@ import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWMiscRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
+@SuppressWarnings("removal")
 public class DisassemblyTableMenu extends ITableMenu {
     public DisassemblyTableBlockEntity blockEntity;
     private final Level level;

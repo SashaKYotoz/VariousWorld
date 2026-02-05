@@ -2,7 +2,7 @@ package net.sashakyotoz.variousworld.common.config;
 
 import com.google.gson.*;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.MultiPackResourceManager;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -22,11 +22,11 @@ public class ConfiguredData {
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
     public static final String[] toolNames = {"sword", "pickaxe", "axe", "shovel", "hoe"};
 
-    public final ResourceLocation target;
+    public final Identifier target;
     public Function<JsonElement, String> provider;
     public final Supplier<Boolean> enabled;
 
-    public ConfiguredData(ResourceLocation target, Supplier<Boolean> enabled, Function<JsonElement, String> provider) {
+    public ConfiguredData(Identifier target, Supplier<Boolean> enabled, Function<JsonElement, String> provider) {
         this.target = target;
         this.provider = provider;
         this.enabled = enabled;
@@ -41,11 +41,11 @@ public class ConfiguredData {
 
     public static List<ConfiguredData> INSTANCES = new LinkedList<>();
 
-    public static @Nullable ConfiguredData get(ResourceLocation id) {
+    public static @Nullable ConfiguredData get(Identifier id) {
         return INSTANCES.stream().filter(data -> data.target.equals(id)).findAny().orElse(null);
     }
 
-    protected static void register(ResourceLocation target, Supplier<Boolean> enabled, Function<JsonElement, String> provider) {
+    protected static void register(Identifier target, Supplier<Boolean> enabled, Function<JsonElement, String> provider) {
         INSTANCES.add(new ConfiguredData(target, enabled, provider));
     }
 
@@ -53,7 +53,7 @@ public class ConfiguredData {
     public static void register() {
         supplyCrystalJson();
         register(
-                ResourceLocation.fromNamespaceAndPath("various_world", "items/supply_crystal.json"),
+                Identifier.fromNamespaceAndPath("various_world", "items/supply_crystal.json"),
                 () -> true,
                 json -> gson.toJson(supplyCrystalJson())
         );
@@ -133,7 +133,7 @@ public class ConfiguredData {
                     String toolName = ConfiguredData.toolNames[j];
                     for (String model : pendingModels) {
                         if (model.contains(toolName) && model.contains(setting.prefix())) {
-                            register(ResourceLocation.fromNamespaceAndPath("various_world", "models/item/%s_%s.json".formatted(setting.prefix(), toolName)),
+                            register(Identifier.fromNamespaceAndPath("various_world", "models/item/%s_%s.json".formatted(setting.prefix(), toolName)),
                                     () -> true,
                                     json -> gson.toJson(missingCrystalJson(toolName, setting.item().build())));
                             VariousWorld.log("Model: %s".formatted(gson.toJson(missingCrystalJson(toolName, setting.item().build()))));
@@ -155,7 +155,7 @@ public class ConfiguredData {
         return root;
     }
 
-    private record PendingRecipe(ResourceLocation key, ModConfigController.LazyItem lazyGem,
+    private record PendingRecipe(Identifier key, ModConfigController.LazyItem lazyGem,
                                  String prefix) {
     }
 
@@ -175,15 +175,15 @@ public class ConfiguredData {
     public static void processPendingRecipes() {
         BuiltInRegistries.ITEM.forEach(item -> {
             if (OnActionsTrigger.isInstanceOfAny(item)) {
-                ResourceLocation toolRL = BuiltInRegistries.ITEM.getKey(item);
+                Identifier toolRL = BuiltInRegistries.ITEM.getKey(item);
                 for (PendingRecipe pending : pendingRecipes) {
                     Item gemItem = pending.lazyGem.build();
                     if (gemItem.equals(Items.AIR)) {
                         VariousWorld.log("Pending recipe: gem item %s still not found.".formatted(pending.lazyGem.getId()));
                         continue;
                     }
-                    ResourceLocation gemRL = pending.lazyGem.getId();
-                    ResourceLocation key = ResourceLocation.fromNamespaceAndPath(
+                    Identifier gemRL = pending.lazyGem.getId();
+                    Identifier key = Identifier.fromNamespaceAndPath(
                             toolRL.getNamespace(),
                             String.format("recipe/%s_%s_gemsmithing.json", toolRL.getPath(), gemRL.getPath())
                     );

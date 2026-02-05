@@ -1,7 +1,7 @@
 package net.sashakyotoz.variousworld.common.config;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackLocationInfo;
 import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.PackType;
@@ -28,7 +28,7 @@ public class ConfiguredDataResourcePack implements PackResources {
     }
 
     @Override
-    public @Nullable IoSupplier<InputStream> getResource(PackType packType, ResourceLocation resourceLocation) {
+    public @Nullable IoSupplier<InputStream> getResource(PackType packType, Identifier Identifier) {
         return null;
     }
 

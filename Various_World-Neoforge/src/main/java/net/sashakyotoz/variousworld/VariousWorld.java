@@ -1,6 +1,6 @@
 package net.sashakyotoz.variousworld;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -11,6 +11,7 @@ import net.sashakyotoz.variousworld.init.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+//ctrl+shift+r
 @Mod("various_world")
 public class VariousWorld {
     public static final Logger LOGGER = LogManager.getLogger(VariousWorld.class);
@@ -30,8 +31,8 @@ public class VariousWorld {
         VWSounds.SOUND_EVENTS.register(bus);
     }
 
-    public static ResourceLocation createVWLocation(String path) {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+    public static Identifier createVWLocation(String path) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
     public static <T> void log(T message) {
         if (FMLLoader.getCurrent().isProduction())

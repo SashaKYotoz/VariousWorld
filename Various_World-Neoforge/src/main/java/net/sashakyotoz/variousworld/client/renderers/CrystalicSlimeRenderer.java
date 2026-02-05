@@ -4,8 +4,7 @@ package net.sashakyotoz.variousworld.client.renderers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.state.SlimeRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.client.models.CrystalicSlimeModel;
@@ -14,9 +13,9 @@ import net.sashakyotoz.variousworld.client.renderers.layers.CrystalicSlimeOuterL
 import net.sashakyotoz.variousworld.common.entities.CrystalicSlimeEntity;
 
 public class CrystalicSlimeRenderer extends MobRenderer<CrystalicSlimeEntity, CrystalicSlimeRenderState, CrystalicSlimeModel> {
-    public static final ResourceLocation SLIME_LOCATION = VariousWorld.createVWLocation("textures/entity/crystalic_slime0.png");
-    private static final ResourceLocation SLIME_LOCATION1 = VariousWorld.createVWLocation("textures/entity/crystalic_slime1.png");
-    private static final ResourceLocation SLIME_LOCATION2 = VariousWorld.createVWLocation("textures/entity/crystalic_slime2.png");
+    public static final Identifier SLIME_LOCATION = VariousWorld.createVWLocation("textures/entity/crystalic_slime0.png");
+    private static final Identifier SLIME_LOCATION1 = VariousWorld.createVWLocation("textures/entity/crystalic_slime1.png");
+    private static final Identifier SLIME_LOCATION2 = VariousWorld.createVWLocation("textures/entity/crystalic_slime2.png");
 
     public CrystalicSlimeRenderer(EntityRendererProvider.Context context) {
         super(context, new CrystalicSlimeModel(context.bakeLayer(CrystalicSlimeModel.LAYER_LOCATION)), 0.9f);
@@ -47,7 +46,7 @@ public class CrystalicSlimeRenderer extends MobRenderer<CrystalicSlimeEntity, Cr
     }
 
     @Override
-    public ResourceLocation getTextureLocation(CrystalicSlimeRenderState slimeRenderState) {
+    public Identifier getTextureLocation(CrystalicSlimeRenderState slimeRenderState) {
         return switch (slimeRenderState.textureVariant) {
             case 1 -> SLIME_LOCATION1;
             case 2 -> SLIME_LOCATION2;

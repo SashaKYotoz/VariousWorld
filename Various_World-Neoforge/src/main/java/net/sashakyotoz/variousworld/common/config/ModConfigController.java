@@ -3,7 +3,7 @@ package net.sashakyotoz.variousworld.common.config;
 import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
@@ -45,10 +45,10 @@ public class ModConfigController {
     }
 
     public static class LazyItem {
-        private final ResourceLocation itemId;
+        private final Identifier itemId;
 
         public LazyItem(String id) {
-            this.itemId = ResourceLocation.parse(id);
+            this.itemId = Identifier.parse(id);
         }
 
         public Item build() {
@@ -58,7 +58,7 @@ public class ModConfigController {
                 return Items.AIR;
         }
 
-        public ResourceLocation getId() {
+        public Identifier getId() {
             return itemId;
         }
     }
@@ -77,8 +77,8 @@ public class ModConfigController {
         public Attribute deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
             String attributeId = json.getAsString();
-            if (BuiltInRegistries.ATTRIBUTE.get(ResourceLocation.parse(attributeId)).isPresent())
-                return BuiltInRegistries.ATTRIBUTE.get(ResourceLocation.parse(attributeId)).get().value();
+            if (BuiltInRegistries.ATTRIBUTE.get(Identifier.parse(attributeId)).isPresent())
+                return BuiltInRegistries.ATTRIBUTE.get(Identifier.parse(attributeId)).get().value();
             else
                 return Attributes.ENTITY_INTERACTION_RANGE.value();
         }
