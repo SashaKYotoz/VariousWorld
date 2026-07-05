@@ -29,7 +29,9 @@ public class ModLanguageProvider extends LanguageProvider {
         VWRegistryHelper.ENTITIES.getEntries().forEach(this::addEntityType);
         VWVillagers.VILLAGER_PROFESSIONS.getEntries().forEach(this::addVillagerType);
         this.add("creativetab.various_world_tab", "Various World");
+        this.add("message.various_world.geode_was_found", "Crystal cluster was found");
         this.add("message.various_world.geode_not_found", "No crystal cluster was found");
+        this.add("message.various_world.press_shift", "Press [ Shift ]");
         this.add("biome.various_world.crystalline_forest", "Crystalline Forest");
         this.add("biome.various_world.blue_jacaranda_meadow", "Blue Jacaranda Meadow");
         this.add("biome.various_world.reclaimite_caves", "Reclaimite Caves");

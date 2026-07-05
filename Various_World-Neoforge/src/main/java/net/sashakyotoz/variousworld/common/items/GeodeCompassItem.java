@@ -1,5 +1,6 @@
 package net.sashakyotoz.variousworld.common.items;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.sashakyotoz.variousworld.common.items.data.GeodeCompassData;
 import net.sashakyotoz.variousworld.init.VWMiscRegistries;
+import net.sashakyotoz.variousworld.init.VWTags;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -43,11 +45,15 @@ public class GeodeCompassItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-        if (stack.has(VWMiscRegistries.GEODE_COMPASS_DATA.get())
-                && context.level() != null
-                && tooltipFlag.hasShiftDown()
-                && context.level().getBlockState(stack.get(VWMiscRegistries.GEODE_COMPASS_DATA.get()).globalPos().pos()).getBlock() instanceof AmethystClusterBlock block) {
-            tooltipComponents.add(block.getName());
+        Level level = context.level();
+        if (!tooltipFlag.hasShiftDown())
+            tooltipComponents.add(Component.translatable("message.various_world.press_shift").withStyle(ChatFormatting.GRAY));
+        if (stack.has(VWMiscRegistries.GEODE_COMPASS_DATA.get()) && level != null && tooltipFlag.hasShiftDown()) {
+            if (level.getBlockState(stack.get(VWMiscRegistries.GEODE_COMPASS_DATA.get()).globalPos().pos()).getBlock() instanceof AmethystClusterBlock block) {
+                tooltipComponents.add(Component.translatable("message.various_world.geode_was_found").withStyle(ChatFormatting.GRAY));
+                tooltipComponents.add(block.getName());
+            } else
+                tooltipComponents.add(Component.translatable("message.various_world.geode_not_found").withStyle(ChatFormatting.GRAY));
         }
     }
 
@@ -119,7 +125,7 @@ public class GeodeCompassItem extends Item {
                 for (int lz = 0; lz < 16; lz++) {
                     BlockPos pos = new BlockPos(baseX + lx, y, baseZ + lz);
                     BlockState bs = chunk.getBlockState(pos);
-                    if (bs.getBlock() instanceof AmethystClusterBlock) {
+                    if (bs.getBlock() instanceof AmethystClusterBlock || bs.is(VWTags.Blocks.COMPASS_FINDABLE_CLUSTERS)) {
                         long distSq = squaredDistance(origin, pos);
                         if (distSq < bestDistSq) {
                             bestDistSq = distSq;

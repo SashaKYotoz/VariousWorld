@@ -57,6 +57,17 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
         twoByTwoPacker(recipeOutput, RecipeCategory.BUILDING_BLOCKS, VWBlocks.SODALITE_BLOCK.get(), VWItems.SODALITE_SHARD.get());
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, VWItems.GEODE_COMPASS.get())
+                .define('A', Items.AMETHYST_SHARD)
+                .define('#', Items.DRIPSTONE_BLOCK)
+                .define('S', VWItems.SODALITE_SHARD)
+                .define('R', VWItems.RECLAIMITE_SHARD)
+                .pattern(" #A")
+                .pattern("#R#")
+                .pattern("S# ")
+                .unlockedBy("has_shard", has(VWItems.RECLAIMITE_SHARD.get()))
+                .save(recipeOutput);
+
         BuiltInRegistries.ITEM.forEach(item -> {
             if (item instanceof TieredItem) {
                 gemsmith(recipeOutput, item, VWItems.SODALITE_SHARD.get());

@@ -81,5 +81,7 @@
   "jei.various_world.artifact_table": "Artifact Table \n table block that allows to spread effect of potion in small area. \n Requires redstone power, potion, dragon breath and some valuable item to work.",
   "jei.various_world.disassembly_table": "Disassembly Table \n table block that allows to gather part of crafting ingredients of item. Only 3x3 recipes are detectable",
   "jei.various_world.gemsmith_table": "Gemsmithing Table \n table block that allows to modify tools adding materials. \n Recipes and models are registering dynamically, only config changes are required",
-  "message.various_world.geode_not_found": "No crystal cluster was found"
+  "message.various_world.geode_not_found": "No crystal cluster was found",
+  "message.various_world.geode_was_found": "Crystal cluster was found",
+  "message.various_world.press_shift": "Press [ Shift ]"
 }

@@ -33,7 +33,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
             Advancement.Builder builder = Advancement.Builder.advancement();
             AdvancementHolder advancement = addBiomes(builder.display(VWBlocks.BLUE_JACARANDA_SAPLING.toStack(),
                                     Component.translatable("advancement.various_world.across_the_world"), Component.translatable("advancement.various_world.across_the_world.desc"),
-                                    VariousWorld.createVWLocation("textures/block/blue_jacaranda_leaves.png"), AdvancementType.TASK, true, true, true)
+                                    VariousWorld.createVWLocation("textures/gui/across_the_world.png"), AdvancementType.TASK, true, true, true)
                             .requirements(AdvancementRequirements.anyOf(List.of("various_world:blue_jacaranda_meadow", "various_world:crystalline_forest", "various_world:reclaimite_caves")))
                             .rewards(AdvancementRewards.Builder.experience(10)),
                     provider, List.of(VWBiomes.BLUE_JACARANDA_MEADOW, VWBiomes.CRYSTALLINE_FOREST, VWBiomes.RECLAIMITE_CAVES)).save(consumer, VariousWorld.createVWLocation("across_the_world"), existingFileHelper);

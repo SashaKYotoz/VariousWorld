@@ -2,8 +2,8 @@
   "feature": "various_world:meadow_rock",
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": 2
+      "type": "minecraft:rarity_filter",
+      "chance": 16
     },
     {
       "type": "minecraft:in_square"

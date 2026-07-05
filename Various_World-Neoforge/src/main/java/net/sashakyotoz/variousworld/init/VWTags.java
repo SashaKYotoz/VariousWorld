@@ -21,6 +21,7 @@ public class VWTags {
     }
 
     public static class Blocks {
+        public static final TagKey<Block> COMPASS_FINDABLE_CLUSTERS = createTag("compass_findable_clusters");
 
         private static TagKey<Block> createTag(String name) {
             return BlockTags.create(VariousWorld.createVWLocation(name));
