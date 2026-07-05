@@ -221,8 +221,10 @@ public class OnActionsTrigger {
                 if (chunkGenerator instanceof NoiseBasedChunkGenerator noiseGenerator) {
                     NoiseGeneratorSettings noiseGeneratorSettings = noiseGenerator.settings.value();
                     SurfaceRules.RuleSource currentRuleSource = noiseGeneratorSettings.surfaceRule();
-                    if (currentRuleSource instanceof SurfaceRules.SequenceRuleSource sequenceRuleSource) {
-                        List<SurfaceRules.RuleSource> surfaceRules = new ArrayList<>(sequenceRuleSource.sequence());
+                    if (currentRuleSource instanceof SurfaceRules.SequenceRuleSource(
+                            List<SurfaceRules.RuleSource> sequence
+                    )) {
+                        List<SurfaceRules.RuleSource> surfaceRules = new ArrayList<>(sequence);
                         surfaceRules.add(0, VWBiomes.preliminarySurfaceRule(VWBiomes.CRYSTALLINE_FOREST, VWBlocks.CRYSTALIC_GRASS_BLOCK.get().defaultBlockState(),
                                 VWBlocks.DIRT_WITH_CRYSTALS.get().defaultBlockState(), VWBlocks.DIRT_WITH_CRYSTALS.get().defaultBlockState()));
                         surfaceRules.add(1, VWBiomes.preliminarySurfaceRule(VWBiomes.BLUE_JACARANDA_MEADOW, Blocks.GRASS_BLOCK.defaultBlockState(),

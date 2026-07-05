@@ -72,6 +72,7 @@
   "item.various_world.crystalic_slime_spawn_egg": "Crystalic Slime Spawn Egg",
   "item.various_world.crystalline_slime_ball": "Crystalline Slime Ball",
   "item.various_world.crystalline_strength": "Crystalline Strength",
+  "item.various_world.geode_compass": "Geode Compass",
   "item.various_world.reclaimite_shard": "Reclaimite Shard",
   "item.various_world.sodalite_shard": "Sodalite Shard",
   "item.various_world.squealing_spider_spawn_egg": "Squealing Spider Spawn Egg",
@@ -79,5 +80,6 @@
   "item.various_world.wandering_zombie_spawn_egg": "Wandering Zombie Spawn Egg",
   "jei.various_world.artifact_table": "Artifact Table \n table block that allows to spread effect of potion in small area. \n Requires redstone power, potion, dragon breath and some valuable item to work.",
   "jei.various_world.disassembly_table": "Disassembly Table \n table block that allows to gather part of crafting ingredients of item. Only 3x3 recipes are detectable",
-  "jei.various_world.gemsmith_table": "Gemsmithing Table \n table block that allows to modify tools adding materials. \n Recipes and models are registering dynamically, only config changes are required"
+  "jei.various_world.gemsmith_table": "Gemsmithing Table \n table block that allows to modify tools adding materials. \n Recipes and models are registering dynamically, only config changes are required",
+  "message.various_world.geode_not_found": "No crystal cluster was found"
 }

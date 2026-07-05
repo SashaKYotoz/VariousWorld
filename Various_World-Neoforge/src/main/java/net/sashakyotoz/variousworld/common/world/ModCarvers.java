@@ -32,7 +32,7 @@ public class ModCarvers {
                         .configured(
                                 new CaveCarverConfiguration(
                                         0.35F,
-                                        UniformHeight.of(VerticalAnchor.aboveBottom(8), VerticalAnchor.absolute(128)),
+                                        UniformHeight.of(VerticalAnchor.aboveBottom(8), VerticalAnchor.absolute(96)),
                                         UniformFloat.of(0.25F, 0.5F),
                                         VerticalAnchor.aboveBottom(4),
                                         CarverDebugSettings.of(false, Blocks.WARPED_BUTTON.defaultBlockState()),

@@ -55,6 +55,7 @@
     [],
     [
       "minecraft:patch_grass_forest",
+      "various_world:meadow_rock",
       "various_world:jacaranda_petals_patch",
       "various_world:blue_jacaranda_tree"
     ]

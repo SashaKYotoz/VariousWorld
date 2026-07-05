@@ -1,9 +1,12 @@
 package net.sashakyotoz.variousworld.client;
 
 
+import net.minecraft.client.renderer.item.CompassItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CompassItem;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
+import net.sashakyotoz.variousworld.common.items.data.GeodeCompassData;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
 import net.sashakyotoz.variousworld.init.VWItems;
 import net.sashakyotoz.variousworld.init.VWMiscRegistries;
@@ -35,5 +38,9 @@ public class VWItemProperties {
             }
             return 0;
         });
+        ItemProperties.register(VWItems.GEODE_COMPASS.get(), ResourceLocation.withDefaultNamespace("angle"), new CompassItemPropertyFunction((level, stack, entity) -> {
+            GeodeCompassData data = stack.get(VWMiscRegistries.GEODE_COMPASS_DATA.get());
+            return data != null ? data.globalPos() : CompassItem.getSpawnPosition(level);
+        }));
     }
 }

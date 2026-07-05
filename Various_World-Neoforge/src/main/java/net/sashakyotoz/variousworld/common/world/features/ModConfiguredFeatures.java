@@ -46,6 +46,7 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> BLUE_JACARANDA_TREE = registerKey("blue_jacaranda_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> JACARANDA_PETALS_PATCH = registerKey("jacaranda_petals_patch");
 
+    public static final ResourceKey<ConfiguredFeature<?, ?>> MEADOW_ROCK = registerKey("meadow_rock");
     public static final ResourceKey<ConfiguredFeature<?, ?>> SODALITE_WART_PATCH = registerKey("sodalite_wart_patch");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> SODALITE_GEODE = registerKey("sodalite_geode");
@@ -79,6 +80,7 @@ public class ModConfiguredFeatures {
                 new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(2))
         ).build());
 
+        register(context, MEADOW_ROCK, Feature.FOREST_ROCK, new BlockStateConfiguration(Blocks.CLAY.defaultBlockState()));
         register(context, SODALITE_WART_PATCH, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(VWBlocks.SODALITE_WART.get()))));
 
         register(context, SODALITE_GEODE, Feature.GEODE, new GeodeConfiguration(

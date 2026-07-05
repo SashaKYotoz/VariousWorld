@@ -1,8 +1,13 @@
 package net.sashakyotoz.variousworld.init;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
+import net.sashakyotoz.variousworld.common.items.GeodeCompassItem;
+import net.sashakyotoz.variousworld.common.items.data.GeodeCompassData;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
 
 @SuppressWarnings("unchecked")
@@ -20,6 +25,9 @@ public class VWItems {
     public static final DeferredItem<Item> RECLAIMITE_SHARD = VWRegistryHelper.ofItem("reclaimite_shard", () -> new Item(new Item.Properties())).model().build();
     public static final DeferredItem<Item> CRYSTALLINE_SLIME_BALL = VWRegistryHelper.ofItem("crystalline_slime_ball", () -> new Item(new Item.Properties())).model().build();
     public static final DeferredItem<Item> CRYSTALLINE_STRENGTH = VWRegistryHelper.ofItem("crystalline_strength", () -> new Item(new Item.Properties().rarity(Rarity.RARE))).model().build();
+    public static final DeferredItem<Item> GEODE_COMPASS = VWRegistryHelper.ofItem("geode_compass", () -> new GeodeCompassItem(new Item.Properties()
+                    .component(VWMiscRegistries.GEODE_COMPASS_DATA.get(), new GeodeCompassData(new GlobalPos(Level.OVERWORLD, new BlockPos(0, 0, 0))))
+                    .rarity(Rarity.UNCOMMON))).build();
 
     public static final DeferredItem<Item> SUPPLY_CRYSTAL = VWRegistryHelper.ofItem("supply_crystal", () -> new Item(new Item.Properties()
             .component(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get(), new SupplyCrystalData(ItemStack.EMPTY, "")))).build();

@@ -23,6 +23,7 @@ public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> BLUE_JACARANDA_TREE = registerKey("blue_jacaranda_tree");
     public static final ResourceKey<PlacedFeature> JACARANDA_PETALS_PATCH = registerKey("jacaranda_petals_patch");
 
+    public static final ResourceKey<PlacedFeature> MEADOW_ROCK = registerKey("meadow_rock");
     public static final ResourceKey<PlacedFeature> SODALITE_WART_PATCH = registerKey("sodalite_wart_patch");
 
     public static final ResourceKey<PlacedFeature> SODALITE_GEODE = registerKey("sodalite_geode");
@@ -40,6 +41,12 @@ public class ModPlacedFeatures {
         register(context, BLUE_JACARANDA_TREE, configuredFeatures.getOrThrow(ModConfiguredFeatures.BLUE_JACARANDA_TREE),
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(1, 0.25F, 2), VWBlocks.BLUE_JACARANDA_SAPLING.get()));
 
+        register(context, MEADOW_ROCK, configuredFeatures.getOrThrow(ModConfiguredFeatures.MEADOW_ROCK), List.of(
+                RarityFilter.onAverageOnceEvery(16),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP,
+                BiomeFilter.biome()
+        ));
         register(context, SODALITE_WART_PATCH, configuredFeatures.getOrThrow(ModConfiguredFeatures.SODALITE_WART_PATCH), List.of(
                 RarityFilter.onAverageOnceEvery(2),
                 InSquarePlacement.spread(),

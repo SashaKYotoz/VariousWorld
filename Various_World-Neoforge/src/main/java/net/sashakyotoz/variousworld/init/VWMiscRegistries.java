@@ -19,6 +19,7 @@ import net.sashakyotoz.variousworld.common.blocks.entities.gui.GemsmithTableMenu
 import net.sashakyotoz.variousworld.common.blocks.entities.recipes.GemsmithTransformRecipe;
 import net.sashakyotoz.variousworld.common.entities.brain.SpiderAttackEntitySensor;
 import net.sashakyotoz.variousworld.common.items.data.CrystalData;
+import net.sashakyotoz.variousworld.common.items.data.GeodeCompassData;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
 
 import java.util.function.Supplier;
@@ -33,6 +34,8 @@ public class VWMiscRegistries {
             builder -> builder.persistent(CrystalData.CODEC));
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SupplyCrystalData>> SUPPLY_CRYSTAL_DATA = register("supply_crystal_data",
             builder -> builder.persistent(SupplyCrystalData.CODEC));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<GeodeCompassData>> GEODE_COMPASS_DATA = register("geode_compass_data",
+            builder -> builder.persistent(GeodeCompassData.CODEC));
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name,
                                                                                            UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
