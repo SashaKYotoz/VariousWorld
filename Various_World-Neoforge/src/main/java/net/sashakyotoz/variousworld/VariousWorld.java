@@ -1,32 +1,30 @@
 package net.sashakyotoz.variousworld;
 
+import net.lcc.sollib.api.common.registry.SolModContainer;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.Mod;
-import net.sashakyotoz.variousworld.common.config.ConfiguredData;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
+import net.sashakyotoz.variousworld.common.config.VWRuntimeData;
 import net.sashakyotoz.variousworld.init.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod("various_world")
 public class VariousWorld {
     public static final Logger LOGGER = LogManager.getLogger(VariousWorld.class);
     public static final String MOD_ID = "various_world";
+    public static final SolModContainer MOD = new SolModContainer("Various World", MOD_ID);
 
-    public VariousWorld(IEventBus bus, ModContainer container) {
-        VWRegistryHelper.register(bus);
-        VWBlocks.init();
-        VWItems.init();
-        VWEntities.init();
+    public static void init() {
         ModConfigController.init();
-        ConfiguredData.register();
+        VWSounds.init();
+        VWMiscRegistries.init();
+        VWFeatures.init();
+        VWBlocks.init();
+        VWEntities.init();
+        VWItems.init();
+        VWVillagers.init();
+        VWCreativeTabs.init();
         VWTags.init();
-        VWMiscRegistries.register(bus);
-        VWVillagers.register(bus);
-        VWFeatures.register(bus);
-        VWSounds.SOUND_EVENTS.register(bus);
+        VWRuntimeData.register();
     }
 
     public static ResourceLocation createVWLocation(String path) {

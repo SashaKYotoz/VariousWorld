@@ -1,41 +1,55 @@
 package net.sashakyotoz.variousworld.init;
 
+import net.lcc.sollib.api.common.registry.holder.ItemHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.data.models.model.ModelTemplates;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.DeferredSpawnEggItem;
-import net.neoforged.neoforge.registries.DeferredItem;
 import net.sashakyotoz.variousworld.common.items.GeodeCompassItem;
 import net.sashakyotoz.variousworld.common.items.data.GeodeCompassData;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
+import net.sashakyotoz.variousworld.platform.VWPlatform;
 
-@SuppressWarnings("unchecked")
+import static net.sashakyotoz.variousworld.init.VWRegistryHelper.hiddenItem;
+import static net.sashakyotoz.variousworld.init.VWRegistryHelper.item;
+
 public class VWItems {
     public static void init() {
     }
 
-    public static final DeferredItem<SignItem> CRYSTALIC_OAK_SIGN = VWRegistryHelper.ofItem("crystalic_oak_sign", () -> new SignItem(new Item.Properties(), VWBlocks.CRYSTALIC_OAK_SIGN.get(), VWBlocks.CRYSTALIC_OAK_WALL_SIGN.get())).model().build();
-    public static final DeferredItem<HangingSignItem> CRYSTALIC_OAK_HANGING_SIGN = VWRegistryHelper.ofItem("crystalic_oak_hanging_sign", () -> new HangingSignItem(VWBlocks.CRYSTALIC_OAK_HANGING_SIGN.get(), VWBlocks.CRYSTALIC_OAK_HANGING_WALL_SIGN.get(), new Item.Properties())).model().build();
+    public static final ItemHolder CRYSTALIC_OAK_SIGN = item("crystalic_oak_sign", () -> new SignItem(new Item.Properties(), VWBlocks.CRYSTALIC_OAK_SIGN.get(), VWBlocks.CRYSTALIC_OAK_WALL_SIGN.get()))
+            .withModel(ModelTemplates.FLAT_ITEM);
+    public static final ItemHolder CRYSTALIC_OAK_HANGING_SIGN = item("crystalic_oak_hanging_sign", () -> new HangingSignItem(VWBlocks.CRYSTALIC_OAK_HANGING_SIGN.get(), VWBlocks.CRYSTALIC_OAK_HANGING_WALL_SIGN.get(), new Item.Properties()))
+            .withModel(ModelTemplates.FLAT_ITEM);
 
-    public static final DeferredItem<SignItem> BLUE_JACARANDA_SIGN = VWRegistryHelper.ofItem("blue_jacaranda_sign", () -> new SignItem(new Item.Properties(), VWBlocks.BLUE_JACARANDA_SIGN.get(), VWBlocks.BLUE_JACARANDA_WALL_SIGN.get())).model().build();
-    public static final DeferredItem<HangingSignItem> BLUE_JACARANDA_HANGING_SIGN = VWRegistryHelper.ofItem("blue_jacaranda_hanging_sign", () -> new HangingSignItem(VWBlocks.BLUE_JACARANDA_HANGING_SIGN.get(), VWBlocks.BLUE_JACARANDA_HANGING_WALL_SIGN.get(), new Item.Properties())).model().build();
+    public static final ItemHolder BLUE_JACARANDA_SIGN = item("blue_jacaranda_sign", () -> new SignItem(new Item.Properties(), VWBlocks.BLUE_JACARANDA_SIGN.get(), VWBlocks.BLUE_JACARANDA_WALL_SIGN.get()))
+            .withModel(ModelTemplates.FLAT_ITEM);
+    public static final ItemHolder BLUE_JACARANDA_HANGING_SIGN = item("blue_jacaranda_hanging_sign", () -> new HangingSignItem(VWBlocks.BLUE_JACARANDA_HANGING_SIGN.get(), VWBlocks.BLUE_JACARANDA_HANGING_WALL_SIGN.get(), new Item.Properties()))
+            .withModel(ModelTemplates.FLAT_ITEM);
 
-    public static final DeferredItem<Item> SODALITE_SHARD = VWRegistryHelper.ofItem("sodalite_shard", () -> new Item(new Item.Properties())).model().build();
-    public static final DeferredItem<Item> RECLAIMITE_SHARD = VWRegistryHelper.ofItem("reclaimite_shard", () -> new Item(new Item.Properties())).model().build();
-    public static final DeferredItem<Item> CRYSTALLINE_SLIME_BALL = VWRegistryHelper.ofItem("crystalline_slime_ball", () -> new Item(new Item.Properties())).model().build();
-    public static final DeferredItem<Item> CRYSTALLINE_STRENGTH = VWRegistryHelper.ofItem("crystalline_strength", () -> new Item(new Item.Properties().rarity(Rarity.RARE))).model().build();
-    public static final DeferredItem<Item> GEODE_COMPASS = VWRegistryHelper.ofItem("geode_compass", () -> new GeodeCompassItem(new Item.Properties()
-                    .component(VWMiscRegistries.GEODE_COMPASS_DATA.get(), new GeodeCompassData(new GlobalPos(Level.OVERWORLD, new BlockPos(0, 0, 0))))
-                    .rarity(Rarity.UNCOMMON))).build();
+    public static final ItemHolder SODALITE_SHARD = item("sodalite_shard", () -> new Item(new Item.Properties())).withModel(ModelTemplates.FLAT_ITEM);
+    public static final ItemHolder RECLAIMITE_SHARD = item("reclaimite_shard", () -> new Item(new Item.Properties())).withModel(ModelTemplates.FLAT_ITEM);
+    public static final ItemHolder CRYSTALLINE_SLIME_BALL = item("crystalline_slime_ball", () -> new Item(new Item.Properties())).withModel(ModelTemplates.FLAT_ITEM);
+    public static final ItemHolder CRYSTALLINE_STRENGTH = item("crystalline_strength", () -> new Item(new Item.Properties().rarity(Rarity.RARE))).withModel(ModelTemplates.FLAT_ITEM);
+    public static final ItemHolder GEODE_COMPASS = item("geode_compass", () -> new GeodeCompassItem(new Item.Properties()
+            .component(VWMiscRegistries.GEODE_COMPASS_DATA.get(), new GeodeCompassData(new GlobalPos(Level.OVERWORLD, new BlockPos(0, 0, 0))))
+            .rarity(Rarity.UNCOMMON)));
 
-    public static final DeferredItem<Item> SUPPLY_CRYSTAL = VWRegistryHelper.ofItem("supply_crystal", () -> new Item(new Item.Properties()
-            .component(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get(), new SupplyCrystalData(ItemStack.EMPTY, "")))).build();
+    public static final ItemHolder SUPPLY_CRYSTAL = hiddenItem("supply_crystal", () -> new Item(new Item.Properties()
+            .component(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get(), new SupplyCrystalData(ItemStack.EMPTY, ""))));
 
-    public static final DeferredItem<DeferredSpawnEggItem> CRYSTALIC_SLIME_SPAWN_EGG = VWRegistryHelper.ofItem("crystalic_slime_spawn_egg", () ->
-            new DeferredSpawnEggItem(VWEntities.CRYSTALIC_SLIME, -6693377, -3407617, new Item.Properties())).build();
-    public static final DeferredItem<DeferredSpawnEggItem> WANDERING_ZOMBIE_SPAWN_EGG = VWRegistryHelper.ofItem("wandering_zombie_spawn_egg", () ->
-            new DeferredSpawnEggItem(VWEntities.WANDERING_ZOMBIE, -12425662, -13057, new Item.Properties())).build();
-    public static final DeferredItem<DeferredSpawnEggItem> SQUEALING_SPIDER_SPAWN_EGG = VWRegistryHelper.ofItem("squealing_spider_spawn_egg", () ->
-            new DeferredSpawnEggItem(VWEntities.SQUEALING_SPIDER, 2430480, 5013401, new Item.Properties())).build();
+    public static final ItemHolder CRYSTALIC_SLIME_SPAWN_EGG = item("crystalic_slime_spawn_egg", () ->
+            VWPlatform.INSTANCE.createSpawnEgg(() -> mob(VWEntities.CRYSTALIC_SLIME.get()), -6693377, -3407617, new Item.Properties()));
+    public static final ItemHolder WANDERING_ZOMBIE_SPAWN_EGG = item("wandering_zombie_spawn_egg", () ->
+            VWPlatform.INSTANCE.createSpawnEgg(() -> mob(VWEntities.WANDERING_ZOMBIE.get()), -12425662, -13057, new Item.Properties()));
+    public static final ItemHolder SQUEALING_SPIDER_SPAWN_EGG = item("squealing_spider_spawn_egg", () ->
+            VWPlatform.INSTANCE.createSpawnEgg(() -> mob(VWEntities.SQUEALING_SPIDER.get()), 2430480, 5013401, new Item.Properties()));
+
+    @SuppressWarnings("unchecked")
+    private static EntityType<? extends Mob> mob(EntityType<?> type) {
+        return (EntityType<? extends Mob>) type;
+    }
 }

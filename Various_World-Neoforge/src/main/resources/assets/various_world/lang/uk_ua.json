@@ -1,6 +1,6 @@
 {
   "advancement.various_world.across_the_world": "Various World",
-  "advancement.various_world.across_the_world.desc": "Потрапне в будь-який біом моду",
+  "advancement.various_world.across_the_world.desc": "Потрапте в будь-який біом моду",
   "advancement.various_world.master_of_various_world": "Майстер моду Various World",
   "advancement.various_world.master_of_various_world.desc": "Отримайте цікавинку з кожного біому моду",
   "advancement.various_world.tabled": "По столу кожному",
@@ -69,6 +69,8 @@
   "entity.various_world.crystalic_slime": "Кристалічний слайм",
   "entity.various_world.squealing_spider": "Крикливий павук",
   "entity.various_world.wandering_zombie": "Мандруючий зомбі",
+  "gui.various_world.gemsmith_table.bonus": "%s %s",
+  "gui.various_world.gemsmith_table.preview": "Результат самоцвіто ковальства",
   "item.various_world.crystalic_slime_spawn_egg": "Яйце виклику кристального слайму",
   "item.various_world.crystalline_slime_ball": "Кристалічний слизовий згусток",
   "item.various_world.crystalline_strength": "Кристалізована потуга",
@@ -79,9 +81,18 @@
   "item.various_world.supply_crystal": "Кристал утримувач",
   "item.various_world.wandering_zombie_spawn_egg": "Яйце виклику мандруючого зомбі",
   "jei.various_world.artifact_table": "Артефактичний стіл \n блок, що дозволяє поширювати ефект зілля у малому радіусі. \n Потребує сигнал редстоуну, зілля, драконяче дихання \n і деякі коштовні предмети для роботи.",
+  "jei.various_world.crystalline_slime_ball": "Кристалічний слизовий згусток \n може бути перероблений в слизовий згусток при використанні казана з водою",
   "jei.various_world.disassembly_table": "Стіл розбирання \n блок, що дозволяє отримати деякі інгредієти при крафті. \n Працює тільки з рецептами розміром 3x3",
+  "jei.various_world.gemsmith_furnace": "Самоцвіто ковальська піч \n використовує будь-яке паливо звичайної пічки для розпалення, аж до %s секунд горіння. \n Поставте поруч з самоцвіто ковальським столом; самоцвіто ковальство прогресує лише тоді, коли піч горить",
   "jei.various_world.gemsmith_table": "Самоцвіто ковальський стіл \n блок, що дозволяє модифікувати інструменти різними матеріалами. \n Рецепти і моделі реєструються динамічно, зміни потрібні \n лише в конфігу",
+  "jei.various_world.gemsmith_table.furnace": "Потрібна запалена самоцвіто ковальська піч, розміщена впритул до столу",
+  "message.various_world.gemsmith_furnace_full": "Самоцвіто ковальська піч розпалена",
   "message.various_world.geode_not_found": "Жодної друзи не було знайдено поруч",
   "message.various_world.geode_was_found": "Друза кристалу була знайдена поруч",
-  "message.various_world.press_shift": "Натисніть [ Shift ]"
+  "message.various_world.press_shift": "Натисніть [ Shift ]",
+  "subtitles.various_world.squealing_spider.ambient": "Крикливий павук кричить",
+  "subtitles.various_world.squealing_spider.death": "Крикливий павук помирає",
+  "subtitles.various_world.squealing_spider.hurt": "Крикливий павук поранений",
+  "subtitles.various_world.squealing_spider.shatter": "Крикливий павук крушиться",
+  "subtitles.various_world.squealing_spider.step": "Крикливий павук дріботить "
 }

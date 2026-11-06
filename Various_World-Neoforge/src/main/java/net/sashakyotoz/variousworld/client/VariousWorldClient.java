@@ -1,84 +1,105 @@
 package net.sashakyotoz.variousworld.client;
 
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.lcc.sollib.api.client.SolClientRegistries;
+import net.lcc.sollib.api.common.registry.holder.BlockHolder;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.MenuAccess;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
-import net.neoforged.neoforge.registries.DeferredBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.sashakyotoz.variousworld.client.models.CrystalicSlimeModel;
 import net.sashakyotoz.variousworld.client.models.SquealingSpiderModel;
 import net.sashakyotoz.variousworld.client.models.WanderingZombieModel;
 import net.sashakyotoz.variousworld.client.renderers.CrystalicSlimeRenderer;
 import net.sashakyotoz.variousworld.client.renderers.SquealingSpiderRenderer;
 import net.sashakyotoz.variousworld.client.renderers.WanderingZombieRenderer;
-import net.sashakyotoz.variousworld.common.blocks.ModWoodType;
+import net.sashakyotoz.variousworld.common.blocks.BlockUtils;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.ArtifactTableScreen;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.DisassemblyTableScreen;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.GemsmithTableScreen;
 import net.sashakyotoz.variousworld.common.blocks.entities.render.ArtifactTableBlockEntityRenderer;
 import net.sashakyotoz.variousworld.common.blocks.entities.render.DisassemblyTableBlockEntityRenderer;
+import net.sashakyotoz.variousworld.common.items.data.CrystalData;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWEntities;
 import net.sashakyotoz.variousworld.init.VWMiscRegistries;
 import net.sashakyotoz.variousworld.init.VWRegistryHelper;
+import net.sashakyotoz.variousworld.mixin.accessor.ItemRendererAccessor;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+import java.util.function.BiConsumer;
+
 public class VariousWorldClient {
-
-    @SubscribeEvent
-    public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(VWBlocks.MOD_SIGN.get(), SignRenderer::new);
-        event.registerBlockEntityRenderer(VWBlocks.MOD_HANGING_SIGN.get(), HangingSignRenderer::new);
-        event.registerBlockEntityRenderer(VWBlocks.ARTIFACT_TABLE_BE.get(), ArtifactTableBlockEntityRenderer::new);
-        event.registerBlockEntityRenderer(VWBlocks.DISASSEMBLY_TABLE_BE.get(), DisassemblyTableBlockEntityRenderer::new);
-
-        event.registerEntityRenderer(VWEntities.CRYSTALIC_SLIME.get(), CrystalicSlimeRenderer::new);
-        event.registerEntityRenderer(VWEntities.WANDERING_ZOMBIE.get(), WanderingZombieRenderer::new);
-        event.registerEntityRenderer(VWEntities.SQUEALING_SPIDER.get(), SquealingSpiderRenderer::new);
+    public interface BlockEntityRendererRegistrar {
+        <T extends BlockEntity> void register(BlockEntityType<? extends T> type, BlockEntityRendererProvider<T> provider);
     }
 
-    @SubscribeEvent
-    public static void registerParticles(RegisterParticleProvidersEvent event) {
+    public interface MenuScreenRegistrar {
+        <M extends AbstractContainerMenu, U extends Screen & MenuAccess<M>> void register(MenuType<? extends M> type, MenuScreens.ScreenConstructor<M, U> constructor);
     }
 
-    @SubscribeEvent
-    public static void registerScreens(RegisterMenuScreensEvent event) {
-        event.register(VWMiscRegistries.GEMSMITH_TABLE.get(), GemsmithTableScreen::new);
-        event.register(VWMiscRegistries.ARTIFACT_TABLE.get(), ArtifactTableScreen::new);
-        event.register(VWMiscRegistries.DISASSEMBLY_TABLE.get(), DisassemblyTableScreen::new);
+    public static void init() {
+        VWEntities.CRYSTALIC_SLIME.addRenderer(CrystalicSlimeRenderer::new)
+                .addModelLayer(CrystalicSlimeModel.LAYER_LOCATION, CrystalicSlimeModel::createInnerBodyLayer)
+                .addModelLayer(CrystalicSlimeModel.OUTER_LAYER_LOCATION, CrystalicSlimeModel::createOuterBodyLayer);
+        VWEntities.WANDERING_ZOMBIE.addRenderer(WanderingZombieRenderer::new)
+                .addModelLayer(WanderingZombieModel.LAYER_LOCATION, WanderingZombieModel::createBodyLayer);
+        VWEntities.SQUEALING_SPIDER.addRenderer(SquealingSpiderRenderer::new)
+                .addModelLayer(SquealingSpiderModel.LAYER_LOCATION, SquealingSpiderModel::createBodyLayer);
+
+        SolClientRegistries.Render.BLOCK.register(BlockUtils::isReclamited,
+                (renderer, state, pos, getter, random, poseStack, consumer) -> renderer.accept(pos, BlockUtils.getReclamiteEquivalent(state)));
+        SolClientRegistries.Render.ITEM.register(VariousWorldClient::hasActiveCrystal, VariousWorldClient::renderCrystal);
     }
 
-    @SubscribeEvent
-    public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(CrystalicSlimeModel.LAYER_LOCATION, CrystalicSlimeModel::createInnerBodyLayer);
-        event.registerLayerDefinition(CrystalicSlimeModel.OUTER_LAYER_LOCATION, CrystalicSlimeModel::createOuterBodyLayer);
-        event.registerLayerDefinition(WanderingZombieModel.LAYER_LOCATION, WanderingZombieModel::createBodyLayer);
-        event.registerLayerDefinition(SquealingSpiderModel.LAYER_LOCATION, SquealingSpiderModel::createBodyLayer);
+    public static void registerBlockEntityRenderers(BlockEntityRendererRegistrar registrar) {
+        registrar.register(VWBlocks.MOD_SIGN.get(), SignRenderer::new);
+        registrar.register(VWBlocks.MOD_HANGING_SIGN.get(), HangingSignRenderer::new);
+        registrar.register(VWBlocks.ARTIFACT_TABLE_BE.get(), ArtifactTableBlockEntityRenderer::new);
+        registrar.register(VWBlocks.DISASSEMBLY_TABLE_BE.get(), DisassemblyTableBlockEntityRenderer::new);
     }
 
-    @SubscribeEvent
-    public static void registerLayer(EntityRenderersEvent.AddLayers event) {
+    public static void registerScreens(MenuScreenRegistrar registrar) {
+        registrar.register(VWMiscRegistries.GEMSMITH_TABLE.get(), GemsmithTableScreen::new);
+        registrar.register(VWMiscRegistries.ARTIFACT_TABLE.get(), ArtifactTableScreen::new);
+        registrar.register(VWMiscRegistries.DISASSEMBLY_TABLE.get(), DisassemblyTableScreen::new);
     }
 
-    @SubscribeEvent
-    public static void clientSetUp(FMLClientSetupEvent event) {
-        for (DeferredBlock block : VWRegistryHelper.BLOCK_CUTOUT)
-            ItemBlockRenderTypes.setRenderLayer((Block) block.get(), RenderType.cutout());
-        for (DeferredBlock block : VWRegistryHelper.BLOCK_TRANSLUCENT)
-            ItemBlockRenderTypes.setRenderLayer((Block) block.get(), RenderType.translucent());
-        event.enqueueWork(() -> {
-            Sheets.addWoodType(ModWoodType.CRYSTALIC_OAK);
-            Sheets.addWoodType(ModWoodType.BLUE_JACARANDA);
-            VWItemProperties.init();
+    public static void registerRenderLayers(BiConsumer<Block, RenderType> registrar) {
+        VWRegistryHelper.forEach(BlockHolder.class, holder -> {
+            if (holder.isCutout())
+                registrar.accept(holder.get(), RenderType.cutout());
         });
+        for (BlockHolder holder : VWRegistryHelper.TRANSLUCENT)
+            registrar.accept(holder.get(), RenderType.translucent());
+    }
+
+    private static boolean hasActiveCrystal(ItemStack stack) {
+        CrystalData data = stack.get(VWMiscRegistries.CRYSTAL_DATA.get());
+        return data != null && data.crystalDurability() > 0;
+    }
+
+    private static void renderCrystal(ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, MultiBufferSource bufferSource,
+                                      int light, int overlay) {
+        CrystalData data = stack.get(VWMiscRegistries.CRYSTAL_DATA.get());
+        if (data == null)
+            return;
+        ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+        BakedModel model = itemRenderer.getModel(data.crystalStack(), null, null, displayContext.ordinal());
+        poseStack.scale(1.001f, 1.001f, 1.001f);
+        ((ItemRendererAccessor) itemRenderer).variousworld$renderModelLists(model, stack, light, overlay, poseStack, bufferSource.getBuffer(RenderType.cutout()));
     }
 }

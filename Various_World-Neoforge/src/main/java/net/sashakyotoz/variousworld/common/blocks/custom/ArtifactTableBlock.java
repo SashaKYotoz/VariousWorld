@@ -2,6 +2,7 @@ package net.sashakyotoz.variousworld.common.blocks.custom;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -21,6 +22,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.sashakyotoz.variousworld.common.blocks.entities.ArtifactTableBlockEntity;
 import net.sashakyotoz.variousworld.init.VWBlocks;
+import net.sashakyotoz.variousworld.platform.VWPlatform;
 import org.jetbrains.annotations.Nullable;
 
 public class ArtifactTableBlock extends BaseEntityBlock {
@@ -74,27 +76,20 @@ public class ArtifactTableBlock extends BaseEntityBlock {
             if (blockEntity instanceof ArtifactTableBlockEntity block)
                 block.drops();
         }
-        pLevel.invalidateCapabilities(pPos);
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
-    }
-
-    @Override
-    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
-        level.invalidateCapabilities(pos);
-        super.onPlace(state, level, pos, oldState, movedByPiston);
     }
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult hitResult) {
         if (!pLevel.isClientSide())
             this.openScreen(pLevel, pPos, pPlayer);
-        return super.useWithoutItem(state, pLevel, pPos, pPlayer, hitResult);
+        return InteractionResult.sidedSuccess(pLevel.isClientSide());
     }
 
     private void openScreen(Level level, BlockPos pos, Player player) {
         BlockEntity blockentity = level.getBlockEntity(pos);
-        if (blockentity instanceof ArtifactTableBlockEntity block)
-            player.openMenu(block);
+        if (blockentity instanceof ArtifactTableBlockEntity block && player instanceof ServerPlayer serverPlayer)
+            VWPlatform.INSTANCE.openBlockMenu(serverPlayer, block, pos);
         else
             throw new IllegalStateException("Container provider is missing!");
     }

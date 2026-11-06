@@ -4,20 +4,21 @@
   "package": "net.sashakyotoz.variousworld.mixin",
   "compatibilityLevel": "JAVA_21",
   "refmap": "various_world.refmap.json",
-  "plugin": "net.sashakyotoz.variousworld.mixin.MixinConfigPlugin",
   "mixins": [
-    "MultiPackResourceManagerMixin",
+    "accessor.ChunkGeneratorAccessor",
+    "accessor.MultiNoiseBiomeSourceAccessor",
+    "accessor.NoiseBasedChunkGeneratorAccessor",
+    "accessor.SensorTypeAccessor",
+    "accessor.SimpleParticleTypeAccessor",
+    "accessor.VillagerTypeAccessor",
     "block.PointedDripstoneBlockMixin",
     "block.StateDefinitionAccess",
-    "block.sodium.BlockRendererMixin",
     "item.ItemMixin"
   ],
   "client": [
     "ClientRecipeBookMixin",
-    "ModelBakeryMixin",
-    "block.BlockRenderDispatcherMixin",
-    "block.SectionCompilerMixin",
-    "item.ItemRendererMixin"
+    "accessor.ItemRendererAccessor",
+    "block.BlockRenderDispatcherMixin"
   ],
   "injectors": {
     "defaultRequire": 1

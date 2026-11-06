@@ -6,7 +6,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.Item;
-import net.neoforged.fml.loading.FMLPaths;
+import net.lcc.sollib.platform.Services;
 import net.sashakyotoz.variousworld.VariousWorld;
 
 import java.lang.reflect.Type;
@@ -78,7 +78,7 @@ public class ModConfigController {
 
     public static void init() {
         try {
-            Path configPath = FMLPaths.CONFIGDIR.get().resolve("various_world-config.json");
+            Path configPath = Services.PLATFORM.getConfigDirectory().resolve("various_world-config.json");
             if (!Files.exists(configPath)) {
                 Files.createDirectories(configPath.getParent());
                 Files.writeString(configPath, getDefaultConfigJson());

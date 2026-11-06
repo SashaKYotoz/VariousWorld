@@ -13,10 +13,9 @@ import net.minecraft.world.item.armortrim.TrimMaterials;
 import net.neoforged.neoforge.client.model.generators.CustomLoaderBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
-import net.neoforged.neoforge.common.DeferredSpawnEggItem;
+import net.minecraft.world.item.SpawnEggItem;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredItem;
+import net.lcc.sollib.api.common.registry.holder.ItemHolder;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.init.VWRegistryHelper;
 
@@ -45,14 +44,12 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        for (Map.Entry<DeferredItem<?>, ModelTemplate> entry : VWRegistryHelper.ITEM_MODELS.entrySet()) {
-            if (entry.getValue() == ModelTemplates.FLAT_ITEM)
-                simpleItem(entry.getKey());
-        }
-        for (DeferredHolder<Item, ? extends Item> entry : VWRegistryHelper.ITEMS.getEntries()) {
-            if (entry.get() instanceof DeferredSpawnEggItem)
-                simpleEggItem(entry);
-        }
+        VWRegistryHelper.forEach(ItemHolder.class, holder -> {
+            if (holder.hasModel() && holder.getModel() == ModelTemplates.FLAT_ITEM)
+                simpleItem(holder.getID().getPath());
+            if (holder.get() instanceof SpawnEggItem)
+                simpleEggItem(holder.getID().getPath());
+        });
         simpleItemlessModel("sodalite_sword");
         simpleItemlessModel("sodalite_pickaxe");
         simpleItemlessModel("sodalite_axe");
@@ -70,10 +67,10 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleGlowItemlessModel("reclaimite_hoe");
     }
 
-    private ItemModelBuilder simpleItem(DeferredItem<?> item) {
-        return withExistingParent(item.getId().getPath(),
+    private ItemModelBuilder simpleItem(String path) {
+        return withExistingParent(path,
                 ResourceLocation.parse("item/generated")).texture("layer0",
-                ResourceLocation.fromNamespaceAndPath(VariousWorld.MOD_ID, "item/" + item.getId().getPath()));
+                ResourceLocation.fromNamespaceAndPath(VariousWorld.MOD_ID, "item/" + path));
     }
 
     private ItemModelBuilder simpleItemlessModel(String path) {
@@ -113,14 +110,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         return base;
     }
 
-    private ItemModelBuilder simpleEggItem(DeferredHolder<Item, ? extends Item> item) {
-        return withExistingParent(item.getId().getPath(),
-                ResourceLocation.parse("item/template_spawn_egg"));
-    }
-
-    private ItemModelBuilder handheldItem(DeferredItem<?> item) {
-        return withExistingParent(item.getId().getPath(),
-                ResourceLocation.parse("item/handheld")).texture("layer0",
-                ResourceLocation.fromNamespaceAndPath(VariousWorld.MOD_ID, "item/" + item.getId().getPath()));
+    private ItemModelBuilder simpleEggItem(String path) {
+        return withExistingParent(path, ResourceLocation.parse("item/template_spawn_egg"));
     }
 }

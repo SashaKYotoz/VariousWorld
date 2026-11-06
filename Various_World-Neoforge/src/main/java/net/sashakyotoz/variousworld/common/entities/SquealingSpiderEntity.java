@@ -32,6 +32,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.sashakyotoz.variousworld.common.OnActionsTrigger;
 import net.sashakyotoz.variousworld.common.entities.brain.SquealingSpiderAi;
+import net.sashakyotoz.variousworld.init.VWSounds;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -221,20 +222,36 @@ public class SquealingSpiderEntity extends Spider {
         this.level().playLocalSound(this, SoundEvents.BREEZE_WHIRL, this.getSoundSource(), f1, f);
     }
 
-    public SoundSource getSoundSource() {
-        return SoundSource.HOSTILE;
-    }
-
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.SPIDER_HURT;
-    }
-
-    protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return SoundEvents.SPIDER_HURT;
-    }
-
+    @Override
     protected SoundEvent getAmbientSound() {
-        return this.onGround() ? SoundEvents.SPIDER_AMBIENT : SoundEvents.BREEZE_IDLE_AIR;
+        return VWSounds.SQUEALING_SPIDER_AMBIENT.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return VWSounds.SQUEALING_SPIDER_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return VWSounds.SQUEALING_SPIDER_DEATH.get();
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(VWSounds.SQUEALING_SPIDER_STEP.get(), 0.15F, 1.0F);
+    }
+
+    @Override
+    public void die(DamageSource damageSource) {
+        super.die(damageSource);
+        if (!this.level().isClientSide())
+            this.level().playSound(null, this.getX(), this.getY(), this.getZ(), VWSounds.SQUEALING_SPIDER_SHATTER.get(), this.getSoundSource(), 1.0F, 1.0F);
+    }
+
+    @Override
+    public float getVoicePitch() {
+        return super.getVoicePitch() * 1.05F;
     }
 
     protected void customServerAiStep() {

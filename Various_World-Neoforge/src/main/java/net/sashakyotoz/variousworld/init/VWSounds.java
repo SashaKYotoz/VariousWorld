@@ -1,16 +1,15 @@
 package net.sashakyotoz.variousworld.init;
 
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.sounds.SoundEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import net.sashakyotoz.variousworld.VariousWorld;
+import net.sashakyotoz.variousworld.init.holder.VWHolders;
 
 public class VWSounds {
-    public static final DeferredRegister<SoundEvent> SOUND_EVENTS =
-            DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, VariousWorld.MOD_ID);
-    public static final DeferredHolder<SoundEvent, SoundEvent> BIOME_SCULK_VALLEY = SOUND_EVENTS.register("biome.sculk_valley",
-            () -> SoundEvent.createVariableRangeEvent(VariousWorld.createVWLocation("biome.sculk_valley")));
-    public static final DeferredHolder<SoundEvent, SoundEvent> WANDERING_ZOMBIE_AMBIENT = SOUND_EVENTS.register("entity.wandering_zombie_ambient",
-            () -> SoundEvent.createVariableRangeEvent(VariousWorld.createVWLocation("entity.wandering_zombie_ambient")));
+    public static void init() {
+    }
+
+    public static final VWHolders.SoundHolder WANDERING_ZOMBIE_AMBIENT = VWRegistryHelper.sound("entity.wandering_zombie.ambient");
+    public static final VWHolders.SoundHolder SQUEALING_SPIDER_AMBIENT = VWRegistryHelper.sound("entity.squealing_spider.ambient");
+    public static final VWHolders.SoundHolder SQUEALING_SPIDER_HURT = VWRegistryHelper.sound("entity.squealing_spider.hurt");
+    public static final VWHolders.SoundHolder SQUEALING_SPIDER_DEATH = VWRegistryHelper.sound("entity.squealing_spider.death");
+    public static final VWHolders.SoundHolder SQUEALING_SPIDER_SHATTER = VWRegistryHelper.sound("entity.squealing_spider.shatter");
+    public static final VWHolders.SoundHolder SQUEALING_SPIDER_STEP = VWRegistryHelper.sound("entity.squealing_spider.step");
 }

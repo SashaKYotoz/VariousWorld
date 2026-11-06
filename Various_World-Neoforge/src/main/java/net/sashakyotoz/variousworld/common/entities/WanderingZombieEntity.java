@@ -17,6 +17,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.sashakyotoz.variousworld.common.items.data.CrystalData;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
+import net.sashakyotoz.variousworld.common.GemsmithingHelper;
 import net.sashakyotoz.variousworld.init.VWEntities;
 import net.sashakyotoz.variousworld.init.VWItems;
 import net.sashakyotoz.variousworld.init.VWMiscRegistries;
@@ -24,8 +25,8 @@ import net.sashakyotoz.variousworld.init.VWSounds;
 
 public class WanderingZombieEntity extends Zombie {
 
-    public WanderingZombieEntity(EntityType<Entity> entityEntityType, Level level) {
-        super(VWEntities.WANDERING_ZOMBIE.get(), level);
+    public WanderingZombieEntity(EntityType<? extends Zombie> entityType, Level level) {
+        super(entityType, level);
     }
 
     @Override
@@ -36,18 +37,18 @@ public class WanderingZombieEntity extends Zombie {
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
         if (random.nextFloat() < (this.level().getDifficulty() == Difficulty.HARD ? 0.05F : 0.01F)) {
-            ItemStack gem = VWItems.SUPPLY_CRYSTAL.toStack();
-            ItemStack stack = random.nextInt(3) == 0 ? new ItemStack(Items.IRON_SWORD) : new ItemStack(Items.IRON_SHOVEL);
-            gem.set(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get(), new SupplyCrystalData(VWItems.SODALITE_SHARD.toStack(),
-                    stack.getItem() instanceof AxeItem ? "axe" : "sword"));
-            stack.set(VWMiscRegistries.CRYSTAL_DATA.get(), new CrystalData(gem, 16));
+            ItemStack tool = random.nextInt(3) == 0 ? new ItemStack(Items.IRON_SWORD) : new ItemStack(Items.IRON_SHOVEL);
+            ItemStack stack = GemsmithingHelper.applyGem(tool, new ItemStack(VWItems.SODALITE_SHARD.get()));
+            CrystalData data = stack.get(VWMiscRegistries.CRYSTAL_DATA.get());
+            if (data != null && data.crystalDurability() > 0)
+                stack.set(VWMiscRegistries.CRYSTAL_DATA.get(), new CrystalData(data.crystalStack(), 16));
             this.setItemSlot(EquipmentSlot.MAINHAND, stack);
         }
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return VWSounds.WANDERING_ZOMBIE_AMBIENT.value();
+        return VWSounds.WANDERING_ZOMBIE_AMBIENT.get();
     }
 
     public static AttributeSupplier.Builder createAttributes() {

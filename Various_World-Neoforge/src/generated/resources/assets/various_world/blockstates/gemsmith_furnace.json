@@ -31,10 +31,12 @@
       "y": 180
     },
     "facing=up,lit=false": {
-      "model": "various_world:block/gemsmith_furnace"
+      "model": "various_world:block/gemsmith_furnace",
+      "x": 270
     },
     "facing=up,lit=true": {
-      "model": "various_world:block/gemsmith_furnace_fired"
+      "model": "various_world:block/gemsmith_furnace_fired",
+      "x": 270
     },
     "facing=west,lit=false": {
       "model": "various_world:block/gemsmith_furnace",

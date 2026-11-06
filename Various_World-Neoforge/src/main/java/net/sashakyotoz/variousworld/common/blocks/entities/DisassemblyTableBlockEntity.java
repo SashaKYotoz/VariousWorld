@@ -11,7 +11,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.Containers;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -21,9 +20,6 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.capabilities.BlockCapability;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.DisassemblyTableMenu;
 import net.sashakyotoz.variousworld.init.VWBlocks;
@@ -35,16 +31,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class DisassemblyTableBlockEntity extends BaseContainerBlockEntity {
-    public static final BlockCapability<IItemHandler, Void> TABLE_ITEM_HANDLER =
-            BlockCapability.createVoid(
-                    VariousWorld.createVWLocation("table_item_handler"),
-                    IItemHandler.class);
-    public final ItemStackHandler itemHandler = new ItemStackHandler(4) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            setChanged();
-        }
-    };
     public NonNullList<ItemStack> items;
     protected final ContainerData data;
     public int progress = 0;
@@ -90,36 +76,16 @@ public class DisassemblyTableBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     protected NonNullList<ItemStack> getItems() {
-        if (items.isEmpty())
-            for (int i = 0; i < itemHandler.getSlots(); i++) {
-                items.set(i, itemHandler.getStackInSlot(i));
-            }
         return items;
     }
 
     @Override
-    public void setItem(int slot, ItemStack stack) {
-        super.setItem(slot, stack);
-        itemHandler.setStackInSlot(slot, stack);
-    }
-
-    @Override
-    public ItemStack removeItem(int slot, int amount) {
-        itemHandler.extractItem(slot, amount, false);
-        return super.removeItem(slot, amount);
-    }
-
-    @Override
     protected void setItems(NonNullList<ItemStack> nonNullList) {
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
-            itemHandler.setStackInSlot(i, nonNullList.get(i));
-        }
         items = nonNullList;
     }
 
     @Override
     protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
-        nbt.put("menus", itemHandler.serializeNBT(registries));
         nbt.putInt("table.progress", this.progress);
         ContainerHelper.saveAllItems(nbt, this.items, registries);
         nbt.putInt("table.fuel", this.fuel);
@@ -128,11 +94,8 @@ public class DisassemblyTableBlockEntity extends BaseContainerBlockEntity {
 
     @Override
     public void loadAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
-        itemHandler.deserializeNBT(registries, nbt.getCompound("menus"));
-        ContainerHelper.loadAllItems(nbt, this.items, registries);
-        for (int i = 0; i < items.size(); i++) {
-            itemHandler.setStackInSlot(i, items.get(i));
-        }
+        this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+        ContainerHelper.loadAllItems(nbt.contains("menus") ? nbt.getCompound("menus") : nbt, this.items, registries);
         progress = nbt.getInt("table.progress");
         fuel = nbt.getInt("table.fuel");
         super.loadAdditional(nbt, registries);
@@ -154,17 +117,14 @@ public class DisassemblyTableBlockEntity extends BaseContainerBlockEntity {
     }
 
     public void drops() {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for (int i = 0; i < itemHandler.getSlots(); i++)
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-        Containers.dropContents(this.level, this.worldPosition, inventory);
+        Containers.dropContents(this.level, this.worldPosition, this);
     }
 
     public void tick(Level level, BlockPos pos, BlockState state, DisassemblyTableBlockEntity blockEntity) {
         if (!level.isClientSide()) {
             tick++;
             if (tick % 20 == 0) {
-                if (blockEntity.fuel <= 50 && blockEntity.getItem(0).is(VWItems.RECLAIMITE_SHARD)) {
+                if (blockEntity.fuel <= 50 && blockEntity.getItem(0).is(VWItems.RECLAIMITE_SHARD.get())) {
                     blockEntity.removeItem(0, 1);
                     blockEntity.fuel += 10;
                 }
@@ -192,7 +152,7 @@ public class DisassemblyTableBlockEntity extends BaseContainerBlockEntity {
     }
 
     private void craftItem(Level level, DisassemblyTableBlockEntity blockEntity) {
-        ItemStack inputStack = blockEntity.itemHandler.getStackInSlot(3);
+        ItemStack inputStack = blockEntity.getItem(3);
         Recipe<?>[] recipes = getRecipesFor(inputStack, level);
         Recipe<?> recipe = Arrays.stream(recipes).filter(recipe1 -> recipe1.getIngredients().size() > 1).findFirst().orElse(recipes[0]);
         if (recipe instanceof ShapedRecipe recipe1 && isRecipeValid(recipe1)) {
@@ -217,7 +177,7 @@ public class DisassemblyTableBlockEntity extends BaseContainerBlockEntity {
     }
 
     public boolean hasRecipe(Level level, DisassemblyTableBlockEntity blockEntity) {
-        return canInsertItemIntoOutputSlots() && !Arrays.stream(getRecipesFor(blockEntity.itemHandler.getStackInSlot(3), level)).toList().isEmpty();
+        return canInsertItemIntoOutputSlots() && !Arrays.stream(getRecipesFor(blockEntity.getItem(3), level)).toList().isEmpty();
     }
 
     private Recipe<?>[] getRecipesFor(ItemStack inputStack, Level level) {
@@ -246,7 +206,7 @@ public class DisassemblyTableBlockEntity extends BaseContainerBlockEntity {
     }
 
     private boolean canInsertItemIntoOutputSlots() {
-        return this.itemHandler.getStackInSlot(1).isEmpty() && this.itemHandler.getStackInSlot(2).isEmpty();
+        return this.getItem(1).isEmpty() && this.getItem(2).isEmpty();
     }
 
     private void resetProgress() {

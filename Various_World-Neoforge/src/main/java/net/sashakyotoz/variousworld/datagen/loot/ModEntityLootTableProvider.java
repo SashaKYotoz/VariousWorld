@@ -17,12 +17,13 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerC
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithEnchantedBonusCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import net.lcc.sollib.api.common.registry.holder.EntityHolder;
 import net.sashakyotoz.variousworld.init.VWEntities;
 import net.sashakyotoz.variousworld.init.VWItems;
 import net.sashakyotoz.variousworld.init.VWRegistryHelper;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class ModEntityLootTableProvider extends EntityLootSubProvider {
@@ -32,8 +33,7 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
 
     @Override
     public void generate() {
-        for (Map.Entry<DeferredHolder<EntityType<?>, ?>, ItemLike> entry : VWRegistryHelper.ENTITY_DROPS.entrySet())
-            add(entry.getKey().get(), this.createSingleItemTable(entry.getValue()));
+        this.add(VWEntities.CRYSTALIC_SLIME.get(), this.createSingleItemTable(VWItems.CRYSTALLINE_SLIME_BALL.get()));
         this.add(
                 VWEntities.WANDERING_ZOMBIE.get(),
                 LootTable.lootTable()
@@ -81,6 +81,8 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
 
     @Override
     protected Stream<EntityType<?>> getKnownEntityTypes() {
-        return VWRegistryHelper.ENTITIES.getEntries().stream().map(Holder::value);
+        List<EntityType<?>> types = new ArrayList<>();
+        VWRegistryHelper.forEach(EntityHolder.class, holder -> types.add(holder.get()));
+        return types.stream();
     }
 }

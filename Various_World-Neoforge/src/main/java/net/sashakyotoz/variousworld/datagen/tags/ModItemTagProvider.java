@@ -9,7 +9,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import net.lcc.sollib.api.common.registry.holder.ItemHolder;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWRegistryHelper;
@@ -26,10 +26,12 @@ public class ModItemTagProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        for (TagKey<Item> tag : VWRegistryHelper.ITEM_TAGS.keySet()) {
-            for (Item item : VWRegistryHelper.ITEM_TAGS.get(tag))
-                this.tag(tag).add(item);
-        }
+        VWRegistryHelper.forEach(ItemHolder.class, holder -> {
+            for (TagKey<Item> tag : holder.getTags())
+                this.tag(tag).add(holder.get());
+            if (holder.get() instanceof ArmorItem armorItem)
+                this.tag(ItemTags.TRIMMABLE_ARMOR).add(armorItem);
+        });
         this.tag(VWTags.Items.CRYSTALIC_OAK_LOGS).add(
                 VWBlocks.CRYSTALIC_OAK_LOG.get().asItem(),
                 VWBlocks.STRIPPED_CRYSTALIC_OAK_LOG.get().asItem(),
@@ -42,9 +44,5 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 VWBlocks.STRIPPED_BLUE_JACARANDA_WOOD.get().asItem(),
                 VWBlocks.BLUE_JACARANDA_WOOD.get().asItem()
         );
-        for (DeferredHolder<Item, ? extends Item> item : VWRegistryHelper.ITEMS.getEntries()) {
-            if (item.get() instanceof ArmorItem armorItem)
-                this.tag(ItemTags.TRIMMABLE_ARMOR).add(armorItem);
-        }
     }
 }

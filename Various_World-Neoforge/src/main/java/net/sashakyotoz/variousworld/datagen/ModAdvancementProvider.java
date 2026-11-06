@@ -9,6 +9,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
@@ -31,14 +32,14 @@ public class ModAdvancementProvider extends AdvancementProvider {
         @Override
         public void generate(HolderLookup.Provider provider, Consumer<AdvancementHolder> consumer, ExistingFileHelper existingFileHelper) {
             Advancement.Builder builder = Advancement.Builder.advancement();
-            AdvancementHolder advancement = addBiomes(builder.display(VWBlocks.BLUE_JACARANDA_SAPLING.toStack(),
+            AdvancementHolder advancement = addBiomes(builder.display(new ItemStack(VWBlocks.BLUE_JACARANDA_SAPLING.get()),
                                     Component.translatable("advancement.various_world.across_the_world"), Component.translatable("advancement.various_world.across_the_world.desc"),
                                     VariousWorld.createVWLocation("textures/gui/across_the_world.png"), AdvancementType.TASK, true, true, true)
                             .requirements(AdvancementRequirements.anyOf(List.of("various_world:blue_jacaranda_meadow", "various_world:crystalline_forest", "various_world:reclaimite_caves")))
                             .rewards(AdvancementRewards.Builder.experience(10)),
                     provider, List.of(VWBiomes.BLUE_JACARANDA_MEADOW, VWBiomes.CRYSTALLINE_FOREST, VWBiomes.RECLAIMITE_CAVES)).save(consumer, VariousWorld.createVWLocation("across_the_world"), existingFileHelper);
             builder = Advancement.Builder.advancement();
-            addBiomes(builder.display(VWBlocks.SODALITE_WART.toStack(),
+            addBiomes(builder.display(new ItemStack(VWBlocks.SODALITE_WART.get()),
                                     Component.translatable("advancement.various_world.master_of_various_world"), Component.translatable("advancement.various_world.master_of_various_world.desc"), null, AdvancementType.CHALLENGE, true, true, false)
                             .parent(advancement)
                             .addCriterion("sodalite_shard", InventoryChangeTrigger.TriggerInstance.hasItems(VWItems.SODALITE_SHARD.get()))
@@ -50,7 +51,7 @@ public class ModAdvancementProvider extends AdvancementProvider {
                             .rewards(AdvancementRewards.Builder.experience(30)),
                     provider, List.of(VWBiomes.BLUE_JACARANDA_MEADOW, VWBiomes.CRYSTALLINE_FOREST, VWBiomes.RECLAIMITE_CAVES)).save(consumer, VariousWorld.createVWLocation("master_of_various_world"), existingFileHelper);
             builder = Advancement.Builder.advancement();
-            builder.display(VWBlocks.ARTIFACT_TABLE.toStack(),
+            builder.display(new ItemStack(VWBlocks.ARTIFACT_TABLE.get()),
                             Component.translatable("advancement.various_world.tabled"), Component.translatable("advancement.various_world.tabled.desc"), null, AdvancementType.GOAL, true, true, false)
                     .parent(advancement)
                     .addCriterion("disassembly_table", InventoryChangeTrigger.TriggerInstance.hasItems(VWBlocks.DISASSEMBLY_TABLE.get()))

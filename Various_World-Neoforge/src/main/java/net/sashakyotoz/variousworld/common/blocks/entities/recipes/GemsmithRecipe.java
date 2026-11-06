@@ -11,7 +11,7 @@ public interface GemsmithRecipe extends Recipe<GemsmithRecipeInput> {
     }
 
     default ItemStack getToastSymbol() {
-        return VWBlocks.GEMSMITH_TABLE.toStack();
+        return new ItemStack(VWBlocks.GEMSMITH_TABLE.get());
     }
 
     boolean isToolIngredient(ItemStack tool);

@@ -3,7 +3,7 @@ loaderVersion = "[4,)" #mandatory
 license = "AGNYA License"
 [[mods]] #mandatory
 modId = "various_world" #mandatory
-version = "1.1.1r" #mandatory
+version = "1.2r" #mandatory
 displayName = "Various World" #mandatory
 displayURL = "https://sashakyotoz.github.io/sashakyotoz_dev/" #optional
 logoFile="logo.png" #optional
@@ -14,8 +14,6 @@ description = '''Across world and its beauty!'''
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.
 [[mixins]]
 config = "various_world.mixins.json"
-[[accessTransformers]]
-file="META-INF/accesstransformer.cfg"
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.various_world]] #optional
@@ -30,4 +28,11 @@ modId = "minecraft"
 type = "required"
 versionRange = "[1.21.1,1.22)"
 ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.various_world]]
+modId = "sollib"
+type = "required"
+versionRange = "[2.1,)"
+ordering = "AFTER"
 side = "BOTH"

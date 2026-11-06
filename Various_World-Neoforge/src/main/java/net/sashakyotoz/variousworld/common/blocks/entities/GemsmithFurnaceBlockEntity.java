@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 
 public class GemsmithFurnaceBlockEntity extends BlockEntity {
+    public static final int MAX_FUEL = 6400;
     public int fuel = 0;
 
     public GemsmithFurnaceBlockEntity(BlockPos pos, BlockState blockState) {
@@ -19,13 +20,22 @@ public class GemsmithFurnaceBlockEntity extends BlockEntity {
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        fuel = tag.getInt("furnace.progress");
+        fuel = Math.min(MAX_FUEL, tag.getInt("furnace.progress"));
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         tag.putInt("furnace.progress", this.fuel);
+    }
+
+    public boolean isFull() {
+        return this.fuel >= MAX_FUEL;
+    }
+
+    public void addFuel(int amount) {
+        this.fuel = Math.min(MAX_FUEL, this.fuel + amount);
+        this.setChanged();
     }
 
     public void tick(Level level, BlockPos pos, BlockState state, GemsmithFurnaceBlockEntity blockEntity) {

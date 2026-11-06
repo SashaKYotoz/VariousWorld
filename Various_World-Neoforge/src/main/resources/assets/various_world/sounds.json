@@ -1,16 +1,123 @@
 {
-  "biome.sculk_valley": {
-    "subtitle": "subtitles.sculk_valley_sounds",
-    "sounds": [
-      "various_world:biome/sculk_valley/sculk_valley"
-    ]
-  },
-  "entity.wandering_zombie_ambient": {
+  "entity.wandering_zombie.ambient": {
     "subtitle": "subtitles.entity.zombie.ambient",
     "sounds": [
-      "various_world:entity/various_zombie/wandering_zombie_ambient",
-      "various_world:entity/various_zombie/wandering_zombie_ambient1",
-      "various_world:entity/various_zombie/wandering_zombie_ambient2"
+      "various_world:entity/wandering_zombie/wandering_zombie_ambient",
+      "various_world:entity/wandering_zombie/wandering_zombie_ambient1",
+      "various_world:entity/wandering_zombie/wandering_zombie_ambient2"
+    ]
+  },
+  "entity.squealing_spider.ambient": {
+    "subtitle": "subtitles.various_world.squealing_spider.ambient",
+    "sounds": [
+      {
+        "name": "minecraft:mob/spider/say1",
+        "pitch": 1.55
+      },
+      {
+        "name": "minecraft:mob/spider/say2",
+        "pitch": 1.6
+      },
+      {
+        "name": "minecraft:mob/spider/say3",
+        "pitch": 1.5
+      },
+      {
+        "name": "minecraft:mob/spider/say4",
+        "pitch": 1.65
+      },
+      {
+        "name": "minecraft:block/amethyst/resonate1",
+        "pitch": 1.3,
+        "volume": 0.7,
+        "weight": 1
+      },
+      {
+        "name": "minecraft:block/amethyst/resonate3",
+        "pitch": 1.4,
+        "volume": 0.7,
+        "weight": 1
+      }
+    ]
+  },
+  "entity.squealing_spider.hurt": {
+    "subtitle": "subtitles.various_world.squealing_spider.hurt",
+    "sounds": [
+      {
+        "name": "minecraft:mob/spider/say1",
+        "pitch": 1.8
+      },
+      {
+        "name": "minecraft:mob/spider/say3",
+        "pitch": 1.85
+      },
+      {
+        "name": "minecraft:block/amethyst_cluster/break1",
+        "pitch": 1.4,
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:block/amethyst_cluster/break3",
+        "pitch": 1.5,
+        "volume": 0.8
+      }
+    ]
+  },
+  "entity.squealing_spider.death": {
+    "subtitle": "subtitles.various_world.squealing_spider.death",
+    "sounds": [
+      {
+        "name": "minecraft:mob/spider/death",
+        "pitch": 1.45
+      }
+    ]
+  },
+  "entity.squealing_spider.shatter": {
+    "subtitle": "subtitles.various_world.squealing_spider.shatter",
+    "sounds": [
+      {
+        "name": "minecraft:block/amethyst_cluster/break2",
+        "pitch": 0.9
+      },
+      {
+        "name": "minecraft:block/amethyst_cluster/break4",
+        "pitch": 1.0
+      }
+    ]
+  },
+  "entity.squealing_spider.step": {
+    "subtitle": "subtitles.various_world.squealing_spider.step",
+    "sounds": [
+      {
+        "name": "minecraft:mob/spider/step1",
+        "pitch": 1.3,
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:mob/spider/step2",
+        "pitch": 1.35,
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:mob/spider/step3",
+        "pitch": 1.3,
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:mob/spider/step4",
+        "pitch": 1.4,
+        "volume": 0.8
+      },
+      {
+        "name": "minecraft:block/amethyst/step1",
+        "pitch": 1.5,
+        "volume": 0.5
+      },
+      {
+        "name": "minecraft:block/amethyst/step3",
+        "pitch": 1.5,
+        "volume": 0.5
+      }
     ]
   }
 }

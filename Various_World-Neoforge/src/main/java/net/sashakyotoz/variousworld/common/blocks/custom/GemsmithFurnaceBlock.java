@@ -6,7 +6,12 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -22,6 +27,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.sashakyotoz.variousworld.common.blocks.entities.GemsmithFurnaceBlockEntity;
 import net.sashakyotoz.variousworld.init.VWBlocks;
+import net.sashakyotoz.variousworld.platform.VWPlatform;
 import org.jetbrains.annotations.Nullable;
 
 public class GemsmithFurnaceBlock extends BaseEntityBlock {
@@ -57,18 +63,30 @@ public class GemsmithFurnaceBlock extends BaseEntityBlock {
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (stack.getBurnTime(RecipeType.SMELTING) > 0 && level.getBlockEntity(pos) instanceof GemsmithFurnaceBlockEntity entity && !level.isClientSide()) {
-            entity.fuel += stack.getBurnTime(RecipeType.SMELTING);
-            level.setBlockAndUpdate(pos, state.setValue(LIT, true));
-            stack.shrink(1);
+        int burnTime = VWPlatform.INSTANCE.getBurnTime(stack);
+        if (burnTime <= 0 || !(level.getBlockEntity(pos) instanceof GemsmithFurnaceBlockEntity entity))
+            return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+        if (level.isClientSide())
+            return ItemInteractionResult.SUCCESS;
+        if (entity.isFull()) {
+            player.displayClientMessage(Component.translatable("message.various_world.gemsmith_furnace_full"), true);
             return ItemInteractionResult.CONSUME;
         }
-        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+        entity.addFuel(burnTime);
+        if (!state.getValue(LIT))
+            level.setBlockAndUpdate(pos, state.setValue(LIT, true));
+        Item remainder = stack.getItem().getCraftingRemainingItem();
+        if (remainder != null)
+            player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(remainder)));
+        else
+            stack.consume(1, player);
+        level.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 0.6F, 1.4F);
+        return ItemInteractionResult.CONSUME;
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Override

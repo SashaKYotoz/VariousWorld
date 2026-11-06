@@ -6,7 +6,7 @@ import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import net.lcc.sollib.api.common.registry.holder.EntityHolder;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.init.VWRegistryHelper;
 import org.jetbrains.annotations.Nullable;
@@ -23,8 +23,9 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        for (Map.Entry<TagKey<EntityType<?>>, List<DeferredHolder<EntityType<?>, ?>>> tag : VWRegistryHelper.ENTITY_TAGS.entrySet()) {
-            this.tag(tag.getKey()).add(tag.getValue().getLast().get());
-        }
+        VWRegistryHelper.forEach(EntityHolder.class, holder -> {
+            for (TagKey<EntityType<?>> tag : holder.getTags())
+                this.tag(tag).add(holder.get());
+        });
     }
 }

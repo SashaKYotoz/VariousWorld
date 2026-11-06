@@ -8,7 +8,6 @@ import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.common.world.ModCarvers;
-import net.sashakyotoz.variousworld.common.world.features.ModBiomeModifiers;
 import net.sashakyotoz.variousworld.common.world.features.ModConfiguredFeatures;
 import net.sashakyotoz.variousworld.common.world.features.ModPlacedFeatures;
 import net.sashakyotoz.variousworld.init.VWBiomes;

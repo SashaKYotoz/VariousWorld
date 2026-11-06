@@ -69,6 +69,8 @@
   "entity.various_world.crystalic_slime": "Crystalic Slime",
   "entity.various_world.squealing_spider": "Squealing Spider",
   "entity.various_world.wandering_zombie": "Wandering Zombie",
+  "gui.various_world.gemsmith_table.bonus": "%s %s",
+  "gui.various_world.gemsmith_table.preview": "Gemsmithing result",
   "item.various_world.crystalic_slime_spawn_egg": "Crystalic Slime Spawn Egg",
   "item.various_world.crystalline_slime_ball": "Crystalline Slime Ball",
   "item.various_world.crystalline_strength": "Crystalline Strength",
@@ -79,9 +81,18 @@
   "item.various_world.supply_crystal": "Supply Crystal",
   "item.various_world.wandering_zombie_spawn_egg": "Wandering Zombie Spawn Egg",
   "jei.various_world.artifact_table": "Artifact Table \n table block that allows to spread effect of potion in small area. \n Requires redstone power, potion, dragon breath and some valuable item to work.",
+  "jei.various_world.crystalline_slime_ball": "Crystalline Slime Ball \n use it on a water cauldron to wash the crystals off and get a regular Slime Ball",
   "jei.various_world.disassembly_table": "Disassembly Table \n table block that allows to gather part of crafting ingredients of item. Only 3x3 recipes are detectable",
+  "jei.various_world.gemsmith_furnace": "Gemsmith Furnace \n use any furnace fuel on it to heat it up, up to %s seconds of heat. \n Place it next to a Gemsmithing Table; gemsmithing only progresses while the furnace is lit",
   "jei.various_world.gemsmith_table": "Gemsmithing Table \n table block that allows to modify tools adding materials. \n Recipes and models are registering dynamically, only config changes are required",
+  "jei.various_world.gemsmith_table.furnace": "Needs a lit Gemsmith Furnace placed right next to the table",
+  "message.various_world.gemsmith_furnace_full": "Gemsmith Furnace is full of heat",
   "message.various_world.geode_not_found": "No crystal cluster was found",
   "message.various_world.geode_was_found": "Crystal cluster was found",
-  "message.various_world.press_shift": "Press [ Shift ]"
+  "message.various_world.press_shift": "Press [ Shift ]",
+  "subtitles.various_world.squealing_spider.ambient": "Squealing Spider squeals",
+  "subtitles.various_world.squealing_spider.death": "Squealing Spider dies",
+  "subtitles.various_world.squealing_spider.hurt": "Squealing Spider hurts",
+  "subtitles.various_world.squealing_spider.shatter": "Crystals shatter",
+  "subtitles.various_world.squealing_spider.step": "Squealing Spider skitters"
 }

@@ -12,6 +12,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.sashakyotoz.variousworld.common.GemsmithingHelper;
 import net.sashakyotoz.variousworld.common.OnActionsTrigger;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import net.sashakyotoz.variousworld.common.items.data.CrystalData;
@@ -49,27 +50,7 @@ public class GemsmithTransformRecipe implements GemsmithRecipe {
 
     @Override
     public ItemStack assemble(GemsmithRecipeInput input, HolderLookup.Provider provider) {
-        List<ModConfigController.GemsmithingSetting> setting = ModConfigController.CRYSTALING_CONFIG_VALUES;
-        if (input.tool().getItem() instanceof TieredItem && setting != null) {
-            ItemStack itemstack = input.tool().copy();
-            ItemStack supplyGemStack = VWItems.SUPPLY_CRYSTAL.toStack();
-            String toolName;
-            for (ModConfigController.GemsmithingSetting crystalingSetting : setting) {
-                if (input.gem().is(crystalingSetting.item().build())) {
-                    toolName = OnActionsTrigger.getToolName(itemstack);
-                    supplyGemStack.set(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get(), new SupplyCrystalData(
-                            input.gem(),
-                            toolName
-                    ));
-                    itemstack.set(VWMiscRegistries.CRYSTAL_DATA.get(), new CrystalData(
-                            supplyGemStack,
-                            crystalingSetting.durability()
-                    ));
-                }
-            }
-            return itemstack;
-        } else
-            return input.tool();
+        return GemsmithingHelper.applyGem(input.tool(), input.gem());
     }
 
     @Override

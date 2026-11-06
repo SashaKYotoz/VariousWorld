@@ -11,7 +11,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
-import net.neoforged.neoforge.registries.DeferredBlock;
+import net.lcc.sollib.api.common.registry.data.block.BlockModel;
+import net.lcc.sollib.api.common.registry.holder.BlockHolder;
+import net.minecraft.world.level.block.Block;
 import net.sashakyotoz.variousworld.datagen.builders.GemsmithRecipeBuilder;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWItems;
@@ -28,23 +30,32 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     @Override
     protected void buildRecipes(RecipeOutput recipeOutput) {
-        for (DeferredBlock<?> block : VWRegistryHelper.BLOCK_SETS.keySet()) {
-            for (Map.Entry<VWRegistryHelper.Models, DeferredBlock<?>> entry : VWRegistryHelper.BLOCK_SETS.get(block).entrySet()) {
+        VWRegistryHelper.forEach(BlockHolder.class, holder -> {
+            Block base = holder.get();
+            for (Map.Entry<BlockModel, BlockHolder> entry : holder.getBlockSet().entrySet()) {
+                Block child = entry.getValue().get();
                 switch (entry.getKey()) {
-                    case STAIRS -> stairs(recipeOutput, entry.getValue().get(), block.get());
-                    case SLAB ->
-                            slab(recipeOutput, RecipeCategory.BUILDING_BLOCKS, entry.getValue().get(), block.get());
-                    case DOOR -> door(recipeOutput, entry.getValue().get(), block.get());
-                    case TRAPDOOR -> trapdoor(recipeOutput, entry.getValue().get(), block.get());
-                    case BUTTON -> button(recipeOutput, entry.getValue().get(), block.get());
-                    case PRESSURE_PLATE -> pressurePlate(recipeOutput, entry.getValue().get(), block.get());
-                    case FENCE -> fence(recipeOutput, entry.getValue().get(), block.get());
-                    case FENCE_GATE -> fenceGate(recipeOutput, entry.getValue().get(), block.get());
-                    case SIGN -> sign(recipeOutput, entry.getValue().get(), block.get());
-                    case HANGING_SIGN -> hangingSign(recipeOutput, entry.getValue().get(), block.get());
+                    case STAIRS -> stairs(recipeOutput, child, base);
+                    case SLAB -> slab(recipeOutput, RecipeCategory.BUILDING_BLOCKS, child, base);
+                    case BUTTON -> button(recipeOutput, child, base);
+                    case PRESSURE_PLATE -> pressurePlate(recipeOutput, child, base);
+                    case FENCE -> fence(recipeOutput, child, base);
+                    case FENCE_GATE -> fenceGate(recipeOutput, child, base);
+                    case WALL -> wall(recipeOutput, RecipeCategory.DECORATIONS, child, base);
+                    default -> {
+                    }
                 }
             }
+        });
+        for (VWBlocks.WoodSigns signs : VWBlocks.SIGNS) {
+            sign(recipeOutput, signs.sign().get(), signs.planks().get());
+            hangingSign(recipeOutput, signs.hangingSign().get(), signs.planks().get());
         }
+        door(recipeOutput, VWBlocks.CRYSTALIC_OAK_DOOR.get(), VWBlocks.CRYSTALIC_OAK_PLANKS.get());
+        trapdoor(recipeOutput, VWBlocks.CRYSTALIC_OAK_TRAPDOOR.get(), VWBlocks.CRYSTALIC_OAK_PLANKS.get());
+        door(recipeOutput, VWBlocks.BLUE_JACARANDA_DOOR.get(), VWBlocks.BLUE_JACARANDA_PLANKS.get());
+        trapdoor(recipeOutput, VWBlocks.BLUE_JACARANDA_TRAPDOOR.get(), VWBlocks.BLUE_JACARANDA_PLANKS.get());
+
         woodFromLogs(recipeOutput, VWBlocks.CRYSTALIC_OAK_WOOD.get(), VWBlocks.CRYSTALIC_OAK_LOG.get());
         woodFromLogs(recipeOutput, VWBlocks.STRIPPED_CRYSTALIC_OAK_WOOD.get(), VWBlocks.STRIPPED_CRYSTALIC_OAK_LOG.get());
 
@@ -60,8 +71,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, VWItems.GEODE_COMPASS.get())
                 .define('A', Items.AMETHYST_SHARD)
                 .define('#', Items.DRIPSTONE_BLOCK)
-                .define('S', VWItems.SODALITE_SHARD)
-                .define('R', VWItems.RECLAIMITE_SHARD)
+                .define('S', VWItems.SODALITE_SHARD.get())
+                .define('R', VWItems.RECLAIMITE_SHARD.get())
                 .pattern(" #A")
                 .pattern("#R#")
                 .pattern("S# ")

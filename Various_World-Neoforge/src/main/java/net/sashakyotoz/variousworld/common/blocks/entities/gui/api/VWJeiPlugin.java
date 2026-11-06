@@ -15,7 +15,9 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.GemsmithTableScreen;
 import net.sashakyotoz.variousworld.common.blocks.entities.recipes.GemsmithTransformRecipe;
+import net.sashakyotoz.variousworld.common.blocks.entities.GemsmithFurnaceBlockEntity;
 import net.sashakyotoz.variousworld.init.VWBlocks;
+import net.sashakyotoz.variousworld.init.VWItems;
 
 import java.util.List;
 
@@ -40,6 +42,8 @@ public class VWJeiPlugin implements IModPlugin {
         registration.addIngredientInfo(VWBlocks.DISASSEMBLY_TABLE.get(), Component.translatable("jei.various_world.disassembly_table"));
         registration.addIngredientInfo(VWBlocks.ARTIFACT_TABLE.get(), Component.translatable("jei.various_world.artifact_table"));
         registration.addIngredientInfo(VWBlocks.GEMSMITH_TABLE.get(), Component.translatable("jei.various_world.gemsmith_table"));
+        registration.addIngredientInfo(VWBlocks.GEMSMITH_FURNACE.get(), Component.translatable("jei.various_world.gemsmith_furnace", GemsmithFurnaceBlockEntity.MAX_FUEL / 20));
+        registration.addIngredientInfo(VWItems.CRYSTALLINE_SLIME_BALL.get(), Component.translatable("jei.various_world.crystalline_slime_ball"));
     }
 
     @Override
@@ -51,5 +55,6 @@ public class VWJeiPlugin implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(VWBlocks.GEMSMITH_TABLE.get()), GemsmithRecipeCategory.GEMSMITH_RECIPE);
+        registration.addRecipeCatalyst(new ItemStack(VWBlocks.GEMSMITH_FURNACE.get()), GemsmithRecipeCategory.GEMSMITH_RECIPE);
     }
 }
