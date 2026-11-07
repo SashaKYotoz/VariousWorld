@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "various_world:gemsmither_poi",
+      "required": false
+    },
+    {
+      "id": "various_world:artifactologist_poi",
+      "required": false
+    }
+  ]
+}

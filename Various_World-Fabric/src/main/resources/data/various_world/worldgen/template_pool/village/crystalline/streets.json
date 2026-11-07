@@ -1,0 +1,113 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "various_world:village/crystalline/streets/corner_01",
+        "processors": "minecraft:street_plains",
+        "projection": "terrain_matching"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "various_world:village/crystalline/streets/corner_02",
+        "processors": "minecraft:street_plains",
+        "projection": "terrain_matching"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "various_world:village/crystalline/streets/corner_03",
+        "processors": "minecraft:street_plains",
+        "projection": "terrain_matching"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "various_world:village/crystalline/streets/straight_01",
+        "processors": "minecraft:street_plains",
+        "projection": "terrain_matching"
+      },
+      "weight": 4
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "various_world:village/crystalline/streets/straight_02",
+        "processors": "minecraft:street_plains",
+        "projection": "terrain_matching"
+      },
+      "weight": 4
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "various_world:village/crystalline/streets/straight_03",
+        "processors": "minecraft:street_plains",
+        "projection": "terrain_matching"
+      },
+      "weight": 7
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "various_world:village/crystalline/streets/straight_04",
+        "processors": "minecraft:street_plains",
+        "projection": "terrain_matching"
+      },
+      "weight": 7
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "minecraft:village/crystalline/streets/crossroad_01",
+        "processors": "minecraft:street_plains",
+        "projection": "terrain_matching"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "various_world:village/crystalline/streets/crossroad_02",
+        "processors": "minecraft:street_plains",
+        "projection": "terrain_matching"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "various_world:village/crystalline/streets/crossroad_03",
+        "processors": "minecraft:street_plains",
+        "projection": "terrain_matching"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "various_world:village/crystalline/streets/crossroad_04",
+        "processors": "minecraft:street_plains",
+        "projection": "terrain_matching"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:legacy_single_pool_element",
+        "location": "various_world:village/crystalline/streets/turn_01",
+        "processors": "minecraft:street_plains",
+        "projection": "terrain_matching"
+      },
+      "weight": 3
+    }
+  ],
+  "fallback": "various_world:village/crystalline/terminators"
+}

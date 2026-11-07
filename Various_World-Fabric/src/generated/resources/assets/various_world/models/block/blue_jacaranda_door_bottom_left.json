@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_left",
+  "textures": {
+    "bottom": "various_world:block/blue_jacaranda_door_top",
+    "top": "various_world:block/blue_jacaranda_door_bottom"
+  }
+}

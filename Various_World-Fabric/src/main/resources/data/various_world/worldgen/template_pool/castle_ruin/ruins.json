@@ -1,0 +1,84 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "various_world:castle_ruins/castle_ruins_tower0",
+        "processors": {
+          "processors": []
+        },
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "various_world:castle_ruins/castle_ruins_tower1",
+        "processors": {
+          "processors": []
+        },
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "terrain_matching",
+        "location": "various_world:castle_ruins/castle_ruins_wall0",
+        "processors": {
+          "processors": []
+        }
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "terrain_matching",
+        "location": "various_world:castle_ruins/castle_ruins_wall1",
+        "processors": {
+          "processors": []
+        }
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "terrain_matching",
+        "location": "various_world:castle_ruins/castle_ruins_wall2",
+        "processors": {
+          "processors": []
+        }
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "terrain_matching",
+        "location": "various_world:castle_ruins/castle_ruins_turn0",
+        "processors": {
+          "processors": []
+        }
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "terrain_matching",
+        "location": "various_world:castle_ruins/castle_ruins_turn1",
+        "processors": {
+          "processors": []
+        }
+      }
+    }
+  ]
+}

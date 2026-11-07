@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/flowerbed_2",
+  "textures": {
+    "flowerbed": "various_world:block/blue_jacaranda_petals",
+    "stem": "various_world:block/blue_jacaranda_petals_stem"
+  }
+}

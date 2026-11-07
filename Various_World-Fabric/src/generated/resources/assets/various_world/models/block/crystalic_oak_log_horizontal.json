@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "various_world:block/crystalic_oak_log_top",
+    "side": "various_world:block/crystalic_oak_log"
+  }
+}

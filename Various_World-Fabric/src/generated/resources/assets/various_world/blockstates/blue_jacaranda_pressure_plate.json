@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "various_world:block/blue_jacaranda_pressure_plate"
+    },
+    "powered=true": {
+      "model": "various_world:block/blue_jacaranda_pressure_plate_down"
+    }
+  }
+}

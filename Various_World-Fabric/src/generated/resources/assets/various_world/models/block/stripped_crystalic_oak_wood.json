@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "various_world:block/stripped_crystalic_oak_wood"
+  }
+}

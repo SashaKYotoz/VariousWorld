@@ -1,0 +1,8 @@
+{
+  "type": "various_world:blocks_chain",
+  "config": {
+    "state": {
+      "Name": "minecraft:cobweb"
+    }
+  }
+}

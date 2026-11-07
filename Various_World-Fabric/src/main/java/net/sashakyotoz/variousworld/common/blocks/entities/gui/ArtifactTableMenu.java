@@ -1,0 +1,79 @@
+package net.sashakyotoz.variousworld.common.blocks.entities.gui;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.PotionItem;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.sashakyotoz.variousworld.common.blocks.entities.ArtifactTableBlockEntity;
+import net.sashakyotoz.variousworld.init.VWBlocks;
+import net.sashakyotoz.variousworld.init.VWMiscRegistries;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+public class ArtifactTableMenu extends ITableMenu {
+    public ArtifactTableBlockEntity blockEntity;
+    private final Level level;
+    private final ContainerData data;
+
+    public ArtifactTableMenu(int id, Inventory inv, BlockPos pos) {
+        this(id, inv, inv.player.level().getBlockEntity(pos), new SimpleContainerData(3));
+    }
+
+    public ArtifactTableMenu(int id, Inventory inv, @Nullable BlockEntity entity, ContainerData data) {
+        super(VWMiscRegistries.ARTIFACT_TABLE.get(), id);
+        if (entity instanceof ArtifactTableBlockEntity table)
+            blockEntity = table;
+        else
+            blockEntity = findBlockEntity(inv.player, ArtifactTableBlockEntity.class);
+        checkContainerSize(blockEntity, 3);
+        this.level = inv.player.level();
+        this.data = data;
+
+        addPlayerInventory(inv);
+        addPlayerHotbar(inv);
+        this.addSlot(new Slot(blockEntity, 0, 56, 48));
+        this.addSlot(new Slot(blockEntity, 1, 104, 48) {
+            @Override
+            public boolean mayPlace(@NotNull ItemStack stack) {
+                return stack.getItem() instanceof PotionItem;
+            }
+        });
+        this.addSlot(new Slot(blockEntity, 2, 80, 48) {
+            @Override
+            public boolean mayPlace(@NotNull ItemStack stack) {
+                return ArtifactTableBlockEntity.catalystTier(stack) > 0;
+            }
+        });
+        addDataSlots(data);
+    }
+
+    public boolean isRefreshing() {
+        return data.get(0) > 0;
+    }
+
+    public boolean isPowered() {
+        return this.blockEntity.getLevel().getBlockState(blockEntity.getBlockPos()).getValue(BlockStateProperties.TRIGGERED);
+    }
+
+    public int getScaledProgress() {
+        int progress = this.data.get(0);
+        int maxProgress = this.data.get(1);
+        int progressArrowSize = 22;
+
+        return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()),
+                player, VWBlocks.ARTIFACT_TABLE.get());
+    }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_post",
+  "textures": {
+    "texture": "various_world:block/blue_jacaranda_planks"
+  }
+}

@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
@@ -23,20 +24,26 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.DisassemblyTableMenu;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWItems;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 public class DisassemblyTableBlockEntity extends BaseContainerBlockEntity {
     public NonNullList<ItemStack> items;
     protected final ContainerData data;
     public int progress = 0;
-    private int maxProgress = 60;
+    private int maxProgress = 30;
     private int fuel = 0;
     private int tick = 0;
     public int clientTick = 0;
+    @Nullable
+    private Item cachedInput;
+    @Nullable
+    private Disassembly cachedDisassembly;
+
+    private record Disassembly(int inputCount, ItemStack primary, ItemStack secondary) {
+    }
 
     public DisassemblyTableBlockEntity(BlockPos pos, BlockState blockState) {
         super(VWBlocks.DISASSEMBLY_TABLE_BE.get(), pos, blockState);
@@ -122,86 +129,90 @@ public class DisassemblyTableBlockEntity extends BaseContainerBlockEntity {
     public void tick(Level level, BlockPos pos, BlockState state, DisassemblyTableBlockEntity blockEntity) {
         if (!level.isClientSide()) {
             tick++;
-            if (tick % 20 == 0) {
-                if (blockEntity.fuel <= 50 && blockEntity.getItem(0).is(VWItems.RECLAIMITE_SHARD.get())) {
-                    blockEntity.removeItem(0, 1);
-                    blockEntity.fuel += 10;
-                }
-                if (hasRecipe(level, blockEntity)) {
+            if (tick % 20 != 0)
+                return;
+            if (blockEntity.fuel <= 50 && blockEntity.getItem(0).is(VWItems.RECLAIMITE_SHARD.get())) {
+                blockEntity.removeItem(0, 1);
+                blockEntity.fuel += 10;
+                setChanged(level, pos, state);
+            }
+            Disassembly disassembly = blockEntity.resolve(level);
+            if (disassembly != null) {
+                if (blockEntity.fuel > 0) {
                     blockEntity.fuel--;
-                    if (blockEntity.fuel > 0)
-                        blockEntity.progress++;
-                    else if (blockEntity.progress > 0)
-                        blockEntity.progress--;
-                    setChanged(level, pos, state);
-                    if (blockEntity.progress >= blockEntity.maxProgress)
-                        craftItem(level, blockEntity);
-                } else {
-                    blockEntity.resetProgress();
-                    setChanged(level, pos, state);
-                }
+                    blockEntity.progress++;
+                } else if (blockEntity.progress > 0)
+                    blockEntity.progress--;
+                setChanged(level, pos, state);
+                if (blockEntity.progress >= blockEntity.maxProgress)
+                    blockEntity.craftItem(level, disassembly);
+            } else if (blockEntity.progress != 0) {
+                blockEntity.resetProgress();
+                setChanged(level, pos, state);
             }
         } else {
             clientTick++;
-            if (hasRecipe(level, blockEntity) && clientTick % 20 == 0) {
+            if (clientTick % 20 == 0 && hasRecipe(level, blockEntity)) {
                 level.playLocalSound(pos, progress < 55 ? SoundEvents.WATER_AMBIENT : SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 1.4f, 0.4f, true);
                 level.addParticle(ParticleTypes.WHITE_ASH, pos.getX() + 0.5f, pos.getY() + 0.8f, pos.getZ() + 0.5f, 0.0D, 0.0D, 0.0D);
             }
         }
     }
 
-    private void craftItem(Level level, DisassemblyTableBlockEntity blockEntity) {
-        ItemStack inputStack = blockEntity.getItem(3);
-        Recipe<?>[] recipes = getRecipesFor(inputStack, level);
-        Recipe<?> recipe = Arrays.stream(recipes).filter(recipe1 -> recipe1.getIngredients().size() > 1).findFirst().orElse(recipes[0]);
-        if (recipe instanceof ShapedRecipe recipe1 && isRecipeValid(recipe1)) {
-            blockEntity.removeItem(3, 1);
-            blockEntity.setItem(1, recipe1.getIngredients().getFirst().getItems()[0].copy());
-            if (Optional.ofNullable(recipe1.getIngredients().getLast().getItems()[0]).isPresent())
-                blockEntity.setItem(2, recipe1.getIngredients().getLast().getItems()[0]);
-        }
-        if (recipe instanceof ShapelessRecipe recipe1 && isRecipeValid(recipe1)) {
-            blockEntity.removeItem(3, 1);
-            blockEntity.setItem(1, recipe1.getIngredients().getFirst().getItems()[0].copy());
-            if (recipe.getIngredients().size() > 1)
-                blockEntity.setItem(2, recipe1.getIngredients().getLast().getItems()[0]);
-        }
+    private void craftItem(Level level, Disassembly disassembly) {
+        this.removeItem(3, disassembly.inputCount());
+        this.setItem(1, disassembly.primary().copy());
+        if (!disassembly.secondary().isEmpty())
+            this.setItem(2, disassembly.secondary().copy());
         if (level instanceof ServerLevel serverLevel)
-            serverLevel.sendBlockUpdated(blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity.getBlockState(), 3);
-        resetProgress();
-    }
-
-    private boolean isRecipeValid(Recipe<?> recipe) {
-        return recipe.getIngredients().getFirst().getItems().length > 0 && recipe.getIngredients().getLast().getItems().length > 0;
+            serverLevel.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
+        this.resetProgress();
     }
 
     public boolean hasRecipe(Level level, DisassemblyTableBlockEntity blockEntity) {
-        return canInsertItemIntoOutputSlots() && !Arrays.stream(getRecipesFor(blockEntity.getItem(3), level)).toList().isEmpty();
+        return blockEntity.resolve(level) != null;
     }
 
-    private Recipe<?>[] getRecipesFor(ItemStack inputStack, Level level) {
-        List<Recipe<?>> recipes = new ArrayList<>();
-        if (!inputStack.isEmpty()) {
-            for (RecipeHolder<?> recipe : level.getRecipeManager().getRecipes()) {
-                if (isRecipeSupported(recipe.value()) &&
-                        !recipe.value().isIncomplete() &&
-                        recipe.value().canCraftInDimensions(3, 3) &&
-                        !recipe.value().getIngredients().isEmpty() &&
-                        recipe.value().getIngredients().getFirst().getItems().length > 0 &&
-                        matches(inputStack, recipe.value().getResultItem(level.registryAccess()))) {
-                    recipes.add(recipe.value());
-                }
-            }
+    @Nullable
+    private Disassembly resolve(Level level) {
+        ItemStack input = this.getItem(3);
+        if (input.isEmpty() || input.isDamaged() || !canInsertItemIntoOutputSlots())
+            return null;
+        if (input.getItem() != this.cachedInput) {
+            this.cachedInput = input.getItem();
+            this.cachedDisassembly = findDisassembly(level, input.getItem());
         }
-        return recipes.toArray(new Recipe<?>[0]);
+        if (this.cachedDisassembly == null || input.getCount() < this.cachedDisassembly.inputCount())
+            return null;
+        return this.cachedDisassembly;
     }
 
-    private static boolean isRecipeSupported(Recipe<?> recipe) {
-        return recipe instanceof CraftingRecipe;
-    }
-
-    private static boolean matches(ItemStack input, ItemStack output) {
-        return input.is(output.getItem()) && input.getCount() >= output.getCount();
+    @Nullable
+    private static Disassembly findDisassembly(Level level, Item item) {
+        Disassembly fallback = null;
+        for (RecipeHolder<?> holder : level.getRecipeManager().getRecipes()) {
+            Recipe<?> recipe = holder.value();
+            if (!(recipe instanceof ShapedRecipe || recipe instanceof ShapelessRecipe) || recipe.isIncomplete() || !recipe.canCraftInDimensions(3, 3))
+                continue;
+            ItemStack result = recipe.getResultItem(level.registryAccess());
+            if (result.isEmpty() || !result.is(item))
+                continue;
+            List<ItemStack> parts = new ArrayList<>();
+            for (Ingredient ingredient : recipe.getIngredients()) {
+                ItemStack[] options = ingredient.getItems();
+                if (options.length > 0 && !options[0].isEmpty())
+                    parts.add(options[0]);
+            }
+            if (parts.isEmpty())
+                continue;
+            Disassembly disassembly = new Disassembly(result.getCount(), parts.getFirst().copyWithCount(1),
+                    parts.size() > 1 ? parts.getLast().copyWithCount(1) : ItemStack.EMPTY);
+            if (parts.size() > 1)
+                return disassembly;
+            if (fallback == null)
+                fallback = disassembly;
+        }
+        return fallback;
     }
 
     private boolean canInsertItemIntoOutputSlots() {

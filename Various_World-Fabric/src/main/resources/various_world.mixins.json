@@ -1,0 +1,31 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.sashakyotoz.variousworld.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "various_world.refmap.json",
+  "mixins": [
+    "accessor.ChunkGeneratorAccessor",
+    "accessor.MultiNoiseBiomeSourceAccessor",
+    "accessor.NoiseBasedChunkGeneratorAccessor",
+    "accessor.SensorTypeAccessor",
+    "accessor.SimpleParticleTypeAccessor",
+    "accessor.VillagerTypeAccessor",
+    "block.PointedDripstoneBlockMixin",
+    "block.StateDefinitionAccess",
+    "entity.PlayerMixin",
+    "fabric.BuiltInRegistriesMixin",
+    "fabric.PoiTypesInvoker",
+    "item.ItemMixin",
+    "item.ItemStackMixin",
+    "item.ProjectileWeaponItemMixin"
+  ],
+  "client": [
+    "ClientRecipeBookMixin",
+    "accessor.ItemRendererAccessor",
+    "block.BlockRenderDispatcherMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

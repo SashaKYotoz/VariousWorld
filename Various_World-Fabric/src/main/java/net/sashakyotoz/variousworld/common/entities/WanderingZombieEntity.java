@@ -1,0 +1,60 @@
+package net.sashakyotoz.variousworld.common.entities;
+
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.sashakyotoz.variousworld.common.GemsmithingHelper;
+import net.sashakyotoz.variousworld.common.items.data.CrystalData;
+import net.sashakyotoz.variousworld.init.VWItems;
+import net.sashakyotoz.variousworld.init.VWMiscRegistries;
+import net.sashakyotoz.variousworld.init.VWSounds;
+
+public class WanderingZombieEntity extends Zombie {
+
+    public WanderingZombieEntity(EntityType<? extends Zombie> entityType, Level level) {
+        super(entityType, level);
+    }
+
+    @Override
+    protected boolean isSunSensitive() {
+        return false;
+    }
+
+    @Override
+    protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
+        if (random.nextFloat() < (this.level().getDifficulty() == Difficulty.HARD ? 0.05F : 0.01F)) {
+            ItemStack tool = random.nextInt(3) == 0 ? new ItemStack(Items.IRON_SWORD) : new ItemStack(Items.IRON_SHOVEL);
+            ItemStack stack = GemsmithingHelper.applyGem(tool, new ItemStack(VWItems.SODALITE_SHARD.get()));
+            CrystalData data = stack.get(VWMiscRegistries.CRYSTAL_DATA.get());
+            if (data != null && data.crystalDurability() > 0)
+                stack.set(VWMiscRegistries.CRYSTAL_DATA.get(), new CrystalData(data.crystalStack(), 16));
+            this.setItemSlot(EquipmentSlot.MAINHAND, stack);
+        }
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return VWSounds.WANDERING_ZOMBIE_AMBIENT.get();
+    }
+
+    public static AttributeSupplier.Builder createAttributes() {
+        AttributeSupplier.Builder builder = Mob.createMobAttributes();
+        builder = builder.add(Attributes.MOVEMENT_SPEED, 0.24);
+        builder = builder.add(Attributes.MAX_HEALTH, 22);
+        builder = builder.add(Attributes.ARMOR, 2);
+        builder = builder.add(Attributes.ATTACK_DAMAGE, 3);
+        builder = builder.add(Attributes.FOLLOW_RANGE, 32);
+        builder = builder.add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
+        return builder;
+    }
+}

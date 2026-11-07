@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "various_world:blue_jacaranda_petals"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:magenta_dye"
+  }
+}

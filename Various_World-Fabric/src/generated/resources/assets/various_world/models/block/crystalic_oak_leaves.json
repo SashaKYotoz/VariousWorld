@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "various_world:block/crystalic_oak_leaves"
+  }
+}

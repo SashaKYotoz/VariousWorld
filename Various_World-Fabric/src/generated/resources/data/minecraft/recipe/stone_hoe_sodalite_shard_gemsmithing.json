@@ -1,0 +1,13 @@
+{
+  "type": "various_world:gemsmith_transform",
+  "gem": {
+    "item": "various_world:sodalite_shard"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:stone_hoe"
+  },
+  "tool": {
+    "item": "minecraft:stone_hoe"
+  }
+}

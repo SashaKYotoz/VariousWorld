@@ -1,0 +1,145 @@
+plugins {
+    id 'java'
+    id 'fabric-loom' version '1.16-SNAPSHOT'
+    id 'maven-publish'
+}
+
+version = mod_version
+group = mod_group_id
+
+base {
+    archivesName = "${mod_id}-fabric-${minecraft_version}"
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    withSourcesJar()
+}
+
+repositories {
+    maven {
+        name = 'ParchmentMC'
+        url = 'https://maven.parchmentmc.org'
+        content {
+            includeGroupAndSubgroups 'org.parchmentmc'
+        }
+    }
+    maven {
+        name = 'BlameJared'
+        url = 'https://maven.blamejared.com'
+        content {
+            includeGroup 'mezz.jei'
+        }
+    }
+    maven {
+        name = 'TerraformersMC'
+        url = 'https://maven.terraformersmc.com/releases'
+        content {
+            includeGroup 'com.terraformersmc'
+        }
+    }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = 'Modrinth'
+                url = 'https://api.modrinth.com/maven'
+            }
+        }
+        filter {
+            includeGroup 'maven.modrinth'
+        }
+    }
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/${mod_id}.accesswidener")
+
+    mixin {
+        defaultRefmapName = "${mod_id}.refmap.json"
+    }
+
+    runs {
+        client {
+            client()
+            configName = 'Fabric Client'
+            ideConfigGenerated true
+            runDir 'run'
+        }
+        server {
+            server()
+            configName = 'Fabric Server'
+            ideConfigGenerated true
+            runDir 'run-server'
+        }
+    }
+}
+
+sourceSets.main.resources.srcDir 'src/generated/resources'
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings loom.layered {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${parchment_minecraft_version}:${parchment_mappings_version}@zip")
+    }
+
+    modImplementation "net.fabricmc:fabric-loader:${loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+    modImplementation "maven.modrinth:sollib:${sollib_version}"
+
+    modCompileOnly "mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}"
+    modLocalRuntime "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
+    modLocalRuntime "com.terraformersmc:modmenu:${modmenu_version}"
+}
+
+processResources {
+    def props = [
+            mod_id            : mod_id,
+            mod_name          : mod_name,
+            mod_version       : mod_version,
+            mod_license       : mod_license,
+            mod_authors       : mod_authors,
+            mod_description   : mod_description,
+            minecraft_version : minecraft_version,
+            loader_version    : loader_version,
+            sollib_min_version: sollib_min_version
+    ]
+    inputs.properties props
+    filesMatching('fabric.mod.json') {
+        expand props
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = 'UTF-8'
+    it.options.release = 21
+}
+
+tasks.register('syncNeoForgeGenerated', Sync) {
+    group = 'various world'
+    description = 'Copies the NeoForge datagen output into src/generated/resources, without NeoForge-only data.'
+    from(file('../Various_World-Neoforge/src/generated/resources')) {
+        exclude '.cache/**', 'data/neoforge/**', 'data/*/neoforge/**'
+    }
+    into 'src/generated/resources'
+}
+
+jar {
+    from('LICENSE') {
+        rename { "${it}_${mod_id}" }
+    }
+}
+
+publishing {
+    publications {
+        register('mavenJava', MavenPublication) {
+            artifactId = base.archivesName.get()
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url = "file://${project.projectDir}/repo"
+        }
+    }
+}

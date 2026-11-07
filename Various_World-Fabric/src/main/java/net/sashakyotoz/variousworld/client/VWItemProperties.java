@@ -1,0 +1,62 @@
+package net.sashakyotoz.variousworld.client;
+
+
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
+import net.minecraft.client.renderer.item.CompassItemPropertyFunction;
+import net.minecraft.client.renderer.item.ItemPropertyFunction;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.CompassItem;
+import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
+import net.sashakyotoz.variousworld.common.config.ModConfigController;
+import net.sashakyotoz.variousworld.common.config.VWRuntimeData;
+import net.sashakyotoz.variousworld.common.items.data.GeodeCompassData;
+import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
+import net.sashakyotoz.variousworld.init.VWItems;
+import net.sashakyotoz.variousworld.init.VWMiscRegistries;
+
+import java.util.Arrays;
+
+public class VWItemProperties {
+    public static void init() {
+        ItemProperties.register(VWItems.SUPPLY_CRYSTAL.get(), ResourceLocation.withDefaultNamespace("crystal"), unclamped((itemStack, clientLevel, livingEntity, i) -> {
+            if (itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get()) != null && ModConfigController.CRYSTALING_CONFIG_VALUES != null) {
+                for (ModConfigController.GemsmithingSetting setting : ModConfigController.CRYSTALING_CONFIG_VALUES) {
+                    SupplyCrystalData data = itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get());
+                    if (data != null && data.crystalStack().is(setting.item().build()))
+                        return ModConfigController.CRYSTALING_CONFIG_VALUES.indexOf(setting) + 1;
+                }
+            }
+            return 0;
+        }));
+        ItemProperties.register(VWItems.SUPPLY_CRYSTAL.get(), ResourceLocation.withDefaultNamespace("tool"), unclamped((itemStack, clientLevel, livingEntity, i) -> {
+            if (itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get()) != null) {
+                SupplyCrystalData data = itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get());
+                if (data != null)
+                    return Arrays.asList(VWRuntimeData.TOOL_NAMES).indexOf(data.toolType()) + 1;
+            }
+            return 0;
+        }));
+        ItemProperties.register(VWItems.GEODE_COMPASS.get(), ResourceLocation.withDefaultNamespace("angle"), new CompassItemPropertyFunction((level, stack, entity) -> {
+            GeodeCompassData data = stack.get(VWMiscRegistries.GEODE_COMPASS_DATA.get());
+            return data != null ? data.globalPos() : CompassItem.getSpawnPosition(level);
+        }));
+    }
+
+    private static ClampedItemPropertyFunction unclamped(ItemPropertyFunction function) {
+        return new ClampedItemPropertyFunction() {
+            @Override
+            public float unclampedCall(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int seed) {
+                return function.call(stack, level, entity, seed);
+            }
+
+            @Override
+            public float call(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int seed) {
+                return this.unclampedCall(stack, level, entity, seed);
+            }
+        };
+    }
+}

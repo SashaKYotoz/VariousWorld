@@ -1,0 +1,14 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "various_world:castle_ruins/crystalline_ruined_tower",
+        "processors": "various_world:ruined_tower"
+      }
+    }
+  ]
+}

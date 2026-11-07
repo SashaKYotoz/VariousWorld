@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
+  "authors": [
+    "${mod_authors}"
+  ],
+  "contact": {
+    "homepage": "https://sashakyotoz.github.io/sashakyotoz_dev/",
+    "sources": "https://github.com/SashaKYotoz/VariousWorld"
+  },
+  "license": "${mod_license}",
+  "icon": "logo.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.sashakyotoz.variousworld.fabric.VariousWorldFabric"
+    ],
+    "client": [
+      "net.sashakyotoz.variousworld.fabric.client.VariousWorldFabricClient"
+    ],
+    "jei_mod_plugin": [
+      "net.sashakyotoz.variousworld.common.blocks.entities.gui.api.VWJeiPlugin"
+    ]
+  },
+  "mixins": [
+    "various_world.mixins.json"
+  ],
+  "accessWidener": "various_world.accesswidener",
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "~${minecraft_version}",
+    "java": ">=21",
+    "sollib": ">=${sollib_min_version}"
+  },
+  "suggests": {
+    "jei": "*"
+  }
+}

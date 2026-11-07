@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "various_world:block/blue_jacaranda_log_top",
+    "side": "various_world:block/blue_jacaranda_log"
+  }
+}

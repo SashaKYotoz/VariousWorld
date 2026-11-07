@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "closed=false": {
+      "model": "various_world:block/sodalite_wart"
+    },
+    "closed=true": {
+      "model": "various_world:block/sodalite_wart_closed"
+    }
+  }
+}

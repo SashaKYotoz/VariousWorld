@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "various_world:block/stripped_blue_jacaranda_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "various_world:block/stripped_blue_jacaranda_log"
+    },
+    "axis=z": {
+      "model": "various_world:block/stripped_blue_jacaranda_log_horizontal",
+      "x": 90
+    }
+  }
+}

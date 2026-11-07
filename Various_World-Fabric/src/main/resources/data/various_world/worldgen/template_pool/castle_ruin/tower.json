@@ -1,0 +1,23 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "various_world:castle_ruins/ruined_tower_allay",
+        "processors": "various_world:ruined_tower"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "various_world:castle_ruins/ruined_tower_broken",
+        "processors": "various_world:ruined_tower"
+      }
+    }
+  ]
+}

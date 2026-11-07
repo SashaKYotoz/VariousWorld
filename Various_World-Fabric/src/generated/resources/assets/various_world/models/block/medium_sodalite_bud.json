@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "various_world:block/medium_sodalite_bud"
+  }
+}

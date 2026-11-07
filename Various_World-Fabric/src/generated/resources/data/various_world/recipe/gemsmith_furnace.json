@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "d": {
+      "item": "minecraft:deepslate_bricks"
+    },
+    "f": {
+      "item": "minecraft:furnace"
+    }
+  },
+  "pattern": [
+    "ddd",
+    "dfd",
+    "ddd"
+  ],
+  "result": {
+    "count": 1,
+    "id": "various_world:gemsmith_furnace"
+  }
+}

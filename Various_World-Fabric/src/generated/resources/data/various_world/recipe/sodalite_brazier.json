@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "various_world:sodalite_block"
+    },
+    "C": {
+      "tag": "minecraft:coals"
+    },
+    "S": {
+      "item": "various_world:sodalite_shard"
+    }
+  },
+  "pattern": [
+    "S S",
+    "SCS",
+    " B "
+  ],
+  "result": {
+    "count": 1,
+    "id": "various_world:sodalite_brazier"
+  }
+}

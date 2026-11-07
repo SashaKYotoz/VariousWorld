@@ -1,0 +1,26 @@
+{
+  "structures": [
+    {
+      "structure": "various_world:archery_camp",
+      "weight": 1
+    },
+    {
+      "structure": "various_world:old_castle_ruins",
+      "weight": 1
+    },
+    {
+      "structure": "various_world:crystalline_ruined_tower",
+      "weight": 1
+    },
+    {
+      "structure": "various_world:building_remaining",
+      "weight": 2
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 664426086,
+    "spacing": 32,
+    "separation": 12
+  }
+}
