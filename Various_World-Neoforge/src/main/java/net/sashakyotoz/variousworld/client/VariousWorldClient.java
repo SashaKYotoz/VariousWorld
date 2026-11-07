@@ -7,6 +7,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
+import net.minecraft.client.model.BoatModel;
+import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -14,6 +16,7 @@ import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -26,6 +29,7 @@ import net.sashakyotoz.variousworld.client.models.SquealingSpiderModel;
 import net.sashakyotoz.variousworld.client.models.WanderingZombieModel;
 import net.sashakyotoz.variousworld.client.renderers.CrystalicSlimeRenderer;
 import net.sashakyotoz.variousworld.client.renderers.SquealingSpiderRenderer;
+import net.sashakyotoz.variousworld.client.renderers.VWBoatRenderer;
 import net.sashakyotoz.variousworld.client.renderers.WanderingZombieRenderer;
 import net.sashakyotoz.variousworld.common.blocks.BlockUtils;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.ArtifactTableScreen;
@@ -33,6 +37,7 @@ import net.sashakyotoz.variousworld.common.blocks.entities.gui.DisassemblyTableS
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.GemsmithTableScreen;
 import net.sashakyotoz.variousworld.common.blocks.entities.render.ArtifactTableBlockEntityRenderer;
 import net.sashakyotoz.variousworld.common.blocks.entities.render.DisassemblyTableBlockEntityRenderer;
+import net.sashakyotoz.variousworld.common.entities.boat.VWBoatType;
 import net.sashakyotoz.variousworld.common.items.data.CrystalData;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWEntities;
@@ -59,6 +64,12 @@ public class VariousWorldClient {
                 .addModelLayer(WanderingZombieModel.LAYER_LOCATION, WanderingZombieModel::createBodyLayer);
         VWEntities.SQUEALING_SPIDER.addRenderer(SquealingSpiderRenderer::new)
                 .addModelLayer(SquealingSpiderModel.LAYER_LOCATION, SquealingSpiderModel::createBodyLayer);
+        VWEntities.BOAT.<Boat>addRenderer(context -> new VWBoatRenderer(context, false));
+        VWEntities.CHEST_BOAT.<Boat>addRenderer(context -> new VWBoatRenderer(context, true));
+        for (VWBoatType type : VWBoatType.values()) {
+            VWEntities.BOAT.addModelLayer(VWBoatRenderer.layer(type, false), BoatModel::createBodyModel);
+            VWEntities.CHEST_BOAT.addModelLayer(VWBoatRenderer.layer(type, true), ChestBoatModel::createBodyModel);
+        }
 
         SolClientRegistries.Render.BLOCK.register(BlockUtils::isReclamited,
                 (renderer, state, pos, getter, random, poseStack, consumer) -> renderer.accept(pos, BlockUtils.getReclamiteEquivalent(state)));

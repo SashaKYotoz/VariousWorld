@@ -10,6 +10,8 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.sashakyotoz.variousworld.common.entities.CrystalicSlimeEntity;
 import net.sashakyotoz.variousworld.common.entities.SquealingSpiderEntity;
 import net.sashakyotoz.variousworld.common.entities.WanderingZombieEntity;
+import net.sashakyotoz.variousworld.common.entities.boat.VWBoat;
+import net.sashakyotoz.variousworld.common.entities.boat.VWChestBoat;
 
 import java.util.List;
 
@@ -41,4 +43,10 @@ public class VWEntities {
             .withAttributes(SquealingSpiderEntity::createAttributes)
             .<SquealingSpiderEntity>withSpawnRestrictions(SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     SquealingSpiderEntity::checkSquealingSpiderSpawnRules);
+    public static final EntityHolder BOAT = entity("boat",
+            EntityType.Builder.<VWBoat>of(VWBoat::new, MobCategory.MISC)
+                    .sized(1.375F, 0.5625F).eyeHeight(0.5625F).clientTrackingRange(10));
+    public static final EntityHolder CHEST_BOAT = entity("chest_boat",
+            EntityType.Builder.<VWChestBoat>of(VWChestBoat::new, MobCategory.MISC)
+                    .sized(1.375F, 0.5625F).eyeHeight(0.5625F).clientTrackingRange(10));
 }

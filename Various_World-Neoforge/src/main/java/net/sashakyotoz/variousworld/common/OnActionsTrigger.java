@@ -20,11 +20,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.BiomeSource;
-import net.minecraft.world.level.biome.Climate;
-import net.minecraft.world.level.biome.FeatureSorter;
-import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
+import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -35,21 +31,19 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.SurfaceRules;
-import net.minecraft.world.level.material.Fluids;
 import net.sashakyotoz.variousworld.common.blocks.BlockUtils;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import net.sashakyotoz.variousworld.common.items.data.CrystalData;
-import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
-import net.sashakyotoz.variousworld.init.*;
+import net.sashakyotoz.variousworld.init.VWBiomes;
+import net.sashakyotoz.variousworld.init.VWBlocks;
+import net.sashakyotoz.variousworld.init.VWItems;
+import net.sashakyotoz.variousworld.init.VWMiscRegistries;
 import net.sashakyotoz.variousworld.mixin.accessor.ChunkGeneratorAccessor;
 import net.sashakyotoz.variousworld.mixin.accessor.MultiNoiseBiomeSourceAccessor;
 import net.sashakyotoz.variousworld.mixin.accessor.NoiseBasedChunkGeneratorAccessor;
 
-import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class OnActionsTrigger {
 
@@ -66,6 +60,8 @@ public class OnActionsTrigger {
     }
 
     public static void wearCrystal(ItemStack stack, LivingEntity user) {
+        if (user.level().isClientSide())
+            return;
         CrystalData data = stack.get(VWMiscRegistries.CRYSTAL_DATA.get());
         if (data == null || !data.crystalStack().has(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get())
                 || data.crystalStack().get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get()).crystalStack().isEmpty())
@@ -88,16 +84,30 @@ public class OnActionsTrigger {
     }
 
     public static String getToolName(ItemStack stack) {
-        String toolName;
-        switch (stack.getItem()) {
-            case TieredItem item when item instanceof SwordItem -> toolName = "sword";
-            case TieredItem item when item instanceof PickaxeItem -> toolName = "pickaxe";
-            case TieredItem item when item instanceof AxeItem -> toolName = "axe";
-            case TieredItem item when item instanceof HoeItem -> toolName = "hoe";
-            case TieredItem item when item instanceof ShovelItem -> toolName = "shovel";
-            default -> toolName = "";
-        }
-        return toolName;
+        Item item = stack.getItem();
+        return switch (item) {
+            case SwordItem ignored -> "sword";
+            case PickaxeItem ignored -> "pickaxe";
+            case AxeItem ignored -> "axe";
+            case HoeItem ignored -> "hoe";
+            case ShovelItem ignored -> "shovel";
+            case MaceItem ignored -> "mace";
+            case CrossbowItem ignored -> "crossbow";
+            case BowItem ignored -> "bow";
+            case ArmorItem armor -> switch (armor.getType()) {
+                case HELMET -> "helmet";
+                case CHESTPLATE -> "chestplate";
+                case LEGGINGS -> "leggings";
+                case BOOTS -> "boots";
+                default -> "";
+            };
+            default -> "";
+        };
+    }
+
+    public static void wearCrystalOf(ItemStack stack, LivingEntity user, GemsmithingHelper.Category category) {
+        if (!stack.isEmpty() && GemsmithingHelper.categoryOf(stack.getItem()) == category)
+            wearCrystal(stack, user);
     }
 
     public static void spawnParticle(ParticleOptions type, Level level, double x, double y, double z, float modifier) {
@@ -133,28 +143,6 @@ public class OnActionsTrigger {
             }
         }
         return found;
-    }
-
-    public static BlockPos findNearest(List<BlockPos> candidates, LivingEntity entity, Level level) {
-        if (candidates.isEmpty()) return null;
-        double bestDistSq = Double.POSITIVE_INFINITY;
-        BlockPos best = null;
-        final double ex = entity.getX();
-        final double ey = entity.getY();
-        final double ez = entity.getZ();
-        for (BlockPos pos : candidates) {
-            double dx = pos.getX() + 0.5 - ex;
-            double dy = pos.getY() + 0.5 - ey;
-            double dz = pos.getZ() + 0.5 - ez;
-            double distSq = dx * dx + dy * dy + dz * dz;
-            if (distSq >= bestDistSq) continue;
-            if (level.getFluidState(pos).isSource() && level.getFluidState(pos).is(Fluids.LAVA)) continue;
-            if (!level.isLoaded(pos)) continue;
-            bestDistSq = distSq;
-            best = pos;
-        }
-
-        return best;
     }
 
     public static CrystalData defaultCrystalData() {

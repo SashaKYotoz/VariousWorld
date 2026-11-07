@@ -119,5 +119,17 @@
         "volume": 0.5
       }
     ]
+  },
+  "biome.jacaranda_meadow": {
+    "subtitle": "subtitles.various_world.biome.music",
+    "sounds": [
+      "various_world:biome/blue_jacaranda_meadow"
+    ]
+  },
+  "biome.crystalline_forest": {
+    "subtitle": "subtitles.various_world.biome.music",
+    "sounds": [
+      "various_world:biome/crystalline_forest"
+    ]
   }
 }

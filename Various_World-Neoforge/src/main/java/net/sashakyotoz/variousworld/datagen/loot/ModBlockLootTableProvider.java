@@ -1,7 +1,8 @@
 package net.sashakyotoz.variousworld.datagen.loot;
 
+import net.lcc.sollib.api.common.registry.data.block.BlockModel;
+import net.lcc.sollib.api.common.registry.holder.BlockHolder;
 import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -10,15 +11,12 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.lcc.sollib.api.common.registry.data.block.BlockModel;
-import net.lcc.sollib.api.common.registry.holder.BlockHolder;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWItems;
 import net.sashakyotoz.variousworld.init.VWRegistryHelper;
@@ -63,6 +61,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         this.dropPottedContents(VWBlocks.POTTED_SODALITE_WART.get());
         this.dropPottedContents(VWBlocks.POTTED_CRYSTALIC_OAK_SAPLING.get());
         this.dropPottedContents(VWBlocks.POTTED_BLUE_JACARANDA_SAPLING.get());
+        this.dropPottedContents(VWBlocks.POTTED_SHINY_PLUMERIA.get());
         this.add(VWBlocks.BUDDING_SODALITE.get(), noDrop());
         this.add(VWBlocks.SODALITE_CLUSTER.get(), block -> this.createSilkTouchDispatchTable(
                 block,

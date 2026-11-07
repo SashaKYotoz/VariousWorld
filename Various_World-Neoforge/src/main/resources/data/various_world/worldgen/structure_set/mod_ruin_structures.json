@@ -9,6 +9,10 @@
       "weight": 1
     },
     {
+      "structure": "various_world:crystalline_ruined_tower",
+      "weight": 1
+    },
+    {
       "structure": "various_world:building_remaining",
       "weight": 2
     }

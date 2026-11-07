@@ -6,10 +6,13 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CompassItem;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
+import net.sashakyotoz.variousworld.common.config.VWRuntimeData;
 import net.sashakyotoz.variousworld.common.items.data.GeodeCompassData;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
 import net.sashakyotoz.variousworld.init.VWItems;
 import net.sashakyotoz.variousworld.init.VWMiscRegistries;
+
+import java.util.Arrays;
 
 public class VWItemProperties {
     public static void init() {
@@ -27,14 +30,7 @@ public class VWItemProperties {
             if (itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get()) != null) {
                 SupplyCrystalData data = itemStack.get(VWMiscRegistries.SUPPLY_CRYSTAL_DATA.get());
                 if (data != null)
-                    return switch (data.toolType()) {
-                        case "sword" -> 1;
-                        case "pickaxe" -> 2;
-                        case "axe" -> 3;
-                        case "shovel" -> 4;
-                        case "hoe" -> 5;
-                        default -> 0;
-                    };
+                    return Arrays.asList(VWRuntimeData.TOOL_NAMES).indexOf(data.toolType()) + 1;
             }
             return 0;
         });

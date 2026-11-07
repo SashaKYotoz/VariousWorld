@@ -14,6 +14,14 @@
     {
       "element": {
         "element_type": "minecraft:feature_pool_element",
+        "feature": "various_world:crystalline_brazier",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:feature_pool_element",
         "feature": "minecraft:oak",
         "projection": "rigid"
       },

@@ -2,25 +2,23 @@ package net.sashakyotoz.variousworld.datagen;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import net.lcc.sollib.api.common.registry.holder.ItemHolder;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.armortrim.TrimMaterial;
 import net.minecraft.world.item.armortrim.TrimMaterials;
 import net.neoforged.neoforge.client.model.generators.CustomLoaderBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
-import net.minecraft.world.item.SpawnEggItem;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.lcc.sollib.api.common.registry.holder.ItemHolder;
 import net.sashakyotoz.variousworld.VariousWorld;
+import net.sashakyotoz.variousworld.common.config.VWRuntimeData;
 import net.sashakyotoz.variousworld.init.VWRegistryHelper;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class ModItemModelProvider extends ItemModelProvider {
     private static LinkedHashMap<ResourceKey<TrimMaterial>, Float> trimMaterials = new LinkedHashMap<>();
@@ -50,21 +48,11 @@ public class ModItemModelProvider extends ItemModelProvider {
             if (holder.get() instanceof SpawnEggItem)
                 simpleEggItem(holder.getID().getPath());
         });
-        simpleItemlessModel("sodalite_sword");
-        simpleItemlessModel("sodalite_pickaxe");
-        simpleItemlessModel("sodalite_axe");
-        simpleItemlessModel("sodalite_shovel");
-        simpleItemlessModel("sodalite_hoe");
-        simpleItemlessModel("amethyst_sword");
-        simpleItemlessModel("amethyst_pickaxe");
-        simpleItemlessModel("amethyst_axe");
-        simpleItemlessModel("amethyst_shovel");
-        simpleItemlessModel("amethyst_hoe");
-        simpleGlowItemlessModel("reclaimite_sword");
-        simpleGlowItemlessModel("reclaimite_pickaxe");
-        simpleGlowItemlessModel("reclaimite_axe");
-        simpleGlowItemlessModel("reclaimite_shovel");
-        simpleGlowItemlessModel("reclaimite_hoe");
+        for (String tool : VWRuntimeData.TOOL_NAMES) {
+            simpleItemlessModel("sodalite_" + tool);
+            simpleItemlessModel("amethyst_" + tool);
+            simpleGlowItemlessModel("reclaimite_" + tool);
+        }
     }
 
     private ItemModelBuilder simpleItem(String path) {

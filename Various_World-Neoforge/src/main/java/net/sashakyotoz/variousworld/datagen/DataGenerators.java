@@ -14,6 +14,7 @@ import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.datagen.loot.ModBlockLootTableProvider;
 import net.sashakyotoz.variousworld.datagen.loot.ModEntityLootTableProvider;
 import net.sashakyotoz.variousworld.datagen.loot.ModGlobalLootModifierProvider;
+import net.sashakyotoz.variousworld.datagen.tags.ModBiomeTagProvider;
 import net.sashakyotoz.variousworld.datagen.tags.ModBlockTagProvider;
 import net.sashakyotoz.variousworld.datagen.tags.ModEntityTagProvider;
 import net.sashakyotoz.variousworld.datagen.tags.ModItemTagProvider;
@@ -40,6 +41,7 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), blockTagsProvider);
         generator.addProvider(event.includeServer(), new ModItemTagProvider(packOutput, newLookup, blockTagsProvider.contentsGetter(), existingFileHelper));
         generator.addProvider(event.includeServer(), new ModEntityTagProvider(packOutput, newLookup, existingFileHelper));
+        generator.addProvider(event.includeServer(), new ModBiomeTagProvider(packOutput, newLookup, existingFileHelper));
 
         generator.addProvider(event.includeClient(), new ModItemModelProvider(packOutput, existingFileHelper));
         generator.addProvider(event.includeClient(), new ModBlockStateProvider(packOutput, existingFileHelper));

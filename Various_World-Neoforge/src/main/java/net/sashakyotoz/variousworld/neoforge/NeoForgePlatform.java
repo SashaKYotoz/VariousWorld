@@ -10,6 +10,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -55,5 +56,10 @@ public class NeoForgePlatform implements IVWPlatform {
     @Override
     public int getBurnTime(ItemStack stack) {
         return stack.getBurnTime(RecipeType.SMELTING);
+    }
+
+    @Override
+    public ItemAttributeModifiers getDefaultAttributeModifiers(ItemStack stack) {
+        return stack.getItem().getDefaultAttributeModifiers(stack);
     }
 }

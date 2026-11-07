@@ -13,7 +13,10 @@
     "accessor.VillagerTypeAccessor",
     "block.PointedDripstoneBlockMixin",
     "block.StateDefinitionAccess",
-    "item.ItemMixin"
+    "entity.PlayerMixin",
+    "item.ItemMixin",
+    "item.ItemStackMixin",
+    "item.ProjectileWeaponItemMixin"
   ],
   "client": [
     "ClientRecipeBookMixin",

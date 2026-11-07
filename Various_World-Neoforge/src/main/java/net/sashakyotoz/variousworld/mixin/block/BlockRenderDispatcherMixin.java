@@ -19,7 +19,7 @@ public abstract class BlockRenderDispatcherMixin {
     public abstract void renderBreakingTexture(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, VertexConsumer consumer);
 
     @Inject(method = "renderBreakingTexture(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/BlockAndTintGetter;Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;)V", at = @At("HEAD"), cancellable = true)
-    private void variousworld$renderReclaimiteDamage(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, VertexConsumer consumer, CallbackInfo ci) {
+    private void renderReclaimiteDamage(BlockState state, BlockPos pos, BlockAndTintGetter level, PoseStack poseStack, VertexConsumer consumer, CallbackInfo ci) {
         if (BlockUtils.isReclamited(state)) {
             this.renderBreakingTexture(BlockUtils.getReclamiteEquivalent(state), pos, level, poseStack, consumer);
             ci.cancel();

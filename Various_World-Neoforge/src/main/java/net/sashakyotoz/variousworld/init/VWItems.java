@@ -4,10 +4,13 @@ import net.lcc.sollib.api.common.registry.holder.ItemHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.data.models.model.ModelTemplates;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import net.sashakyotoz.variousworld.common.entities.boat.VWBoatItem;
+import net.sashakyotoz.variousworld.common.entities.boat.VWBoatType;
 import net.sashakyotoz.variousworld.common.items.GeodeCompassItem;
 import net.sashakyotoz.variousworld.common.items.data.GeodeCompassData;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
@@ -29,6 +32,15 @@ public class VWItems {
             .withModel(ModelTemplates.FLAT_ITEM);
     public static final ItemHolder BLUE_JACARANDA_HANGING_SIGN = item("blue_jacaranda_hanging_sign", () -> new HangingSignItem(VWBlocks.BLUE_JACARANDA_HANGING_SIGN.get(), VWBlocks.BLUE_JACARANDA_HANGING_WALL_SIGN.get(), new Item.Properties()))
             .withModel(ModelTemplates.FLAT_ITEM);
+
+    public static final ItemHolder CRYSTALIC_OAK_BOAT = item("crystalic_oak_boat", () -> new VWBoatItem(false, VWBoatType.CRYSTALIC_OAK, new Item.Properties().stacksTo(1)))
+            .withTags(ItemTags.BOATS).withModel(ModelTemplates.FLAT_ITEM);
+    public static final ItemHolder CRYSTALIC_OAK_CHEST_BOAT = item("crystalic_oak_chest_boat", () -> new VWBoatItem(true, VWBoatType.CRYSTALIC_OAK, new Item.Properties().stacksTo(1)))
+            .withTags(ItemTags.CHEST_BOATS).withModel(ModelTemplates.FLAT_ITEM);
+    public static final ItemHolder BLUE_JACARANDA_BOAT = item("blue_jacaranda_boat", () -> new VWBoatItem(false, VWBoatType.BLUE_JACARANDA, new Item.Properties().stacksTo(1)))
+            .withTags(ItemTags.BOATS).withModel(ModelTemplates.FLAT_ITEM);
+    public static final ItemHolder BLUE_JACARANDA_CHEST_BOAT = item("blue_jacaranda_chest_boat", () -> new VWBoatItem(true, VWBoatType.BLUE_JACARANDA, new Item.Properties().stacksTo(1)))
+            .withTags(ItemTags.CHEST_BOATS).withModel(ModelTemplates.FLAT_ITEM);
 
     public static final ItemHolder SODALITE_SHARD = item("sodalite_shard", () -> new Item(new Item.Properties())).withModel(ModelTemplates.FLAT_ITEM);
     public static final ItemHolder RECLAIMITE_SHARD = item("reclaimite_shard", () -> new Item(new Item.Properties())).withModel(ModelTemplates.FLAT_ITEM);

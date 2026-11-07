@@ -1,9 +1,9 @@
 package net.sashakyotoz.variousworld.datagen;
 
-import net.minecraft.data.PackOutput;
 import net.lcc.sollib.api.common.registry.holder.BlockHolder;
 import net.lcc.sollib.api.common.registry.holder.EntityHolder;
 import net.lcc.sollib.api.common.registry.holder.ItemHolder;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.BlockItem;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.sashakyotoz.variousworld.VariousWorld;
@@ -29,7 +29,12 @@ public class ModLanguageProvider extends LanguageProvider {
         VWRegistryHelper.forEach(BlockHolder.class, holder -> addEntry("block.various_world.", holder.getID().getPath()));
         VWRegistryHelper.forEach(EntityHolder.class, holder -> addEntry("entity.various_world.", holder.getID().getPath()));
         VWRegistryHelper.forEach(VWHolders.VillagerProfessionHolder.class, holder -> addEntry("entity.minecraft.villager.various_world.", holder.getID().getPath()));
+
         this.add("creativetab.various_world_tab", "Various World");
+
+        this.add("entity.minecraft.villager.gemsmither", "Gemsmither");
+        this.add("entity.minecraft.villager.artifactologist", "Artifactologist");
+
         this.add("message.various_world.geode_was_found", "Crystal cluster was found");
         this.add("message.various_world.geode_not_found", "No crystal cluster was found");
         this.add("message.various_world.press_shift", "Press [ Shift ]");
@@ -37,8 +42,11 @@ public class ModLanguageProvider extends LanguageProvider {
         this.add("biome.various_world.blue_jacaranda_meadow", "Blue Jacaranda Meadow");
         this.add("biome.various_world.reclaimite_caves", "Reclaimite Caves");
 
+        this.add("subtitles.various_world.biome.music", "A music drifts by");
+
         this.add("jei.various_world.disassembly_table", "Disassembly Table \n table block that allows to gather part of crafting ingredients of item. Only 3x3 recipes are detectable");
-        this.add("jei.various_world.artifact_table", "Artifact Table \n table block that allows to spread effect of potion in small area. \n Requires redstone power, potion, dragon breath and some valuable item to work.");
+        this.add("jei.various_world.artifact_table", "Artifact Table \n table block that allows to spread effect of potion in small area. \n Requires redstone power, potion, a catalyst and some valuable item to work. \n Dragon breath gives full strength and range, glowstone dust or sodalite shard give a weaker, smaller aura.");
+        this.add("tooltip.various_world.arrow_damage", "+%s Arrow Damage");
         this.add("jei.various_world.gemsmith_table.furnace", "Needs a lit Gemsmith Furnace placed right next to the table");
         this.add("jei.various_world.gemsmith_furnace", "Gemsmith Furnace \n use any furnace fuel on it to heat it up, up to %s seconds of heat. \n Place it next to a Gemsmithing Table; gemsmithing only progresses while the furnace is lit");
         this.add("jei.various_world.crystalline_slime_ball", "Crystalline Slime Ball \n use it on a water cauldron to wash the crystals off and get a regular Slime Ball");

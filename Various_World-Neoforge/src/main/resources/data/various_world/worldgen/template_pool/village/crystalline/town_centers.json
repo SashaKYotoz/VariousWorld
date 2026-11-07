@@ -4,7 +4,7 @@
       "element": {
         "element_type": "minecraft:legacy_single_pool_element",
         "location": "various_world:village/crystalline/town_centers/crystalline_fountain_01",
-        "processors": "minecraft:mossify_20_percent",
+        "processors": "various_world:crystalline_braziers_mossy_20",
         "projection": "rigid"
       },
       "weight": 50
@@ -13,7 +13,7 @@
       "element": {
         "element_type": "minecraft:legacy_single_pool_element",
         "location": "various_world:village/crystalline/town_centers/crystalline_meeting_point_1",
-        "processors": "minecraft:mossify_20_percent",
+        "processors": "various_world:crystalline_braziers_mossy_20",
         "projection": "rigid"
       },
       "weight": 50
@@ -22,9 +22,7 @@
       "element": {
         "element_type": "minecraft:legacy_single_pool_element",
         "location": "various_world:village/crystalline/town_centers/crystalline_meeting_point_2",
-        "processors": {
-          "processors": []
-        },
+        "processors": "various_world:crystalline_braziers",
         "projection": "rigid"
       },
       "weight": 50

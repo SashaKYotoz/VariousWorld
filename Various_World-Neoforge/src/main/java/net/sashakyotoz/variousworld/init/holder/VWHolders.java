@@ -21,6 +21,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 
 import java.util.function.Supplier;
 
@@ -184,6 +186,17 @@ public final class VWHolders {
         @Override
         public Registry<CreativeModeTab> getRegistry() {
             return BuiltInRegistries.CREATIVE_MODE_TAB;
+        }
+    }
+
+    public static class LootFunctionTypeHolder<T extends LootItemFunction> extends SHolder<LootItemFunctionType<T>> {
+        public LootFunctionTypeHolder(SolModContainer mod, String name, Supplier<LootItemFunctionType<T>> supplier) {
+            super(mod, name, supplier);
+        }
+
+        @Override
+        public Registry<LootItemFunctionType<T>> getRegistry() {
+            return cast(BuiltInRegistries.LOOT_FUNCTION_TYPE);
         }
     }
 }

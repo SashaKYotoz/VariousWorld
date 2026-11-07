@@ -13,9 +13,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.sashakyotoz.variousworld.VariousWorld;
+import net.sashakyotoz.variousworld.common.blocks.entities.GemsmithFurnaceBlockEntity;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.GemsmithTableScreen;
 import net.sashakyotoz.variousworld.common.blocks.entities.recipes.GemsmithTransformRecipe;
-import net.sashakyotoz.variousworld.common.blocks.entities.GemsmithFurnaceBlockEntity;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWItems;
 

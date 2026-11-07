@@ -30,6 +30,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.init.holder.VWHolders;
 
@@ -116,6 +118,10 @@ public final class VWRegistryHelper {
 
     public static <T extends Sensor<?>> VWHolders.SensorTypeHolder<T> sensor(String name, Supplier<SensorType<T>> supplier) {
         return register(VWHolders.SensorTypeHolder.class, name, supplier);
+    }
+
+    public static <T extends LootItemFunction> VWHolders.LootFunctionTypeHolder<T> lootFunction(String name, Supplier<LootItemFunctionType<T>> supplier) {
+        return register(VWHolders.LootFunctionTypeHolder.class, name, supplier);
     }
 
     public static VWHolders.PoiTypeHolder poi(String name, Supplier<PoiType> supplier) {

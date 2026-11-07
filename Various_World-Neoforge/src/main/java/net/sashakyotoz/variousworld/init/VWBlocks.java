@@ -2,6 +2,7 @@ package net.sashakyotoz.variousworld.init;
 
 import net.lcc.sollib.api.common.registry.data.block.BlockModel;
 import net.lcc.sollib.api.common.registry.holder.BlockHolder;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.block.*;
@@ -142,6 +143,24 @@ public class VWBlocks {
             .withTags(BlockTags.FLOWERS).withTags(tool("_hoe")).cutout();
     public static final BlockHolder POTTED_BLUE_JACARANDA_SAPLING = hiddenBlockWithItem("potted_blue_jacaranda_sapling", () -> VWPlatform.INSTANCE.createFlowerPot(BLUE_JACARANDA_SAPLING, BlockBehaviour.Properties.ofFullCopy(BLUE_JACARANDA_SAPLING.get())))
             .withModel(BlockModel.CROSS_POTTED).cutout().withTags(BlockTags.FLOWER_POTS);
+
+    public static final BlockHolder SHINY_PLUMERIA = blockWithItem("shiny_plumeria", () -> new FlowerBlock(MobEffects.SLOW_FALLING, 7.0F,
+            BlockBehaviour.Properties.ofFullCopy(Blocks.OXEYE_DAISY).emissiveRendering((blockState, blockGetter, blockPos) -> true)))
+            .withTags(BlockTags.SMALL_FLOWERS).withModel(BlockModel.CROSS).dropsSelf().cutout();
+    public static final BlockHolder POTTED_SHINY_PLUMERIA = hiddenBlockWithItem("potted_shiny_plumeria", () -> VWPlatform.INSTANCE.createFlowerPot(SHINY_PLUMERIA, BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_OXEYE_DAISY)))
+            .withModel(BlockModel.CROSS_POTTED).cutout().withTags(BlockTags.FLOWER_POTS);
+
+    public static final BlockHolder CRYSTALIC_SLIME_BLOCK = translucent(blockWithItem("crystalic_slime_block", () -> new CrystalicSlimeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SLIME_BLOCK).mapColor(MapColor.COLOR_CYAN)))
+            .withModel(BlockModel.CUBE).dropsSelf());
+
+    public static final BlockHolder SODALITE_BRAZIER = blockWithItem("sodalite_brazier", () -> new BrazierBlock(ParticleTypes.FLAME, 1, BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_PURPLE).strength(1.5F).sound(SoundType.AMETHYST).requiresCorrectToolForDrops().noOcclusion()
+            .lightLevel(lightLevelFromBlockState(15, BrazierBlock.LIT))))
+            .withTags(BlockTags.CAMPFIRES).withTags(tool("_pickaxe")).dropsSelf().cutout();
+    public static final BlockHolder SOUL_SODALITE_BRAZIER = blockWithItem("soul_sodalite_brazier", () -> new BrazierBlock(ParticleTypes.SOUL_FIRE_FLAME, 2, BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_PURPLE).strength(1.5F).sound(SoundType.AMETHYST).requiresCorrectToolForDrops().noOcclusion()
+            .lightLevel(lightLevelFromBlockState(10, BrazierBlock.LIT))))
+            .withTags(BlockTags.CAMPFIRES, BlockTags.PIGLIN_REPELLENTS).withTags(tool("_pickaxe")).dropsSelf().cutout();
 
     public static final BlockHolder SODALITE_BLOCK = blockWithItem("sodalite_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).strength(2F).sound(SoundType.AMETHYST).requiresCorrectToolForDrops()))
             .withTags(BlockTags.CRYSTAL_SOUND_BLOCKS).withTags(tool("stone_pickaxe")).withModel(BlockModel.CUBE).dropsSelf();

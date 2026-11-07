@@ -12,4 +12,7 @@ public class VWSounds {
     public static final VWHolders.SoundHolder SQUEALING_SPIDER_DEATH = VWRegistryHelper.sound("entity.squealing_spider.death");
     public static final VWHolders.SoundHolder SQUEALING_SPIDER_SHATTER = VWRegistryHelper.sound("entity.squealing_spider.shatter");
     public static final VWHolders.SoundHolder SQUEALING_SPIDER_STEP = VWRegistryHelper.sound("entity.squealing_spider.step");
+
+    public static final VWHolders.SoundHolder JACARANDA_MEADOW_MUSIC = VWRegistryHelper.sound("biome.jacaranda_meadow");
+    public static final VWHolders.SoundHolder CRYSTALLINE_FOREST_MUSIC = VWRegistryHelper.sound("biome.crystalline_forest");
 }

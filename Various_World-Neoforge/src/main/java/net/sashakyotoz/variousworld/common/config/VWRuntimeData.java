@@ -9,13 +9,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.TieredItem;
 import net.sashakyotoz.variousworld.VariousWorld;
+import net.sashakyotoz.variousworld.common.GemsmithingHelper;
 
 import java.util.List;
 
 public class VWRuntimeData implements IReloadListener {
-    public static final String[] TOOL_NAMES = {"sword", "pickaxe", "axe", "shovel", "hoe"};
+    public static final String[] TOOL_NAMES = {"sword", "pickaxe", "axe", "shovel", "hoe", "mace", "helmet", "chestplate", "leggings", "boots", "bow", "crossbow"};
 
     public static void register() {
         for (int i = 0; i < 32; i++) {
@@ -46,7 +46,8 @@ public class VWRuntimeData implements IReloadListener {
                         missingCrystalModel(tool, gemId).toString()).withEphemeral(true);
 
             for (Item item : BuiltInRegistries.ITEM) {
-                if (!(item instanceof TieredItem))
+                GemsmithingHelper.Category category = GemsmithingHelper.categoryOf(item);
+                if (category == null || !GemsmithingHelper.supports(setting, category))
                     continue;
                 ResourceLocation toolId = BuiltInRegistries.ITEM.getKey(item);
                 ResourceLocation recipeId = ResourceLocation.fromNamespaceAndPath(toolId.getNamespace(),

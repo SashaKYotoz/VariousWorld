@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=true": {
+      "model": "various_world:block/sodalite_brazier"
+    },
+    "lit=false": {
+      "model": "various_world:block/sodalite_brazier_off"
+    }
+  }
+}

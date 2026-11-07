@@ -25,6 +25,8 @@ public class ModPlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> MEADOW_ROCK = registerKey("meadow_rock");
     public static final ResourceKey<PlacedFeature> SODALITE_WART_PATCH = registerKey("sodalite_wart_patch");
+    public static final ResourceKey<PlacedFeature> SHINY_PLUMERIA_PATCH = registerKey("shiny_plumeria_patch");
+    public static final ResourceKey<PlacedFeature> CRYSTALLINE_BRAZIER = registerKey("crystalline_brazier");
 
     public static final ResourceKey<PlacedFeature> SODALITE_GEODE = registerKey("sodalite_geode");
     public static final ResourceKey<PlacedFeature> RECLAIMITE_POINTED_DRIPSTONE = registerKey("reclaimite_pointed_dripstone");
@@ -53,6 +55,13 @@ public class ModPlacedFeatures {
                 PlacementUtils.HEIGHTMAP,
                 BiomeFilter.biome()
         ));
+        register(context, SHINY_PLUMERIA_PATCH, configuredFeatures.getOrThrow(ModConfiguredFeatures.SHINY_PLUMERIA_PATCH), List.of(
+                RarityFilter.onAverageOnceEvery(3),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP,
+                BiomeFilter.biome()
+        ));
+        register(context, CRYSTALLINE_BRAZIER, configuredFeatures.getOrThrow(ModConfiguredFeatures.CRYSTALLINE_BRAZIER), List.of());
         register(context, JACARANDA_PETALS_PATCH, configuredFeatures.getOrThrow(ModConfiguredFeatures.JACARANDA_PETALS_PATCH), List.of(
                 NoiseThresholdCountPlacement.of(-0.8, 5, 10),
                 RarityFilter.onAverageOnceEvery(2),

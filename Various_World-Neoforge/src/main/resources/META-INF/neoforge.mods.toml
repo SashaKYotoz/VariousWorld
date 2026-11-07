@@ -1,25 +1,22 @@
-modLoader = "javafml" #mandatory
-loaderVersion = "[4,)" #mandatory
+modLoader = "javafml"
+loaderVersion = "[4,)"
 license = "AGNYA License"
-[[mods]] #mandatory
-modId = "various_world" #mandatory
-version = "1.2r" #mandatory
-displayName = "Various World" #mandatory
-displayURL = "https://sashakyotoz.github.io/sashakyotoz_dev/" #optional
-logoFile="logo.png" #optional
-#credits="" #optional
-authors = "SashaKYotoz" #optional
+[[mods]]
+modId = "various_world"
+version = "1.2r"
+displayName = "Various World"
+displayURL = "https://sashakyotoz.github.io/sashakyotoz_dev/"
+logoFile="logo.png"
+authors = "SashaKYotoz"
 description = '''Across world and its beauty!'''
 
-# The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.
 [[mixins]]
 config = "various_world.mixins.json"
 
-# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.various_world]] #optional
-modId = "neoforge" #mandatory
-type = "required" #mandatory
-versionRange = "[21,)" #mandatory
+[[dependencies.various_world]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21,)"
 ordering = "NONE"
 side = "BOTH"
 

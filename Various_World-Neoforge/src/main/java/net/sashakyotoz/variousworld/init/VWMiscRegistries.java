@@ -2,6 +2,7 @@ package net.sashakyotoz.variousworld.init;
 
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.ArtifactTableMenu;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.DisassemblyTableMenu;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.GemsmithTableMenu;
@@ -10,6 +11,7 @@ import net.sashakyotoz.variousworld.common.entities.brain.SpiderAttackEntitySens
 import net.sashakyotoz.variousworld.common.items.data.CrystalData;
 import net.sashakyotoz.variousworld.common.items.data.GeodeCompassData;
 import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
+import net.sashakyotoz.variousworld.common.loot.ApplyGemFunction;
 import net.sashakyotoz.variousworld.init.holder.VWHolders;
 import net.sashakyotoz.variousworld.mixin.accessor.SensorTypeAccessor;
 import net.sashakyotoz.variousworld.mixin.accessor.SimpleParticleTypeAccessor;
@@ -44,6 +46,9 @@ public class VWMiscRegistries {
 
     public static final VWHolders.RecipeSerializerHolder<GemsmithTransformRecipe.Serializer> GEMSMITH_TRANSFORM = VWRegistryHelper.recipeSerializer("gemsmith_transform",
             () -> GemsmithTransformRecipe.Serializer.INSTANCE);
+
+    public static final VWHolders.LootFunctionTypeHolder<ApplyGemFunction> APPLY_GEM = VWRegistryHelper.lootFunction("apply_gem",
+            () -> new LootItemFunctionType<>(ApplyGemFunction.CODEC));
 
     public static final VWHolders.SensorTypeHolder<SpiderAttackEntitySensor> SQUEALING_SPIDER_ATTACK_SENSOR = VWRegistryHelper.sensor("squealing_spider_attack_sensor",
             () -> SensorTypeAccessor.variousworld$create(SpiderAttackEntitySensor::new));

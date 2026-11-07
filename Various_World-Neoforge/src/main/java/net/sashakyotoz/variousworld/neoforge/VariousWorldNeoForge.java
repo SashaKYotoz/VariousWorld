@@ -3,7 +3,6 @@ package net.sashakyotoz.variousworld.neoforge;
 import net.lcc.sollib.api.common.registry.data.entity.SpawnRestrictions;
 import net.lcc.sollib.api.common.registry.holder.EntityHolder;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.neoforged.bus.api.IEventBus;
@@ -17,9 +16,11 @@ import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import net.sashakyotoz.variousworld.VariousWorld;
+import net.sashakyotoz.variousworld.common.GemsmithingHelper;
 import net.sashakyotoz.variousworld.common.OnActionsTrigger;
 import net.sashakyotoz.variousworld.common.VWCauldronInteractions;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
+import net.sashakyotoz.variousworld.common.entities.boat.VWBoatDispenseItemBehavior;
 import net.sashakyotoz.variousworld.init.*;
 
 @Mod(VariousWorld.MOD_ID)
@@ -42,6 +43,8 @@ public class VariousWorldNeoForge {
             pot.addPlant(VWBlocks.SODALITE_WART.getID(), VWBlocks.POTTED_SODALITE_WART);
             pot.addPlant(VWBlocks.CRYSTALIC_OAK_SAPLING.getID(), VWBlocks.POTTED_CRYSTALIC_OAK_SAPLING);
             pot.addPlant(VWBlocks.BLUE_JACARANDA_SAPLING.getID(), VWBlocks.POTTED_BLUE_JACARANDA_SAPLING);
+            pot.addPlant(VWBlocks.SHINY_PLUMERIA.getID(), VWBlocks.POTTED_SHINY_PLUMERIA);
+            VWBoatDispenseItemBehavior.register();
         });
     }
 
@@ -66,7 +69,7 @@ public class VariousWorldNeoForge {
     }
 
     private static void modifyDefaultComponents(ModifyDefaultComponentsEvent event) {
-        event.modifyMatching(item -> item instanceof TieredItem,
+        event.modifyMatching(GemsmithingHelper::isGemmable,
                 builder -> builder.set(VWMiscRegistries.CRYSTAL_DATA.get(), OnActionsTrigger.defaultCrystalData()));
     }
 }

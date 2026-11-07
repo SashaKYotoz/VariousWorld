@@ -14,9 +14,7 @@
       "max_delay": 24000,
       "min_delay": 12000,
       "replace_current_music": false,
-      "sound": {
-        "sound_id": "minecraft:block.amethyst_block.chime"
-      }
+      "sound": "various_world:biome.crystalline_forest"
     },
     "sky_color": 7842047,
     "water_color": 5013401,

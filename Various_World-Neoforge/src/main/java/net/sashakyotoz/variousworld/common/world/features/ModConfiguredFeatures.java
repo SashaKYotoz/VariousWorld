@@ -55,6 +55,9 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> GLOW_LICHEN_VEIN = registerKey("glow_lichen_vein");
     public static final ResourceKey<ConfiguredFeature<?, ?>> COBWEB_BLOCKS_CHAIN = registerKey("cobweb_blocks_chain");
 
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SHINY_PLUMERIA_PATCH = registerKey("shiny_plumeria_patch");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> CRYSTALLINE_BRAZIER = registerKey("crystalline_brazier");
+
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
 
         register(context, CRYSTALIC_TREE, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
@@ -100,6 +103,9 @@ public class ModConfiguredFeatures {
                 EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.solid(), BlockPredicate.ONLY_IN_AIR_OR_WATER_PREDICATE, 16),
                 RandomOffsetPlacement.vertical(ConstantInt.of(-1))))));
         register(context, COBWEB_BLOCKS_CHAIN, VWFeatures.BLOCKS_CHAIN_FEATURE.get(), new BlockStateConfiguration(Blocks.COBWEB.defaultBlockState()));
+        register(context, SHINY_PLUMERIA_PATCH, Feature.FLOWER, new RandomPatchConfiguration(
+                48, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(VWBlocks.SHINY_PLUMERIA.get())))));
+        register(context, CRYSTALLINE_BRAZIER, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(VWBlocks.SODALITE_BRAZIER.get())));
 
         register(context, GLOW_LICHEN_VEIN, Feature.MULTIFACE_GROWTH, new MultifaceGrowthConfiguration((MultifaceBlock) Blocks.GLOW_LICHEN, 24, true, true, true, 1.0F, HolderSet.direct(Block::builtInRegistryHolder, Blocks.STONE, Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.DRIPSTONE_BLOCK, Blocks.CALCITE, Blocks.TUFF, Blocks.DEEPSLATE)));
 

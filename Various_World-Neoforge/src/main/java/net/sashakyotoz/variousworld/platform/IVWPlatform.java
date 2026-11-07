@@ -11,6 +11,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -31,6 +32,8 @@ public interface IVWPlatform {
     CreativeModeTab.Builder creativeTabBuilder();
 
     int getBurnTime(ItemStack stack);
+
+    ItemAttributeModifiers getDefaultAttributeModifiers(ItemStack stack);
 
     @FunctionalInterface
     interface BlockMenuFactory<T extends AbstractContainerMenu> {

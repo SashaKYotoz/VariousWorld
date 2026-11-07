@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "various_world:sodalite_brazier",
+        "Properties": {
+          "lit": "true",
+          "waterlogged": "false"
+        }
+      }
+    }
+  }
+}

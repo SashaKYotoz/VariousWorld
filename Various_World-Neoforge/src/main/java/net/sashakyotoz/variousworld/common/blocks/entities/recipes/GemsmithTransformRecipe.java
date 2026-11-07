@@ -7,20 +7,11 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.sashakyotoz.variousworld.common.GemsmithingHelper;
-import net.sashakyotoz.variousworld.common.OnActionsTrigger;
-import net.sashakyotoz.variousworld.common.config.ModConfigController;
-import net.sashakyotoz.variousworld.common.items.data.CrystalData;
-import net.sashakyotoz.variousworld.common.items.data.SupplyCrystalData;
-import net.sashakyotoz.variousworld.init.VWItems;
-import net.sashakyotoz.variousworld.init.VWMiscRegistries;
-
-import java.util.List;
 
 public class GemsmithTransformRecipe implements GemsmithRecipe {
     public final Ingredient tool;
@@ -45,7 +36,7 @@ public class GemsmithTransformRecipe implements GemsmithRecipe {
 
     @Override
     public boolean matches(GemsmithRecipeInput input, Level level) {
-        return this.tool.test(input.tool()) && this.gem.test(input.gem());
+        return this.tool.test(input.tool()) && this.gem.test(input.gem()) && GemsmithingHelper.canApply(input.tool(), input.gem());
     }
 
     @Override

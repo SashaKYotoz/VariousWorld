@@ -14,9 +14,7 @@
       "max_delay": 24000,
       "min_delay": 12000,
       "replace_current_music": false,
-      "sound": {
-        "sound_id": "minecraft:entity.allay.ambient_with_item"
-      }
+      "sound": "various_world:biome.jacaranda_meadow"
     },
     "sky_color": 7842047,
     "water_color": 5013401,
@@ -57,6 +55,7 @@
       "minecraft:patch_grass_forest",
       "various_world:meadow_rock",
       "various_world:jacaranda_petals_patch",
+      "various_world:shiny_plumeria_patch",
       "various_world:blue_jacaranda_tree"
     ]
   ],

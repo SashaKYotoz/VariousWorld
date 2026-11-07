@@ -24,11 +24,11 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
-import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.common.OnActionsTrigger;
 import net.sashakyotoz.variousworld.common.blocks.entities.gui.ArtifactTableMenu;
 import net.sashakyotoz.variousworld.common.config.ModConfigController;
 import net.sashakyotoz.variousworld.init.VWBlocks;
+import net.sashakyotoz.variousworld.init.VWTags;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -37,6 +37,8 @@ public class ArtifactTableBlockEntity extends BaseContainerBlockEntity {
 
     public NonNullList<ItemStack> items;
     protected final ContainerData data;
+    public static final int WEAK_CATALYST = 1;
+    public static final int STRONG_CATALYST = 2;
     private int tick = 0;
     public int progress = 0;
     private int maxProgress = 320;
@@ -140,13 +142,14 @@ public class ArtifactTableBlockEntity extends BaseContainerBlockEntity {
                         currentSetting = setting;
                 }
                 if (!setting.artifact().build().equals(Items.AIR) && getItem(0).getItem().equals(setting.artifact().build())
-                        && progress <= 0 && !getItem(1).isEmpty() && !getItem(2).isEmpty()) {
+                        && progress <= 0 && !getItem(1).isEmpty() && catalystTier(getItem(2)) > 0) {
                     progress = 320;
                     OnActionsTrigger.spawnParticle(ParticleTypes.EFFECT, level, pos.getX(), pos.getY(), pos.getZ(), 2);
                     level.playLocalSound(pos, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 1.5f, 1f, true);
                 }
             }
-            if (progress > 0 && getItem(2).is(Items.DRAGON_BREATH)) {
+            int catalystTier = catalystTier(getItem(2));
+            if (progress > 0 && catalystTier > 0) {
                 progress--;
                 OnActionsTrigger.spawnParticle(ParticleTypes.EFFECT, level, pos.getX(), pos.getY() + 0.5f, pos.getZ(), 2);
                 if (progress < 2) {
@@ -158,8 +161,8 @@ public class ArtifactTableBlockEntity extends BaseContainerBlockEntity {
                 }
                 if (currentSetting == null)
                     return;
-                int strength = currentSetting.effect_strength();
-                int range = currentSetting.effect_range();
+                int strength = catalystTier >= STRONG_CATALYST ? currentSetting.effect_strength() : currentSetting.effect_strength() - 1;
+                int range = catalystTier >= STRONG_CATALYST ? currentSetting.effect_range() : Math.max(1, currentSetting.effect_range() / 2);
                 List<Player> players = level.getEntitiesOfClass(Player.class, new AABB(pos.above().getCenter(), pos.above().getCenter()).inflate(1 + range));
                 ItemStack potion = getItem(1);
                 for (Player player : players) {
@@ -178,6 +181,14 @@ public class ArtifactTableBlockEntity extends BaseContainerBlockEntity {
                 }
             }
         }
+    }
+
+    public static int catalystTier(ItemStack stack) {
+        if (stack.is(VWTags.Items.STRONG_ARTIFACT_CATALYSTS))
+            return STRONG_CATALYST;
+        if (stack.is(VWTags.Items.WEAK_ARTIFACT_CATALYSTS))
+            return WEAK_CATALYST;
+        return 0;
     }
 
     private int adjustedAmplifier(int baseAmplifier, int strength) {

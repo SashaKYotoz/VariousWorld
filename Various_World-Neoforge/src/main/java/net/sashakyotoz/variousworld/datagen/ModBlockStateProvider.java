@@ -1,5 +1,7 @@
 package net.sashakyotoz.variousworld.datagen;
 
+import net.lcc.sollib.api.common.registry.data.block.BlockModel;
+import net.lcc.sollib.api.common.registry.holder.BlockHolder;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -10,8 +12,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.lcc.sollib.api.common.registry.data.block.BlockModel;
-import net.lcc.sollib.api.common.registry.holder.BlockHolder;
 import net.sashakyotoz.variousworld.VariousWorld;
 import net.sashakyotoz.variousworld.common.blocks.custom.SodaliteWartBlock;
 import net.sashakyotoz.variousworld.init.VWBlocks;

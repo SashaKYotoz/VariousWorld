@@ -38,6 +38,11 @@ public class PointedDripstoneBlockMixin {
         original.call(instance, blockState.setValue(BlockUtils.RECLAMITE_SHARDED, false));
     }
 
+    @Inject(method = "randomTick", at = @At("HEAD"))
+    private void variousworld$regrowReclaimite(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo ci) {
+        BlockUtils.tryRegrowReclaimite(state, level, pos, random);
+    }
+
     @Inject(method = "growStalactiteOrStalagmiteIfPossible", at = @At("HEAD"), cancellable = true)
     private static void grow(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo ci) {
         if (BlockUtils.isReclamited(state))

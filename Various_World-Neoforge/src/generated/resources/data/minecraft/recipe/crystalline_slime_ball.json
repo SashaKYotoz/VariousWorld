@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "various_world:crystalic_slime_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "various_world:crystalline_slime_ball"
+  }
+}

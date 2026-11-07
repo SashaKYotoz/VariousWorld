@@ -1,6 +1,5 @@
 package net.sashakyotoz.variousworld.init;
 
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -62,7 +61,7 @@ public class VWBiomes {
                         .fogColor(MapColor.COLOR_CYAN.col)
                         .grassColorOverride(MapColor.COLOR_CYAN.col)
                         .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-                        .backgroundMusic(Musics.createGameMusic(Holder.direct(SoundEvents.AMETHYST_BLOCK_CHIME))).build())
+                        .backgroundMusic(Musics.createGameMusic(VWSounds.CRYSTALLINE_FOREST_MUSIC.getAsHolder())).build())
                 .build();
     }
 
@@ -79,6 +78,7 @@ public class VWBiomes {
         biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST);
         biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.MEADOW_ROCK);
         biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.JACARANDA_PETALS_PATCH);
+        biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.SHINY_PLUMERIA_PATCH);
         biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.BLUE_JACARANDA_TREE);
 
         return new Biome.BiomeBuilder()
@@ -93,7 +93,7 @@ public class VWBiomes {
                         .fogColor(12638463)
                         .grassColorOverride(MapColor.COLOR_LIGHT_GREEN.col)
                         .skyColor(calculateSkyColor(0.95f))
-                        .backgroundMusic(Musics.createGameMusic(Holder.direct(SoundEvents.ALLAY_AMBIENT_WITH_ITEM))).build())
+                        .backgroundMusic(Musics.createGameMusic(VWSounds.JACARANDA_MEADOW_MUSIC.getAsHolder())).build())
                 .build();
     }
 

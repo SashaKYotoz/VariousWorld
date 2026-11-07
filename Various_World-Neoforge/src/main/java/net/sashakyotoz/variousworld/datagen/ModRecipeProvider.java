@@ -1,19 +1,20 @@
 package net.sashakyotoz.variousworld.datagen;
 
+import net.lcc.sollib.api.common.registry.data.block.BlockModel;
+import net.lcc.sollib.api.common.registry.holder.BlockHolder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
-import net.lcc.sollib.api.common.registry.data.block.BlockModel;
-import net.lcc.sollib.api.common.registry.holder.BlockHolder;
-import net.minecraft.world.level.block.Block;
 import net.sashakyotoz.variousworld.datagen.builders.GemsmithRecipeBuilder;
 import net.sashakyotoz.variousworld.init.VWBlocks;
 import net.sashakyotoz.variousworld.init.VWItems;
@@ -77,6 +78,33 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("#R#")
                 .pattern("S# ")
                 .unlockedBy("has_shard", has(VWItems.RECLAIMITE_SHARD.get()))
+                .save(recipeOutput);
+
+        woodenBoat(recipeOutput, VWItems.CRYSTALIC_OAK_BOAT.get(), VWBlocks.CRYSTALIC_OAK_PLANKS.get());
+        chestBoat(recipeOutput, VWItems.CRYSTALIC_OAK_CHEST_BOAT.get(), VWItems.CRYSTALIC_OAK_BOAT.get());
+        woodenBoat(recipeOutput, VWItems.BLUE_JACARANDA_BOAT.get(), VWBlocks.BLUE_JACARANDA_PLANKS.get());
+        chestBoat(recipeOutput, VWItems.BLUE_JACARANDA_CHEST_BOAT.get(), VWItems.BLUE_JACARANDA_BOAT.get());
+
+        nineBlockStorageRecipes(recipeOutput, RecipeCategory.MISC, VWItems.CRYSTALLINE_SLIME_BALL.get(), RecipeCategory.REDSTONE, VWBlocks.CRYSTALIC_SLIME_BLOCK.get());
+        oneToOneConversionRecipe(recipeOutput, Items.WHITE_DYE, VWBlocks.SHINY_PLUMERIA.get(), "white_dye");
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, VWBlocks.SODALITE_BRAZIER.get())
+                .define('S', VWItems.SODALITE_SHARD.get())
+                .define('C', ItemTags.COALS)
+                .define('B', VWBlocks.SODALITE_BLOCK.get())
+                .pattern("S S")
+                .pattern("SCS")
+                .pattern(" B ")
+                .unlockedBy("has_sodalite_shard", has(VWItems.SODALITE_SHARD.get()))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, VWBlocks.SOUL_SODALITE_BRAZIER.get())
+                .define('S', VWItems.SODALITE_SHARD.get())
+                .define('C', ItemTags.SOUL_FIRE_BASE_BLOCKS)
+                .define('B', VWBlocks.SODALITE_BLOCK.get())
+                .pattern("S S")
+                .pattern("SCS")
+                .pattern(" B ")
+                .unlockedBy("has_sodalite_shard", has(VWItems.SODALITE_SHARD.get()))
                 .save(recipeOutput);
 
         BuiltInRegistries.ITEM.forEach(item -> {
